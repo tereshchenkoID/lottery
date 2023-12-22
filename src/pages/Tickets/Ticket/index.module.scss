@@ -1,0 +1,52 @@
+@import "scss/config";
+
+.row {
+	display: grid;
+	grid-template-columns: repeat(9, 1fr) rem(135px);
+	
+	&.headline {
+		font-weight: var(--typography-medium);
+		font-size: rem(12px);
+	}
+	
+	&.active {
+		background-color: rgba(43,115,179, 0.5);
+	}
+}
+
+.cell {
+	@include flex(null, center, null, wrap);
+	@include make-spacer(p, 12px);
+}
+
+.dropdown {
+	@include make-spacer(p, 16px);
+	
+	background-color: rgba(43,115,179, 0.1);
+	
+	.row {
+		
+		&:last-child {
+			border-bottom: 0;
+		}
+	}
+}
+
+
+.table {
+	
+	&.sm {
+		@include make-spacer(mb, 16px);
+		
+		.row {
+			grid-template-columns: repeat(6, 1fr);
+		}
+	}
+	
+	&.lg {
+		
+		.row {
+			grid-template-columns: 1.5fr repeat(3, 1fr) rem(150px) 2fr rem(200px);
+		}
+	}
+}
