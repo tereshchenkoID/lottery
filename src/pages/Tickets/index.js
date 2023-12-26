@@ -34,13 +34,25 @@ const Tickets = () => {
 	const {settings} = useSelector((state) => state.settings)
 	const [filter, setFilter] = useState(initialValue)
 	const [loading, setLoading] = useState(true)
-	const [data, setData] = useState({})
+	const [data, setData] = useState(null)
 	const [pagination, setPagination] = useState({
 		page: 0,
+		pages: 0,
 		quantity: 50,
-		results: 0,
-		pages: 0
+		results: 0
 	})
+	
+	useEffect(() => {
+		if (pagination.results > 0) {
+			setPagination((prevPagination) => ({
+				...prevPagination,
+				page: 0,
+				pages: 0,
+				results: 0
+			}))
+			handleSubmit(null, 0)
+		}
+	}, [pagination.quantity])
 	
 	const handleResetForm = () => {
 		setFilter(initialValue)

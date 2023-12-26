@@ -22,7 +22,15 @@ const Pagination = ({
 			}
 		>
 			<div className={style.counts}>
-				<strong>{pagination.page * pagination.quantity + 1}</strong>
+				<strong>
+					{
+						pagination.pages > 0
+							?
+								pagination.page * pagination.quantity + 1
+							:
+								0
+					}
+				</strong>
 				<span>-</span>
 				<strong>
 					{
