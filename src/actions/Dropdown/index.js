@@ -4,14 +4,15 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 import style from './index.module.scss';
 
-const Action = ({action, active}) => {
+const Action = ({calculate, data, action}) => {
 	
 	return (
 		<button
 			className={
 				classNames(
 					style.block,
-					active && style.active
+					data && style.active,
+					calculate && style.disabled,
 				)
 			}
 			onClick={action}

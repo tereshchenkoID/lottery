@@ -2,12 +2,12 @@ import axios from 'axios'
 
 import {hostnames} from "constant/config"
 
-export const useRequest = (link, data = null) => {
+export const useRequest = (link, data, headers) => {
   const server = axios.create({
     baseURL: `${hostnames.PROD}/${link}`,
   })
 
-  const get = async (url, headers) => {
+  const get = async (url) => {
     try {
       const req = await server({
         method: 'get',
@@ -20,13 +20,13 @@ export const useRequest = (link, data = null) => {
     }
   }
 
-  const post = async (url, data, headers) => {
+  const post = async (url) => {
     try {
       const req = await server({
         method: 'post',
         url,
         data,
-        headers
+        headers,
       })
       return await req.data
     } catch (e) {

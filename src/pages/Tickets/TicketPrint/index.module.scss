@@ -1,0 +1,89 @@
+@import "scss/config";
+
+$color: #000;
+
+.block {
+	@include make-spacer(p, 20px);
+	
+	max-width: rem(420px);
+	font-size: rem(12px);
+	color: $color;
+}
+
+.headline {
+	display: grid;
+	grid-template-columns: 2fr 3fr;
+	align-items: center;
+	grid-gap: rem(20px);
+}
+
+.logo {
+	@include size(100%, auto);
+}
+
+.row {
+	@include make-spacer(mb, 5px);
+	
+	display: grid;
+	grid-template-columns: 1fr auto;
+	
+	> * {
+		
+		&:nth-child(2) {
+			text-align: right;
+		}
+	}
+	
+	&:last-child {
+		@include make-spacer(mb, 5px);
+	}
+	
+	&.lg {
+		grid-template-columns: 1fr 2fr 1fr;
+		
+		> * {
+			
+			&:nth-child(2) {
+				text-align: center;
+			}
+			
+			&:nth-child(3) {
+				text-align: right;
+			}
+		}
+	}
+}
+
+.body {
+	@include make-spacer(pt, 20px);
+	@include make-spacer(pb, 10px);
+}
+
+.title {
+	@include make-spacer(mb, 20px);
+	
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.code {
+	@include flex(center, center);
+	@include make-spacer(mx, auto);
+	@include make-spacer(mb, 20px);
+	
+	font-size: rem(20px);
+	font-family: var(--font-family-code);
+	height: rem(70px);
+	color: $color;
+	line-height: 1;
+}
+
+.item {
+	@include make-spacer(py, 10px);
+	
+	border-top: 1px solid $color;
+}
+
+.action {
+	text-align: right;
+}

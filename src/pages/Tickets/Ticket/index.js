@@ -1,12 +1,17 @@
 import {useState} from "react";
-
-import Dropdown from "actions/Dropdown";
-import Action from "./Action";
-
-import {getData} from "helpers/api";
-import {convertFixed} from "helpers/convertFixed";
+import {useDispatch} from "react-redux";
 
 import classNames from "classnames";
+
+import {setAside} from "store/actions/asideAction";
+
+import {convertFixed} from "helpers/convertFixed";
+import {getData} from "helpers/api";
+
+import Calculate from "actions/Calculate";
+import Dropdown from "actions/Dropdown";
+import Print from "actions/Print";
+import Cancel from "actions/Cancel";
 
 import style from './index.module.scss';
 
@@ -16,18 +21,58 @@ const Ticket = ({
 	config_2,
 	config_3
 }) => {
-	const [table, setTable] = useState({})
+	const dispatch = useDispatch()
+	
+	const [table, setTable] = useState(null)
 	const [active, setActive] = useState(false)
+	const [cancel, setCancel] = useState(false)
+	const [calculate, setCalculate] = useState(false)
 	
 	const handleDetails = () => {
 		if (active) {
 			setActive(false)
 		}
 		else {
+			if (table) {
+				setActive(true)
+			}
+			else {
+				getData(`tickets/details/?id=${data.ticketId}`).then((json) => {
+					if (json.status === 'OK') {
+						setTable(json)
+						setActive(true)
+					}
+				})
+			}
+		}
+	}
+	
+	const handlePrint = (e) => {
+		if (table) {
+			dispatch(setAside({
+				meta: {
+					title: 'Ticket print',
+					cmd: 'ticket-print',
+					buttonRef: e.target,
+				},
+				shop: data.username,
+				...table.data[0]
+			}))
+		}
+		else {
 			getData(`tickets/details/?id=${data.ticketId}`).then((json) => {
 				if (json.status === 'OK') {
 					setTable(json)
-					setActive(true)
+
+					dispatch(setAside({
+						meta: {
+							title: 'Ticket print',
+							cmd: 'ticket-print',
+							buttonRef: e.target,
+						},
+						shop: data.username,
+						...json.data[0]
+					}))
 				}
 			})
 		}
@@ -45,7 +90,8 @@ const Ticket = ({
 			>
 				<div className={style.cell}>
 					<Dropdown
-						active={active}
+						calculate={calculate}
+						data={active}
 						action={() => {
 							handleDetails()
 						}}
@@ -62,9 +108,23 @@ const Ticket = ({
 					)
 				}
 				<div className={style.cell}>
-					<Action data={'cancel'} />
-					<Action data={'print'} />
-					<Action data={'calculate'} />
+					<Cancel
+						action={() => {
+							setCancel(!cancel)
+						}}
+					/>
+					<Print
+						action={(e) => {
+							handlePrint(e)
+						}}
+					/>
+					<Calculate
+						active={active}
+						data={calculate}
+						action={() => {
+							setCalculate(!calculate)
+						}}
+					/>
 				</div>
 			</div>
 			{

@@ -1,8 +1,6 @@
 import {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 
-import classNames from "classnames";
-
 import Pagination from "modules/Pagination";
 
 import Paper from "components/Paper";
@@ -14,7 +12,7 @@ import Loader from "components/Loader";
 import Ticket from "./Ticket";
 
 import {getDate} from "helpers/getDate";
-import {getData} from "helpers/api";
+import {postData} from "helpers/api";
 
 import style from './index.module.scss';
 
@@ -30,18 +28,18 @@ const Tickets = () => {
 		'amount-to': '',
 		'currency': '',
 		'payout-from': '',
-		'payout-to': ''
+		'payout-to': '',
 	}
 	
 	const {settings} = useSelector((state) => state.settings)
 	const [filter, setFilter] = useState(initialValue)
 	const [loading, setLoading] = useState(true)
 	const [data, setData] = useState({})
-	
 	const [pagination, setPagination] = useState({
 		page: 0,
 		quantity: 50,
-		results: 0
+		results: 0,
+		pages: 0
 	})
 	
 	const handleResetForm = () => {
@@ -52,21 +50,67 @@ const Tickets = () => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
-		}));
+		}))
 	}
 	
-	useEffect(() => {
-		getData(`tickets/`).then((json) => {
+	const handlePagination = (fieldName, fieldValue) => {
+		setPagination((prevPagination) => ({
+			...prevPagination,
+			[fieldName]: fieldValue
+		}))
+	}
+	
+	const handleSubmit = (event, page) => {
+		event && event.preventDefault();
+		setLoading(true)
+		
+		const formData = new FormData();
+		formData.append('page', page)
+		formData.append('quantity', pagination.quantity)
+		
+		Object.entries(filter).map(([key, value]) => {
+			formData.append(key, value)
+			return true
+		})
+		
+		postData(`tickets/`, formData).then((json) => {
 			if (json.status === 'OK') {
 				setData(json)
 				setLoading(false)
 				
 				setPagination(prev => ({
 					...prev,
-					results: json.results
+					results: json.results,
+					pages: Math.floor(json.results / pagination.quantity)
 				}))
 			}
 		})
+	}
+	
+	const nextHandleSubmit = () => {
+		const next = pagination.page < pagination.pages ? pagination.page + 1 : pagination.pages
+		handlePagination('page', next)
+		handleSubmit(null, next)
+	}
+	
+	const prevHandleSubmit = () => {
+		const prev = pagination.page > 0 ? pagination.page - 1 : 0
+		handlePagination('page', prev)
+		handleSubmit(null, prev)
+	}
+	
+	const startHandlerSubmit = () => {
+		handlePagination('page', 0)
+		handleSubmit(null, 0)
+	}
+	
+	const endHandlerSubmit = () => {
+		handlePagination('page', pagination.pages)
+		handleSubmit(null, pagination.pages)
+	}
+	
+	useEffect(() => {
+		handleSubmit(null, pagination.page)
 	}, []);
 	
 	const config = [
@@ -104,7 +148,7 @@ const Tickets = () => {
 		}
 	]
 	
-	let config_2 = [
+	const config_2 = [
 		{
 			key: 'group',
 			text: 'GR'
@@ -131,7 +175,7 @@ const Tickets = () => {
 		}
 	]
 	
-	let config_3 = [
+	const config_3 = [
 		{
 			key: 'details.game',
 			text: 'Game'
@@ -170,10 +214,15 @@ const Tickets = () => {
 						<Loader />
 					:
 						<>
-							<Paper headline={'Tickets search'}>
+							<Paper
+								headline={'Tickets search'}
+								quantity={pagination.quantity}
+								setQuantity={setPagination}
+							>
+								{/*<pre>{pagination.quantity}</pre>*/}
 								{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
 								{/*<br />*/}
-								<form className={style.form}>
+								<form onSubmit={handleSubmit}>
 									<div className={style.grid}>
 										<div>
 											<Field
@@ -266,7 +315,7 @@ const Tickets = () => {
 											<Field
 												type={'number'}
 												placeholder={'Payout from'}
-												value={filter["payout-from"]}
+												data={filter['payout-from']}
 												onChange={(value) => handlePropsChange('payout-from', value)}
 											/>
 										</div>
@@ -274,7 +323,7 @@ const Tickets = () => {
 											<Field
 												type={'number'}
 												placeholder={'Payout to'}
-												value={filter["payout-to"]}
+												data={filter['payout-to']}
 												onChange={(value) => handlePropsChange('payout-to', value)}
 											/>
 										</div>
@@ -297,6 +346,10 @@ const Tickets = () => {
 								<Pagination
 									position={'top'}
 									pagination={pagination}
+									nextHandler={nextHandleSubmit}
+									prevHandler={prevHandleSubmit}
+									startHandlerSubmit={startHandlerSubmit}
+									endHandlerSubmit={endHandlerSubmit}
 								/>
 								<div className={style.table}>
 									<div className={style.row}>
@@ -314,6 +367,7 @@ const Tickets = () => {
 										<div className={style.cell} />
 									</div>
 									{
+										data.data &&
 										data.data.length > 0
 											?
 												data.data.map((el, idx) =>
@@ -330,30 +384,18 @@ const Tickets = () => {
 													</div>
 												)
 											:
-												<div
-													className={
-														classNames(
-															style.row,
-															style.wide
-														)
-													}
-												>
-													<div
-														className={
-															classNames(
-																style.cell,
-																style.wide
-															)
-														}
-													>
-														<div className={style.empty}>Sorry, no matching records found</div>
-													</div>
+												<div className={style.ticket}>
+													<div className={style.empty}>Sorry, no matching records found</div>
 												</div>
 									}
 								</div>
 								<Pagination
 									position={'bottom'}
 									pagination={pagination}
+									nextHandler={nextHandleSubmit}
+									prevHandler={prevHandleSubmit}
+									startHandlerSubmit={startHandlerSubmit}
+									endHandlerSubmit={endHandlerSubmit}
 								/>
 							</Paper>
 						</>

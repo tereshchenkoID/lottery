@@ -2,9 +2,13 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from 'redux-thunk';
 
 import settingsReducer from "./reducers/settingsReducer";
+import toastifyReducer from "./reducers/toastifyReducer";
+import asideReducer from "./reducers/asideReducer";
 
 const allReducer = combineReducers({
-	settings: settingsReducer,
+	settings: 	settingsReducer,
+	toastify: 	toastifyReducer,
+	aside: 		asideReducer
 });
 
 const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;

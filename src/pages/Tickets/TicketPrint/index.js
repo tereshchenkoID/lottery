@@ -1,0 +1,117 @@
+import classNames from "classnames";
+
+import {getDate} from "helpers/getDate";
+import {convertFixed} from "helpers/convertFixed";
+
+import Button from "components/Button";
+
+import style from './index.module.scss';
+
+const TicketPrint = ({data}) => {
+    return (
+        <div className={style.block}>
+			<div className={style.headline}>
+				<div className={style.logo}>
+					<img src="https://api.qool90.bet/img/vb.png" alt="Logo"/>
+				</div>
+				<div className={style.meta}>
+					<div className={style.row}>
+						<div>Shop:</div>
+						<div>
+							<strong>{data.username || data.shop}</strong>
+						</div>
+					</div>
+					<div className={style.row}>
+						<div>Bet:</div>
+						<div>
+							<strong>{getDate(data.placed)}</strong>
+						</div>
+					</div>
+					<div className={style.row}>
+						<div>Time:</div>
+						<div>
+							<strong>{getDate(data.placed, 'time-local')}</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div className={style.body}>
+				<div className={style.title}>Ticket <strong>#{data.id}</strong></div>
+				<div className={style.code}>{data.id}</div>
+				{
+					data.group.length > 0 &&
+					<div>
+						{
+							data.group.map((el, idx) =>
+								<div
+									key={idx}
+									className={style.item}
+								>
+									<div className={style.row}>
+										<div>GR: <strong>{el.group}</strong></div>
+										<strong>{convertFixed(el.unit)}</strong>
+									</div>
+									<div className={style.row}>
+										<div>Min/Max Win:</div>
+										<div>
+											{data.currency} <strong>{convertFixed(el.minwin)}</strong> / {data.currency} <strong>{convertFixed(el.maxwin)}</strong>
+										</div>
+									</div>
+								</div>
+							)
+						}
+					</div>
+				}
+				<div>
+					{
+						data.bets.map((el, idx) =>
+							<div
+								key={idx}
+								className={style.item}
+							>
+								<div
+									className={
+										classNames(
+											style.row,
+											style.lg
+										)
+									}
+								>
+									<strong>{el.details.eventId}</strong>
+									{
+										el.details.teams
+											?
+												<div>{el.details.teams.home} - {el.details.teams.away}</div>
+											:
+												<div />
+									}
+									<strong>{el.stake}</strong>
+								</div>
+								<div
+									className={
+										classNames(
+											style.row,
+											style.lg
+										)
+									}
+								>
+									<div>{getDate(el.details.start, 'time-local')}</div>
+									<div>{el.market} : {el.selection}</div>
+									<strong>{el.odds}</strong>
+								</div>
+							</div>
+						)
+					}
+				</div>
+			</div>
+			<div className={style.action}>
+				<Button
+					placeholder={'Print'}
+					classes={'primary'}
+				/>
+			</div>
+        </div>
+    );
+}
+
+export default TicketPrint;

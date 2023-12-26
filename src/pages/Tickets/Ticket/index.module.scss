@@ -25,6 +25,7 @@
 	background-color: rgba(43,115,179, 0.1);
 	
 	.row {
+		border-bottom: rem(1px) solid var(--color-border);
 		
 		&:last-child {
 			border-bottom: 0;

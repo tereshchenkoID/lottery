@@ -24,6 +24,10 @@
 	&.wide {
 		grid-template-columns: 1fr;
 	}
+	
+	&:last-child {
+		border-bottom: 0;
+	}
 }
 
 .cell {
@@ -44,5 +48,7 @@
 }
 
 .empty {
+	@include make-spacer(p, 12px);
+	
 	text-align: center;
 }

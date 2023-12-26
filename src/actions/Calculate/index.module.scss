@@ -1,0 +1,31 @@
+@import "scss/config";
+
+.block {
+	@include make-spacer(mx, 1px);
+	@include size(rem(32px));
+	
+	display: inline-flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	font-size: rem(18px);
+	color: var(--color-primary);
+	
+	&:hover {
+		color: var(--color-primary-hover);
+	}
+	
+	&.disabled {
+		pointer-events: none;
+		opacity: 0.6;
+	}
+	
+	&.active {
+		transform: rotateZ(45deg);
+	}
+}
+
+.icon {
+	font-size: rem(20px);
+	pointer-events: none;
+}

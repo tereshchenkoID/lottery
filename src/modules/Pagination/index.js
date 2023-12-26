@@ -6,7 +6,11 @@ import style from './index.module.scss';
 
 const Pagination = ({
 	position,
-	pagination
+	pagination,
+	nextHandler,
+	prevHandler,
+	startHandlerSubmit,
+	endHandlerSubmit
 }) => {
 	return (
         <div
@@ -20,7 +24,15 @@ const Pagination = ({
 			<div className={style.counts}>
 				<strong>{pagination.page * pagination.quantity + 1}</strong>
 				<span>-</span>
-				<strong>{pagination.quantity + 1}</strong>
+				<strong>
+					{
+						pagination.pages === pagination.page
+							?
+								pagination.results
+							:
+								(pagination.page + 1) * pagination.quantity + 1
+					}
+				</strong>
 				<span>of</span>
 				<strong>{pagination.results}</strong>
 			</div>
@@ -34,6 +46,7 @@ const Pagination = ({
 							pagination.page === 0 && style.disabled
 						)
 					}
+					onClick={startHandlerSubmit}
 				>
 					<FontAwesomeIcon
 						icon="fa-solid fa-angle-double-left"
@@ -49,6 +62,7 @@ const Pagination = ({
 							pagination.page === 0 && style.disabled
 						)
 					}
+					onClick={prevHandler}
 				>
 					<FontAwesomeIcon
 						icon="fa-solid fa-angle-left"
@@ -60,9 +74,11 @@ const Pagination = ({
 					aria-label="Pagination next"
 					className={
 						classNames(
-							style.action
+							style.action,
+							pagination.page === pagination.pages && style.disabled
 						)
 					}
+					onClick={nextHandler}
 				>
 					<FontAwesomeIcon
 						icon="fa-solid fa-angle-right"
@@ -74,9 +90,11 @@ const Pagination = ({
 					aria-label="Pagination end"
 					className={
 						classNames(
-							style.action
+							style.action,
+							pagination.page === pagination.pages && style.disabled
 						)
 					}
+					onClick={endHandlerSubmit}
 				>
 					<FontAwesomeIcon
 						icon="fa-solid fa-angle-double-right"

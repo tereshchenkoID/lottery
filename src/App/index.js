@@ -9,11 +9,14 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
-import {setSettings} from "store/actions/settingsAction";
+import {setSettings} from "store/actions/settingsAction"
+import {setToastify} from "store/actions/toastifyAction";
 
 import Loader from "components/Loader";
 import Header from "components/Header";
+import Aside from "components/Aside";
 import Nav from "components/Nav";
+import Toastify from "components/Toastify";
 
 import style from './index.module.scss';
 
@@ -39,6 +42,8 @@ const App = () => {
 						<>
 							<Header />
 							<Nav />
+							<Aside />
+							<Toastify />
 							<main className={style.main}>
 								{
 									<Suspense fallback={<Loader />}>

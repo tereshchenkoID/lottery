@@ -28,8 +28,3 @@
 .hr {
 	@include make-spacer(my, 24px);
 }
-
-.form {
-	display: grid;
-	gap: rem(16px);
-}

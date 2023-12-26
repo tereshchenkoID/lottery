@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import classNames from "classnames";
 
@@ -13,7 +13,11 @@ const Field = ({
 	onChange
 }) => {
 	const [show, setShow] = useState(false)
-	const inputRef = useRef(null);
+	const inputRef = useRef(null)
+	
+	const onFocus = () => {
+		inputRef.current.focus();
+	}
 	
 	return (
         <div
@@ -29,11 +33,13 @@ const Field = ({
 				className={style.input}
 				type={show ? 'text' : type}
 				defaultValue={data}
-				onChange={(e) => onChange(e.currentTarget.value)}
+				onChange={(e) => {
+					onChange(e.currentTarget.value)
+				}}
 			/>
 			<label
-				htmlFor={inputRef.current}
 				className={style.label}
+				onClick={onFocus}
 			>
 				{placeholder}
 			</label>

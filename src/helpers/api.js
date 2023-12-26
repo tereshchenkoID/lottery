@@ -11,9 +11,9 @@ export const getData = async (url) => {
     }
 }
 
-export const postData = async (url, data) => {
+export const postData = async (url, data, headers) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { post } = useRequest(url, data);
+    const { post } = useRequest(url, data, headers);
 
     try {
         return await post()
