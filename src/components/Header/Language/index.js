@@ -52,6 +52,7 @@ const Language = () => {
 							aria-label={el.text}
 							className={style.link}
 							onClick={() => {
+								sessionStorage.setItem('language', el.code)
 								i18n.changeLanguage(el.code)
 							}}
 						>
