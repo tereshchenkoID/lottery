@@ -1,8 +1,10 @@
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 import style from './index.module.scss';
 
 const Clock = () => {
+	const { t } = useTranslation()
 	const [time, setTime] = useState(new Date());
 	
 	useEffect(() => {
@@ -15,7 +17,7 @@ const Clock = () => {
 	
 	return (
         <div className={style.block}>
-			<h6>Administration Overview</h6>
+			<h6>{t('title')}</h6>
             <div>{time.toLocaleString()}</div>
         </div>
     );

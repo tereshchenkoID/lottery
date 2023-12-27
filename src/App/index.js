@@ -10,7 +10,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
 import {setSettings} from "store/actions/settingsAction"
-import {setToastify} from "store/actions/toastifyAction";
 
 import Loader from "components/Loader";
 import Header from "components/Header";

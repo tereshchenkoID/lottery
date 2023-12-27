@@ -28,6 +28,8 @@ button,
 a,
 .a {
   @include transition(all);
+	
+	font-weight: var(--typography-thin);
 }
 
 a,
