@@ -1,0 +1,62 @@
+@import "scss/config";
+
+.block {
+	@include make-spacer(mx, 1px);
+	@include size(rem(32px));
+
+	display: inline-flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	font-size: rem(18px);
+	color: var(--color-primary);
+
+	&:hover {
+		color: var(--color-primary-hover);
+	}
+
+	&.disabled {
+		pointer-events: none;
+		opacity: 0.6;
+	}
+}
+
+.icon {
+	font-size: rem(20px);
+	pointer-events: none;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-13;
+  background-color: rgba(255, 255, 255, 0.8);
+
+  &.active {
+	@include flex(center, center);
+  }
+}
+
+.wrapper {
+  @include make-spacer(p, 20px);
+
+  max-width: rem(500px);
+  background-color: var(--color-white);
+  border-radius: var(--default-border-radius);
+  box-shadow: var(--default-box-shadow);
+  width: 100%;
+}
+
+.body {
+  @include make-spacer(py, 20px);
+}
+
+.actions {
+  @include flex(flex-end, center);
+
+  gap: rem(16px);
+}

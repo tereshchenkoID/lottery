@@ -1,22 +1,26 @@
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 
+import {statuses} from "constant/config";
+
 import classNames from "classnames";
 
 import {setAside} from "store/actions/asideAction";
+import {setToastify} from "store/actions/toastifyAction";
 
 import {convertFixed} from "helpers/convertFixed";
 import {getData} from "helpers/api";
 
 import Calculate from "actions/Calculate";
 import Dropdown from "actions/Dropdown";
-import Print from "actions/Print";
-import Cancel from "actions/Cancel";
+import Print from "./Print";
+import Cancel from "./Cancel";
 
 import style from './index.module.scss';
 
 const Ticket = ({
 	data,
+	action,
 	config,
 	config_2,
 	config_3
@@ -45,6 +49,39 @@ const Ticket = ({
 				})
 			}
 		}
+	}
+	
+	const handleCancelled = () => {
+		getData(`tickets/cancel/?id=${data.ticketId}`).then((json) => {
+			if (json.status === 'OK') {
+				if (json.data[0].code === '0') {
+					const newData = data
+					newData.status = 13
+					
+					action((prevData) => ({
+						...prevData,
+						[data]: newData,
+					}))
+					
+					dispatch(
+						setToastify({
+							type: 'success',
+							text: json.data[0].message
+						})
+					)
+				}
+				else {
+					dispatch(
+						setToastify({
+							type: 'error',
+							text: json.data[0].error_message
+						})
+					)
+				}
+
+				setCancel(false)
+			}
+		})
 	}
 	
 	const handlePrint = (e) => {
@@ -103,13 +140,21 @@ const Ticket = ({
 							key={idx}
 							className={style.cell}
 						>
-							{data[el.key]}
+							{
+								el.key === 'status'
+									?
+										statuses.TICKET_STATUSES[data[el.key]]
+									:
+										data[el.key]
+							}
 						</div>
 					)
 				}
 				<div className={style.cell}>
 					<Cancel
-						action={() => {
+						data={cancel}
+						action={handleCancelled}
+						setCancel={() => {
 							setCancel(!cancel)
 						}}
 					/>

@@ -389,6 +389,7 @@ const Tickets = () => {
 													>
 														<Ticket
 															data={el}
+															action={setData}
 															config={config}
 															config_2={config_2}
 															config_3={config_3}
