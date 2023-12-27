@@ -38,9 +38,25 @@
 	}
 }
 
+.item {
+	cursor: pointer;
+	
+	&.active {
+		
+		.arrow {
+			transform: rotateZ(180deg);
+		}
+		
+		.submenu {
+			display: block;
+		}
+	}
+}
+
 .link {
 	@include transition;
-	@include make-spacer(px, 16px);
+	@include make-spacer(pl, 16px);
+	@include make-spacer(pr, 24px);
 	
 	display: grid;
 	grid-template-columns: rem(26px) 1fr rem(10px);
@@ -54,15 +70,8 @@
 	}
 	
 	&.active {
-		
-		.arrow {
-			transform: rotateZ(180deg);
-		}
+		color: var(--color-primary);
 	}
-}
-
-.item {
-	cursor: pointer;
 }
 
 .icon {
@@ -78,6 +87,6 @@
 }
 
 .submenu {
-	//display: none;
+	display: none;
 }
 
