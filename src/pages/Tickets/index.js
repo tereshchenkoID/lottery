@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import {statuses, types} from "constant/config";
 
@@ -33,6 +34,7 @@ const Tickets = () => {
 		'payout-from': '',
 		'payout-to': '',
 	}
+	const { t } = useTranslation()
 	
 	const {settings} = useSelector((state) => state.settings)
 	const [filter, setFilter] = useState(initialValue)
@@ -131,93 +133,93 @@ const Tickets = () => {
 	const config = [
 		{
 			key: 'ticketId',
-			text: 'Ticket ID'
+			text: 'ticket_id'
 		},
 		{
 			key: 'username',
-			text: 'Shop'
+			text: 'shop'
 		},
 		{
 			key: 'game',
-			text: 'Game Details'
+			text: 'game_details'
 		},
 		{
 			key: 'status',
-			text: 'Status'
+			text: 'status'
 		},
 		{
 			key: 'currency',
-			text: 'Currency'
+			text: 'currency'
 		},
 		{
 			key: 'payout',
-			text: 'Payout'
+			text: 'payout'
 		},
 		{
 			key: 'stake',
-			text: 'Sum of Stakes'
+			text: 'sum_of_stakes'
 		},
 		{
 			key: 'bookTime',
-			text: 'Finalized'
+			text: 'finalized'
 		}
 	]
 	
 	const config_2 = [
 		{
 			key: 'group',
-			text: 'GR'
+			text: 'gr'
 		},
 		{
 			key: 'combi',
-			text: 'Combi'
+			text: 'combi'
 		},
 		{
 			key: 'amount',
-			text: 'Stake'
+			text: 'stake'
 		},
 		{
 			key: 'minwin',
-			text: 'Pot. Min win',
+			text: 'potential_min_win',
 		},
 		{
 			key: 'maxwin',
-			text: 'Pot. MAX win',
+			text: 'potential_max_min',
 		},
 		{
 			key: 'bonus',
-			text: 'Bonus'
+			text: 'bonus'
 		}
 	]
 	
 	const config_3 = [
 		{
 			key: 'details.game',
-			text: 'Game'
+			text: 'game'
 		},
 		{
 			key: 'details.eventId',
-			text: 'Event'
+			text: 'event'
 		},
 		{
 			key: 'market',
-			text: 'Type'
+			text: 'type'
 		},
 		{
 			key: 'selection',
-			text: 'Pick'
+			text: 'pick'
 		},
 		{
 			key: 'odds',
-			text: 'Odds'
+			text: 'odds'
 		},
 		{
 			key: 'details.results',
-			text: 'Results'
+			text: 'results'
 		},
 		{
 			key: 'status',
-			text: 'State'
+			text: 'state'
 		}
 	]
 
@@ -230,7 +232,7 @@ const Tickets = () => {
 					:
 						<>
 							<Paper
-								headline={'Tickets search'}
+								headline={t('tickets_search')}
 								quantity={pagination.quantity}
 								setQuantity={setPagination}
 							>
@@ -242,7 +244,7 @@ const Tickets = () => {
 										<div>
 											<Field
 												type={'text'}
-												placeholder={'Ticket'}
+												placeholder={t('ticket')}
 												data={filter.ticket}
 												onChange={(value) => handlePropsChange('ticket', value)}
 											/>
@@ -250,14 +252,14 @@ const Tickets = () => {
 										<div>
 											<Field
 												type={'text'}
-												placeholder={'Username'}
+												placeholder={t('username')}
 												data={filter.username}
 												onChange={(value) => handlePropsChange('username', value)}
 											/>
 										</div>
 										<div>
 											<Select
-												placeholder={'State'}
+												placeholder={t('state')}
 												options={convertOptions(statuses.TICKET_STATUSES)}
 												data={filter.state}
 												onChange={(value) => handlePropsChange('state', value)}
@@ -265,7 +267,7 @@ const Tickets = () => {
 										</div>
 										<div>
 											<Select
-												placeholder={'Player Type'}
+												placeholder={t('player_type')}
 												options={convertOptions(types.PLAYER_TYPE)}
 												data={filter.type}
 												onChange={(value) => handlePropsChange('type', value)}
@@ -274,7 +276,7 @@ const Tickets = () => {
 										<div>
 											<Field
 												type={'datetime-local'}
-												placeholder={'Date from'}
+												placeholder={t('date_from')}
 												data={filter["date-from"]}
 												onChange={(value) => handlePropsChange('date-from', value)}
 											/>
@@ -282,7 +284,7 @@ const Tickets = () => {
 										<div>
 											<Field
 												type={'datetime-local'}
-												placeholder={'Date to'}
+												placeholder={t('date_to')}
 												data={filter["date-to"]}
 												onChange={(value) => handlePropsChange('date-to', value)}
 											/>
@@ -290,7 +292,7 @@ const Tickets = () => {
 										<div>
 											<Field
 												type={'number'}
-												placeholder={'Amount from'}
+												placeholder={t('amount_from')}
 												data={filter["amount-from"]}
 												onChange={(value) => handlePropsChange('amount-from', value)}
 											/>
@@ -298,14 +300,14 @@ const Tickets = () => {
 										<div>
 											<Field
 												type={'number'}
-												placeholder={'Amount to'}
+												placeholder={t('amount_to')}
 												data={filter["amount-to"]}
 												onChange={(value) => handlePropsChange('amount-to', value)}
 											/>
 										</div>
 										<div>
 											<Select
-												placeholder={'Currency'}
+												placeholder={t('currency')}
 												options={
 													settings.currencies.map(currency => ({
 														value: currency,
@@ -319,7 +321,7 @@ const Tickets = () => {
 										<div>
 											<Field
 												type={'number'}
-												placeholder={'Payout from'}
+												placeholder={t('payout_from')}
 												data={filter['payout-from']}
 												onChange={(value) => handlePropsChange('payout-from', value)}
 											/>
@@ -327,7 +329,7 @@ const Tickets = () => {
 										<div>
 											<Field
 												type={'number'}
-												placeholder={'Payout to'}
+												placeholder={t('payout_to')}
 												data={filter['payout-to']}
 												onChange={(value) => handlePropsChange('payout-to', value)}
 											/>
@@ -337,11 +339,11 @@ const Tickets = () => {
 										<Button
 											type={'submit'}
 											classes={'primary'}
-											placeholder={"Search"}
+											placeholder={t("search")}
 										/>
 										<Button
 											type={'reset'}
-											placeholder={"Cancel"}
+											placeholder={t("cancel")}
 											onChange={handleResetForm}
 										/>
 									</div>
@@ -365,7 +367,7 @@ const Tickets = () => {
 													key={idx}
 													className={style.cell}
 												>
-													{el.text}
+													{t(el.text)}
 												</div>
 											)
 										}
@@ -391,7 +393,7 @@ const Tickets = () => {
 												)
 											:
 												<div className={style.ticket}>
-													<div className={style.empty}>Sorry, no matching records found</div>
+													<div className={style.empty}>{t('no_matching_records_found')}</div>
 												</div>
 									}
 								</div>

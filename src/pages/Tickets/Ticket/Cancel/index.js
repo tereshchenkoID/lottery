@@ -1,3 +1,5 @@
+import {useTranslation} from "react-i18next";
+
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 import classNames from "classnames";
@@ -7,12 +9,14 @@ import Button from "components/Button";
 import style from './index.module.scss';
 
 const Cancel = ({data, action, setCancel}) => {
+	const { t } = useTranslation()
+	
 	return (
 		<>
 			<button
 				className={style.block}
 				onClick={setCancel}
-				title={'Cancel'}
+				title={t('cancel')}
 			>
 				<FontAwesomeIcon
 					icon="fa-solid fa-times"
@@ -30,18 +34,18 @@ const Cancel = ({data, action, setCancel}) => {
 			>
 				<div className={style.wrapper}>
 					<div className={style.body}>
-						<p>Are you sure you want to cancel the stake?</p>
+						<p>{t('confirm_cancel_stake')}</p>
 					</div>
 					<div className={style.actions}>
 						<Button
 							type={'button'}
 							classes={'primary'}
-							placeholder={'Yes'}
+							placeholder={t('yes')}
 							onChange={action}
 						/>
 						<Button
 							type={'button'}
-							placeholder={'No'}
+							placeholder={t('no')}
 							onChange={setCancel}
 						/>
 					</div>

@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {Link, useLocation} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
@@ -8,32 +9,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from './index.module.scss';
 
 const Nav = () => {
+	const { t } = useTranslation()
+	
 	const { pathname } = useLocation();
 	const [menu, setMenu] = useState([
 		{
-			text: 'Accounts',
+			text: 'accounts',
 			icon: 'fa-solid fa-wallet',
 			active: false,
 			submenu: [
 				{
-					text: 'Accounts',
+					text: 'accounts',
 					link: '/accounts'
 				}
 			]
 		},
 		{
-			text: 'Ticket Management',
+			text: 'ticket_management',
 			icon: 'fa-solid fa-money-bill',
 			active: false,
 			submenu: [
 				{
-					text: 'Tickets',
+					text: 'tickets',
 					link: '/tickets'
 				}
 			]
 		},
 		{
-			text: 'Financial',
+			text: 'financial',
 			icon: 'fa-solid fa-credit-card',
 			active: false,
 			submenu: []
@@ -80,7 +83,7 @@ const Nav = () => {
 										icon={el.icon}
 										className={style.icon}
 									/>
-									<span>{el.text}</span>
+									<span>{t(el.text)}</span>
 									{
 										el.submenu.length > 0 &&
 										<FontAwesomeIcon
@@ -106,7 +109,7 @@ const Nav = () => {
 													}
 												>
 													<i className={style.icon} />
-													<span>{el_s.text}</span>
+													<span>{t(el_s.text)}</span>
 												</Link>
 											)
 										}

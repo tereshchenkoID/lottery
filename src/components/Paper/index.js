@@ -1,9 +1,13 @@
-import style from './index.module.scss';
+import {useTranslation} from "react-i18next";
 
-import Select from "components/Select";
 import classNames from "classnames";
 
+import Select from "components/Select";
+
+import style from './index.module.scss';
+
 const Paper = ({headline, children, quantity = null, setQuantity, classes = null}) => {
+	const { t } = useTranslation()
 
     return (
         <div
@@ -22,7 +26,7 @@ const Paper = ({headline, children, quantity = null, setQuantity, classes = null
 						{
 							quantity &&
 							<Select
-								placeholder={'Rows'}
+								placeholder={t('rows')}
 								options={[
 									{ value: 20, label: '20' },
 									{ value: 50, label: '50' },

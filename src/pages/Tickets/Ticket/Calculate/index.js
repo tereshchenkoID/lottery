@@ -1,3 +1,5 @@
+import {useTranslation} from "react-i18next";
+
 import classNames from "classnames";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -5,6 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import style from './index.module.scss';
 
 const Calculate = ({active, data, action, setCalculate}) => {
+	const { t } = useTranslation()
 	
 	return (
 		<button
@@ -15,7 +18,7 @@ const Calculate = ({active, data, action, setCalculate}) => {
 				)
 			}
 			onClick={data ? action : setCalculate}
-			title={'Calculate'}
+			title={t('calculate')}
 		>
 			{
 				data

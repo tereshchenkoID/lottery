@@ -1,3 +1,5 @@
+import {useTranslation} from "react-i18next";
+
 import classNames from "classnames";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -12,6 +14,8 @@ const Pagination = ({
 	startHandlerSubmit,
 	endHandlerSubmit
 }) => {
+	const { t } = useTranslation()
+	
 	return (
         <div
 			className={
@@ -41,7 +45,7 @@ const Pagination = ({
 								(pagination.page + 1) * pagination.quantity + 1
 					}
 				</strong>
-				<span>of</span>
+				<span>{t('of')}</span>
 				<strong>{pagination.results}</strong>
 			</div>
 			<div className={style.actions}>

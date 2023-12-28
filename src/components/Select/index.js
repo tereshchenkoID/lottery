@@ -1,9 +1,11 @@
+import {useTranslation} from "react-i18next";
 import {useEffect, useRef, useState} from 'react';
 
 import { Select2 } from "select2-react-component";
 
-import style from './index.module.scss';
 import classNames from "classnames";
+
+import style from './index.module.scss';
 
 const Select = ({
 	placeholder,
@@ -12,6 +14,7 @@ const Select = ({
 	onChange,
 	classes
 }) => {
+	const { t } = useTranslation()
 	const [search, setSearch]= useState([...options])
 	const selectRef = useRef()
 	
@@ -40,7 +43,7 @@ const Select = ({
 		>
 			<Select2
 				ref={selectRef}
-				placeholder='Select values'
+				placeholder={t('select_values')}
 				data={search}
 				value={data}
 				update={handleSelectChange}

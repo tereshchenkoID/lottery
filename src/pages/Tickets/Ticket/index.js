@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {useDispatch} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import {statuses} from "constant/config";
 
@@ -29,6 +30,7 @@ const Ticket = ({
 	config_3
 }) => {
 	const dispatch = useDispatch()
+	const { t } = useTranslation()
 	
 	const [table, setTable] = useState(null)
 	const [active, setActive] = useState(false)
@@ -130,7 +132,7 @@ const Ticket = ({
 		if (table) {
 			dispatch(setAside({
 				meta: {
-					title: 'Ticket print',
+					title: t('ticket_print'),
 					cmd: 'ticket-print',
 					buttonRef: e.target,
 				},
@@ -145,7 +147,7 @@ const Ticket = ({
 					
 					dispatch(setAside({
 						meta: {
-							title: 'Ticket print',
+							title: t('ticket_print'),
 							cmd: 'ticket-print',
 							buttonRef: e.target,
 						},
@@ -251,7 +253,7 @@ const Ticket = ({
 											key={idx}
 											className={style.cell}
 										>
-											{el.text}
+											{t(el.text)}
 										</div>
 									)
 								}
@@ -295,7 +297,7 @@ const Ticket = ({
 										key={idx}
 										className={style.cell}
 									>
-										{el.text}
+										{t(el.text)}
 									</div>
 								)
 							}
