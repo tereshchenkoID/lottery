@@ -1,11 +1,13 @@
 import {useRef} from 'react';
 
 import style from './index.module.scss';
+import classNames from "classnames";
 
 const Textarea = ({
 	placeholder,
 	data,
-	onChange
+	onChange,
+	classes
 }) => {
 	const inputRef = useRef(null)
 	
@@ -14,7 +16,14 @@ const Textarea = ({
 	}
 	
 	return (
-        <div className={style.block}>
+		<div
+			className={
+				classNames(
+					style.block,
+					classes && style[classes]
+				)
+			}
+		>
 			<textarea
 				ref={inputRef}
 				className={style.input}

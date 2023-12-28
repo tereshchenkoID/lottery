@@ -9,18 +9,17 @@ import {setAside} from "store/actions/asideAction";
 import {setToastify} from "store/actions/toastifyAction";
 
 import {convertFixed} from "helpers/convertFixed";
-import {getData} from "helpers/api";
+import {convertOptions} from "helpers/convertOptions";
+import {getData, postData} from "helpers/api";
 
 import Textarea from "components/Textarea";
 import Select from "components/Select";
-import Calculate from "actions/Calculate";
 import Dropdown from "actions/Dropdown";
+import Calculate from "./Calculate";
 import Print from "./Print";
 import Cancel from "./Cancel";
 
 import style from './index.module.scss';
-import {convertOptions} from "../../../helpers/convertOptions";
-
 
 const Ticket = ({
 	data,
@@ -88,6 +87,45 @@ const Ticket = ({
 		})
 	}
 	
+	const handleCalculate = () => {
+		const formData = {
+			action: 'save',
+			...table.data[0]
+		}
+		
+		postData(`tickets/calculate/?id=${data.ticketId}`, JSON.stringify(formData)).then((json) => {
+			if (json.status === 'OK') {
+				if (json.data[0].code === '0') {
+					dispatch(
+						setToastify({
+							type: 'success',
+							text: json.data[0].message
+						})
+					)
+				}
+				else {
+					dispatch(
+						setToastify({
+							type: 'error',
+							text: json.data[0].error_message
+						})
+					)
+				}
+				setCalculate(!calculate)
+			}
+		})
+	}
+	
+	const handleChange = (array, key, value) => {
+		const newData = array
+		array[key] = value
+		
+		action((prevData) => ({
+			...prevData,
+			[array]: newData,
+		}))
+	}
+	
 	const handlePrint = (e) => {
 		if (table) {
 			dispatch(setAside({
@@ -152,9 +190,8 @@ const Ticket = ({
 												<Select
 													options={convertOptions(statuses.TICKET_STATUSES)}
 													data={data[el.key]}
-													onChange={(value) => (
-														console.log(value)
-													)}
+													onChange={(value) => handleChange(data, el.key, value)}
+													classes={'sm'}
 												/>
 											:
 												statuses.TICKET_STATUSES[data[el.key]]
@@ -178,9 +215,10 @@ const Ticket = ({
 						}}
 					/>
 					<Calculate
-						active={active}
 						data={calculate}
-						action={() => {
+						active={active}
+						action={handleCalculate}
+						setCalculate={() => {
 							setCalculate(!calculate)
 						}}
 					/>
@@ -277,7 +315,11 @@ const Ticket = ({
 										{
 											calculate
 												?
-													<Textarea data={el.details.results.join(' - ')}/>
+													<Textarea
+														data={el.details.results.join(' - ')}
+														onChange={(value) => handleChange(el.details, 'results', value.replaceAll(' ', '').split('-'))}
+														classes={'sm'}
+													/>
 												:
 													el.details.results.join(' - ')
 										}
@@ -289,12 +331,11 @@ const Ticket = ({
 													<Select
 														options={convertOptions(statuses.STAKE_STATUSES)}
 														data={el.status}
-														onChange={(value) => (
-															console.log(value)
-														)}
+														onChange={(value) => handleChange(el, 'status', value)}
+														classes={'sm'}
 													/>
 												:
-													el.status
+													statuses.STAKE_STATUSES[el.status]
 										}
 									</div>
 								</div>

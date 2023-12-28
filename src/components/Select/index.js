@@ -3,12 +3,14 @@ import {useEffect, useRef, useState} from 'react';
 import { Select2 } from "select2-react-component";
 
 import style from './index.module.scss';
+import classNames from "classnames";
 
 const Select = ({
 	placeholder,
 	options,
 	data,
 	onChange,
+	classes
 }) => {
 	const [search, setSearch]= useState([...options])
 	const selectRef = useRef()
@@ -28,7 +30,14 @@ const Select = ({
 	}, [data])
 	
 	return (
-        <div className={style.block}>
+        <div
+			className={
+				classNames(
+					style.block,
+					classes && style[classes]
+				)
+			}
+		>
 			<Select2
 				ref={selectRef}
 				placeholder='Select values'

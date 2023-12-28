@@ -3,6 +3,17 @@
 .block {
 	position: relative;
 	width: 100%;
+
+	&.sm {
+
+		.input {
+			@include make-spacer(py, 8px);
+			@include make-spacer(px, 8px);
+
+			min-height: rem(46px);
+			height: rem(46px);
+		}
+	}
 }
 
 .label {

@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 import style from './index.module.scss';
 
-const Calculate = ({active, data, action}) => {
+const Calculate = ({active, data, action, setCalculate}) => {
 	
 	return (
 		<button
@@ -14,7 +14,7 @@ const Calculate = ({active, data, action}) => {
 					!active && style.disabled
 				)
 			}
-			onClick={action}
+			onClick={data ? action : setCalculate}
 			title={'Calculate'}
 		>
 			{

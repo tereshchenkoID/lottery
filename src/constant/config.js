@@ -22,8 +22,8 @@ export const statuses = {
 
 export const types = {
 	PLAYER_TYPE: {
-		0: 'Any',
-		1: 'Shop',
-		2: 'Web',
+		0: 'ANY',
+		1: 'SHOP',
+		2: 'WEB',
 	}
 }

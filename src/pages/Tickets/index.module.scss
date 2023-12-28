@@ -2,7 +2,7 @@
 
 .grid {
 	@include make-spacer(mb, rem(16px));
-	
+
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: rem(16px);
@@ -10,21 +10,21 @@
 
 .actions {
 	@include flex(flex-end, center);
-	
+
 	gap: rem(16px);
 }
 
 .row {
 	display: grid;
-	grid-template-columns: repeat(9, 1fr) rem(135px);
+	grid-template-columns: rem(50px) repeat(4, 1fr) rem(100px) repeat(3, 1fr) rem(135px);
 	border-bottom: rem(1px) solid var(--color-border);
 	font-weight: var(--typography-medium);
 	font-size: rem(12px);
-	
+
 	&.wide {
 		grid-template-columns: 1fr;
 	}
-	
+
 	&:last-child {
 		border-bottom: 0;
 	}
@@ -33,7 +33,7 @@
 .cell {
 	@include flex(null, center, null, wrap);
 	@include make-spacer(p, 12px);
-	
+
 	&.wide {
 		justify-content: center;
 	}
@@ -41,7 +41,7 @@
 
 .ticket {
 	border-bottom: rem(1px) solid var(--color-border);
-	
+
 	&:last-child {
 		border-bottom: 0;
 	}
@@ -49,6 +49,6 @@
 
 .empty {
 	@include make-spacer(p, 12px);
-	
+
 	text-align: center;
 }
