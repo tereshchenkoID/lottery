@@ -8,7 +8,7 @@ const Select = ({
 	placeholder,
 	options,
 	data,
-	onChange
+	onChange,
 }) => {
 	const [search, setSearch]= useState([...options])
 	const selectRef = useRef()
@@ -39,9 +39,12 @@ const Select = ({
 				customSearchEnabled={true}
 				keepSearchText={true}
 			/>
-			<label className={style.label}>
-				{placeholder}
-			</label>
+			{
+				placeholder &&
+				<label className={style.label}>
+					{placeholder}
+				</label>
+			}
         </div>
     );
 }

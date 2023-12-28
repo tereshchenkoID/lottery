@@ -17,5 +17,13 @@ export const statuses = {
 		6:  'WON (Paid Out)',
 		9:  'EXPIRED',
 		13: 'CANCELLED'
+	},
+}
+
+export const types = {
+	PLAYER_TYPE: {
+		0: 'Any',
+		1: 'Shop',
+		2: 'Web',
 	}
 }

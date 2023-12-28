@@ -11,12 +11,16 @@ import {setToastify} from "store/actions/toastifyAction";
 import {convertFixed} from "helpers/convertFixed";
 import {getData} from "helpers/api";
 
+import Textarea from "components/Textarea";
+import Select from "components/Select";
 import Calculate from "actions/Calculate";
 import Dropdown from "actions/Dropdown";
 import Print from "./Print";
 import Cancel from "./Cancel";
 
 import style from './index.module.scss';
+import {convertOptions} from "../../../helpers/convertOptions";
+
 
 const Ticket = ({
 	data,
@@ -78,7 +82,7 @@ const Ticket = ({
 						})
 					)
 				}
-
+				
 				setCancel(false)
 			}
 		})
@@ -100,7 +104,7 @@ const Ticket = ({
 			getData(`tickets/details/?id=${data.ticketId}`).then((json) => {
 				if (json.status === 'OK') {
 					setTable(json)
-
+					
 					dispatch(setAside({
 						meta: {
 							title: 'Ticket print',
@@ -114,7 +118,7 @@ const Ticket = ({
 			})
 		}
 	}
-	
+
 	return (
 		<div className={style.block}>
 			<div
@@ -143,7 +147,17 @@ const Ticket = ({
 							{
 								el.key === 'status'
 									?
-										statuses.TICKET_STATUSES[data[el.key]]
+										calculate
+											?
+												<Select
+													options={convertOptions(statuses.TICKET_STATUSES)}
+													data={data[el.key]}
+													onChange={(value) => (
+														console.log(value)
+													)}
+												/>
+											:
+												statuses.TICKET_STATUSES[data[el.key]]
 									:
 										data[el.key]
 							}
@@ -219,7 +233,7 @@ const Ticket = ({
 									</div>
 								)
 							}
-					</div>
+						</div>
 					}
 					<div
 						className={
@@ -261,10 +275,28 @@ const Ticket = ({
 									<div className={style.cell}>{el.odds}</div>
 									<div className={style.cell}>
 										{
-											el.details.results.join(' - ')
+											calculate
+												?
+													<Textarea data={el.details.results.join(' - ')}/>
+												:
+													el.details.results.join(' - ')
 										}
 									</div>
-									<div className={style.cell}>{el.status}</div>
+									<div className={style.cell}>
+										{
+											calculate
+												?
+													<Select
+														options={convertOptions(statuses.STAKE_STATUSES)}
+														data={el.status}
+														onChange={(value) => (
+															console.log(value)
+														)}
+													/>
+												:
+													el.status
+										}
+									</div>
 								</div>
 							)
 						}

@@ -1,6 +1,8 @@
 import {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 
+import {statuses, types} from "constant/config";
+
 import Pagination from "modules/Pagination";
 
 import Paper from "components/Paper";
@@ -13,6 +15,7 @@ import Ticket from "./Ticket";
 
 import {getDate} from "helpers/getDate";
 import {postData} from "helpers/api";
+import {convertOptions} from "helpers/convertOptions";
 
 import style from './index.module.scss';
 
@@ -255,13 +258,7 @@ const Tickets = () => {
 										<div>
 											<Select
 												placeholder={'State'}
-												options={[
-													{ value: '0', label: 'Any' },
-													{ value: '1', label: 'Confirmed' },
-													{ value: '2', label: 'Finalized' },
-													{ value: '3', label: 'Cancelled' },
-													{ value: '4', label: 'Unconfirmed' },
-												]}
+												options={convertOptions(statuses.TICKET_STATUSES)}
 												data={filter.state}
 												onChange={(value) => handlePropsChange('state', value)}
 											/>
@@ -269,11 +266,7 @@ const Tickets = () => {
 										<div>
 											<Select
 												placeholder={'Player Type'}
-												options={[
-													{ value: '0', label: 'Any' },
-													{ value: '1', label: 'Shop' },
-													{ value: '2', label: 'Web' },
-												]}
+												options={convertOptions(types.PLAYER_TYPE)}
 												data={filter.type}
 												onChange={(value) => handlePropsChange('type', value)}
 											/>
