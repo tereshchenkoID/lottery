@@ -32,6 +32,10 @@ const Nav = () => {
 				{
 					text: 'tickets',
 					link: '/tickets'
+				},
+				{
+					text: 'daily_reports',
+					link: '/daily-reports'
 				}
 			]
 		},
