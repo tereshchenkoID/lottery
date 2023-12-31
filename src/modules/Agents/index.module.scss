@@ -5,7 +5,7 @@
 
 	&.active {
 
-		.list {
+		.wrapper {
 			display: block;
 		}
 	}
@@ -45,7 +45,7 @@
 	}
 }
 
-.list {
+.wrapper {
 	display: none;
 	position: absolute;
 	top: calc(100% - 1px);
@@ -57,6 +57,27 @@
 	z-index: $z-index-11;
 	max-height: rem(300px);
 	overflow-y: auto;
+}
+
+.search {
+	@include make-spacer(p, 4px);
+}
+
+.field {
+	@include make-spacer(p, 4px);
+	@include size(100%, rem(34px));
+
+	border: rem(1px) solid var(--color-border);
+	border-radius: var(--default-border-radius);
+	line-height: var(--line-height);
+	color: var(--color-text);
+	font-family: var(--font-family);
+	font-size: var(--font-size);
+	font-weight: var(--typography-thin);
+
+	&:focus {
+		border-color: var(--color-primary);
+	}
 }
 
 .label {
@@ -84,6 +105,7 @@
 
 	width: 100%;
 	min-height: rem(36px);
+	text-align: left;
 
 	&:hover {
 		background-color: var(--color-primary);

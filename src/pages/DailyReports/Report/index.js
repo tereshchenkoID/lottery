@@ -23,8 +23,9 @@ const Option = ({
 	loading,
 	setLoading,
 }) => {
-	const [table, setTable] = useState(null)
-	const [active, setActive] = useState(false)
+	const isValidate = data.days && data.days.length > 0
+	const [table, setTable] = useState(isValidate ? data : null)
+	const [active, setActive] = useState(isValidate)
 	
 	const handleSubmit = (el) => {
 		if (table) {
@@ -40,7 +41,7 @@ const Option = ({
 			
 			postData(`dailySums/`, formData).then((json) => {
 				if (json.status === 'OK') {
-					setTable(json)
+					setTable(json.data)
 					setActive(!active)
 					setLoading(false)
 				}
@@ -99,8 +100,7 @@ const Option = ({
 								}
 							</div>
 							{
-								data &&
-								table.data.days?.map((day, days_idx) =>
+								table.days?.map((day, days_idx) =>
 									<div
 										key={days_idx}
 										className={style.day}
@@ -182,6 +182,7 @@ const Tree = ({
 	loading,
 	setLoading,
 }) => {
+	
 	return (
 		<div
 			className={
@@ -218,8 +219,8 @@ const Tree = ({
 			{
 				state.map((el, idx) =>
 					<Option
-						t={t}
 						key={idx}
+						t={t}
 						data={el}
 						config={config}
 						config_2={config_2}
