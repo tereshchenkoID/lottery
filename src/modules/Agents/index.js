@@ -144,7 +144,7 @@ const Agents = ({
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
 				</div>
-				<ul>
+				<ul className={style.list}>
 					{searchResults.map((node, idx) => (
 						<li key={idx}>
 							<Option

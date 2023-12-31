@@ -12,7 +12,6 @@ import Dropdown from "actions/Dropdown";
 
 import style from './index.module.scss';
 
-
 const Option = ({
 	t,
 	data,

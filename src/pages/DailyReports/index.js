@@ -15,6 +15,7 @@ import Report from "./Report";
 import {postData} from "helpers/api";
 import {convertOptions} from "helpers/convertOptions";
 import {getTimeframeFrom, getTimeframeTo} from "helpers/getTimeframe";
+import {getDate} from "helpers/getDate";
 
 import style from './index.module.scss';
 
@@ -27,10 +28,10 @@ const DailyReports = () => {
 			id: agents[0].id,
 			username: agents[0].username
 		},
-		// 'date-from': getDate(new Date().setHours(0, 0, 0, 0), 'datetime-local'),
-		// 'date-to': getDate(new Date(), 'datetime-local'),
-		'date-from': '2023-10-15T00:00:00',
-		'date-to': '2023-10-18T23:59:59',
+		'date-from': getDate(new Date().setHours(0, 0, 0, 0), 'datetime-local'),
+		'date-to': getDate(new Date(), 'datetime-local'),
+		// 'date-from': '2023-10-15T00:00:00',
+		// 'date-to': '2023-10-18T23:59:59',
 		'timeframe': ''
 	}
 	
@@ -150,8 +151,8 @@ const DailyReports = () => {
 					:
 						<>
 							<Paper headline={t('daily_overview_report')}>
-								<pre>{JSON.stringify(filter, null, 2)}</pre>
-								<br />
+								{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
+								{/*<br />*/}
 								<form onSubmit={handleSubmit}>
 									<div className={style.grid}>
 										<div>
