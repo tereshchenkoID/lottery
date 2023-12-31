@@ -5,11 +5,13 @@ import classNames from "classnames";
 
 import {postData} from "helpers/api";
 import {getDate} from "helpers/getDate";
+import {convertFixed} from "helpers/convertFixed";
 
 import Loader from "components/Loader";
 import Dropdown from "actions/Dropdown";
 
 import style from './index.module.scss';
+
 
 const Option = ({
 	t,
@@ -122,7 +124,11 @@ const Option = ({
 																				?
 																					report_idx === 0 ? getDate(day['date-from']) : ''
 																				:
-																					report[key.key]
+																					(key.key !== 'date-from' && key.key !== 'currency')
+																						?
+																							convertFixed(report[key.key])
+																						:
+																							report[key.key]
 																		}
 																	</div>
 																)

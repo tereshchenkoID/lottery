@@ -40,7 +40,7 @@ const DailyReports = () => {
 	
 	const handleResetForm = () => {
 		setFilter(initialValue)
-		handleSubmit()
+		setData(agents)
 	}
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
