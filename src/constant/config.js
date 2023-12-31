@@ -27,3 +27,17 @@ export const types = {
 		2: 'WEB',
 	}
 }
+
+export const timeframe = {
+	
+	TIMEFRAME: {
+		0: "CURRENT HOURS",
+		1: "TODAY",
+		2: "THIS WEEK",
+		3: "THIS MONTH",
+		4: "LAST HOURS",
+		5: "YESTERDAY",
+		6: "LAST WEEK",
+		7: "LAST MONTH"
+	}
+}

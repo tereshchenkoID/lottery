@@ -1,0 +1,91 @@
+@import "scss/config";
+
+.block {
+	overflow: hidden;
+	width: 100%;
+	font-size: rem(14px);
+	font-weight: var(--typography-thin);
+}
+
+.wrapper {
+	//@include make-spacer(py, 16px);
+	@include make-spacer(pl, 10px);
+
+	background-color: rgba(43, 115, 179, 0.1);
+}
+
+.overflow {
+	overflow-x: auto;
+}
+
+.table {
+
+	&.sm {
+
+		.row {
+			grid-template-columns: rem(50px) 1fr;
+		}
+	}
+
+	&.lg {
+		width: fit-content;
+
+		.row {
+			grid-template-columns: 1fr rem(100px) repeat(14, 1fr);
+		}
+
+		.cell {
+			@include make-spacer(py, 6px);
+
+			min-width: rem(150px);
+		}
+	}
+}
+
+.row {
+	display: grid;
+	border-bottom: rem(1px) solid var(--color-border);
+
+	&.headline {
+		font-weight: var(--typography-medium);
+		font-size: rem(12px);
+	}
+
+	&.active {
+		background-color: rgba(43, 115, 179, 0.5);
+	}
+
+	&.wide {
+		width: fit-content;
+	}
+
+	&.empty {
+		grid-template-columns: rem(200px) 1fr!important;
+
+		.cell {
+
+			&:nth-child(2) {
+				@include make-spacer(pr, 200px);
+
+				justify-content: center;
+				text-align: center;
+			}
+		}
+	}
+}
+
+.cell {
+	@include flex(null, center, null, wrap);
+	@include make-spacer(p, 12px);
+}
+
+.day {
+	border-bottom: rem(1px) solid var(--color-primary);
+
+	.row {
+
+		&:last-child {
+			border-bottom: 0;
+		}
+	}
+}

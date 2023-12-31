@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 
 import classNames from "classnames";
 
@@ -32,7 +32,8 @@ const Field = ({
 				ref={inputRef}
 				className={style.input}
 				type={show ? 'text' : type}
-				defaultValue={data}
+				// defaultValue={data}
+				value={data}
 				onChange={(e) => {
 					onChange(e.currentTarget.value)
 				}}

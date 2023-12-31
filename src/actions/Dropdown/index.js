@@ -6,7 +6,7 @@ import classNames from "classnames";
 
 import style from './index.module.scss';
 
-const Action = ({calculate, data, action}) => {
+const Dropdown = ({calculate, data, action}) => {
 	const { t } = useTranslation()
 	
 	return (
@@ -18,6 +18,7 @@ const Action = ({calculate, data, action}) => {
 					calculate && style.disabled,
 				)
 			}
+			type={'button'}
 			onClick={action}
 			title={t('dropdown')}
 		>
@@ -29,4 +30,4 @@ const Action = ({calculate, data, action}) => {
 	);
 }
 
-export default Action;
+export default Dropdown;

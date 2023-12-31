@@ -224,7 +224,7 @@ const Tickets = () => {
 	]
 
     return (
-        <div className={style.block}>
+        <>
 			{
 				loading
 					?
@@ -408,7 +408,7 @@ const Tickets = () => {
 							</Paper>
 						</>
 			}
-        </div>
+        </>
     );
 }
 

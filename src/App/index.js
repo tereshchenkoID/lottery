@@ -10,21 +10,23 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
 import {setSettings} from "store/actions/settingsAction"
+import {setAgents} from "store/actions/agentsAction"
 
-import Loader from "components/Loader";
-import Header from "components/Header";
-import Aside from "components/Aside";
-import Nav from "components/Nav";
-import Toastify from "components/Toastify";
+import Loader from "components/Loader"
+import Header from "components/Header"
+import Aside from "components/Aside"
+import Nav from "components/Nav"
+import Toastify from "components/Toastify"
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
 const App = () => {
 	const dispatch = useDispatch()
 	const [loading, setLoading] = useState(true)
 	
 	useEffect(() => {
-		dispatch(setSettings()).then((json) => {
+		dispatch(setSettings())
+		dispatch(setAgents()).then((json) => {
 			if (json) {
 				setLoading(false)
 			}

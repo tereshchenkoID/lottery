@@ -1,37 +1,46 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
-import {statuses, types} from "constant/config";
+import {timeframe} from "constant/config";
 
+import Agents from "modules/Agents";
 import Paper from "components/Paper";
 import Field from "components/Field";
 import Select from "components/Select";
 import Button from "components/Button";
 import Loader from "components/Loader";
+import Report from "./Report";
 
-import {getDate} from "helpers/getDate";
 import {postData} from "helpers/api";
 import {convertOptions} from "helpers/convertOptions";
+import {getTimeframeFrom, getTimeframeTo} from "helpers/getTimeframe";
 
 import style from './index.module.scss';
 
 const DailyReports = () => {
+	const { t } = useTranslation()
+	const {agents} = useSelector((state) => state.agents)
+	
 	const initialValue = {
-		'id': '',
-		'date-from': getDate(new Date().setHours(0, 0, 0, 0), 'datetime-local'),
-		'date-to': getDate(new Date(), 'datetime-local'),
+		'agent': {
+			id: agents[0].id,
+			username: agents[0].username
+		},
+		// 'date-from': getDate(new Date().setHours(0, 0, 0, 0), 'datetime-local'),
+		// 'date-to': getDate(new Date(), 'datetime-local'),
+		'date-from': '2023-10-15T00:00:00',
+		'date-to': '2023-10-18T23:59:59',
 		'timeframe': ''
 	}
-	const { t } = useTranslation()
 	
-	const {settings} = useSelector((state) => state.settings)
 	const [filter, setFilter] = useState(initialValue)
-	const [loading, setLoading] = useState(true)
-	const [data, setData] = useState(null)
+	const [loading, setLoading] = useState(false)
+	const [data, setData] = useState(agents)
 	
 	const handleResetForm = () => {
 		setFilter(initialValue)
+		handleSubmit()
 	}
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
@@ -41,28 +50,22 @@ const DailyReports = () => {
 		}))
 	}
 	
-	const handleSubmit = (event, page) => {
+	const handleSubmit = (event) => {
 		event && event.preventDefault();
 		setLoading(true)
 		
 		const formData = new FormData();
+		formData.append('id', filter.agent.id)
+		formData.append('date-from', filter['date-from'])
+		formData.append('date-to', filter['date-to'])
 		
-		Object.entries(filter).map(([key, value]) => {
-			formData.append(key, value)
-			return true
-		})
-		
-		postData(`tickets/`, formData).then((json) => {
+		postData(`dailySums/`, formData).then((json) => {
 			if (json.status === 'OK') {
-				setData(json)
+				setData([json.data])
 				setLoading(false)
 			}
 		})
 	}
-	
-	setTimeout(() => {
-		setLoading(false)
-	}, [])
 	
 	const config = [
 		{
@@ -71,7 +74,7 @@ const DailyReports = () => {
 		},
 	]
 	
-	let config_2 = [
+	const config_2 = [
 		{
 			key: 'date-from',
 			text: 'date_from'
@@ -139,32 +142,35 @@ const DailyReports = () => {
 	]
 
     return (
-        <div className={style.block}>
+        <>
 			{
 				loading
 					?
 						<Loader />
 					:
 						<>
-							<Paper
-								headline={t('daily_overview_report')}
-							>
-								{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-								{/*<br />*/}
+							<Paper headline={t('daily_overview_report')}>
+								<pre>{JSON.stringify(filter, null, 2)}</pre>
+								<br />
 								<form onSubmit={handleSubmit}>
 									<div className={style.grid}>
 										<div>
-											<Select
-												placeholder={t('agent')}
-												options={convertOptions(statuses.TICKET_STATUSES)}
-												data={filter.timeframe}
+											<Agents
+												data={filter.agent}
+												options={agents}
+												onChange={(value) => handlePropsChange('agent', value)}
 											/>
 										</div>
 										<div>
 											<Select
 												placeholder={t('timeframe')}
-												options={convertOptions(types.PLAYER_TYPE)}
-												data={filter.type}
+												options={convertOptions(timeframe.TIMEFRAME)}
+												data={filter.timeframe}
+												onChange={(value) => {
+													handlePropsChange('timeframe', value)
+													handlePropsChange('date-from', getTimeframeFrom(value, 'datetime-local'))
+													handlePropsChange('date-to', getTimeframeTo(value, 'datetime-local'))
+												}}
 											/>
 										</div>
 										<div>
@@ -199,25 +205,17 @@ const DailyReports = () => {
 								</form>
 							</Paper>
 							<Paper>
-								<div className={style.table}>
-									<div className={style.row}>
-										<div className={style.cell} />
-										{
-											config.map((el, idx) =>
-												<div
-													key={idx}
-													className={style.cell}
-												>
-													{t(el.text)}
-												</div>
-											)
-										}
-									</div>
-								</div>
+								<Report
+									config={config}
+									config_2={config_2}
+									data={data}
+									filter={filter}
+									handlePropsChange={handlePropsChange}
+								/>
 							</Paper>
 						</>
 			}
-        </div>
+        </>
     );
 }
 
