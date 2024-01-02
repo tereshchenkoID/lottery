@@ -1,0 +1,22 @@
+@import "scss/config";
+
+.block {
+
+	&.active {
+
+		.list {
+			-webkit-line-clamp: unset;
+		}
+	}
+}
+
+.list {
+	@include line-clamp(2);
+}
+
+.button {
+	@include make-spacer(mt, 5px);
+
+	color: var(--color-primary);
+	text-align: right;
+}

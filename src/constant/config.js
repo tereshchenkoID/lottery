@@ -41,3 +41,10 @@ export const timeframe = {
 		7: "LAST MONTH"
 	}
 }
+
+export const locked = {
+	LOCKED: {
+		0: 'NO',
+		1: 'YES',
+	}
+}

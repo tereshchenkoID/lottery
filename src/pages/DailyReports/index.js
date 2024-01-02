@@ -10,14 +10,88 @@ import Field from "components/Field";
 import Select from "components/Select";
 import Button from "components/Button";
 import Loader from "components/Loader";
-import Report from "./Report";
+import Table from "./Table";
 
 import {postData} from "helpers/api";
 import {convertOptions} from "helpers/convertOptions";
-import {getTimeframeFrom, getTimeframeTo} from "helpers/getTimeframe";
 import {getDate} from "helpers/getDate";
+import {getTimeframeFrom, getTimeframeTo} from "helpers/getTimeframe";
 
 import style from './index.module.scss';
+
+const config = [
+	{
+		key: 'username',
+		text: 'username'
+	},
+]
+
+const config_2 = [
+	{
+		key: 'date-from',
+		text: 'date_from'
+	},
+	{
+		key: 'currency',
+		text: 'currency'
+	},
+	{
+		key: 'tickets',
+		text: 'tickets'
+	},
+	{
+		key: 'total_in',
+		text: 'total_in'
+	},
+	{
+		key: 'total_out',
+		text: 'total_out'
+	},
+	{
+		key: 'open_payouts',
+		text: 'open_payouts'
+	},
+	{
+		key: 'Jackpot_1_payout',
+		text: 'jackpot_1_payout'
+	},
+	{
+		key: 'Jackpot_2_payout',
+		text: 'jackpot_2_payout'
+	},
+	{
+		key: 'Jackpot_3_payout',
+		text: 'jackpot_3_payout'
+	},
+	{
+		key: 'Jackpot_1_contribution',
+		text: 'jackpot_1_contribution',
+	},
+	{
+		key: 'Jackpot_2_contribution',
+		text: 'jackpot_2_contribution',
+	},
+	{
+		key: 'Jackpot_3_contribution',
+		text: 'jackpot_3_contribution',
+	},
+	{
+		key: 'reversal',
+		text: 'reversal'
+	},
+	{
+		key: 'commission',
+		text: 'commission'
+	},
+	{
+		key: 'taxes',
+		text: 'taxes'
+	},
+	{
+		key: 'profit',
+		text: 'profit'
+	}
+]
 
 const DailyReports = () => {
 	const { t } = useTranslation()
@@ -30,8 +104,6 @@ const DailyReports = () => {
 		},
 		'date-from': getDate(new Date().setHours(0, 0, 0, 0), 'datetime-local'),
 		'date-to': getDate(new Date(), 'datetime-local'),
-		// 'date-from': '2023-10-15T00:00:00',
-		// 'date-to': '2023-10-18T23:59:59',
 		'timeframe': ''
 	}
 	
@@ -41,7 +113,9 @@ const DailyReports = () => {
 	
 	const handleResetForm = () => {
 		setFilter(initialValue)
+		
 		setData(agents)
+		handleSubmit(null, initialValue)
 	}
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
@@ -51,14 +125,16 @@ const DailyReports = () => {
 		}))
 	}
 	
-	const handleSubmit = (event) => {
+	const handleSubmit = (event, newData) => {
+		const data = newData ? newData : filter
+		
 		event && event.preventDefault();
 		setLoading(true)
 		
 		const formData = new FormData();
-		formData.append('id', filter.agent.id)
-		formData.append('date-from', filter['date-from'])
-		formData.append('date-to', filter['date-to'])
+		formData.append('id', data.agent.id)
+		formData.append('date-from', data['date-from'])
+		formData.append('date-to', data['date-to'])
 		
 		postData(`dailySums/`, formData).then((json) => {
 			if (json.status === 'OK') {
@@ -67,80 +143,6 @@ const DailyReports = () => {
 			}
 		})
 	}
-	
-	const config = [
-		{
-			key: 'username',
-			text: 'username'
-		},
-	]
-	
-	const config_2 = [
-		{
-			key: 'date-from',
-			text: 'date_from'
-		},
-		{
-			key: 'currency',
-			text: 'currency'
-		},
-		{
-			key: 'tickets',
-			text: 'tickets'
-		},
-		{
-			key: 'total_in',
-			text: 'total_in'
-		},
-		{
-			key: 'total_out',
-			text: 'total_out'
-		},
-		{
-			key: 'open_payouts',
-			text: 'open_payouts'
-		},
-		{
-			key: 'Jackpot_1_payout',
-			text: 'jackpot_1_payout'
-		},
-		{
-			key: 'Jackpot_2_payout',
-			text: 'jackpot_2_payout'
-		},
-		{
-			key: 'Jackpot_3_payout',
-			text: 'jackpot_3_payout'
-		},
-		{
-			key: 'Jackpot_1_contribution',
-			text: 'jackpot_1_contribution',
-		},
-		{
-			key: 'Jackpot_2_contribution',
-			text: 'jackpot_2_contribution',
-		},
-		{
-			key: 'Jackpot_3_contribution',
-			text: 'jackpot_3_contribution',
-		},
-		{
-			key: 'reversal',
-			text: 'reversal'
-		},
-		{
-			key: 'commission',
-			text: 'commission'
-		},
-		{
-			key: 'taxes',
-			text: 'taxes'
-		},
-		{
-			key: 'profit',
-			text: 'profit'
-		}
-	]
 
     return (
         <>
@@ -151,8 +153,8 @@ const DailyReports = () => {
 					:
 						<>
 							<Paper headline={t('daily_overview_report')}>
-								{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-								{/*<br />*/}
+								<pre>{JSON.stringify(filter, null, 2)}</pre>
+								<br />
 								<form onSubmit={handleSubmit}>
 									<div className={style.grid}>
 										<div>
@@ -206,7 +208,7 @@ const DailyReports = () => {
 								</form>
 							</Paper>
 							<Paper>
-								<Report
+								<Table
 									config={config}
 									config_2={config_2}
 									data={data}

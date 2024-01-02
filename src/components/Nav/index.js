@@ -14,7 +14,7 @@ const Nav = () => {
 	const { pathname } = useLocation();
 	const [menu, setMenu] = useState([
 		{
-			text: 'accounts',
+			text: 'wallet_system',
 			icon: 'fa-solid fa-wallet',
 			active: false,
 			submenu: [

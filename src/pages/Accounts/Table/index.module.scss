@@ -1,0 +1,47 @@
+@import "scss/config";
+
+.block {
+	overflow: hidden;
+	width: 100%;
+	font-size: rem(14px);
+	font-weight: var(--typography-thin);
+}
+
+.wrapper {
+	@include make-spacer(pt, 10px);
+	@include make-spacer(pl, 10px);
+
+	background-color: rgba(43, 115, 179, 0.1);
+}
+
+.overflow {
+	overflow-x: auto;
+}
+
+.row {
+	display: grid;
+	grid-template-columns: rem(50px) repeat(6, 1fr) rem(135px);
+	border-bottom: rem(1px) solid var(--color-border);
+
+	&.headline {
+		font-weight: var(--typography-medium);
+		font-size: rem(12px);
+	}
+
+	&.active {
+		background-color: rgba(43, 115, 179, 0.5);
+	}
+}
+
+.cell {
+	@include flex(null, center, null, wrap);
+	@include make-spacer(p, 12px);
+
+	min-width: rem(120px);
+}
+
+.empty {
+	@include make-spacer(p, 12px);
+
+	text-align: center;
+}

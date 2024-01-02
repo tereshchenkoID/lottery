@@ -234,7 +234,7 @@ const Tree = ({
 	)
 }
 
-const Report = ({
+const Table = ({
 	data,
 	filter,
 	config,
@@ -264,4 +264,4 @@ const Report = ({
     );
 }
 
-export default Report;
+export default Table;
