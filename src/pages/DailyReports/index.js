@@ -153,8 +153,8 @@ const DailyReports = () => {
 					:
 						<>
 							<Paper headline={t('daily_overview_report')}>
-								<pre>{JSON.stringify(filter, null, 2)}</pre>
-								<br />
+								{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
+								{/*<br />*/}
 								<form onSubmit={handleSubmit}>
 									<div className={style.grid}>
 										<div>

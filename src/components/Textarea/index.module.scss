@@ -34,6 +34,7 @@
 	@include make-spacer(pt, 16px);
 	@include make-spacer(px, 16px);
 	@include size(100%, rem(56px));
+	@include transition(border-color);
 
 	display: block;
 	border-radius: var(--default-border-radius);

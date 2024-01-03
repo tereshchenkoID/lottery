@@ -9,15 +9,7 @@
 body {
   @include smooth-font;
 
-  min-width: rem(1366px);
-  min-height: 100vh;
   overflow-y: auto;
-  line-height: var(--line-height);
-  color: var(--color-text);
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  font-weight: var(--typography-thin);
-  background-color: #fafafa;
 }
 
 button {
@@ -28,7 +20,7 @@ button,
 a,
 .a {
   @include transition(all);
-	
+
 	font-weight: var(--typography-thin);
 }
 

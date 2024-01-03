@@ -49,6 +49,7 @@
 
 .input {
 	@include make-spacer(px, 16px);
+	@include transition(border-color);
 	@include size(100%);
 
 	border-radius: var(--default-border-radius);

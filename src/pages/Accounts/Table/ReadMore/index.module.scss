@@ -19,4 +19,8 @@
 
 	color: var(--color-primary);
 	text-align: right;
+
+	&:hover {
+		color: var(--color-primary-hover);
+	}
 }
