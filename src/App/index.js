@@ -7,6 +7,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 
 import Login from "pages/Login";
 import Home from "pages/Home"
+import Toastify from "components/Toastify";
 
 import style from './index.module.scss'
 
@@ -15,6 +16,7 @@ const App = () => {
 	
 	return (
         <div className={style.root}>
+			<Toastify />
 			{
 				(auth || sessionStorage.getItem('authToken'))
 					?

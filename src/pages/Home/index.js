@@ -8,7 +8,6 @@ import {setSettings} from "store/actions/settingsAction";
 import {setAgents} from "store/actions/agentsAction";
 
 import Loader from "components/Loader";
-import Toastify from "components/Toastify";
 import Header from "components/Header";
 import Nav from "components/Nav";
 import Aside from "components/Aside";
@@ -39,7 +38,6 @@ const Home = () => {
 							<Header />
 							<Nav />
 							<Aside />
-							<Toastify />
 							<main className={style.main}>
 								{
 									<Suspense fallback={<Loader />}>

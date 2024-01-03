@@ -96,5 +96,8 @@
   "save": "Save",
   "profile": "Profile",
   "logout": "Logout",
-  "id": "ID"
+  "id": "ID",
+  "user_profile": "User profile",
+  "passwords_do_not_match": "Passwords do not match",
+  "password_must_length": "Password must be at least 3 characters long"
 }

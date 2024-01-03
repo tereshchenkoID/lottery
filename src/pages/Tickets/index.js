@@ -82,7 +82,7 @@ const Tickets = () => {
 		setLoading(true)
 		
 		const formData = new FormData();
-		formData.append('page', page)
+		formData.append('page', pagination.page)
 		formData.append('quantity', pagination.quantity)
 		
 		Object.entries(filter).map(([key, value]) => {

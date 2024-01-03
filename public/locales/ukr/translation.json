@@ -96,5 +96,8 @@
   "save": "Save UA",
   "profile": "Profile UA",
   "logout": "Logout UA",
-  "id": "ID UA"
+  "id": "ID UA",
+  "user_profile": "User profile UA",
+  "passwords_do_not_match": "Passwords do not match UA",
+  "password_must_length": "Password must be at least 3 characters long UA"
 }
