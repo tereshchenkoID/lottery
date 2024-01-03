@@ -1,10 +1,9 @@
 import {useTranslation} from "react-i18next";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-
 import classNames from "classnames";
 
 import Button from "components/Button";
+import Icon from "components/Icon";
 
 import style from './index.module.scss';
 
@@ -13,16 +12,10 @@ const Cancel = ({data, action, setCancel}) => {
 	
 	return (
 		<>
-			<button
-				className={style.block}
-				onClick={setCancel}
-				title={t('cancel')}
-			>
-				<FontAwesomeIcon
-					icon="fa-solid fa-times"
-					className={style.icon}
-				/>
-			</button>
+			<Icon
+				icon={'fa-times'}
+				action={setCancel}
+			/>
 			
 			<div
 				className={

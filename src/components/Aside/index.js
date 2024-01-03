@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import classNames from "classnames";
 
 import TicketPrint from "pages/Tickets/TicketPrint";
+import ChangePassword from "pages/Accounts/ChangePassword";
 import Paper from "components/Paper";
 
 import {useOutsideClick} from "hooks/useOutsideClick";
@@ -16,6 +17,8 @@ const checkCmd = (data) => {
 	switch (data.meta.cmd) {
 		case 'ticket-print':
 			return <TicketPrint data={data}/>
+		case 'account-change-password':
+			return <ChangePassword data={data} />
 		default:
 			return null
 	}
@@ -50,6 +53,7 @@ const Aside = () => {
 					<Paper
 						headline={aside.meta.title}
 						classes={'transparent'}
+						quantity={false}
 					>
 						{checkCmd(aside)}
 					</Paper>

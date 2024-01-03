@@ -25,19 +25,22 @@ const ReadMore = ({data}) => {
 					)
 				}
 			</ul>
-			<button
-				className={style.button}
-				type={'button'}
-				onClick={() => setActive(!active)}
-			>
-				{
-					active
-						?
-							t('less_more')
-						:
-							t('read_more')
-				}
-			</button>
+			{
+				Object.entries(data).length > 2 &&
+				<button
+					className={style.button}
+					type={'button'}
+					onClick={() => setActive(!active)}
+				>
+					{
+						active
+							?
+								t('less_more')
+							:
+								t('read_more')
+					}
+				</button>
+			}
 		</div>
     );
 }

@@ -1,6 +1,4 @@
-@import "scss/config";
-
-.block {
+@mixin icon {
 	@include make-spacer(mx, 1px);
 	@include size(rem(32px));
 
@@ -20,12 +18,8 @@
 		opacity: 0.6;
 	}
 
-	&.active {
-		transform: rotateZ(45deg);
+	.icon {
+		font-size: rem(20px);
+		pointer-events: none;
 	}
-}
-
-.icon {
-	font-size: rem(20px);
-	pointer-events: none;
 }

@@ -3,7 +3,7 @@
 .block {
 	@include make-spacer(mb, 16px);
 	@include make-spacer(p, 16px);
-	
+
 	border-radius: var(--default-border-radius);
 	box-shadow: var(--default-box-shadow);
 	background-color: var(--color-white);
@@ -13,16 +13,19 @@
 		box-shadow: unset;
 		border-radius: unset;
 	}
-	
+
 	&:last-child {
 		@include make-spacer(mb, 0);
 	}
 }
 
 .headline {
-	display: grid;
-	grid-template-columns: 1fr rem(200px);
-	align-items: center;
+	@include flex(space-between, center);
+}
+
+.option {
+	flex-shrink: 0;
+	width: rem(200px);
 }
 
 .hr {

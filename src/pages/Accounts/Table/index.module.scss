@@ -20,12 +20,16 @@
 
 .row {
 	display: grid;
-	grid-template-columns: rem(50px) repeat(6, 1fr) rem(135px);
+	grid-template-columns: rem(50px) repeat(6, 1fr) rem(160px);
 	border-bottom: rem(1px) solid var(--color-border);
 
 	&.headline {
 		font-weight: var(--typography-medium);
 		font-size: rem(12px);
+	}
+
+	&.sm {
+		grid-template-columns: rem(50px) 1fr rem(160px);
 	}
 
 	&.active {
@@ -41,7 +45,8 @@
 }
 
 .empty {
-	@include make-spacer(p, 12px);
+	@include make-spacer(pt, 12px);
+	@include make-spacer(px, 12px);
 
 	text-align: center;
 }

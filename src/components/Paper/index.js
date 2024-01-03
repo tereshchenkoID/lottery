@@ -25,21 +25,23 @@ const Paper = ({headline, children, quantity = null, setQuantity, classes = null
 						<h5>{headline}</h5>
 						{
 							quantity &&
-							<Select
-								placeholder={t('rows')}
-								options={[
-									{ value: 20, label: '20' },
-									{ value: 50, label: '50' },
-									{ value: 100, label: '100' },
-								]}
-								data={quantity}
-								onChange={(value) =>
-									setQuantity((prevData) => ({
-										...prevData,
-										quantity: value
-									}
-								))}
-							/>
+							<div className={style.option}>
+								<Select
+									placeholder={t('rows')}
+									options={[
+										{ value: 20, label: '20' },
+										{ value: 50, label: '50' },
+										{ value: 100, label: '100' },
+									]}
+									data={quantity}
+									onChange={(value) =>
+										setQuantity((prevData) => ({
+											...prevData,
+											quantity: value
+										}
+									))}
+								/>
+							</div>
 						}
 					</div>
 					<hr className={style.hr}/>

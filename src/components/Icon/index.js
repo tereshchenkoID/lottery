@@ -1,23 +1,34 @@
+import React from "react";
 import {useTranslation} from "react-i18next";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import classNames from "classnames";
 
 import style from './index.module.scss';
 
-const Print = ({action}) => {
+const Icon = ({
+	icon,
+	action,
+	disabled = false
+}) => {
 	const { t } = useTranslation()
 	
 	return (
 		<button
-			className={style.block}
+			className={
+				classNames(
+					style.block,
+					disabled && style.disabled
+				)
+		}
 			onClick={action}
-			title={t('print')}
+			title={t('add')}
 		>
 			<FontAwesomeIcon
-				icon="fa-solid fa-print"
+				icon={`fa-solid ${icon}`}
 				className={style.icon}
 			/>
 		</button>
 	);
 }
 
-export default Print;
+export default Icon;

@@ -2,7 +2,7 @@
 
 .row {
 	display: grid;
-	grid-template-columns: rem(50px) repeat(4, 1fr) rem(100px) repeat(3, 1fr) rem(135px);
+	grid-template-columns: rem(50px) repeat(4, 1fr) rem(100px) repeat(3, 1fr) rem(130px);
 	font-size: rem(14px);
 
 	&.headline {

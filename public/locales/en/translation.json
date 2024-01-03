@@ -80,5 +80,10 @@
   "pending_commission": "Pending Commission",
   "active_currency": "Active Currency",
   "read_more": "Read more",
-  "less_more": "Less more"
+  "less_more": "Less more",
+  "change_password": "Change the password",
+  "password": "Password",
+  "confirm_password": "Confirm password",
+  "change": "Change",
+  "password_mismatch": "Password mismatch"
 }

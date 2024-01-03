@@ -1,13 +1,17 @@
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useDispatch} from "react-redux";
 
 import {locked} from "constant/config";
 
 import classNames from "classnames";
 
-import {postData} from "helpers/api";
+import {setAside} from "store/actions/asideAction";
+
+import {getData} from "helpers/api";
 
 import Loader from "components/Loader";
+import Icon from "components/Icon";
 import Dropdown from "actions/Dropdown";
 import ReadMore from "./ReadMore";
 
@@ -23,11 +27,23 @@ const Option = ({
 	setLoading,
 	handlePropsChange,
 }) => {
+	const dispatch = useDispatch()
 	const [table, setTable] = useState(null)
 	const [shops, setShops] = useState(null)
 	
 	const [activeAccounts, setActiveAccounts] = useState(false)
 	const [activeShops, setActiveShops] = useState(false)
+	
+	const handleChangePassword = (e, value) => {
+		dispatch(setAside({
+			meta: {
+				title: t('change_password'),
+				cmd: 'account-change-password',
+				buttonRef: e.target,
+			},
+			...value || data,
+		}))
+	}
 	
 	const handleSubmitAccount = (el) => {
 		if (table) {
@@ -35,13 +51,7 @@ const Option = ({
 		}
 		else {
 			setLoading(true)
-			
-			const formData = new FormData();
-			formData.append('id', el.id)
-			formData.append('locked', filter.locked)
-			formData.append('currency', filter.currency)
-			
-			postData(`accounts/?id=${el.id}`, formData).then((json) => {
+			getData(`accounts/?id=${el.id}&currency=${filter.currency}&locked=${filter.locked}`, null).then((json) => {
 				if (json.status === 'OK') {
 					setTable(json.data)
 					setActiveAccounts(!activeAccounts)
@@ -57,13 +67,7 @@ const Option = ({
 		}
 		else {
 			setLoading(true)
-			
-			const formData = new FormData();
-			formData.append('id', el.id)
-			formData.append('locked', filter.locked)
-			formData.append('currency', filter.currency)
-			
-			postData(`shops/?id=${el.id}`, formData).then((json) => {
+			getData(`shops/?id=${el.id}&currency=${filter.currency}&locked=${filter.locked}`, null).then((json) => {
 				if (json.status === 'OK') {
 					setShops(json.data)
 					setActiveShops(!activeShops)
@@ -117,7 +121,15 @@ const Option = ({
 						</div>
 					)
 				}
-				<div className={style.cell}>1</div>
+				<div className={style.cell}>
+					<Icon icon={'fa-add'}/>
+					<Icon icon={'fa-pencil'}/>
+					<Icon
+						icon={'fa-lock'}
+						action={(e) => handleChangePassword(e)}
+					/>
+					<Icon icon={'fa-exchange-alt'}/>
+				</div>
 			</div>
 			{
 				activeAccounts &&
@@ -130,6 +142,7 @@ const Option = ({
 									className={
 										classNames(
 											style.row,
+											style.sm,
 											activeShops && style.active
 										)
 									}
@@ -150,6 +163,9 @@ const Option = ({
 											</div>
 										)
 									}
+									<div className={style.cell}>
+										<Icon icon={'fa-add'}/>
+									</div>
 								</div>
 								{
 									activeShops &&
@@ -177,14 +193,19 @@ const Option = ({
 																					:
 																						el[key.key]
 																			:
-																				<div>
-																					<ReadMore data={el[key.key]} />
-																				</div>
+																				<ReadMore data={el[key.key]} />
 																	}
 																</div>
 															)
 														}
-														<div className={style.cell}>1</div>
+														<div className={style.cell}>
+															<Icon icon={'fa-pencil'}/>
+															<Icon
+																icon={'fa-lock'}
+																action={(e) => handleChangePassword(e, el)}
+															/>
+															<Icon icon={'fa-exchange-alt'}/>
+														</div>
 													</div>
 												)
 											}
@@ -220,25 +241,20 @@ const Tree = ({
 	setLoading,
 	handlePropsChange
 }) => {
-	
 	return (
-		data.length > 0
-			?
-				data.map((el, idx) =>
-					<Option
-						key={idx}
-						t={t}
-						data={el}
-						config={config}
-						config_2={config_2}
-						filter={filter}
-						handlePropsChange={handlePropsChange}
-						loading={loading}
-						setLoading={setLoading}
-					/>
-				)
-			:
-				<div className={style.empty}>{t('no_matching_records_found')}</div>
+		data.map((el, idx) =>
+			<Option
+				key={idx}
+				t={t}
+				data={el}
+				config={config}
+				config_2={config_2}
+				filter={filter}
+				handlePropsChange={handlePropsChange}
+				loading={loading}
+				setLoading={setLoading}
+			/>
+		)
 	)
 }
 
@@ -277,18 +293,24 @@ const Table = ({
 							</div>
 						)
 					}
-					<div className={style.cell}>1</div>
+					<div className={style.cell} />
 				</div>
-				<Tree
-					t={t}
-					data={data}
-					filter={filter}
-					config={config}
-					config_2={config_2}
-					loading={loading}
-					setLoading={setLoading}
-					handlePropsChange={handlePropsChange}
-				/>
+				{
+					data.length > 0
+					?
+						<Tree
+							t={t}
+							data={data}
+							filter={filter}
+							config={config}
+							config_2={config_2}
+							loading={loading}
+							setLoading={setLoading}
+							handlePropsChange={handlePropsChange}
+						/>
+					:
+						<div className={style.empty}>{t('no_matching_records_found')}</div>
+				}
 			</div>
         </div>
     );

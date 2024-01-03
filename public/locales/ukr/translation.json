@@ -80,5 +80,10 @@
   "pending_commission": "Pending Commission UA",
   "active_currency": "Active Currency UA",
   "read_more": "Read more UA",
-  "less_more": "Less more UA"
+  "less_more": "Less more UA",
+  "change_password": "Change the password UA",
+  "password": "Password UA",
+  "confirm_password": "Confirm password UA",
+  "change": "Change UA",
+  "password_mismatch": "Password mismatch UA"
 }

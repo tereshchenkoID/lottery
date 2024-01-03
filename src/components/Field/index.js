@@ -10,7 +10,8 @@ const Field = ({
 	type,
 	placeholder,
 	data,
-	onChange
+	onChange,
+	classes= null,
 }) => {
 	const [show, setShow] = useState(false)
 	const inputRef = useRef(null)
@@ -25,6 +26,7 @@ const Field = ({
 				classNames(
 					style.block,
 					style[type],
+					style[classes]
 				)
 			}
 		>
@@ -49,6 +51,7 @@ const Field = ({
 				<button
 					onClick={() => setShow(!show)}
 					className={style.eye}
+					type={'button'}
 				>
 					{
 						show

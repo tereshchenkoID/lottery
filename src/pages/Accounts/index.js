@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {locked} from "constant/config";
 
 import {convertOptions} from "helpers/convertOptions";
-import {postData} from "helpers/api";
+import {getData, postData} from "helpers/api";
 
 import Paper from "components/Paper";
 import Agents from "modules/Agents";
@@ -67,18 +67,26 @@ const Accounts = () => {
 	const [loading, setLoading] = useState(true)
 	const [data, setData] = useState(agents)
 	
-	const handleSubmit = (event, newData) => {
-		const data = newData ? newData : filter
-		
+	const handleInit = () => {
+		setLoading(true)
+		getData('accounts/', null).then((json) => {
+			if (json.status === 'OK') {
+				setData(json.data)
+				setLoading(false)
+			}
+		})
+	}
+	
+	const handleSubmit = (event) => {
 		event && event.preventDefault();
 		setLoading(true)
 		
 		const formData = new FormData();
-		formData.append('id', data.agent.id)
-		formData.append('locked', data.locked)
-		formData.append('currency', data.currency)
+		formData.append('id', filter.agent.id)
+		formData.append('locked', filter.locked)
+		formData.append('currency', filter.currency)
 		
-		postData(`accounts/?id=${filter.agent.id}`, formData).then((json) => {
+		postData(`accounts/`, formData).then((json) => {
 			if (json.status === 'OK') {
 				setData(json.data)
 				setLoading(false)
@@ -87,12 +95,12 @@ const Accounts = () => {
 	}
 	
 	useEffect(() => {
-		handleSubmit()
+		handleInit()
 	}, [])
 	
 	const handleResetForm = () => {
 		setFilter(initialValue)
-		handleSubmit(null, initialValue)
+		handleInit()
 	}
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
@@ -111,8 +119,8 @@ const Accounts = () => {
 					:
 						<>
 							<Paper headline={t('account_search')}>
-								<pre>{JSON.stringify(filter, null, 2)}</pre>
-								<br />
+								{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
+								{/*<br />*/}
 								<form onSubmit={handleSubmit}>
 									<div className={style.grid}>
 										<div>

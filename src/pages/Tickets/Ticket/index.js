@@ -15,9 +15,9 @@ import {getData, postData} from "helpers/api";
 
 import Textarea from "components/Textarea";
 import Select from "components/Select";
+import Icon from "components/Icon";
 import Dropdown from "actions/Dropdown";
 import Calculate from "./Calculate";
-import Print from "./Print";
 import Cancel from "./Cancel";
 
 import style from './index.module.scss';
@@ -211,10 +211,9 @@ const Ticket = ({
 							setCancel(!cancel)
 						}}
 					/>
-					<Print
-						action={(e) => {
-							handlePrint(e)
-						}}
+					<Icon
+						icon={'fa-print'}
+						action={(e) => handlePrint(e)}
 					/>
 					<Calculate
 						data={calculate}
