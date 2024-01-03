@@ -1,24 +1,29 @@
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {setToastify} from "store/actions/toastifyAction";
 
 import Field from "components/Field";
 import Button from "components/Button";
+import Agents from "modules/Agents";
 
 import style from './index.module.scss';
 
-const ChangePassword = ({data}) => {
+const TransferAgent = ({data}) => {
+	const dispatch = useDispatch()
+	const { t } = useTranslation()
+	const {agents} = useSelector((state) => state.agents)
+	
+	
 	const initialValue = {
 		'id': data.id,
 		'username': data.username,
-		'password': '',
-		'confirm-password': ''
+		'agent': {
+			id: agents[0].id,
+			username: agents[0].username
+		},
 	}
-	
-	const dispatch = useDispatch()
-	const { t } = useTranslation()
 	const [filter, setFilter] = useState(initialValue)
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
@@ -34,15 +39,6 @@ const ChangePassword = ({data}) => {
 	
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		
-		if (filter['password'] !== filter['confirm-password']) {
-			dispatch(
-				setToastify({
-					type: 'error',
-					text: t('password_mismatch')
-				})
-			)
-		}
 	}
 	
 	return (
@@ -59,17 +55,11 @@ const ChangePassword = ({data}) => {
 				onChange={(value) => handlePropsChange('username', value)}
 				classes={'disabled'}
 			/>
-			<Field
-				type={'password'}
-				placeholder={t('password')}
-				data={filter.password}
-				onChange={(value) => handlePropsChange('password', value)}
-			/>
-			<Field
-				type={'password'}
-				placeholder={t('confirm_password')}
-				data={filter['confirm-password']}
-				onChange={(value) => handlePropsChange('confirm-password', value)}
+			<Agents
+				data={filter.agent}
+				options={agents}
+				placeholder={t('new_agent')}
+				onChange={(value) => handlePropsChange('agent', value)}
 			/>
 			<div className={style.actions}>
 				<Button
@@ -87,4 +77,4 @@ const ChangePassword = ({data}) => {
     );
 }
 
-export default ChangePassword;
+export default TransferAgent;

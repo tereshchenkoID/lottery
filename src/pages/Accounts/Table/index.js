@@ -16,6 +16,7 @@ import Dropdown from "actions/Dropdown";
 import ReadMore from "./ReadMore";
 
 import style from './index.module.scss';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Option = ({
 	t,
@@ -39,6 +40,17 @@ const Option = ({
 			meta: {
 				title: t('change_password'),
 				cmd: 'account-change-password',
+				buttonRef: e.target,
+			},
+			...value || data,
+		}))
+	}
+	
+	const handleTransferAgent = (e, value) => {
+		dispatch(setAside({
+			meta: {
+				title: t('transfer_agent'),
+				cmd: 'account-transfer-agent',
 				buttonRef: e.target,
 			},
 			...value || data,
@@ -128,7 +140,10 @@ const Option = ({
 						icon={'fa-lock'}
 						action={(e) => handleChangePassword(e)}
 					/>
-					<Icon icon={'fa-exchange-alt'}/>
+					<Icon
+						icon={'fa-exchange-alt'}
+						action={(e) => handleTransferAgent(e)}
+					/>
 				</div>
 			</div>
 			{
@@ -159,6 +174,10 @@ const Option = ({
 												key={value}
 												className={style.cell}
 											>
+												<FontAwesomeIcon
+													icon="fa-solid fa-shop"
+													className={style.icon}
+												/>
 												{t('shops')} ({data[key.key]})
 											</div>
 										)
@@ -204,7 +223,10 @@ const Option = ({
 																icon={'fa-lock'}
 																action={(e) => handleChangePassword(e, el)}
 															/>
-															<Icon icon={'fa-exchange-alt'}/>
+															<Icon
+																icon={'fa-exchange-alt'}
+																action={(e) => handleTransferAgent(e, el)}
+															/>
 														</div>
 													</div>
 												)

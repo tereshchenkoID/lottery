@@ -63,7 +63,8 @@ const Option = ({
 const Agents = ({
 	data,
 	options,
-	onChange
+	onChange,
+	placeholder = false
 }) => {
 	const { t } = useTranslation()
 	const [active, setActive] = useState(false)
@@ -158,7 +159,7 @@ const Agents = ({
 					))}
 				</ul>
 			</div>
-			<label className={style.label}>{t('agent')}</label>
+			<label className={style.label}>{placeholder || t('agent')}</label>
 		</div>
     );
 }

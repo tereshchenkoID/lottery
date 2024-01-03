@@ -44,6 +44,17 @@ const Nav = () => {
 			icon: 'fa-solid fa-credit-card',
 			active: false,
 			submenu: []
+		},
+		{
+			text: 'account',
+			icon: 'fa-solid fa-user',
+			active: false,
+			submenu: [
+				{
+					text: 'settings',
+					link: '/settings'
+				},
+			]
 		}
 	])
 	

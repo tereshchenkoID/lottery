@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import classNames from "classnames";
 
 import TicketPrint from "pages/Tickets/TicketPrint";
+import TransferAgent from "pages/Accounts/TransferAgent";
 import ChangePassword from "pages/Accounts/ChangePassword";
 import Paper from "components/Paper";
 
@@ -13,12 +14,15 @@ import {setAside} from "store/actions/asideAction";
 
 import style from './index.module.scss';
 
+
 const checkCmd = (data) => {
 	switch (data.meta.cmd) {
 		case 'ticket-print':
 			return <TicketPrint data={data}/>
 		case 'account-change-password':
 			return <ChangePassword data={data} />
+		case 'account-transfer-agent':
+			return <TransferAgent data={data} />
 		default:
 			return null
 	}

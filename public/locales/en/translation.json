@@ -75,6 +75,7 @@
   "daily_reports": "Daily Reports",
   "timeframe": "Timeframe",
   "agent": "Agent",
+  "new_agent": "New agent",
   "full_name": "Full name",
   "credits": "Credits",
   "pending_commission": "Pending Commission",
@@ -83,7 +84,16 @@
   "less_more": "Less more",
   "change_password": "Change the password",
   "password": "Password",
+  "old_password": "Old password",
+  "new_password": "New password",
   "confirm_password": "Confirm password",
   "change": "Change",
-  "password_mismatch": "Password mismatch"
+  "password_mismatch": "Password mismatch",
+  "transfer_agent": "Transfer agent",
+  "login": "Login",
+  "account": "Account",
+  "settings": "Settings",
+  "save": "Save",
+  "profile": "Profile",
+  "logout": "Logout"
 }

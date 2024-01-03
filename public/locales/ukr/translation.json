@@ -75,6 +75,7 @@
   "daily_reports": "Daily Reports UA",
   "timeframe": "Timeframe UA",
   "agent": "Agent UA",
+  "new_agent": "New agent UA",
   "full_name": "Full name UA",
   "credits": "Credits UA",
   "pending_commission": "Pending Commission UA",
@@ -83,7 +84,16 @@
   "less_more": "Less more UA",
   "change_password": "Change the password UA",
   "password": "Password UA",
+  "old_password": "Old password UA",
+  "new_password": "New password UA",
   "confirm_password": "Confirm password UA",
   "change": "Change UA",
-  "password_mismatch": "Password mismatch UA"
+  "password_mismatch": "Password mismatch UA",
+  "transfer_agent": "Transfer agent UA",
+  "login": "Login UA",
+  "account": "Account UA",
+  "settings": "Settings UA",
+  "save": "Save UA",
+  "profile": "Profile UA",
+  "logout": "Logout UA"
 }

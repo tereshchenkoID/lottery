@@ -6,20 +6,15 @@
 	color: var(--color-white);
 	text-transform: uppercase;
 	font-size: rem(14px);
-	
+
 	&.active {
-		
-		.dropdown {
-			display: block;
-		}
-		
+
 		.arrow {
 			transform: rotateZ(180deg);
 		}
-		
+
 		.selected {
 			color: var(--color-white);
-			border-radius: var(--default-border-radius) var(--default-border-radius) 0 0;
 		}
 	}
 }
@@ -29,7 +24,7 @@
 	@include size(100%, rem(40px));
 	@include make-spacer(pl, 16px);
 	@include make-spacer(pr, 8px);
-	
+
 	position: relative;
 	border-radius: var(--default-border-radius);
 	border: rem(1px) solid var(--color-white);
@@ -40,14 +35,13 @@
 }
 
 .dropdown {
-	display: none;
 	position: absolute;
-	top: calc(100% - 1px);
-	left: 0;
+	top: calc(100% + rem(12px));
 	right: 0;
+	min-width: rem(100px);
 	background-color: var(--color-white);
-	border-radius: 0 0 var(--default-border-radius) var(--default-border-radius);
-	border: rem(1px) solid var(--color-border);
+	box-shadow: var(--default-box-shadow);
+	border-radius: var(--default-border-radius);
 	z-index: $z-index-11;
 	max-height: rem(300px);
 	overflow-y: auto;
@@ -58,24 +52,20 @@
 	@include make-spacer(px, 16px);
 	@include make-spacer(py, 5px);
 	@include size(100%, 36px);
-	
+
 	text-transform: uppercase;
-	
+
 	&:hover {
-		background-color: var(--color-primary);
-		color: var(--color-white);
+		background-color: rgba(0, 0, 0, 0.04);
+		color: var(--color-primary);
 	}
-	
+
 	&.active {
-		background-color: var(--color-border);
+		color: var(--color-primary);
 	}
 }
 
 .arrow {
 	@include size(rem(14px));
 	@include transition;
-	
-	&:hover {
-		background-color: rgba(0, 0, 0, 0.04);
-	}
 }

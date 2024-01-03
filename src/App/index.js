@@ -12,6 +12,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import {setSettings} from "store/actions/settingsAction"
 import {setAgents} from "store/actions/agentsAction"
 
+import Login from "pages/Login";
 import Loader from "components/Loader"
 import Header from "components/Header"
 import Aside from "components/Aside"
@@ -40,29 +41,34 @@ const App = () => {
 					?
 						<Loader />
 					:
-						<>
-							<Header />
-							<Nav />
-							<Aside />
-							<Toastify />
-							<main className={style.main}>
-								{
-									<Suspense fallback={<Loader />}>
-										<Routes>
-											{
-												router.map(item =>
-													<Route
-														key = {new Date().getTime()}
-														path = {item.path}
-														element = {item.element}
-													/>
-												)
-											}
-										</Routes>
-									</Suspense>
-								}
-							</main>
-						</>
+						//sessionStorage.getItem('authToken')
+						!loading
+							?
+								<>
+									<Header />
+									<Nav />
+									<Aside />
+									<Toastify />
+									<main className={style.main}>
+										{
+											<Suspense fallback={<Loader />}>
+												<Routes>
+													{
+														router.map(item =>
+															<Route
+																key = {new Date().getTime()}
+																path = {item.path}
+																element = {item.element}
+															/>
+														)
+													}
+												</Routes>
+											</Suspense>
+										}
+									</main>
+								</>
+							:
+								<Login />
 			}
         </div>
     );
