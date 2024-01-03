@@ -1,18 +1,27 @@
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useDispatch} from "react-redux";
+
+import {setAuth} from "store/actions/authAction";
+import {setToastify} from "store/actions/toastifyAction";
+
+import {postData} from "helpers/api";
 
 import Field from "components/Field";
-import Button from "components/Button";
 import Paper from "components/Paper";
+import Button from "components/Button";
 
 import style from './index.module.scss';
 
 const Login = () => {
+	const dispatch = useDispatch()
 	const { t } = useTranslation()
-	const [filter, setFilter] = useState({
-		username: '',
-		password: ''
-	})
+	const initialValue = {
+		username: 'admin',
+		password: 'qwe123'
+	}
+	
+	const [filter, setFilter] = useState(initialValue)
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
@@ -22,16 +31,45 @@ const Login = () => {
 	}
 	
 	const handleResetForm = () => {
-		setFilter({
-			username: '',
-			password: ''
+		setFilter(initialValue)
+	}
+	
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		
+		const formData = new FormData();
+		formData.append('username', filter.username)
+		formData.append('password', filter.password)
+
+		postData(`login/`, formData).then((json) => {
+			if (json.code === '0') {
+				const data = {
+					id: json.id,
+					type: json.type,
+					username: json.username
+				}
+
+				sessionStorage.setItem("authToken", JSON.stringify(data))
+				dispatch(setAuth(data))
+			}
+			else {
+				dispatch(
+					setToastify({
+						type: 'error',
+						text: json.error_message
+					})
+				)
+			}
 		})
 	}
 	
     return (
         <div className={style.block}>
 			<Paper headline={t('login')}>
-				<form className={style.form}>
+				<form
+					onSubmit={handleSubmit}
+					className={style.form}
+				>
 					<Field
 						type={'text'}
 						placeholder={t('username')}

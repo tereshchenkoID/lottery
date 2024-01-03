@@ -63,18 +63,21 @@
 	column-gap: rem(14px);
 	align-items: center;
 	height: rem(48px);
+	text-transform: uppercase;
+	font-size: rem(14px);
 
 	&:hover {
 		background-color: rgba(0, 0, 0, 0.04);
 		color: var(--color-primary);
 
 		span {
-			transform: translateX(rem(10px));
+			transform: translateX(rem(5px));
 		}
 	}
 
 	&.active {
 		color: var(--color-primary);
+		pointer-events: none;
 	}
 
 	span {

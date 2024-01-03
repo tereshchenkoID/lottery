@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useSelector} from "react-redux";
 
 import Field from "components/Field";
 import Paper from "components/Paper";
@@ -9,8 +10,11 @@ import style from './index.module.scss';
 
 const Settings = () => {
 	const { t } = useTranslation()
+	const {auth} = useSelector((state) => state.auth)
+	
 	const initialValue = {
-		'username': '',
+		'id': auth.id,
+		'username': auth.username,
 		'old-password': '',
 		'new-password': '',
 		'confirm-password': ''
@@ -39,7 +43,7 @@ const Settings = () => {
 						type={'text'}
 						placeholder={t('username')}
 						data={filter.username}
-						onChange={(value) => handlePropsChange('username', value)}
+						classes={'disabled'}
 					/>
 					<Field
 						type={'password'}

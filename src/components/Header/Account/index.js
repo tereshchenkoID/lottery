@@ -2,20 +2,24 @@ import {useRef, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useOutsideClick} from "hooks/useOutsideClick";
+import {useDispatch, useSelector} from "react-redux";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import {setAuth} from "store/actions/authAction";
 
 import classNames from "classnames";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import style from './index.module.scss';
-
 
 const Account = () => {
 	const { t } = useTranslation()
 	const { pathname } = useLocation()
-	const [active, setActive] = useState(false)
+	const {auth} = useSelector((state) => state.auth)
+	const dispatch = useDispatch()
 	const blockRef = useRef(null)
 	const buttonRef = useRef(null)
+	const [active, setActive] = useState(false)
+	
 	
 	useOutsideClick(
 		blockRef,
@@ -48,10 +52,11 @@ const Account = () => {
 			{
 				active &&
 				<div className={style.wrapper}>
-					<div className={style.text}>id: <strong>13</strong></div>
-					<div className={style.text}><strong>user@mail.com</strong></div>
+					<div className={style.text}><span>{t('id')}:</span> <strong>{auth.id}</strong></div>
+					<div className={style.text}><span>{t('username')}:</span> <strong>{auth.username}</strong></div>
+					<div className={style.text}><span>{t('type')}:</span> <strong>{auth.type}</strong></div>
 					<ul className={style.ul}>
-						<li className={style.li}>
+						<li>
 							<Link
 								to={'/settings'}
 								rel="noreferrer"
@@ -73,6 +78,7 @@ const Account = () => {
 								type={'button'}
 								className={style.link}
 								onClick={() => {
+									dispatch(setAuth(null))
 									sessionStorage.clear()
 									setActive(!active)
 								}}

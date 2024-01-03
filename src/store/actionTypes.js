@@ -8,4 +8,6 @@ export const types = {
 	GET_ASIDE: 			'GET_ASIDE',
 	SET_AGENTS: 		'SET_AGENTS',
 	GET_AGENTS: 		'GET_AGENTS',
+	SET_AUTH: 			'SET_AUTH',
+	GET_AUTH: 			'GET_AUTH',
 };

@@ -95,5 +95,6 @@
   "settings": "Settings UA",
   "save": "Save UA",
   "profile": "Profile UA",
-  "logout": "Logout UA"
+  "logout": "Logout UA",
+  "id": "ID UA"
 }

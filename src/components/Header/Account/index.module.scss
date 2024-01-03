@@ -36,8 +36,14 @@
 }
 
 .text {
+	@include make-spacer(mb, 5px);
+
 	font-size: rem(14px);
 	opacity: 0.7;
+
+	span {
+		font-size: rem(12px);
+	}
 }
 
 .ul {
@@ -57,5 +63,6 @@
 
 	&.active {
 		color: var(--color-primary);
+		pointer-events: none;
 	}
 }
