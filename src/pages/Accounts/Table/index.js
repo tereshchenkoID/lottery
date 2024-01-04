@@ -2,12 +2,13 @@ import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
 
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 import {locked} from "constant/config";
 
 import classNames from "classnames";
 
 import {setAside} from "store/actions/asideAction";
-
 import {getData} from "helpers/api";
 
 import Loader from "components/Loader";
@@ -16,7 +17,6 @@ import Dropdown from "actions/Dropdown";
 import ReadMore from "./ReadMore";
 
 import style from './index.module.scss';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Option = ({
 	t,
@@ -51,6 +51,17 @@ const Option = ({
 			meta: {
 				title: t('transfer_agent'),
 				cmd: 'account-transfer-agent',
+				buttonRef: e.target,
+			},
+			...value || data,
+		}))
+	}
+	
+	const handleNewAgent = (e, value) => {
+		dispatch(setAside({
+			meta: {
+				title: t('add_agent'),
+				cmd: 'account-new-agent',
 				buttonRef: e.target,
 			},
 			...value || data,
@@ -134,7 +145,10 @@ const Option = ({
 					)
 				}
 				<div className={style.cell}>
-					<Icon icon={'fa-add'}/>
+					<Icon
+						icon={'fa-add'}
+						action={(e) => handleNewAgent(e)}
+					/>
 					<Icon icon={'fa-pencil'}/>
 					<Icon
 						icon={'fa-lock'}
@@ -183,7 +197,10 @@ const Option = ({
 										)
 									}
 									<div className={style.cell}>
-										<Icon icon={'fa-add'}/>
+										<Icon
+											icon={'fa-add'}
+											action={(e) => handleNewAgent(e)}
+										/>
 									</div>
 								</div>
 								{

@@ -5,7 +5,7 @@ const Login = lazy(() => import("pages/Login"))
 const Settings = lazy(() => import("pages/Settings"))
 const Accounts = lazy(() => import('pages/Accounts'))
 const Tickets = lazy(() => import('pages/Tickets'))
-const DailyReports = lazy(() => import('pages/DailyReports'))
+const DailySums = lazy(() => import('pages/DailySums'))
 
 export const router = [
 	{
@@ -29,7 +29,7 @@ export const router = [
         element: (<Tickets />)
     },
 	{
-		path: "/daily-reports",
-		element: (<DailyReports />)
+		path: "/daily-sums",
+		element: (<DailySums />)
 	}
 ];

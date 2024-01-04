@@ -3,6 +3,8 @@ import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 
 import {setToastify} from "store/actions/toastifyAction";
+import {setAside} from "store/actions/asideAction";
+import {postData} from "helpers/api";
 
 import Field from "components/Field";
 import Button from "components/Button";
@@ -39,6 +41,35 @@ const TransferAgent = ({data}) => {
 	
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		
+		const formData = new FormData();
+		formData.append('id', filter.id)
+		formData.append('username', filter.username)
+		formData.append('new-id', filter.agent.id)
+		formData.append('new-username', filter.agent.username)
+		
+		postData(`transfer/`, formData).then((json) => {
+			console.log(json)
+			if (json.code === '0') {
+				dispatch(
+					setToastify({
+						type: 'success',
+						text: json.message
+					})
+				).then(() => {
+					handleResetForm()
+					dispatch(setAside(null))
+				})
+			}
+			else {
+				dispatch(
+					setToastify({
+						type: 'error',
+						text: json.error_message
+					})
+				)
+			}
+		})
 	}
 	
 	return (

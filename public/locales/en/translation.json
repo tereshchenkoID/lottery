@@ -72,7 +72,7 @@
   "commission": "Commission",
   "taxes": "Taxes",
   "profit": "Profit",
-  "daily_reports": "Daily Reports",
+  "daily_sums": "Daily Sums",
   "timeframe": "Timeframe",
   "agent": "Agent",
   "new_agent": "New agent",
@@ -99,5 +99,9 @@
   "id": "ID",
   "user_profile": "User profile",
   "passwords_do_not_match": "Passwords do not match",
-  "password_must_length": "Password must be at least 3 characters long"
+  "password_must_length": "Password must be at least 3 characters long",
+  "add_agent": "Add agent",
+  "email": "Email",
+  "description": "Description",
+  "country": "Country"
 }

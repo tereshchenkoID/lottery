@@ -6,6 +6,7 @@ import classNames from "classnames";
 import TicketPrint from "pages/Tickets/TicketPrint";
 import TransferAgent from "pages/Accounts/TransferAgent";
 import ChangePassword from "pages/Accounts/ChangePassword";
+import NewAgent from "pages/Accounts/NewAgent";
 import Paper from "components/Paper";
 
 import {useOutsideClick} from "hooks/useOutsideClick";
@@ -13,7 +14,6 @@ import {useOutsideClick} from "hooks/useOutsideClick";
 import {setAside} from "store/actions/asideAction";
 
 import style from './index.module.scss';
-
 
 const checkCmd = (data) => {
 	switch (data.meta.cmd) {
@@ -23,6 +23,8 @@ const checkCmd = (data) => {
 			return <ChangePassword data={data} />
 		case 'account-transfer-agent':
 			return <TransferAgent data={data} />
+		case 'account-new-agent':
+			return <NewAgent data={data} />
 		default:
 			return null
 	}

@@ -72,7 +72,7 @@
   "commission": "Commission UA",
   "taxes": "Taxes UA",
   "profit": "Profit UA",
-  "daily_reports": "Daily Reports UA",
+  "daily_sums": "Daily Sums UA",
   "timeframe": "Timeframe UA",
   "agent": "Agent UA",
   "new_agent": "New agent UA",
@@ -99,5 +99,9 @@
   "id": "ID UA",
   "user_profile": "User profile UA",
   "passwords_do_not_match": "Passwords do not match UA",
-  "password_must_length": "Password must be at least 3 characters long UA"
+  "password_must_length": "Password must be at least 3 characters long UA",
+  "add_agent": "Add agent UA",
+  "email": "Email UA",
+  "description": "Description UA",
+  "country": "Country UA"
 }

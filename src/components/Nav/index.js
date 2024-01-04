@@ -41,8 +41,8 @@ const Nav = () => {
 			active: false,
 			submenu: [
 				{
-					text: 'daily_reports',
-					link: '/daily-reports'
+					text: 'daily_sums',
+					link: '/daily-sums'
 				}
 			]
 		},
