@@ -77,7 +77,7 @@ const Tickets = () => {
 		}))
 	}
 	
-	const handleSubmit = (event, page) => {
+	const handleSubmit = (event) => {
 		event && event.preventDefault();
 		setLoading(true)
 		
@@ -107,27 +107,27 @@ const Tickets = () => {
 	const nextHandleSubmit = () => {
 		const next = pagination.page < pagination.pages ? pagination.page + 1 : pagination.pages
 		handlePagination('page', next)
-		handleSubmit(null, next)
+		handleSubmit(null)
 	}
 	
 	const prevHandleSubmit = () => {
 		const prev = pagination.page > 0 ? pagination.page - 1 : 0
 		handlePagination('page', prev)
-		handleSubmit(null, prev)
+		handleSubmit(null)
 	}
 	
 	const startHandlerSubmit = () => {
 		handlePagination('page', 0)
-		handleSubmit(null, 0)
+		handleSubmit(null)
 	}
 	
 	const endHandlerSubmit = () => {
 		handlePagination('page', pagination.pages)
-		handleSubmit(null, pagination.pages)
+		handleSubmit(null)
 	}
 	
 	useEffect(() => {
-		handleSubmit(null, pagination.page)
+		handleSubmit(null)
 	}, []);
 	
 	const config = [
