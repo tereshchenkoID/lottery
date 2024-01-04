@@ -3,18 +3,22 @@ import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
 
 import {setToastify} from "store/actions/toastifyAction";
+import {postData} from "helpers/api";
 
 import Field from "components/Field";
 import Button from "components/Button";
 
 import style from './index.module.scss';
+import {setAside} from "../../../store/actions/asideAction";
+
 
 const ChangePassword = ({data}) => {
 	const initialValue = {
 		'id': data.id,
 		'username': data.username,
-		'password': '',
-		'confirm-password': ''
+		'new-password': '',
+		'confirm-password': '',
+		'old-password': ''
 	}
 	
 	const dispatch = useDispatch()
@@ -35,13 +39,42 @@ const ChangePassword = ({data}) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		
-		if (filter['password'] !== filter['confirm-password']) {
+		if (filter['new-password'] !== filter['confirm-password']) {
 			dispatch(
 				setToastify({
 					type: 'error',
 					text: t('password_mismatch')
 				})
 			)
+		}
+		else {
+			const formData = new FormData();
+			formData.append('id', filter.id)
+			formData.append('username', filter.username)
+			formData.append('old-password', filter['old-password'])
+			formData.append('new-password', filter['new-password'])
+			
+			postData(`password/`, formData).then((json) => {
+				if (json.code === '0') {
+					dispatch(
+						setToastify({
+							type: 'success',
+							text: json.message
+						})
+					).then(() => {
+						handleResetForm()
+						dispatch(setAside(null))
+					})
+				}
+				else {
+					dispatch(
+						setToastify({
+							type: 'error',
+							text: json.error_message
+						})
+					)
+				}
+			})
 		}
 	}
 	
@@ -62,8 +95,8 @@ const ChangePassword = ({data}) => {
 			<Field
 				type={'password'}
 				placeholder={t('password')}
-				data={filter.password}
-				onChange={(value) => handlePropsChange('password', value)}
+				data={filter['new-password']}
+				onChange={(value) => handlePropsChange('new-password', value)}
 			/>
 			<Field
 				type={'password'}

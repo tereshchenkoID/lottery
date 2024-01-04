@@ -7,7 +7,6 @@ import Paper from "components/Paper";
 import Button from "components/Button";
 
 import {setToastify} from "store/actions/toastifyAction";
-
 import {postData} from "helpers/api";
 
 import style from './index.module.scss';
@@ -90,8 +89,8 @@ const Settings = () => {
     return (
 		<div className={style.block}>
 			<Paper headline={t('user_profile')}>
-				<pre>{JSON.stringify(filter, null, 2)}</pre>
-				<br />
+				{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
+				{/*<br />*/}
 				<form
 					onSubmit={handleSubmit}
 					className={style.form}
