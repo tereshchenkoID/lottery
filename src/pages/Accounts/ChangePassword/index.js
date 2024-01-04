@@ -3,14 +3,13 @@ import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
 
 import {setToastify} from "store/actions/toastifyAction";
+import {setAside} from "store/actions/asideAction";
 import {postData} from "helpers/api";
 
 import Field from "components/Field";
 import Button from "components/Button";
 
 import style from './index.module.scss';
-import {setAside} from "../../../store/actions/asideAction";
-
 
 const ChangePassword = ({data}) => {
 	const initialValue = {
@@ -83,8 +82,6 @@ const ChangePassword = ({data}) => {
 			className={style.block}
 			onSubmit={handleSubmit}
 		>
-			<pre>{JSON.stringify(filter, null, 2)}</pre>
-			<br />
 			<Field
 				type={'text'}
 				placeholder={t('username')}

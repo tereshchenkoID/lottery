@@ -32,10 +32,6 @@ const Nav = () => {
 				{
 					text: 'tickets',
 					link: '/tickets'
-				},
-				{
-					text: 'daily_reports',
-					link: '/daily-reports'
 				}
 			]
 		},
@@ -43,7 +39,12 @@ const Nav = () => {
 			text: 'financial',
 			icon: 'fa-solid fa-credit-card',
 			active: false,
-			submenu: []
+			submenu: [
+				{
+					text: 'daily_reports',
+					link: '/daily-reports'
+				}
+			]
 		},
 		{
 			text: 'account',

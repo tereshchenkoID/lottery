@@ -10,7 +10,7 @@
 .wrapper {
 	@include make-spacer(pl, 10px);
 
-	background-color: rgba(43, 115, 179, 0.1);
+	background-color: var(--color-primary-01);
 }
 
 .overflow {
@@ -51,7 +51,7 @@
 	}
 
 	&.active {
-		background-color: rgba(43, 115, 179, 0.5);
+		background-color: var(--color-primary-05);
 	}
 
 	&.wide {
