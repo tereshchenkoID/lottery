@@ -100,9 +100,14 @@
   "user_profile": "User profile UA",
   "passwords_do_not_match": "Passwords do not match UA",
   "password_must_length": "Password must be at least 3 characters long UA",
-  "add_agent": "Add agent UA",
+  "add": "Add UA",
+  "new": "New UA",
+  "create": "Create UA",
   "email": "Email UA",
   "description": "Description UA",
   "country": "Country UA",
-  "generate_password": "Generate password UA"
+  "generate_password": "Generate password UA",
+  "children_creation_allowed": "Children Creation Allowed UA",
+  "web_players_allowed": "Web Players Allowed UA",
+  "web_player_url": "Web player URL UA"
 }

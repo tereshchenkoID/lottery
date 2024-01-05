@@ -100,9 +100,14 @@
   "user_profile": "User profile",
   "passwords_do_not_match": "Passwords do not match",
   "password_must_length": "Password must be at least 3 characters long",
-  "add_agent": "Add agent",
+  "add": "Add",
+  "new": "New",
+  "create": "Create",
   "email": "Email",
   "description": "Description",
   "country": "Country",
-  "generate_password": "Generate password"
+  "generate_password": "Generate password",
+  "children_creation_allowed": "Children Creation Allowed",
+  "web_players_allowed": "Web Players Allowed",
+  "web_player_url": "Web player URL"
 }

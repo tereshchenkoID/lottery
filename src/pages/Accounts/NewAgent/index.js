@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {service} from "constant/config";
 
 import {setToastify} from "store/actions/toastifyAction";
+import {convertOptions} from "helpers/convertOptions";
 
 import Field from "components/Field";
 import Button from "components/Button";
@@ -13,6 +14,8 @@ import Textarea from "components/Textarea";
 import GeneratePassword from "modules/GeneratePassword";
 
 import style from './index.module.scss';
+import {config} from "@fortawesome/fontawesome-svg-core";
+
 
 const NewAgent = ({data}) => {
 	const dispatch = useDispatch()
@@ -20,6 +23,8 @@ const NewAgent = ({data}) => {
 	const {settings} = useSelector((state) => state.settings)
 	
 	const initialValue = {
+		'parent_id': data.id,
+		'parent_username': data.username,
 		'username': '',
 		'new-password': '',
 		'confirm-password': '',
@@ -28,6 +33,9 @@ const NewAgent = ({data}) => {
 		'description': '',
 		'country': '',
 		'currency': '',
+		// 'children_creation_allowed': '',
+		// 'web_players_allowed': '',
+		// 'web_player_url': ''
 	}
 	const [filter, setFilter] = useState(initialValue)
 	
@@ -51,8 +59,8 @@ const NewAgent = ({data}) => {
 			className={style.block}
 			onSubmit={handleSubmit}
 		>
-			{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-			{/*<br />*/}
+			<pre>{JSON.stringify(filter, null, 2)}</pre>
+			<br />
 			<Field
 				type={'text'}
 				placeholder={t('username')}
@@ -99,10 +107,9 @@ const NewAgent = ({data}) => {
 			<Select
 				placeholder={t('country')}
 				options={
-					service.COUNTRIES.map(country => ({
-						value: country,
-						label: country
-					}))
+					Object.entries(service.COUNTRIES).map(([key, value]) => {
+						return { value: key, label: value }
+					})
 				}
 				data={filter.country}
 				onChange={(value) => handlePropsChange('country', value)}
@@ -118,11 +125,34 @@ const NewAgent = ({data}) => {
 				data={filter.currency}
 				onChange={(value) => handlePropsChange('currency', value)}
 			/>
+			{
+				data.type === service.TYPE.AGENT &&
+				<>
+					<Select
+						placeholder={t('children_creation_allowed')}
+						options={convertOptions(service.TRUE_FALSE)}
+						data={filter['children_creation_allowed']}
+						onChange={(value) => handlePropsChange('children_creation_allowed', value)}
+					/>
+					<Select
+						placeholder={t('web_players_allowed')}
+						options={convertOptions(service.TRUE_FALSE)}
+						data={filter['web_players_allowed']}
+						onChange={(value) => handlePropsChange('web_players_allowed', value)}
+					/>
+					<Field
+						type={'text'}
+						placeholder={t('web_player_url')}
+						data={filter['web_player_url']}
+						onChange={(value) => handlePropsChange('web_player_url', value)}
+					/>
+				</>
+			}
 			<div className={style.actions}>
 				<Button
 					type={'submit'}
 					classes={'primary'}
-					placeholder={t("save")}
+					placeholder={t("create")}
 				/>
 				<Button
 					type={'reset'}

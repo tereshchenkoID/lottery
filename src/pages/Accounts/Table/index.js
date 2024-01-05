@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-import {locked} from "constant/config";
+import {locked, service} from "constant/config";
 
 import classNames from "classnames";
 
@@ -57,14 +57,15 @@ const Option = ({
 		}))
 	}
 	
-	const handleNewAgent = (e, value) => {
+	const handleNewAgent = (e, type) => {
 		dispatch(setAside({
 			meta: {
-				title: t('add_agent'),
+				title: `${t('new')} ${t(type)}`,
 				cmd: 'account-new-agent',
 				buttonRef: e.target,
 			},
-			...value || data,
+			type: type,
+			...data,
 		}))
 	}
 	
@@ -147,7 +148,7 @@ const Option = ({
 				<div className={style.cell}>
 					<Icon
 						icon={'fa-add'}
-						action={(e) => handleNewAgent(e)}
+						action={(e) => handleNewAgent(e, service.TYPE.AGENT)}
 					/>
 					<Icon icon={'fa-pencil'}/>
 					<Icon
@@ -199,7 +200,7 @@ const Option = ({
 									<div className={style.cell}>
 										<Icon
 											icon={'fa-add'}
-											action={(e) => handleNewAgent(e)}
+											action={(e) => handleNewAgent(e, service.TYPE.SHOP)}
 										/>
 									</div>
 								</div>
