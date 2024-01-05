@@ -103,5 +103,6 @@
   "add_agent": "Add agent UA",
   "email": "Email UA",
   "description": "Description UA",
-  "country": "Country UA"
+  "country": "Country UA",
+  "generate_password": "Generate password UA"
 }

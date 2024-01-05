@@ -5,11 +5,13 @@ import {useDispatch, useSelector} from "react-redux";
 import Field from "components/Field";
 import Paper from "components/Paper";
 import Button from "components/Button";
+import GeneratePassword from "modules/GeneratePassword";
 
 import {setToastify} from "store/actions/toastifyAction";
 import {postData} from "helpers/api";
 
 import style from './index.module.scss';
+
 
 const Settings = () => {
 	const dispatch = useDispatch()
@@ -120,6 +122,11 @@ const Settings = () => {
 						onChange={(value) => handlePropsChange('confirm-password', value)}
 					/>
 					<div className={style.actions}>
+						<GeneratePassword
+							data={filter}
+							action={setFilter}
+							list={['new-password', 'confirm-password']}
+						/>
 						<Button
 							type={'submit'}
 							classes={'primary'}

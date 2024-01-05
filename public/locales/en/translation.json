@@ -103,5 +103,6 @@
   "add_agent": "Add agent",
   "email": "Email",
   "description": "Description",
-  "country": "Country"
+  "country": "Country",
+  "generate_password": "Generate password"
 }

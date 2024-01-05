@@ -6,6 +6,7 @@ import {setToastify} from "store/actions/toastifyAction";
 import {setAside} from "store/actions/asideAction";
 import {postData} from "helpers/api";
 
+import GeneratePassword from "modules/GeneratePassword";
 import Field from "components/Field";
 import Button from "components/Button";
 
@@ -91,7 +92,7 @@ const ChangePassword = ({data}) => {
 			/>
 			<Field
 				type={'password'}
-				placeholder={t('password')}
+				placeholder={t('new_password')}
 				data={filter['new-password']}
 				onChange={(value) => handlePropsChange('new-password', value)}
 			/>
@@ -101,6 +102,13 @@ const ChangePassword = ({data}) => {
 				data={filter['confirm-password']}
 				onChange={(value) => handlePropsChange('confirm-password', value)}
 			/>
+			<div className={style.actions}>
+				<GeneratePassword
+					data={filter}
+					action={setFilter}
+					list={['new-password', 'confirm-password']}
+				/>
+			</div>
 			<div className={style.actions}>
 				<Button
 					type={'submit'}

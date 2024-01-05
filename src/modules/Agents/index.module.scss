@@ -21,7 +21,6 @@
 	border-radius: var(--default-border-radius);
 	border: rem(1px) solid var(--color-border);
 	overflow: hidden;
-	font-weight: var(--typography-thin);
 	text-align: left;
 
 	&::after {
@@ -78,7 +77,6 @@
 	color: var(--color-text);
 	font-family: var(--font-family);
 	font-size: var(--font-size);
-	font-weight: var(--typography-thin);
 
 	&:focus {
 		border-color: var(--color-primary);

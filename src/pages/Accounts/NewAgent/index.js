@@ -10,6 +10,7 @@ import Field from "components/Field";
 import Button from "components/Button";
 import Select from "components/Select";
 import Textarea from "components/Textarea";
+import GeneratePassword from "modules/GeneratePassword";
 
 import style from './index.module.scss';
 
@@ -70,6 +71,13 @@ const NewAgent = ({data}) => {
 				data={filter['confirm-password']}
 				onChange={(value) => handlePropsChange('confirm-password', value)}
 			/>
+			<div className={style.actions}>
+				<GeneratePassword
+					data={filter}
+					action={setFilter}
+					list={['new-password', 'confirm-password']}
+				/>
+			</div>
 			<Field
 				type={'text'}
 				placeholder={t('full_name')}
