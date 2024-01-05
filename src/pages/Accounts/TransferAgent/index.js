@@ -2,8 +2,11 @@ import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 
+import {service} from "constant/config";
+
 import {setToastify} from "store/actions/toastifyAction";
 import {setAside} from "store/actions/asideAction";
+import {setCmd} from "store/actions/cmdAction";
 import {postData} from "helpers/api";
 
 import Field from "components/Field";
@@ -16,7 +19,6 @@ const TransferAgent = ({data}) => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const {agents} = useSelector((state) => state.agents)
-	
 	
 	const initialValue = {
 		'id': data.id,
@@ -49,7 +51,6 @@ const TransferAgent = ({data}) => {
 		formData.append('new-username', filter.agent.username)
 		
 		postData(`transfer/`, formData).then((json) => {
-			console.log(json)
 			if (json.code === '0') {
 				dispatch(
 					setToastify({
@@ -59,6 +60,10 @@ const TransferAgent = ({data}) => {
 				).then(() => {
 					handleResetForm()
 					dispatch(setAside(null))
+					dispatch(setCmd({
+						message: service.MESSAGE.ACCOUNTS.TRANSFER,
+						data: filter
+					}))
 				})
 			}
 			else {

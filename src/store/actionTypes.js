@@ -10,4 +10,6 @@ export const types = {
 	GET_AGENTS: 		'GET_AGENTS',
 	SET_AUTH: 			'SET_AUTH',
 	GET_AUTH: 			'GET_AUTH',
+	SET_CMD: 			'SET_CMD',
+	GET_CMD: 			'GET_CMD',
 };

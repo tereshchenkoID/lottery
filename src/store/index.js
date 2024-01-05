@@ -6,6 +6,7 @@ import toastifyReducer from "./reducers/toastifyReducer";
 import asideReducer from "./reducers/asideReducer";
 import agentsReducer from "./reducers/agentsReducer";
 import authReducer from "./reducers/authReducer";
+import cmdReducer from "./reducers/cmdReducer";
 
 const allReducer = combineReducers({
 	settings: 	settingsReducer,
@@ -13,6 +14,7 @@ const allReducer = combineReducers({
 	aside: 		asideReducer,
 	agents: 	agentsReducer,
 	auth: 		authReducer,
+	cmd: 		cmdReducer,
 });
 
 const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;

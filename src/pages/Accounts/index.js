@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
-import {locked} from "constant/config";
+import {locked, service} from "constant/config";
 
+import {setCmd} from "store/actions/cmdAction";
+import {setAgents} from "store/actions/agentsAction";
 import {convertOptions} from "helpers/convertOptions";
 import {getData, postData} from "helpers/api";
 
@@ -54,6 +56,8 @@ const Accounts = () => {
 	const { t } = useTranslation()
 	const {agents} = useSelector((state) => state.agents)
 	const {settings} = useSelector((state) => state.settings)
+	const {cmd} = useSelector((state) => state.cmd)
+	const dispatch = useDispatch()
 	
 	const initialValue = {
 		'agent': {
@@ -97,6 +101,34 @@ const Accounts = () => {
 	useEffect(() => {
 		handleInit()
 	}, [])
+	
+	useEffect(() => {
+		// TODO Not working params
+		if (cmd) {
+			if (cmd.message === service.MESSAGE.ACCOUNTS.TRANSFER) {
+				handlePropsChange('agent', {
+					id: cmd.data.agent.id,
+					username: cmd.data.agent.username
+				})
+				
+				dispatch(setAgents()).then(() => {
+					handleSubmit(null)
+					dispatch(setCmd(null))
+				})
+			}
+			else if (cmd.message === service.MESSAGE.ACCOUNTS.ADD) {
+				handlePropsChange('agent', {
+					id: cmd.data.parent_id,
+					username: cmd.data.parent_username
+				})
+				
+				dispatch(setAgents()).then(() => {
+					handleSubmit(null)
+					dispatch(setCmd(null))
+				})
+			}
+		}
+	}, [cmd])
 	
 	const handleResetForm = () => {
 		setFilter(initialValue)

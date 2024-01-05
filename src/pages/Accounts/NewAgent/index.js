@@ -1,11 +1,13 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 
 import {service} from "constant/config";
 
 import {setToastify} from "store/actions/toastifyAction";
-import {convertOptions} from "helpers/convertOptions";
+import {setAside} from "store/actions/asideAction";
+import {setCmd} from "store/actions/cmdAction";
+import {postData} from "helpers/api";
 
 import Field from "components/Field";
 import Button from "components/Button";
@@ -14,8 +16,6 @@ import Textarea from "components/Textarea";
 import GeneratePassword from "modules/GeneratePassword";
 
 import style from './index.module.scss';
-import {config} from "@fortawesome/fontawesome-svg-core";
-
 
 const NewAgent = ({data}) => {
 	const dispatch = useDispatch()
@@ -38,6 +38,7 @@ const NewAgent = ({data}) => {
 		// 'web_player_url': ''
 	}
 	const [filter, setFilter] = useState(initialValue)
+	const [inherit, setInherit] = useState(null)
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
@@ -52,7 +53,75 @@ const NewAgent = ({data}) => {
 	
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		
+		if (filter['new-password'] !== filter['confirm-password']) {
+			dispatch(
+				setToastify({
+					type: 'error',
+					text: t('password_mismatch')
+				})
+			)
+		}
+		else {
+			const formData = new FormData();
+			Object.entries(filter).map(([key, value]) => {
+				formData.append(key, value)
+				return true
+			})
+			
+			postData(`new/${data.type.toLowerCase()}/`, formData).then((json) => {
+				if (json.status === 'OK') {
+					dispatch(
+						setToastify({
+							type: 'success',
+							text: json.message
+						})
+					).then(() => {
+						handleResetForm()
+						dispatch(setAside(null))
+						dispatch(setCmd({
+							message: service.MESSAGE.ACCOUNTS.ADD,
+							data: json.data
+						}))
+					})
+				}
+				else {
+					dispatch(
+						setToastify({
+							type: 'error',
+							text: json.error_message
+						})
+					)
+				}
+			})
+		}
 	}
+	
+	const handleInherit = () => {
+		const formData = new FormData();
+		formData.append('id', data.id)
+		formData.append('type', data.type.toLowerCase())
+		
+		postData(`inherit/`, formData).then((json) => {
+			if (json.status === 'OK') {
+				setInherit(json.data)
+				
+				initialValue.country = json.data.country
+				initialValue.currency = json.data.currency
+				initialValue.web_players_allowed = json.data.web_players_allowed
+				initialValue.children_creation_allowed = json.data.children_creation_allowed
+				
+				setFilter(() => initialValue)
+			}
+		})
+	}
+	
+	useEffect(() => {
+		handleInherit()
+	}, [])
+	
+	if (!inherit)
+		return
 	
 	return (
 		<form
@@ -108,6 +177,9 @@ const NewAgent = ({data}) => {
 				placeholder={t('country')}
 				options={
 					Object.entries(service.COUNTRIES).map(([key, value]) => {
+						if (inherit.country === key) {
+							return { value: key, label: `${t('inherit')} (${value})` }
+						}
 						return { value: key, label: value }
 					})
 				}
@@ -117,10 +189,12 @@ const NewAgent = ({data}) => {
 			<Select
 				placeholder={t('currency')}
 				options={
-					settings.currencies.map(currency => ({
-						value: currency,
-						label: currency
-					}))
+					settings.currencies.map(currency => {
+						if(currency === inherit.currency) {
+							return { value: currency, label: `${t('inherit')} (${currency})` }
+						}
+						return { value: currency, label: currency }
+					})
 				}
 				data={filter.currency}
 				onChange={(value) => handlePropsChange('currency', value)}
@@ -130,14 +204,28 @@ const NewAgent = ({data}) => {
 				<>
 					<Select
 						placeholder={t('children_creation_allowed')}
-						options={convertOptions(service.TRUE_FALSE)}
-						data={filter['children_creation_allowed']}
+						options={
+							Object.entries(service.YES_NO).map(([key, value]) => {
+								if (inherit['children_creation_allowed'] === key) {
+									return { value: key, label: `${t('inherit')} (${value})` }
+								}
+								return { value: key, label: value }
+							})
+						}
+						data={filter.children_creation_allowed}
 						onChange={(value) => handlePropsChange('children_creation_allowed', value)}
 					/>
 					<Select
 						placeholder={t('web_players_allowed')}
-						options={convertOptions(service.TRUE_FALSE)}
-						data={filter['web_players_allowed']}
+						options={
+							Object.entries(service.YES_NO).map(([key, value]) => {
+								if (inherit['web_players_allowed'] === key) {
+									return { value: key, label: `${t('inherit')} (${value})` }
+								}
+								return { value: key, label: value }
+							})
+						}
+						data={filter.web_players_allowed}
 						onChange={(value) => handlePropsChange('web_players_allowed', value)}
 					/>
 					<Field

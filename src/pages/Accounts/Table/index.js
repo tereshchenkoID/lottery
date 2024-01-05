@@ -112,13 +112,10 @@ const Option = ({
 				}
 			>
 				<div className={style.cell}>
-					{
-						(data.shops !== '0' || data.subclients !== '0') &&
-						<Dropdown
-							data={activeAccounts}
-							action={() => handleSubmitAccount(data)}
-						/>
-					}
+					<Dropdown
+						data={activeAccounts}
+						action={() => handleSubmitAccount(data)}
+					/>
 				</div>
 				{
 					config.map((key, value_idx) =>
@@ -165,94 +162,92 @@ const Option = ({
 				activeAccounts &&
 				<div className={style.wrapper}>
 					<div className={style.overflow}>
-						{
-							data.shops !== '0' &&
-							<>
-								<div
-									className={
-										classNames(
-											style.row,
-											style.sm,
-											activeShops && style.active
-										)
-									}
-								>
-									<div className={style.cell}>
-										<Dropdown
-											data={activeShops}
-											action={() => handleSubmitShops(data)}
+						<div
+							className={
+								classNames(
+									style.row,
+									style.sm,
+									activeShops && style.active
+								)
+							}
+						>
+							<div className={style.cell}>
+								{
+									data.shops !== '0' &&
+									<Dropdown
+										data={activeShops}
+										action={() => handleSubmitShops(data)}
+									/>
+								}
+							</div>
+							{
+								config_2.map((key, value) =>
+									<div
+										key={value}
+										className={style.cell}
+									>
+										<FontAwesomeIcon
+											icon="fa-solid fa-shop"
+											className={style.icon}
 										/>
+										{t('shops')} ({data[key.key]})
 									</div>
+								)
+							}
+							<div className={style.cell}>
+								<Icon
+									icon={'fa-add'}
+									action={(e) => handleNewAgent(e, service.TYPE.SHOP)}
+								/>
+							</div>
+						</div>
+						{
+							activeShops &&
+							<div className={style.wrapper}>
+								<div className={style.overflow}>
 									{
-										config_2.map((key, value) =>
+										shops.map((el, idx) =>
 											<div
-												key={value}
-												className={style.cell}
+												key={idx}
+												className={style.row}
 											>
-												<FontAwesomeIcon
-													icon="fa-solid fa-shop"
-													className={style.icon}
-												/>
-												{t('shops')} ({data[key.key]})
+												<div className={style.cell} />
+												{
+													config.map((key, value_idx) =>
+														<div
+															key={value_idx}
+															className={style.cell}
+														>
+															{
+																(key.key !== 'commission' && key.key !== 'credits')
+																	?
+																	key.key === 'locked'
+																		?
+																		locked.LOCKED[el[key.key]]
+																		:
+																		el[key.key]
+																	:
+																	<ReadMore data={el[key.key]} />
+															}
+														</div>
+													)
+												}
+												<div className={style.cell}>
+													<Icon icon={'fa-pencil'}/>
+													<Icon
+														icon={'fa-lock'}
+														action={(e) => handleChangePassword(e, el)}
+													/>
+													<Icon
+														icon={'fa-exchange-alt'}
+														action={(e) => handleTransferAgent(e, el)}
+													/>
+												</div>
 											</div>
 										)
 									}
-									<div className={style.cell}>
-										<Icon
-											icon={'fa-add'}
-											action={(e) => handleNewAgent(e, service.TYPE.SHOP)}
-										/>
-									</div>
 								</div>
-								{
-									activeShops &&
-									<div className={style.wrapper}>
-										<div className={style.overflow}>
-											{
-												shops.map((el, idx) =>
-													<div
-														key={idx}
-														className={style.row}
-													>
-														<div className={style.cell} />
-														{
-															config.map((key, value_idx) =>
-																<div
-																	key={value_idx}
-																	className={style.cell}
-																>
-																	{
-																		(key.key !== 'commission' && key.key !== 'credits')
-																			?
-																				key.key === 'locked'
-																					?
-																						locked.LOCKED[el[key.key]]
-																					:
-																						el[key.key]
-																			:
-																				<ReadMore data={el[key.key]} />
-																	}
-																</div>
-															)
-														}
-														<div className={style.cell}>
-															<Icon icon={'fa-pencil'}/>
-															<Icon
-																icon={'fa-lock'}
-																action={(e) => handleChangePassword(e, el)}
-															/>
-															<Icon
-																icon={'fa-exchange-alt'}
-																action={(e) => handleTransferAgent(e, el)}
-															/>
-														</div>
-													</div>
-												)
-											}
-										</div>
-									</div>
-								}
-							</>
+							</div>
 						}
 						<Tree
 							t={t}

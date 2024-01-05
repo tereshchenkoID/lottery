@@ -109,5 +109,6 @@
   "generate_password": "Generate password",
   "children_creation_allowed": "Children Creation Allowed",
   "web_players_allowed": "Web Players Allowed",
-  "web_player_url": "Web player URL"
+  "web_player_url": "Web player URL",
+  "inherit": "Inherit"
 }
