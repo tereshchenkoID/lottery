@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-import {locked, service} from "constant/config";
+import {types, service} from "constant/config";
 
 import classNames from "classnames";
 
@@ -31,7 +31,6 @@ const Option = ({
 	const dispatch = useDispatch()
 	const [table, setTable] = useState(null)
 	const [shops, setShops] = useState(null)
-	
 	const [activeAccounts, setActiveAccounts] = useState(false)
 	const [activeShops, setActiveShops] = useState(false)
 	
@@ -54,6 +53,18 @@ const Option = ({
 				buttonRef: e.target,
 			},
 			...value || data,
+		}))
+	}
+	
+	const handleEditAgent = (e, type) => {
+		dispatch(setAside({
+			meta: {
+				title: `${t('edit')} ${t(type)}`,
+				cmd: 'account-edit-agent',
+				buttonRef: e.target,
+			},
+			type: type,
+			...data,
 		}))
 	}
 	
@@ -128,7 +139,7 @@ const Option = ({
 									?
 										key.key === 'locked'
 											?
-												locked.LOCKED[data[key.key]]
+												service.YES_NO[data[key.key]]
 											:
 												data[key.key]
 									:
@@ -145,16 +156,23 @@ const Option = ({
 				<div className={style.cell}>
 					<Icon
 						icon={'fa-add'}
-						action={(e) => handleNewAgent(e, service.TYPE.AGENT)}
+						action={(e) => handleNewAgent(e, types.TYPE[0])}
+						alt={"add_agent"}
 					/>
-					<Icon icon={'fa-pencil'}/>
+					<Icon
+						icon={'fa-pencil'}
+						action={(e) => handleEditAgent(e, types.TYPE[0])}
+						alt={'edit_agent'}
+					/>
 					<Icon
 						icon={'fa-lock'}
 						action={(e) => handleChangePassword(e)}
+						alt={'change_password'}
 					/>
 					<Icon
 						icon={'fa-exchange-alt'}
 						action={(e) => handleTransferAgent(e)}
+						alt={'transfer_agent'}
 					/>
 				</div>
 			</div>
@@ -197,7 +215,7 @@ const Option = ({
 							<div className={style.cell}>
 								<Icon
 									icon={'fa-add'}
-									action={(e) => handleNewAgent(e, service.TYPE.SHOP)}
+									action={(e) => handleNewAgent(e, types.TYPE[1])}
 								/>
 							</div>
 						</div>
@@ -223,9 +241,9 @@ const Option = ({
 																	?
 																	key.key === 'locked'
 																		?
-																		locked.LOCKED[el[key.key]]
+																			service.YES_NO[el[key.key]]
 																		:
-																		el[key.key]
+																			el[key.key]
 																	:
 																	<ReadMore data={el[key.key]} />
 															}
@@ -233,7 +251,10 @@ const Option = ({
 													)
 												}
 												<div className={style.cell}>
-													<Icon icon={'fa-pencil'}/>
+													<Icon
+														icon={'fa-pencil'}
+														action={(e) => handleEditAgent(e, el)}
+													/>
 													<Icon
 														icon={'fa-lock'}
 														action={(e) => handleChangePassword(e, el)}

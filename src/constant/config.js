@@ -21,6 +21,11 @@ export const statuses = {
 }
 
 export const types = {
+	TYPE: {
+		0: 'AGENT',
+		1: 'SHOP'
+	},
+	
 	PLAYER_TYPE: {
 		0: 'ANY',
 		1: 'SHOP',
@@ -41,11 +46,17 @@ export const timeframe = {
 	}
 }
 
-export const locked = {
-	LOCKED: {
-		0: 'NO',
-		1: 'YES',
-	}
+export const modes = {
+	STAKE_MODE: {
+		0: 'PER BET',
+		1: 'PER GROUP'
+	},
+	
+	PRINTING_MODE: {
+		0: 'POS',
+		1: 'WEB PRINT',
+		2: 'Disabled'
+	},
 }
 
 export const service = {
@@ -61,9 +72,9 @@ export const service = {
 		1: 'YES',
 	},
 	
-	TYPE: {
-		AGENT: 'AGENT',
-		SHOP: 'SHOP'
+	ENABLE_DISABLE: {
+		0: 'ENABLE',
+		1: 'DISABLE',
 	},
 	
 	COUNTRIES: {

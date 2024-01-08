@@ -6,7 +6,7 @@ import classNames from "classnames";
 
 import style from './index.module.scss';
 
-const Dropdown = ({calculate, data, action}) => {
+const Dropdown = ({data, disabled, action}) => {
 	const { t } = useTranslation()
 	
 	return (
@@ -15,7 +15,7 @@ const Dropdown = ({calculate, data, action}) => {
 				classNames(
 					style.block,
 					data && style.active,
-					calculate && style.disabled,
+					disabled && style.disabled,
 				)
 			}
 			type={'button'}

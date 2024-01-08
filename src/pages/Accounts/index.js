@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 
-import {locked, service} from "constant/config";
+import {service} from "constant/config";
 
 import {setCmd} from "store/actions/cmdAction";
 import {setAgents} from "store/actions/agentsAction";
@@ -165,7 +165,7 @@ const Accounts = () => {
 										<div>
 											<Select
 												placeholder={t('locked')}
-												options={convertOptions(locked.LOCKED)}
+												options={convertOptions(service.YES_NO)}
 												data={filter.locked}
 												onChange={(value) => handlePropsChange('locked', value)}
 											/>

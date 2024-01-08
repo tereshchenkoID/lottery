@@ -6,6 +6,7 @@ import classNames from "classnames";
 import TicketPrint from "pages/Tickets/TicketPrint";
 import TransferAgent from "pages/Accounts/TransferAgent";
 import ChangePassword from "pages/Accounts/ChangePassword";
+import EditAgent from "pages/Accounts/EditAgent";
 import NewAgent from "pages/Accounts/NewAgent";
 import Paper from "components/Paper";
 
@@ -25,6 +26,8 @@ const checkCmd = (data) => {
 			return <TransferAgent data={data} />
 		case 'account-new-agent':
 			return <NewAgent data={data} />
+		case 'account-edit-agent':
+			return <EditAgent data={data}/>
 		default:
 			return null
 	}

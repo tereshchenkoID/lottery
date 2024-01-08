@@ -13,22 +13,20 @@ import Field from "components/Field";
 import Button from "components/Button";
 import Select from "components/Select";
 import Textarea from "components/Textarea";
-import GeneratePassword from "modules/GeneratePassword";
 
 import style from './index.module.scss';
 
-const NewAgent = ({data}) => {
-	const dispatch = useDispatch()
+const General = ({data}) => {
 	const { t } = useTranslation()
+	const dispatch = useDispatch()
 	const {settings} = useSelector((state) => state.settings)
 	
+	console.log(data)
+	
 	const initialValue = {
-		'parent_id': data.id,
-		'parent_username': data.username,
-		'username': '',
-		'new-password': '',
-		'confirm-password': '',
-		'full-name': '',
+		'id': data.id,
+		'username': data.username,
+		'full-name': data.full_name,
 		'email': '',
 		'description': '',
 		'country': '',
@@ -54,47 +52,37 @@ const NewAgent = ({data}) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		
-		if (filter['new-password'] !== filter['confirm-password']) {
-			dispatch(
-				setToastify({
-					type: 'error',
-					text: t('password_mismatch')
-				})
-			)
-		}
-		else {
-			const formData = new FormData();
-			Object.entries(filter).map(([key, value]) => {
-				formData.append(key, value)
-				return true
-			})
-			
-			postData(`new/${data.type.toLowerCase()}/`, formData).then((json) => {
-				if (json.status === 'OK') {
-					dispatch(
-						setToastify({
-							type: 'success',
-							text: json.message
-						})
-					).then(() => {
-						handleResetForm()
-						dispatch(setAside(null))
-						dispatch(setCmd({
-							message: service.MESSAGE.ACCOUNTS.ADD,
-							data: json.data
-						}))
+		const formData = new FormData();
+		Object.entries(filter).map(([key, value]) => {
+			formData.append(key, value)
+			return true
+		})
+		
+		postData(`new/${data.type.toLowerCase()}/`, formData).then((json) => {
+			if (json.status === 'OK') {
+				dispatch(
+					setToastify({
+						type: 'success',
+						text: json.message
 					})
-				}
-				else {
-					dispatch(
-						setToastify({
-							type: 'error',
-							text: json.error_message
-						})
-					)
-				}
-			})
-		}
+				).then(() => {
+					handleResetForm()
+					dispatch(setAside(null))
+					dispatch(setCmd({
+						message: service.MESSAGE.ACCOUNTS.ADD,
+						data: json.data
+					}))
+				})
+			}
+			else {
+				dispatch(
+					setToastify({
+						type: 'error',
+						text: json.error_message
+					})
+				)
+			}
+		})
 	}
 	
 	const handleInherit = () => {
@@ -106,10 +94,10 @@ const NewAgent = ({data}) => {
 			if (json.status === 'OK') {
 				setInherit(json.data)
 				
-				initialValue.country = json.data.country
-				initialValue.currency = json.data.currency
-				initialValue.web_players_allowed = json.data.web_players_allowed
-				initialValue.children_creation_allowed = json.data.children_creation_allowed
+				initialValue.country = data.country || json.data.country
+				initialValue.currency = data.currency || json.data.currency
+				initialValue.web_players_allowed = data.web_players_allowed || json.data.web_players_allowed
+				initialValue.children_creation_allowed = data.children_creation_allowed || json.data.children_creation_allowed
 				
 				setFilter(() => initialValue)
 			}
@@ -128,36 +116,15 @@ const NewAgent = ({data}) => {
 			className={style.block}
 			onSubmit={handleSubmit}
 		>
-			{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-			{/*<br />*/}
+			<pre>{JSON.stringify(filter, null, 2)}</pre>
+			<br />
 			<Field
 				type={'text'}
 				placeholder={t('username')}
 				data={filter.username}
 				onChange={(value) => handlePropsChange('username', value)}
-				required={true}
+				classes={'disabled'}
 			/>
-			<Field
-				type={'password'}
-				placeholder={t('password')}
-				data={filter['new-password']}
-				onChange={(value) => handlePropsChange('new-password', value)}
-				required={true}
-			/>
-			<Field
-				type={'password'}
-				placeholder={t('confirm_password')}
-				data={filter['confirm-password']}
-				onChange={(value) => handlePropsChange('confirm-password', value)}
-				required={true}
-			/>
-			<div className={style.actions}>
-				<GeneratePassword
-					data={filter}
-					action={setFilter}
-					list={['new-password', 'confirm-password']}
-				/>
-			</div>
 			<Field
 				type={'text'}
 				placeholder={t('full_name')}
@@ -243,7 +210,7 @@ const NewAgent = ({data}) => {
 				<Button
 					type={'submit'}
 					classes={'primary'}
-					placeholder={t("create")}
+					placeholder={t("save")}
 				/>
 				<Button
 					type={'reset'}
@@ -255,4 +222,4 @@ const NewAgent = ({data}) => {
     );
 }
 
-export default NewAgent;
+export default General;

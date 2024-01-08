@@ -12,6 +12,7 @@ const Field = ({
 	data,
 	onChange,
 	classes= null,
+	required = false
 }) => {
 	const [show, setShow] = useState(false)
 	const inputRef = useRef(null)
@@ -34,17 +35,21 @@ const Field = ({
 				ref={inputRef}
 				className={style.input}
 				type={show ? 'text' : type}
-				// defaultValue={data}
 				value={data}
 				onChange={(e) => {
 					onChange(e.currentTarget.value)
 				}}
+				required={required}
 			/>
 			<label
 				className={style.label}
 				onClick={onFocus}
 			>
 				{placeholder}
+				{
+					required &&
+					<span>*</span>
+				}
 			</label>
 			{
 				type === 'password' &&

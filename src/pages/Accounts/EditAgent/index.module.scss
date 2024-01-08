@@ -1,0 +1,52 @@
+@import "scss/config";
+
+.block {
+	position: relative;
+}
+
+.header {
+	@include flex(null, center);
+
+	border-bottom: rem(1px) solid var(--color-border);
+	height: rem(40px);
+}
+
+.link {
+	@include make-spacer(px, 10px);
+	@include flex(center, center);
+
+	position: relative;
+	font-size: rem(14px);
+	text-transform: uppercase;
+	min-width: rem(80px);
+	height: 100%;
+
+	&::after {
+		@include transition(width);
+		@include size(0, rem(2px));
+
+		position: absolute;
+		bottom: rem(-1px);
+		left: 0;
+		right: 0;
+		background-color: var(--color-primary);
+		content: '';
+	}
+
+	&.active,
+	&:hover {
+
+		&::after {
+			width: 100%;
+		}
+	}
+
+	&.active {
+		pointer-events: none;
+		color: var(--color-primary);
+	}
+}
+
+.body {
+	@include make-spacer(pt, 20px);
+}

@@ -8,7 +8,8 @@ import style from './index.module.scss';
 const Icon = ({
 	icon,
 	action,
-	disabled = false
+	disabled = false,
+	alt,
 }) => {
 	const { t } = useTranslation()
 	
@@ -21,7 +22,7 @@ const Icon = ({
 				)
 		}
 			onClick={action}
-			title={t('add')}
+			title={t(alt || 'add')}
 		>
 			<FontAwesomeIcon
 				icon={`fa-solid ${icon}`}

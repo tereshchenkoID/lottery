@@ -171,8 +171,8 @@ const Ticket = ({
 			>
 				<div className={style.cell}>
 					<Dropdown
-						calculate={calculate}
 						data={active}
+						disabled={calculate}
 						action={() => {
 							handleDetails()
 						}}

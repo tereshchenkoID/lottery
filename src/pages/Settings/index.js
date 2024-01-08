@@ -102,24 +102,28 @@ const Settings = () => {
 						placeholder={t('username')}
 						data={filter.username}
 						classes={'disabled'}
+						required={true}
 					/>
 					<Field
 						type={'password'}
 						placeholder={t('old_password')}
 						data={filter['old-password']}
 						onChange={(value) => handlePropsChange('old-password', value)}
+						required={true}
 					/>
 					<Field
 						type={'password'}
 						placeholder={t('new_password')}
 						data={filter['new-password']}
 						onChange={(value) => handlePropsChange('new-password', value)}
+						required={true}
 					/>
 					<Field
 						type={'password'}
 						placeholder={t('confirm_password')}
 						data={filter['confirm-password']}
 						onChange={(value) => handlePropsChange('confirm-password', value)}
+						required={true}
 					/>
 					<div className={style.actions}>
 						<GeneratePassword

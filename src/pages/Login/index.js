@@ -75,12 +75,14 @@ const Login = () => {
 						placeholder={t('username')}
 						data={filter.username}
 						onChange={(value) => handlePropsChange('username', value)}
+						required={true}
 					/>
 					<Field
 						type={'password'}
 						placeholder={t('password')}
 						data={filter.password}
 						onChange={(value) => handlePropsChange('password', value)}
+						required={true}
 					/>
 					<div className={style.actions}>
 						<Button

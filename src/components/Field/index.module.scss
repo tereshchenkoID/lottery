@@ -31,9 +31,14 @@
 	left: rem(16px);
 	background-color: var(--color-white);
 	color: rgba(0, 0, 0, 0.8);
-
 	transform: translateY(rem(-23px));
 	font-size: rem(12px);
+
+	span {
+		@include make-spacer(ml, 3px);
+
+		color: var(--color-warning);
+	}
 }
 
 .eye {
