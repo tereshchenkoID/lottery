@@ -21,8 +21,6 @@ const General = ({data}) => {
 	const dispatch = useDispatch()
 	const {settings} = useSelector((state) => state.settings)
 	
-	console.log(data)
-	
 	const initialValue = {
 		'id': data.id,
 		'username': data.username,

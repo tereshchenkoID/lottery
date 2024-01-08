@@ -123,6 +123,7 @@
   "printing_mode": "Printing mode",
   "general": "General",
   "logo": "Logo",
+  "print_logo": "Print logo",
   "min": "Min",
   "max": "Max",
   "stakes_settings": "Stakes Settings",
@@ -140,5 +141,7 @@
   "quick_stake_1": "Quick stake 1",
   "quick_stake_2": "Quick stake 2",
   "quick_stake_3": "Quick stake 3",
-  "quick_stake_4": "Quick stake 4"
+  "quick_stake_4": "Quick stake 4",
+  "remove": "Remove",
+  "upload": "Upload"
 }

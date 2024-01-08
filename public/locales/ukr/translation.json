@@ -123,6 +123,7 @@
   "printing_mode": "Printing mode UA",
   "general": "General UA",
   "logo": "Logo UA",
+  "print_logo": "Print logo UA",
   "min": "Min UA",
   "max": "Max UA",
   "stakes_settings": "Stakes Settings UA",
@@ -140,5 +141,7 @@
   "quick_stake_1": "Quick stake 1 UA",
   "quick_stake_2": "Quick stake 2 UA",
   "quick_stake_3": "Quick stake 3 UA",
-  "quick_stake_4": "Quick stake 4 UA"
+  "quick_stake_4": "Quick stake 4 UA",
+  "remove": "Remove UA",
+  "upload": "Upload UA"
 }
