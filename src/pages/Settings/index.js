@@ -12,7 +12,6 @@ import {postData} from "helpers/api";
 
 import style from './index.module.scss';
 
-
 const Settings = () => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()

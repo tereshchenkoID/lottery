@@ -20,6 +20,99 @@ import {convertOptions} from "helpers/convertOptions";
 
 import style from './index.module.scss';
 
+const config = [
+	{
+		key: 'ticketId',
+		text: 'ticket_id'
+	},
+	{
+		key: 'username',
+		text: 'shop'
+	},
+	{
+		key: 'game',
+		text: 'game_details'
+	},
+	{
+		key: 'status',
+		text: 'status'
+	},
+	{
+		key: 'currency',
+		text: 'currency'
+	},
+	{
+		key: 'payout',
+		text: 'payout'
+	},
+	{
+		key: 'stake',
+		text: 'sum_of_stakes'
+	},
+	{
+		key: 'bookTime',
+		text: 'finalized'
+	}
+]
+
+const config_2 = [
+	{
+		key: 'group',
+		text: 'gr'
+	},
+	{
+		key: 'combi',
+		text: 'combi'
+	},
+	{
+		key: 'amount',
+		text: 'stake'
+	},
+	{
+		key: 'minwin',
+		text: 'potential_min_win',
+	},
+	{
+		key: 'maxwin',
+		text: 'potential_max_min',
+	},
+	{
+		key: 'bonus',
+		text: 'bonus'
+	}
+]
+
+const config_3 = [
+	{
+		key: 'details.game',
+		text: 'game'
+	},
+	{
+		key: 'details.eventId',
+		text: 'event'
+	},
+	{
+		key: 'market',
+		text: 'type'
+	},
+	{
+		key: 'selection',
+		text: 'pick'
+	},
+	{
+		key: 'odds',
+		text: 'odds'
+	},
+	{
+		key: 'details.results',
+		text: 'results'
+	},
+	{
+		key: 'status',
+		text: 'state'
+	}
+]
+
 const Tickets = () => {
 	const initialValue = {
 		'ticket': '',
@@ -129,286 +222,189 @@ const Tickets = () => {
 	useEffect(() => {
 		handleSubmit(null)
 	}, []);
-	
-	const config = [
-		{
-			key: 'ticketId',
-			text: 'ticket_id'
-		},
-		{
-			key: 'username',
-			text: 'shop'
-		},
-		{
-			key: 'game',
-			text: 'game_details'
-		},
-		{
-			key: 'status',
-			text: 'status'
-		},
-		{
-			key: 'currency',
-			text: 'currency'
-		},
-		{
-			key: 'payout',
-			text: 'payout'
-		},
-		{
-			key: 'stake',
-			text: 'sum_of_stakes'
-		},
-		{
-			key: 'bookTime',
-			text: 'finalized'
-		}
-	]
-	
-	const config_2 = [
-		{
-			key: 'group',
-			text: 'gr'
-		},
-		{
-			key: 'combi',
-			text: 'combi'
-		},
-		{
-			key: 'amount',
-			text: 'stake'
-		},
-		{
-			key: 'minwin',
-			text: 'potential_min_win',
-		},
-		{
-			key: 'maxwin',
-			text: 'potential_max_min',
-		},
-		{
-			key: 'bonus',
-			text: 'bonus'
-		}
-	]
-	
-	const config_3 = [
-		{
-			key: 'details.game',
-			text: 'game'
-		},
-		{
-			key: 'details.eventId',
-			text: 'event'
-		},
-		{
-			key: 'market',
-			text: 'type'
-		},
-		{
-			key: 'selection',
-			text: 'pick'
-		},
-		{
-			key: 'odds',
-			text: 'odds'
-		},
-		{
-			key: 'details.results',
-			text: 'results'
-		},
-		{
-			key: 'status',
-			text: 'state'
-		}
-	]
 
     return (
-        <>
-			{
-				loading
-					?
-						<Loader />
-					:
-						<>
-							<Paper
-								headline={t('tickets_search')}
-								quantity={pagination.quantity}
-								setQuantity={setPagination}
-							>
-								{/*<pre>{pagination.quantity}</pre>*/}
-								{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-								{/*<br />*/}
-								<form onSubmit={handleSubmit}>
-									<div className={style.grid}>
-										<div>
-											<Field
-												type={'text'}
-												placeholder={t('ticket')}
-												data={filter.ticket}
-												onChange={(value) => handlePropsChange('ticket', value)}
-											/>
-										</div>
-										<div>
-											<Field
-												type={'text'}
-												placeholder={t('username')}
-												data={filter.username}
-												onChange={(value) => handlePropsChange('username', value)}
-											/>
-										</div>
-										<div>
-											<Select
-												placeholder={t('state')}
-												options={convertOptions(statuses.TICKET_STATUSES)}
-												data={filter.state}
-												onChange={(value) => handlePropsChange('state', value)}
-											/>
-										</div>
-										<div>
-											<Select
-												placeholder={t('player_type')}
-												options={convertOptions(types.PLAYER_TYPE)}
-												data={filter.type}
-												onChange={(value) => handlePropsChange('type', value)}
-											/>
-										</div>
-										<div>
-											<Field
-												type={'datetime-local'}
-												placeholder={t('date_from')}
-												data={filter["date-from"]}
-												onChange={(value) => handlePropsChange('date-from', value)}
-											/>
-										</div>
-										<div>
-											<Field
-												type={'datetime-local'}
-												placeholder={t('date_to')}
-												data={filter["date-to"]}
-												onChange={(value) => handlePropsChange('date-to', value)}
-											/>
-										</div>
-										<div>
-											<Field
-												type={'number'}
-												placeholder={t('amount_from')}
-												data={filter["amount-from"]}
-												onChange={(value) => handlePropsChange('amount-from', value)}
-											/>
-										</div>
-										<div>
-											<Field
-												type={'number'}
-												placeholder={t('amount_to')}
-												data={filter["amount-to"]}
-												onChange={(value) => handlePropsChange('amount-to', value)}
-											/>
-										</div>
-										<div>
-											<Select
-												placeholder={t('currency')}
-												options={
-													settings.currencies.map(currency => ({
-														value: currency,
-														label: currency
-													}))
-												}
-												data={filter["currency"]}
-												onChange={(value) => handlePropsChange('currency', value)}
-											/>
-										</div>
-										<div>
-											<Field
-												type={'number'}
-												placeholder={t('payout_from')}
-												data={filter['payout-from']}
-												onChange={(value) => handlePropsChange('payout-from', value)}
-											/>
-										</div>
-										<div>
-											<Field
-												type={'number'}
-												placeholder={t('payout_to')}
-												data={filter['payout-to']}
-												onChange={(value) => handlePropsChange('payout-to', value)}
-											/>
-										</div>
-									</div>
-									<div className={style.actions}>
-										<Button
-											type={'submit'}
-											classes={'primary'}
-											placeholder={t("search")}
-										/>
-										<Button
-											type={'reset'}
-											placeholder={t("cancel")}
-											onChange={handleResetForm}
-										/>
-									</div>
-								</form>
-							</Paper>
-							<Paper>
-								<Pagination
-									position={'top'}
-									pagination={pagination}
-									nextHandler={nextHandleSubmit}
-									prevHandler={prevHandleSubmit}
-									startHandlerSubmit={startHandlerSubmit}
-									endHandlerSubmit={endHandlerSubmit}
-								/>
-								<div className={style.table}>
-									<div className={style.row}>
-										<div className={style.cell} />
-										{
-											config.map((el, idx) =>
-												<div
-													key={idx}
-													className={style.cell}
-												>
-													{t(el.text)}
-												</div>
-											)
-										}
-										<div className={style.cell} />
-									</div>
-									{
-										data.data &&
-										data.data.length > 0
-											?
-												data.data.map((el, idx) =>
-													<div
-														className={style.ticket}
-														key={idx}
-													>
-														<Ticket
-															data={el}
-															action={setData}
-															config={config}
-															config_2={config_2}
-															config_3={config_3}
-														/>
-													</div>
-												)
-											:
-												<div className={style.ticket}>
-													<div className={style.empty}>{t('no_matching_records_found')}</div>
-												</div>
-									}
+		loading
+			?
+				<Loader />
+			:
+				<>
+					<Paper
+						headline={t('tickets_search')}
+						quantity={pagination.quantity}
+						setQuantity={setPagination}
+					>
+						{/*<pre>{pagination.quantity}</pre>*/}
+						{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
+						{/*<br />*/}
+						<form onSubmit={handleSubmit}>
+							<div className={style.grid}>
+								<div>
+									<Field
+										type={'text'}
+										placeholder={t('ticket')}
+										data={filter.ticket}
+										onChange={(value) => handlePropsChange('ticket', value)}
+									/>
 								</div>
-								<Pagination
-									position={'bottom'}
-									pagination={pagination}
-									nextHandler={nextHandleSubmit}
-									prevHandler={prevHandleSubmit}
-									startHandlerSubmit={startHandlerSubmit}
-									endHandlerSubmit={endHandlerSubmit}
+								<div>
+									<Field
+										type={'text'}
+										placeholder={t('username')}
+										data={filter.username}
+										onChange={(value) => handlePropsChange('username', value)}
+									/>
+								</div>
+								<div>
+									<Select
+										placeholder={t('state')}
+										options={convertOptions(statuses.TICKET_STATUSES)}
+										data={filter.state}
+										onChange={(value) => handlePropsChange('state', value)}
+									/>
+								</div>
+								<div>
+									<Select
+										placeholder={t('player_type')}
+										options={convertOptions(types.PLAYER_TYPE)}
+										data={filter.type}
+										onChange={(value) => handlePropsChange('type', value)}
+									/>
+								</div>
+								<div>
+									<Field
+										type={'datetime-local'}
+										placeholder={t('date_from')}
+										data={filter["date-from"]}
+										onChange={(value) => handlePropsChange('date-from', value)}
+									/>
+								</div>
+								<div>
+									<Field
+										type={'datetime-local'}
+										placeholder={t('date_to')}
+										data={filter["date-to"]}
+										onChange={(value) => handlePropsChange('date-to', value)}
+									/>
+								</div>
+								<div>
+									<Field
+										type={'number'}
+										placeholder={t('amount_from')}
+										data={filter["amount-from"]}
+										onChange={(value) => handlePropsChange('amount-from', value)}
+									/>
+								</div>
+								<div>
+									<Field
+										type={'number'}
+										placeholder={t('amount_to')}
+										data={filter["amount-to"]}
+										onChange={(value) => handlePropsChange('amount-to', value)}
+									/>
+								</div>
+								<div>
+									<Select
+										placeholder={t('currency')}
+										options={
+											settings.currencies.map(currency => ({
+												value: currency,
+												label: currency
+											}))
+										}
+										data={filter["currency"]}
+										onChange={(value) => handlePropsChange('currency', value)}
+									/>
+								</div>
+								<div>
+									<Field
+										type={'number'}
+										placeholder={t('payout_from')}
+										data={filter['payout-from']}
+										onChange={(value) => handlePropsChange('payout-from', value)}
+									/>
+								</div>
+								<div>
+									<Field
+										type={'number'}
+										placeholder={t('payout_to')}
+										data={filter['payout-to']}
+										onChange={(value) => handlePropsChange('payout-to', value)}
+									/>
+								</div>
+							</div>
+							<div className={style.actions}>
+								<Button
+									type={'submit'}
+									classes={'primary'}
+									placeholder={t("search")}
 								/>
-							</Paper>
-						</>
-			}
-        </>
+								<Button
+									type={'reset'}
+									placeholder={t("cancel")}
+									onChange={handleResetForm}
+								/>
+							</div>
+						</form>
+					</Paper>
+					<Paper>
+						<Pagination
+							position={'top'}
+							pagination={pagination}
+							nextHandler={nextHandleSubmit}
+							prevHandler={prevHandleSubmit}
+							startHandlerSubmit={startHandlerSubmit}
+							endHandlerSubmit={endHandlerSubmit}
+						/>
+						<div className={style.table}>
+							<div className={style.row}>
+								<div className={style.cell} />
+								{
+									config.map((el, idx) =>
+										<div
+											key={idx}
+											className={style.cell}
+										>
+											{t(el.text)}
+										</div>
+									)
+								}
+								<div className={style.cell} />
+							</div>
+							{
+								data.data &&
+								data.data.length > 0
+									?
+										data.data.map((el, idx) =>
+											<div
+												className={style.ticket}
+												key={idx}
+											>
+												<Ticket
+													data={el}
+													action={setData}
+													config={config}
+													config_2={config_2}
+													config_3={config_3}
+												/>
+											</div>
+										)
+									:
+										<div className={style.ticket}>
+											<div className={style.empty}>{t('no_matching_records_found')}</div>
+										</div>
+							}
+						</div>
+						<Pagination
+							position={'bottom'}
+							pagination={pagination}
+							nextHandler={nextHandleSubmit}
+							prevHandler={prevHandleSubmit}
+							startHandlerSubmit={startHandlerSubmit}
+							endHandlerSubmit={endHandlerSubmit}
+						/>
+					</Paper>
+				</>
     );
 }
 

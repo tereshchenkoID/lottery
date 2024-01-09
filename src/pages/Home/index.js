@@ -28,37 +28,33 @@ const Home = () => {
 	},[])
 
     return (
-		<>
-			{
-				loading
-					?
-						<Loader />
-					:
-						<>
-							<Header />
-							<Nav />
-							<Aside />
-							<main className={style.main}>
-								{
-									<Suspense fallback={<Loader />}>
-										<Routes>
-											{
-												router.map(item =>
-													<Route
-														key = {new Date().getTime()}
-														path = {item.path}
-														element = {item.element}
-													/>
-												)
-											}
-										</Routes>
-									</Suspense>
-								}
-							</main>
-						</>
-			}
-		</>
-    );
+		loading
+			?
+				<Loader />
+			:
+				<>
+					<Header />
+					<Nav />
+					<Aside />
+					<main className={style.main}>
+						{
+							<Suspense fallback={<Loader />}>
+								<Routes>
+									{
+										router.map(item =>
+											<Route
+												key = {new Date().getTime()}
+												path = {item.path}
+												element = {item.element}
+											/>
+										)
+									}
+								</Routes>
+							</Suspense>
+						}
+					</main>
+				</>
+    )
 }
 
 export default Home;

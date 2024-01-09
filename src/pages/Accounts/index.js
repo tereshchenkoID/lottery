@@ -143,73 +143,69 @@ const Accounts = () => {
 	}
 	
     return (
-		<>
-			{
-				loading
-					?
-						<Loader />
-					:
-						<>
-							<Paper headline={t('account_search')}>
-								{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-								{/*<br />*/}
-								<form onSubmit={handleSubmit}>
-									<div className={style.grid}>
-										<div>
-											<Agents
-												data={filter.agent}
-												options={agents}
-												onChange={(value) => handlePropsChange('agent', value)}
-											/>
-										</div>
-										<div>
-											<Select
-												placeholder={t('locked')}
-												options={convertOptions(service.YES_NO)}
-												data={filter.locked}
-												onChange={(value) => handlePropsChange('locked', value)}
-											/>
-										</div>
-										<div>
-											<Select
-												placeholder={t('currency')}
-												options={
-													settings.currencies.map(currency => ({
-														value: currency,
-														label: currency
-													}))
-												}
-												data={filter.currency}
-												onChange={(value) => handlePropsChange('currency', value)}
-											/>
-										</div>
-									</div>
-									<div className={style.actions}>
-										<Button
-											type={'submit'}
-											classes={'primary'}
-											placeholder={t("search")}
-										/>
-										<Button
-											type={'reset'}
-											placeholder={t("cancel")}
-											onChange={handleResetForm}
-										/>
-									</div>
-								</form>
-							</Paper>
-							<Paper>
-								<Table
-									data={data}
-									filter={filter}
-									config={config}
-									config_2={config_2}
-									handlePropsChange={handlePropsChange}
+		loading
+			?
+				<Loader />
+			:
+				<>
+					<Paper headline={t('account_search')}>
+						{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
+						{/*<br />*/}
+						<form onSubmit={handleSubmit}>
+							<div className={style.grid}>
+								<div>
+									<Agents
+										data={filter.agent}
+										options={agents}
+										onChange={(value) => handlePropsChange('agent', value)}
+									/>
+								</div>
+								<div>
+									<Select
+										placeholder={t('locked')}
+										options={convertOptions(service.YES_NO)}
+										data={filter.locked}
+										onChange={(value) => handlePropsChange('locked', value)}
+									/>
+								</div>
+								<div>
+									<Select
+										placeholder={t('currency')}
+										options={
+											settings.currencies.map(currency => ({
+												value: currency,
+												label: currency
+											}))
+										}
+										data={filter.currency}
+										onChange={(value) => handlePropsChange('currency', value)}
+									/>
+								</div>
+							</div>
+							<div className={style.actions}>
+								<Button
+									type={'submit'}
+									classes={'primary'}
+									placeholder={t("search")}
 								/>
-							</Paper>
-						</>
-			}
-        </>
+								<Button
+									type={'reset'}
+									placeholder={t("cancel")}
+									onChange={handleResetForm}
+								/>
+							</div>
+						</form>
+					</Paper>
+					<Paper>
+						<Table
+							data={data}
+							filter={filter}
+							config={config}
+							config_2={config_2}
+							handlePropsChange={handlePropsChange}
+						/>
+					</Paper>
+				</>
     );
 }
 

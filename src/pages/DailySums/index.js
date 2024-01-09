@@ -12,10 +12,10 @@ import Button from "components/Button";
 import Loader from "components/Loader";
 import Table from "./Table";
 
-import {postData} from "helpers/api";
-import {convertOptions} from "helpers/convertOptions";
-import {getDate} from "helpers/getDate";
 import {getTimeframeFrom, getTimeframeTo} from "helpers/getTimeframe";
+import {convertOptions} from "helpers/convertOptions";
+import {postData} from "helpers/api";
+import {getDate} from "helpers/getDate";
 
 import style from './index.module.scss';
 
@@ -145,80 +145,76 @@ const DailyReports = () => {
 	}
 
     return (
-        <>
-			{
-				loading
-					?
-						<Loader />
-					:
-						<>
-							<Paper headline={t('daily_overview_report')}>
-								{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-								{/*<br />*/}
-								<form onSubmit={handleSubmit}>
-									<div className={style.grid}>
-										<div>
-											<Agents
-												data={filter.agent}
-												options={agents}
-												onChange={(value) => handlePropsChange('agent', value)}
-											/>
-										</div>
-										<div>
-											<Select
-												placeholder={t('timeframe')}
-												options={convertOptions(timeframe.TIMEFRAME)}
-												data={filter.timeframe}
-												onChange={(value) => {
-													handlePropsChange('timeframe', value)
-													handlePropsChange('date-from', getTimeframeFrom(value, 'datetime-local'))
-													handlePropsChange('date-to', getTimeframeTo(value, 'datetime-local'))
-												}}
-											/>
-										</div>
-										<div>
-											<Field
-												type={'datetime-local'}
-												placeholder={t('date_from')}
-												data={filter["date-from"]}
-												onChange={(value) => handlePropsChange('date-from', value)}
-											/>
-										</div>
-										<div>
-											<Field
-												type={'datetime-local'}
-												placeholder={t('date_to')}
-												data={filter["date-to"]}
-												onChange={(value) => handlePropsChange('date-to', value)}
-											/>
-										</div>
-									</div>
-									<div className={style.actions}>
-										<Button
-											type={'submit'}
-											classes={'primary'}
-											placeholder={t("search")}
-										/>
-										<Button
-											type={'reset'}
-											placeholder={t("cancel")}
-											onChange={handleResetForm}
-										/>
-									</div>
-								</form>
-							</Paper>
-							<Paper>
-								<Table
-									config={config}
-									config_2={config_2}
-									data={data}
-									filter={filter}
-									handlePropsChange={handlePropsChange}
+		loading
+			?
+				<Loader />
+			:
+				<>
+					<Paper headline={t('daily_overview_report')}>
+						{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
+						{/*<br />*/}
+						<form onSubmit={handleSubmit}>
+							<div className={style.grid}>
+								<div>
+									<Agents
+										data={filter.agent}
+										options={agents}
+										onChange={(value) => handlePropsChange('agent', value)}
+									/>
+								</div>
+								<div>
+									<Select
+										placeholder={t('timeframe')}
+										options={convertOptions(timeframe.TIMEFRAME)}
+										data={filter.timeframe}
+										onChange={(value) => {
+											handlePropsChange('timeframe', value)
+											handlePropsChange('date-from', getTimeframeFrom(value, 'datetime-local'))
+											handlePropsChange('date-to', getTimeframeTo(value, 'datetime-local'))
+										}}
+									/>
+								</div>
+								<div>
+									<Field
+										type={'datetime-local'}
+										placeholder={t('date_from')}
+										data={filter["date-from"]}
+										onChange={(value) => handlePropsChange('date-from', value)}
+									/>
+								</div>
+								<div>
+									<Field
+										type={'datetime-local'}
+										placeholder={t('date_to')}
+										data={filter["date-to"]}
+										onChange={(value) => handlePropsChange('date-to', value)}
+									/>
+								</div>
+							</div>
+							<div className={style.actions}>
+								<Button
+									type={'submit'}
+									classes={'primary'}
+									placeholder={t("search")}
 								/>
-							</Paper>
-						</>
-			}
-        </>
+								<Button
+									type={'reset'}
+									placeholder={t("cancel")}
+									onChange={handleResetForm}
+								/>
+							</div>
+						</form>
+					</Paper>
+					<Paper>
+						<Table
+							config={config}
+							config_2={config_2}
+							data={data}
+							filter={filter}
+							handlePropsChange={handlePropsChange}
+						/>
+					</Paper>
+				</>
     );
 }
 

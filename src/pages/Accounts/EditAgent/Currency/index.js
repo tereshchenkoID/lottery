@@ -153,8 +153,8 @@ const Currency = ({data}) => {
 				)
 			}
 			</div>
-			{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-			{/*<br />*/}
+			<pre>{JSON.stringify(filter, null, 2)}</pre>
+			<br />
 			{
 				Object.entries(filter).map(([key, value]) =>
 					<div
@@ -190,7 +190,7 @@ const Currency = ({data}) => {
 														<Select
 															placeholder={t(key_g)}
 															options={convertOptions(modes.STAKE_MODE)}
-															data={value_g.value}
+															data={value_g}
 															onChange={(value) => handlePropsChange(key, null, key_g, value)}
 														/>
 													:
