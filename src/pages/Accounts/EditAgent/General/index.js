@@ -6,7 +6,6 @@ import {types, service} from "constant/config";
 
 import {setToastify} from "store/actions/toastifyAction";
 import {setAside} from "store/actions/asideAction";
-import {setCmd} from "store/actions/cmdAction";
 import {postData} from "helpers/api";
 
 import Field from "components/Field";
@@ -22,8 +21,6 @@ const General = ({data}) => {
 	const {settings} = useSelector((state) => state.settings)
 	
 	const initialValue = {
-		'id': data.id,
-		'username': data.username,
 		'full-name': data.full_name || '',
 		'email': data.email || '',
 		'description': data.description || '',
@@ -50,7 +47,10 @@ const General = ({data}) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		
-		const formData = new FormData();
+		const formData = new FormData()
+		formData.append('id', data.id)
+		formData.append('username', data.username)
+		
 		Object.entries(filter).map(([key, value]) => {
 			formData.append(key, value)
 			return true
@@ -66,10 +66,6 @@ const General = ({data}) => {
 				).then(() => {
 					handleResetForm()
 					dispatch(setAside(null))
-					dispatch(setCmd({
-						message: service.MESSAGE.ACCOUNTS.ADD,
-						data: json.data
-					}))
 				})
 			}
 			else {
@@ -119,7 +115,7 @@ const General = ({data}) => {
 			<Field
 				type={'text'}
 				placeholder={t('username')}
-				data={filter.username}
+				data={data.username}
 				onChange={(value) => handlePropsChange('username', value)}
 				classes={'disabled'}
 			/>

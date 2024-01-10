@@ -59,7 +59,38 @@ export const modes = {
 	},
 }
 
+export const ticket = {
+	PAYOUT: {
+		0: 'AFTER SCAN',
+		1: 'IMMEDIATELY',
+		2: 'IMMEDIATELY TO WALLET'
+	}
+}
+
 export const service = {
+	GAMES: {
+		0: 'Basketball league',
+		1: 'Bingo',
+		2: 'Camels 6',
+		3: 'Camels 8',
+		4: 'Car Racing 6',
+		5: 'Car Racing 8',
+		6: 'Dogs 6 VR',
+		7: 'Dogs 8',
+		8: 'Dogs 8 VR',
+		9: 'Football',
+		10: 'Football cup',
+		11: 'Horses 6',
+		12: 'Horses 6 VR',
+		13: 'Horses 8',
+		14: 'Horses 8 VR',
+		15: 'Speedway',
+		16: 'Spin&Win',
+		17: 'Spin&Win Deluxe',
+		18: 'Tennis',
+		19: 'Turbo football'
+	},
+	
 	MESSAGE: {
 		ACCOUNTS: {
 			ADD: 'add',

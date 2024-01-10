@@ -4,11 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
-import {modes, service} from "constant/config";
+import {modes} from "constant/config";
 
 import {setToastify} from "store/actions/toastifyAction";
 import {setAside} from "store/actions/asideAction";
-import {setCmd} from "store/actions/cmdAction";
 
 import {convertOptions} from "helpers/convertOptions";
 import {postData} from "helpers/api";
@@ -110,10 +109,6 @@ const Currency = ({data}) => {
 				).then(() => {
 					handleResetForm()
 					dispatch(setAside(null))
-					dispatch(setCmd({
-						message: service.MESSAGE.ACCOUNTS.ADD,
-						data: json.data
-					}))
 				})
 			}
 			else {

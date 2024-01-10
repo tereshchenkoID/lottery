@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch} from "react-redux";
 
-import {modes, service} from "constant/config";
+import {service, ticket} from "constant/config";
 
 import {setToastify} from "store/actions/toastifyAction";
 import {setAside} from "store/actions/asideAction";
@@ -12,22 +12,25 @@ import {postData} from "helpers/api";
 
 import Button from "components/Button";
 import Select from "components/Select";
-import Textarea from "components/Textarea";
 
 import style from './index.module.scss';
 
-const General = ({data}) => {
+const Business = ({data}) => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 	
 	const initialValue = {
-		'language': '',
-		'tv_skin': '',
-		'cashier_skin': '',
-		'ticket_text': '',
-		'cashier_text': '',
-		'print_cancel_tickets': '',
-		'printing_mode': '',
+		'ticket_payout': '',
+		'payout_tickets': '',
+		'cancel_tickets': '',
+		'validate_tickets': '',
+		'reprint_tickets': '',
+		'web_viewer': '',
+		'settlement': '',
+		'password_change': '',
+		'financial_reports': '',
+		'hide_ticket_number': '',
+		'tax_model': '',
 	}
 	const [filter, setFilter] = useState(initialValue)
 	
@@ -54,7 +57,7 @@ const General = ({data}) => {
 			return true
 		})
 		
-		postData(`new/${data.type.toLowerCase()}/`, formData).then((json) => {
+		postData('', formData).then((json) => {
 			if (json.status === 'OK') {
 				dispatch(
 					setToastify({
@@ -76,7 +79,7 @@ const General = ({data}) => {
 			}
 		})
 	}
-
+	
 	return (
 		<form
 			className={style.block}
@@ -84,40 +87,16 @@ const General = ({data}) => {
 		>
 			<pre>{JSON.stringify(filter, null, 2)}</pre>
 			<br />
-			<Select
-				placeholder={t('language')}
-				options={
-					Object.entries(service.COUNTRIES).map(([key, value]) => {
-						return { value: key, label: value }
-					})
-				}
-				data={filter.language}
-				onChange={(value) => handlePropsChange('language', value)}
-			/>
-			<Textarea
-				placeholder={t('ticket_text')}
-				data={filter.ticket_text}
-				onChange={(value) => handlePropsChange('ticket_text', value)}
-				classes={'lg'}
-			/>
-			<Textarea
-				placeholder={t('cashier_text')}
-				data={filter.cashier_text}
-				onChange={(value) => handlePropsChange('cashier_text', value)}
-				classes={'lg'}
-			/>
-			<Select
-				placeholder={t('print_cancel_tickets')}
-				options={convertOptions(service.ENABLE_DISABLE)}
-				data={filter.print_cancel_tickets}
-				onChange={(value) => handlePropsChange('print_cancel_tickets', value)}
-			/>
-			<Select
-				placeholder={t('printing_mode')}
-				options={convertOptions(modes.PRINTING_MODE)}
-				data={filter.printing_mode}
-				onChange={(value) => handlePropsChange('printing_mode', value)}
-			/>
+			{
+				Object.entries(filter).map(([key, value]) =>
+					<Select
+						placeholder={t(key)}
+						options={convertOptions(key === 'ticket_payout' ? ticket.PAYOUT : service.ENABLE_DISABLE)}
+						data={value}
+						onChange={(value) => handlePropsChange(key, value)}
+					/>
+				)
+			}
 			<div className={style.actions}>
 				<Button
 					type={'submit'}
@@ -134,4 +113,4 @@ const General = ({data}) => {
     );
 }
 
-export default General;
+export default Business;

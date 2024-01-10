@@ -5,8 +5,10 @@ import classNames from "classnames";
 
 import {postData} from "helpers/api";
 
+import Business from "./Business";
 import Currency from "./Currency";
 import General from "./General";
+import Jackpot from "./Jackpot";
 import Shop from "./Shop";
 import Logo from "./Logo";
 
@@ -22,6 +24,10 @@ const getContent = (active, data) => {
 			return <Logo data={data} />
 		case 3:
 			return <Currency data={data} />
+		case 4:
+			return <Business data={data} />
+		case 5:
+			return <Jackpot data={data} />
 		default:
 			return null
 	}
@@ -29,7 +35,7 @@ const getContent = (active, data) => {
 
 const EditAgent = ({data}) => {
 	const { t } = useTranslation()
-	const [active, setActive] = useState(0)
+	const [active, setActive] = useState(5)
 	const [info, setInfo] = useState(null)
 	const [loading, setLoading] = useState(true)
 	
@@ -97,11 +103,34 @@ const EditAgent = ({data}) => {
 				>
 					{t('currency')}
 				</button>
+				<button
+					className={
+						classNames(
+							style.link,
+							active === 4 && style.active,
+						)
+					}
+					onClick={() => setActive(4)}
+				>
+					{t('business')}
+				</button>
+				<button
+					className={
+						classNames(
+							style.link,
+							active === 5 && style.active,
+						)
+					}
+					onClick={() => setActive(5)}
+				>
+					{t('jackpot')}
+				</button>
 			</div>
 			<div className={style.body}>
 				{
 					!loading &&
-					getContent(active,
+					getContent(
+						active,
 						{
 							...info,
 							type: data.type

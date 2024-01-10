@@ -145,5 +145,18 @@
   "remove": "Remove",
   "upload": "Upload",
   "general_overview": "General overview",
-  "general_overview_report": "General overview report"
+  "general_overview_report": "General overview report",
+  "business": "Business",
+  "jackpot": "Jackpot",
+  "ticket_payout": "Ticket payout",
+  "payout_tickets": "Payout tickets",
+  "cancel_tickets": "Cancel tickets",
+  "validate_tickets": "Validate tickets",
+  "reprint_tickets": "Reprint tickets",
+  "web_viewer": "Web Viewer",
+  "settlement": "Settlement",
+  "password_change": "Password change",
+  "financial_reports": "Financial Reports",
+  "hide_ticket_number": "Hide ticket number",
+  "tax_model": "Tax model"
 }

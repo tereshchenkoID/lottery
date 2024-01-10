@@ -145,5 +145,18 @@
   "remove": "Remove UA",
   "upload": "Upload UA",
   "general_overview": "General overview UA",
-  "general_overview_report": "General overview report UA"
+  "general_overview_report": "General overview report UA",
+  "business": "Business UA",
+  "jackpot": "Jackpot UA",
+  "ticket_payout": "Ticket payout UA",
+  "payout_tickets": "Payout tickets UA",
+  "cancel_tickets": "Cancel tickets UA",
+  "validate_tickets": "Validate tickets UA",
+  "reprint_tickets": "Reprint tickets UA",
+  "web_viewer": "Web Viewer UA",
+  "settlement": "Settlement UA",
+  "password_change": "Password change UA",
+  "financial_reports": "Financial Reports UA",
+  "hide_ticket_number": "Hide ticket number UA",
+  "tax_model": "Tax model UA"
 }

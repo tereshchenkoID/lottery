@@ -6,7 +6,7 @@ const Button = ({
 	placeholder,
 	type = 'button',
 	classes = 'default',
-	onChange = () => {}
+	onChange
 }) => {
 	return (
         <button
