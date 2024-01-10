@@ -41,6 +41,10 @@ const Nav = () => {
 			active: false,
 			submenu: [
 				{
+					text: 'general_overview',
+					link: '/general-overview'
+				},
+				{
 					text: 'daily_sums',
 					link: '/daily-sums'
 				}

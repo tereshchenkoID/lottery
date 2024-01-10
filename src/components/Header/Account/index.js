@@ -20,7 +20,6 @@ const Account = () => {
 	const buttonRef = useRef(null)
 	const [active, setActive] = useState(false)
 	
-	
 	useOutsideClick(
 		blockRef,
 		() => {

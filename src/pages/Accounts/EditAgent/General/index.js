@@ -24,14 +24,14 @@ const General = ({data}) => {
 	const initialValue = {
 		'id': data.id,
 		'username': data.username,
-		'full-name': data.full_name,
-		'email': '',
-		'description': '',
-		'country': '',
-		'currency': '',
-		// 'children_creation_allowed': '',
-		// 'web_players_allowed': '',
-		// 'web_player_url': ''
+		'full-name': data.full_name || '',
+		'email': data.email || '',
+		'description': data.description || '',
+		'country': data.country || '',
+		'currency': data.currency || '',
+		'children_creation_allowed': data.children_creation_allowed || '',
+		'web_players_allowed': data.web_players_allowed || '',
+		'web_player_url': data.web_player_url || '',
 	}
 	const [filter, setFilter] = useState(initialValue)
 	const [inherit, setInherit] = useState(null)

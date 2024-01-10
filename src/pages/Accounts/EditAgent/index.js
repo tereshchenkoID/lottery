@@ -1,7 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
+
+import {postData} from "helpers/api";
 
 import Currency from "./Currency";
 import General from "./General";
@@ -27,7 +29,26 @@ const getContent = (active, data) => {
 
 const EditAgent = ({data}) => {
 	const { t } = useTranslation()
-	const [active, setActive] = useState(2)
+	const [active, setActive] = useState(0)
+	const [info, setInfo] = useState(null)
+	const [loading, setLoading] = useState(true)
+	
+	const handleSubmit = () => {
+		const formData = new FormData()
+		formData.append('id', data.id)
+		formData.append('username', data.username)
+		
+		postData('account_details/', formData).then((json) => {
+			if (json.status === 'OK') {
+				setInfo(json.data[0])
+				setLoading(false)
+			}
+		})
+	}
+	
+	useEffect(() => {
+		handleSubmit()
+	}, [])
 	
 	return (
 		<div className={style.block}>
@@ -78,7 +99,15 @@ const EditAgent = ({data}) => {
 				</button>
 			</div>
 			<div className={style.body}>
-				{getContent(active, data)}
+				{
+					!loading &&
+					getContent(active,
+						{
+							...info,
+							type: data.type
+						}
+					)
+				}
 			</div>
 		</div>
     );
