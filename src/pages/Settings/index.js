@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 
+import GeneratePassword from "modules/GeneratePassword";
 import Field from "components/Field";
 import Paper from "components/Paper";
 import Button from "components/Button";
-import GeneratePassword from "modules/GeneratePassword";
 
 import {setToastify} from "store/actions/toastifyAction";
 import {postData} from "helpers/api";
@@ -91,7 +91,6 @@ const Settings = () => {
 		<div className={style.block}>
 			<Paper headline={t('user_profile')}>
 				{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-				{/*<br />*/}
 				<form
 					onSubmit={handleSubmit}
 					className={style.form}
@@ -100,7 +99,7 @@ const Settings = () => {
 						type={'text'}
 						placeholder={t('username')}
 						data={filter.username}
-						classes={'disabled'}
+						classes={['disabled']}
 						required={true}
 					/>
 					<Field
@@ -130,6 +129,8 @@ const Settings = () => {
 							action={setFilter}
 							list={['new-password', 'confirm-password']}
 						/>
+					</div>
+					<div className={style.actions}>
 						<Button
 							type={'submit'}
 							classes={'primary'}
@@ -144,7 +145,7 @@ const Settings = () => {
 				</form>
 			</Paper>
 		</div>
-    );
+	);
 }
 
 export default Settings;
