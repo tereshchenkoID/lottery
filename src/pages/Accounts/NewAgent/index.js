@@ -174,7 +174,7 @@ const NewAgent = ({data}) => {
 				placeholder={t('description')}
 				data={filter.description}
 				onChange={(value) => handlePropsChange('description', value)}
-				classes={'lg'}
+				classes={['lg']}
 			/>
 			<Select
 				placeholder={t('country')}

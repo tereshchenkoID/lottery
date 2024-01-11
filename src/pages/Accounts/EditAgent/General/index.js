@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -12,26 +12,16 @@ import Field from "components/Field";
 import Button from "components/Button";
 import Select from "components/Select";
 import Textarea from "components/Textarea";
+import Checkbox from "components/Checkbox";
 
 import style from './index.module.scss';
 
-const General = ({data}) => {
+const General = ({data, inherit, setInherit}) => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 	const {settings} = useSelector((state) => state.settings)
-	
-	const initialValue = {
-		'full-name': data.full_name || '',
-		'email': data.email || '',
-		'description': data.description || '',
-		'country': data.country || '',
-		'currency': data.currency || '',
-		'children_creation_allowed': data.children_creation_allowed || '',
-		'web_players_allowed': data.web_players_allowed || '',
-		'web_player_url': data.web_player_url || '',
-	}
-	const [filter, setFilter] = useState(initialValue)
-	const [inherit, setInherit] = useState(null)
+	const [filter, setFilter] = useState(data.general)
+	const isDisabled = inherit === '1'
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
@@ -41,7 +31,7 @@ const General = ({data}) => {
 	}
 	
 	const handleResetForm = () => {
-		setFilter(initialValue)
+		setFilter(data.general)
 	}
 	
 	const handleSubmit = (e) => {
@@ -50,170 +40,166 @@ const General = ({data}) => {
 		const formData = new FormData()
 		formData.append('id', data.id)
 		formData.append('username', data.username)
+		formData.append('inherit', inherit)
 		
 		Object.entries(filter).map(([key, value]) => {
 			formData.append(key, value)
 			return true
 		})
 		
-		postData(`new/${data.type.toLowerCase()}/`, formData).then((json) => {
-			if (json.status === 'OK') {
-				dispatch(
-					setToastify({
-						type: 'success',
-						text: json.message
-					})
-				).then(() => {
-					handleResetForm()
-					dispatch(setAside(null))
-				})
-			}
-			else {
-				dispatch(
-					setToastify({
-						type: 'error',
-						text: json.error_message
-					})
-				)
-			}
-		})
+		// postData(`new/${data.type.toLowerCase()}/`, formData).then((json) => {
+		// 	if (json.status === 'OK') {
+		// 		dispatch(
+		// 			setToastify({
+		// 				type: 'success',
+		// 				text: json.message
+		// 			})
+		// 		).then(() => {
+		// 			handleResetForm()
+		// 			dispatch(setAside(null))
+		// 		})
+		// 	}
+		// 	else {
+		// 		dispatch(
+		// 			setToastify({
+		// 				type: 'error',
+		// 				text: json.error_message
+		// 			})
+		// 		)
+		// 	}
+		// })
 	}
-	
-	const handleInherit = () => {
-		const formData = new FormData();
-		formData.append('id', data.id)
-		formData.append('type', data.type.toLowerCase())
-		
-		postData(`inherit/`, formData).then((json) => {
-			if (json.status === 'OK') {
-				setInherit(json.data)
-				
-				initialValue.country = data.country || json.data.country
-				initialValue.currency = data.currency || json.data.currency
-				initialValue.web_players_allowed = data.web_players_allowed || json.data.web_players_allowed
-				initialValue.children_creation_allowed = data.children_creation_allowed || json.data.children_creation_allowed
-				
-				setFilter(() => initialValue)
-			}
-		})
-	}
-	
-	useEffect(() => {
-		handleInherit()
-	}, [])
-	
-	if (!inherit)
-		return
 	
 	return (
-		<form
-			className={style.block}
-			onSubmit={handleSubmit}
-		>
-			<pre>{JSON.stringify(filter, null, 2)}</pre>
-			<br />
-			<Field
-				type={'text'}
-				placeholder={t('username')}
-				data={data.username}
-				onChange={(value) => handlePropsChange('username', value)}
-				classes={'disabled'}
+		<>
+			<Checkbox
+				data={inherit}
+				onChange={(value) => {
+					setInherit(value)
+					setFilter(data.shop)
+				}}
+				placeholder={t('inherit')}
 			/>
-			<Field
-				type={'text'}
-				placeholder={t('full_name')}
-				data={filter['full-name']}
-				onChange={(value) => handlePropsChange('full-name', value)}
-			/>
-			<Field
-				type={'email'}
-				placeholder={t('email')}
-				data={filter.email}
-				onChange={(value) => handlePropsChange('email', value)}
-			/>
-			<Textarea
-				placeholder={t('description')}
-				data={filter.description}
-				onChange={(value) => handlePropsChange('description', value)}
-				classes={'lg'}
-			/>
-			<Select
-				placeholder={t('country')}
-				options={
-					Object.entries(service.COUNTRIES).map(([key, value]) => {
-						if (inherit.country === key) {
-							return { value: key, label: `${t('inherit')} (${value})` }
-						}
-						return { value: key, label: value }
-					})
-				}
-				data={filter.country}
-				onChange={(value) => handlePropsChange('country', value)}
-			/>
-			<Select
-				placeholder={t('currency')}
-				options={
-					settings.currencies.map(currency => {
-						if(currency === inherit.currency) {
-							return { value: currency, label: `${t('inherit')} (${currency})` }
-						}
-						return { value: currency, label: currency }
-					})
-				}
-				data={filter.currency}
-				onChange={(value) => handlePropsChange('currency', value)}
-			/>
-			{
-				data.type === types.TYPE[0] &&
-				<>
-					<Select
-						placeholder={t('children_creation_allowed')}
-						options={
-							Object.entries(service.YES_NO).map(([key, value]) => {
-								if (inherit['children_creation_allowed'] === key) {
-									return { value: key, label: `${t('inherit')} (${value})` }
-								}
-								return { value: key, label: value }
-							})
-						}
-						data={filter.children_creation_allowed}
-						onChange={(value) => handlePropsChange('children_creation_allowed', value)}
-					/>
-					<Select
-						placeholder={t('web_players_allowed')}
-						options={
-							Object.entries(service.YES_NO).map(([key, value]) => {
-								if (inherit['web_players_allowed'] === key) {
-									return { value: key, label: `${t('inherit')} (${value})` }
-								}
-								return { value: key, label: value }
-							})
-						}
-						data={filter.web_players_allowed}
-						onChange={(value) => handlePropsChange('web_players_allowed', value)}
-					/>
-					<Field
-						type={'text'}
-						placeholder={t('web_player_url')}
-						data={filter['web_player_url']}
-						onChange={(value) => handlePropsChange('web_player_url', value)}
-					/>
-				</>
-			}
-			<div className={style.actions}>
-				<Button
-					type={'submit'}
-					classes={'primary'}
-					placeholder={t("save")}
+			<form
+				className={style.block}
+				onSubmit={handleSubmit}
+			>
+				<pre>
+					{
+						JSON.stringify({
+							...filter,
+							inherit
+						}, null, 2)
+					}
+				</pre>
+				<Field
+					type={'text'}
+					placeholder={t('username')}
+					data={data.username}
+					onChange={(value) => handlePropsChange('username', value)}
+					classes={['disabled']}
 				/>
-				<Button
-					type={'reset'}
-					placeholder={t("cancel")}
-					onChange={handleResetForm}
+				<Field
+					type={'text'}
+					placeholder={t('full_name')}
+					data={filter.full_name}
+					onChange={(value) => handlePropsChange('full_name', value)}
+					classes={[isDisabled && 'disabled']}
 				/>
-			</div>
-		</form>
-    );
+				<Field
+					type={'email'}
+					placeholder={t('email')}
+					data={filter.email}
+					onChange={(value) => handlePropsChange('email', value)}
+					classes={[isDisabled && 'disabled']}
+				/>
+				<Textarea
+					placeholder={t('description')}
+					data={filter.description}
+					onChange={(value) => handlePropsChange('description', value)}
+					classes={[
+						'lg',
+						isDisabled && 'disabled'
+					]}
+				/>
+				<Select
+					placeholder={t('country')}
+					options={
+						Object.entries(service.COUNTRIES).map(([key, value]) => ({
+							value: key,
+							label: value
+						}))
+					}
+					data={filter.country}
+					onChange={(value) => handlePropsChange('country', value)}
+					classes={[isDisabled && 'disabled']}
+				/>
+				<Select
+					placeholder={t('currency')}
+					options={
+						settings.currencies.map(item => ({
+							value: item,
+							label: item
+						}))
+					}
+					data={filter.currency}
+					onChange={(value) => handlePropsChange('currency', value)}
+					classes={[isDisabled && 'disabled']}
+				/>
+				{
+					data.type === types.TYPE[0] &&
+					<>
+						<Select
+							placeholder={t('children_creation_allowed')}
+							options={
+								Object.entries(service.YES_NO).map(([key, value]) => ({
+									value: key,
+									label: value
+								}))
+							}
+							data={filter.children_creation_allowed}
+							onChange={(value) => handlePropsChange('children_creation_allowed', value)}
+							classes={[isDisabled && 'disabled']}
+						/>
+						<Select
+							placeholder={t('web_players_allowed')}
+							options={
+								Object.entries(service.YES_NO).map(([key, value]) => ({
+									value: key,
+									label: value
+								}))
+							}
+							data={filter.web_players_allowed}
+							onChange={(value) => handlePropsChange('web_players_allowed', value)}
+							classes={[isDisabled && 'disabled']}
+						/>
+						<Field
+							type={'text'}
+							placeholder={t('web_player_url')}
+							data={filter.web_player_url}
+							onChange={(value) => handlePropsChange('web_player_url', value)}
+							classes={[isDisabled && 'disabled']}
+						/>
+					</>
+				}
+				{
+					!isDisabled &&
+					<div className={style.actions}>
+						<Button
+							type={'submit'}
+							classes={'primary'}
+							placeholder={t("save")}
+						/>
+						<Button
+							type={'reset'}
+							placeholder={t("cancel")}
+							onChange={handleResetForm}
+						/>
+					</div>
+				}
+			</form>
+		</>
+	);
 }
 
 export default General;

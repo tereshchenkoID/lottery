@@ -89,7 +89,7 @@ const TransferAgent = ({data}) => {
 				placeholder={t('username')}
 				data={filter.username}
 				onChange={(value) => handlePropsChange('username', value)}
-				classes={'disabled'}
+				classes={['disabled']}
 			/>
 			<Agents
 				data={filter.agent}

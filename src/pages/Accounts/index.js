@@ -103,7 +103,6 @@ const Accounts = () => {
 	}, [])
 	
 	useEffect(() => {
-		// TODO Not working params
 		if (cmd) {
 			if (cmd.message === service.MESSAGE.ACCOUNTS.TRANSFER) {
 				handlePropsChange('agent', {

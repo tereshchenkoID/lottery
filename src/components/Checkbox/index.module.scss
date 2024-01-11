@@ -2,7 +2,7 @@
 
 .block {
 	@include flex($align-items: center);
-	@include make-spacer(pl, 25px);
+	@include make-spacer(pl, 30px);
 
 	position: relative;
 	cursor: pointer;
@@ -37,8 +37,4 @@
 	border-radius: var(--default-border-radius);
 	background-color: var(--color-border);
 	border: rem(1px) solid var(--color-border);
-}
-
-.label {
-	font-size: rem(14px);
 }

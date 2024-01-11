@@ -193,7 +193,7 @@ const Ticket = ({
 													options={convertOptions(statuses.TICKET_STATUSES)}
 													data={data[el.key]}
 													onChange={(value) => handleChange(data, el.key, value)}
-													classes={'sm'}
+													classes={['sm']}
 												/>
 											:
 												statuses.TICKET_STATUSES[data[el.key]]
@@ -319,7 +319,7 @@ const Ticket = ({
 													<Textarea
 														data={el.details.results.join(' - ')}
 														onChange={(value) => handleChange(el.details, 'results', value.replaceAll(' ', '').split('-'))}
-														classes={'sm'}
+														classes={['sm']}
 													/>
 												:
 													el.details.results.join(' - ')
@@ -333,7 +333,7 @@ const Ticket = ({
 														options={convertOptions(statuses.STAKE_STATUSES)}
 														data={el.status}
 														onChange={(value) => handleChange(el, 'status', value)}
-														classes={'sm'}
+														classes={['sm']}
 													/>
 												:
 													statuses.STAKE_STATUSES[el.status]

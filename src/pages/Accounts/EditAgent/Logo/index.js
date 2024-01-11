@@ -4,17 +4,14 @@ import {useTranslation} from "react-i18next";
 import File from "components/File";
 import Label from "components/Label";
 import Button from "components/Button";
+import Checkbox from "components/Checkbox";
 
 import style from './index.module.scss';
 
-const Logo = ({data}) => {
+const Logo = ({data, inherit, setInherit}) => {
 	const { t } = useTranslation()
-	const initialValue = {
-		'logo': null,
-		'print_logo': null
-	}
-	
-	const [filter, setFilter] = useState(initialValue)
+	const [filter, setFilter] = useState(data.logo)
+	const isDisabled = inherit === '1'
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
@@ -23,49 +20,70 @@ const Logo = ({data}) => {
 		}))
 	}
 	
+	const handleResetForm = () => {
+		setFilter(data.logo)
+	}
+	
 	const handleSubmit = (e) => {
 		e.preventDefault()
 	}
 	
-	const handleResetForm = () => {
-		setFilter(initialValue)
-	}
-	
 	return (
-		<form
-			className={style.block}
-			onSubmit={handleSubmit}
-		>
-			<pre>{JSON.stringify(filter, null, 2)}</pre>
-			<br />
-			<div>
-				<Label placeholder={t('logo')} />
-				<File
-					data={filter.logo}
-					onChange={(value) => handlePropsChange('logo', value)}
-				/>
-			</div>
-			<div>
-				<Label placeholder={t('print_logo')} />
-				<File
-					data={filter.print_logo}
-					onChange={(value) => handlePropsChange('print_logo', value)}
-				/>
-			</div>
-			<div className={style.actions}>
-				<Button
-					type={'submit'}
-					classes={'primary'}
-					placeholder={t("save")}
-				/>
-				<Button
-					type={'reset'}
-					placeholder={t("cancel")}
-					onChange={handleResetForm}
-				/>
-			</div>
-		</form>
-    );
+		<>
+			<Checkbox
+				data={inherit}
+				onChange={(value) => {
+					setInherit(value)
+					setFilter(data.logo)
+				}}
+				placeholder={t('inherit')}
+			/>
+			<form
+				className={style.block}
+				onSubmit={handleSubmit}
+			>
+				<pre>
+					{
+						JSON.stringify({
+							...filter,
+							inherit
+						}, null, 2)
+					}
+				</pre>
+				<div>
+					<Label placeholder={t('logo')}/>
+					<File
+						data={filter.main}
+						onChange={(value) => handlePropsChange('main', value)}
+						classes={[isDisabled && 'disabled']}
+					/>
+				</div>
+				<div>
+					<Label placeholder={t('print_logo')}/>
+					<File
+						data={filter.print}
+						onChange={(value) => handlePropsChange('print', value)}
+						classes={[isDisabled && 'disabled']}
+					/>
+				</div>
+				{
+					!isDisabled &&
+					<div className={style.actions}>
+						<Button
+							type={'submit'}
+							classes={'primary'}
+							placeholder={t("save")}
+						/>
+						<Button
+							type={'reset'}
+							placeholder={t("cancel")}
+							onChange={handleResetForm}
+						/>
+					</div>
+				}
+			</form>
+		</>
+	);
 }
 
 export default Logo;

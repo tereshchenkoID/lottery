@@ -4,32 +4,21 @@ import {useDispatch} from "react-redux";
 
 import {modes, service} from "constant/config";
 
-import {setToastify} from "store/actions/toastifyAction";
-import {setAside} from "store/actions/asideAction";
-
 import {convertOptions} from "helpers/convertOptions";
 import {postData} from "helpers/api";
 
 import Button from "components/Button";
 import Select from "components/Select";
 import Textarea from "components/Textarea";
+import Checkbox from "components/Checkbox";
 
 import style from './index.module.scss';
 
-const General = ({data}) => {
+const Shop = ({data, inherit, setInherit}) => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	
-	const initialValue = {
-		'language': '',
-		'tv_skin': '',
-		'cashier_skin': '',
-		'ticket_text': '',
-		'cashier_text': '',
-		'print_cancel_tickets': '',
-		'printing_mode': '',
-	}
-	const [filter, setFilter] = useState(initialValue)
+	const [filter, setFilter] = useState(data.shop)
+	const isDisabled = inherit === '1'
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
@@ -39,7 +28,7 @@ const General = ({data}) => {
 	}
 	
 	const handleResetForm = () => {
-		setFilter(initialValue)
+		setFilter(data.shop)
 	}
 	
 	const handleSubmit = (e) => {
@@ -48,90 +37,93 @@ const General = ({data}) => {
 		const formData = new FormData();
 		formData.append('id', data.id)
 		formData.append('username', data.username)
-		
-		Object.entries(filter).map(([key, value]) => {
-			formData.append(key, value)
-			return true
-		})
-		
-		postData(`new/${data.type.toLowerCase()}/`, formData).then((json) => {
-			if (json.status === 'OK') {
-				dispatch(
-					setToastify({
-						type: 'success',
-						text: json.message
-					})
-				).then(() => {
-					handleResetForm()
-					dispatch(setAside(null))
-				})
-			}
-			else {
-				dispatch(
-					setToastify({
-						type: 'error',
-						text: json.error_message
-					})
-				)
-			}
-		})
+		formData.append('inherit', inherit)
 	}
 
 	return (
-		<form
-			className={style.block}
-			onSubmit={handleSubmit}
-		>
-			<pre>{JSON.stringify(filter, null, 2)}</pre>
-			<br />
-			<Select
-				placeholder={t('language')}
-				options={
-					Object.entries(service.COUNTRIES).map(([key, value]) => {
-						return { value: key, label: value }
-					})
+		<>
+			<Checkbox
+				data={inherit}
+				onChange={(value) => {
+					setInherit(value)
+					setFilter(data.shop)
+				}}
+				placeholder={t('inherit')}
+			/>
+			<form
+				className={style.block}
+				onSubmit={handleSubmit}
+			>
+				<pre>
+					{
+						JSON.stringify({
+							...filter,
+							inherit
+						}, null, 2)
+					}
+				</pre>
+				<Select
+					placeholder={t('language')}
+					options={
+						Object.entries(service.LANGUAGES).map(([key, value]) => ({
+							value: key,
+							label: value
+						}))
+					}
+					data={filter.language}
+					onChange={(value) => handlePropsChange('language', value)}
+					classes={[isDisabled && 'disabled']}
+				/>
+				<Textarea
+					placeholder={t('ticket_text')}
+					data={filter.ticket_text}
+					onChange={(value) => handlePropsChange('ticket_text', value)}
+					classes={[
+						'lg',
+						isDisabled && 'disabled'
+					]}
+				/>
+				<Textarea
+					placeholder={t('cashier_text')}
+					data={filter.cashier_text}
+					onChange={(value) => handlePropsChange('cashier_text', value)}
+					classes={[
+						'lg',
+						isDisabled && 'disabled'
+					]}
+				/>
+				<Select
+					placeholder={t('print_cancel_tickets')}
+					options={convertOptions(service.ENABLE_DISABLE)}
+					data={Number(filter.print_cancel_tickets)}
+					onChange={(value) => handlePropsChange('print_cancel_tickets', value)}
+					classes={[isDisabled && 'disabled']}
+				/>
+				<Select
+					placeholder={t('printing_mode')}
+					options={convertOptions(modes.PRINTING_MODE)}
+					data={Number(filter.printing_mode)}
+					onChange={(value) => handlePropsChange('printing_mode', value)}
+					classes={[isDisabled && 'disabled']}
+				/>
+				{
+					!isDisabled &&
+					<div className={style.actions}>
+						<Button
+							type={'submit'}
+							classes={'primary'}
+							placeholder={t("save")}
+						/>
+						<Button
+							type={'reset'}
+							placeholder={t("cancel")}
+							onChange={handleResetForm}
+						/>
+					</div>
 				}
-				data={filter.language}
-				onChange={(value) => handlePropsChange('language', value)}
-			/>
-			<Textarea
-				placeholder={t('ticket_text')}
-				data={filter.ticket_text}
-				onChange={(value) => handlePropsChange('ticket_text', value)}
-				classes={'lg'}
-			/>
-			<Textarea
-				placeholder={t('cashier_text')}
-				data={filter.cashier_text}
-				onChange={(value) => handlePropsChange('cashier_text', value)}
-				classes={'lg'}
-			/>
-			<Select
-				placeholder={t('print_cancel_tickets')}
-				options={convertOptions(service.ENABLE_DISABLE)}
-				data={filter.print_cancel_tickets}
-				onChange={(value) => handlePropsChange('print_cancel_tickets', value)}
-			/>
-			<Select
-				placeholder={t('printing_mode')}
-				options={convertOptions(modes.PRINTING_MODE)}
-				data={filter.printing_mode}
-				onChange={(value) => handlePropsChange('printing_mode', value)}
-			/>
-			<div className={style.actions}>
-				<Button
-					type={'submit'}
-					classes={'primary'}
-					placeholder={t("save")}
-				/>
-				<Button
-					type={'reset'}
-					placeholder={t("cancel")}
-					onChange={handleResetForm}
-				/>
-			</div>
-		</form>
+			</form>
+		</>
     );
 }
 
-export default General;
+export default Shop;

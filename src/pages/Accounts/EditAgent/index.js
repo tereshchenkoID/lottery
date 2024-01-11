@@ -14,20 +14,44 @@ import Logo from "./Logo";
 
 import style from './index.module.scss';
 
-const getContent = (active, data) => {
+const getContent = (active, data, inherit, setInherit) => {
 	switch (active) {
 		case 0:
-			return <General data={data} />
+			return <General
+						data={data}
+						inherit={inherit}
+						setInherit={setInherit}
+					/>
 		case 1:
-			return <Shop data={data} />
+			return <Shop
+						data={data}
+						inherit={inherit}
+						setInherit={setInherit}
+					/>
 		case 2:
-			return <Logo data={data} />
+			return <Logo
+						data={data}
+						inherit={inherit}
+						setInherit={setInherit}
+					/>
 		case 3:
-			return <Currency data={data} />
+			return <Currency
+						data={data}
+						inherit={inherit}
+						setInherit={setInherit}
+					/>
 		case 4:
-			return <Business data={data} />
+			return <Business
+						data={data}
+						inherit={inherit}
+						setInherit={setInherit}
+					/>
 		case 5:
-			return <Jackpot data={data} />
+			return <Jackpot
+						data={data}
+						inherit={inherit}
+						setInherit={setInherit}
+					/>
 		default:
 			return null
 	}
@@ -35,9 +59,10 @@ const getContent = (active, data) => {
 
 const EditAgent = ({data}) => {
 	const { t } = useTranslation()
-	const [active, setActive] = useState(5)
+	const [active, setActive] = useState(0)
 	const [info, setInfo] = useState(null)
 	const [loading, setLoading] = useState(true)
+	const [inherit, setInherit] = useState('1')
 	
 	const handleSubmit = () => {
 		const formData = new FormData()
@@ -46,7 +71,7 @@ const EditAgent = ({data}) => {
 		
 		postData('account_details/', formData).then((json) => {
 			if (json.status === 'OK') {
-				setInfo(json.data[0])
+				setInfo(json.data)
 				setLoading(false)
 			}
 		})
@@ -133,8 +158,12 @@ const EditAgent = ({data}) => {
 						active,
 						{
 							...info,
+							id: data.id,
+							username: data.username,
 							type: data.type
-						}
+						},
+						inherit,
+						setInherit
 					)
 				}
 			</div>

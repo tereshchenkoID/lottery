@@ -10,6 +10,7 @@ import style from './index.module.scss';
 const File = ({
 	data,
 	onChange,
+	classes
 }) => {
 	const { t } = useTranslation()
 	const [image, setImage] = useState(data)
@@ -30,7 +31,14 @@ const File = ({
 	}
 	
 	return (
-		<div className={style.block}>
+		<div
+			className={
+				classNames(
+					style.block,
+					classes && classes.map(el => style[el])
+				)
+			}
+		>
 			<label className={style.label}>
 				<input
 					type={'file'}

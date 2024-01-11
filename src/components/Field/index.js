@@ -27,7 +27,7 @@ const Field = ({
 				classNames(
 					style.block,
 					style[type],
-					style[classes]
+					classes && classes.map(el => style[el])
 				)
 			}
 		>

@@ -16,7 +16,7 @@ const Checkbox = ({
 				}}
 			/>
 			<span className={style.item} />
-			<span className={style.label}>{placeholder}</span>
+			<span>{placeholder}</span>
         </label>
     );
 }

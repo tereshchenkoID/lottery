@@ -37,7 +37,7 @@ const Select = ({
 			className={
 				classNames(
 					style.block,
-					classes && style[classes]
+					classes && classes.map(el => style[el])
 				)
 			}
 		>

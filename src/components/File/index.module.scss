@@ -4,6 +4,11 @@
 	display: grid;
 	grid-template-columns: rem(200px) 1fr;
 	column-gap: rem(6px);
+
+	&.disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
 }
 
 .label {

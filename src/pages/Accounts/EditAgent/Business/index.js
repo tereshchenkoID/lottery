@@ -14,25 +14,13 @@ import Button from "components/Button";
 import Select from "components/Select";
 
 import style from './index.module.scss';
+import Checkbox from "../../../../components/Checkbox";
 
-const Business = ({data}) => {
+const Business = ({data, inherit, setInherit}) => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
-	
-	const initialValue = {
-		'ticket_payout': '',
-		'payout_tickets': '',
-		'cancel_tickets': '',
-		'validate_tickets': '',
-		'reprint_tickets': '',
-		'web_viewer': '',
-		'settlement': '',
-		'password_change': '',
-		'financial_reports': '',
-		'hide_ticket_number': '',
-		'tax_model': '',
-	}
-	const [filter, setFilter] = useState(initialValue)
+	const [filter, setFilter] = useState( data.business)
+	const isDisabled = inherit === '1'
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
@@ -42,7 +30,7 @@ const Business = ({data}) => {
 	}
 	
 	const handleResetForm = () => {
-		setFilter(initialValue)
+		setFilter(data.business)
 	}
 	
 	const handleSubmit = (e) => {
@@ -51,66 +39,65 @@ const Business = ({data}) => {
 		const formData = new FormData();
 		formData.append('id', data.id)
 		formData.append('username', data.username)
+		formData.append('inherit', inherit)
 		
 		Object.entries(filter).map(([key, value]) => {
 			formData.append(key, value)
 			return true
 		})
-		
-		postData('', formData).then((json) => {
-			if (json.status === 'OK') {
-				dispatch(
-					setToastify({
-						type: 'success',
-						text: json.message
-					})
-				).then(() => {
-					handleResetForm()
-					dispatch(setAside(null))
-				})
-			}
-			else {
-				dispatch(
-					setToastify({
-						type: 'error',
-						text: json.error_message
-					})
-				)
-			}
-		})
 	}
 	
 	return (
-		<form
-			className={style.block}
-			onSubmit={handleSubmit}
-		>
-			<pre>{JSON.stringify(filter, null, 2)}</pre>
-			<br />
-			{
-				Object.entries(filter).map(([key, value]) =>
-					<Select
-						placeholder={t(key)}
-						options={convertOptions(key === 'ticket_payout' ? ticket.PAYOUT : service.ENABLE_DISABLE)}
-						data={value}
-						onChange={(value) => handlePropsChange(key, value)}
-					/>
-				)
-			}
-			<div className={style.actions}>
-				<Button
-					type={'submit'}
-					classes={'primary'}
-					placeholder={t("save")}
-				/>
-				<Button
-					type={'reset'}
-					placeholder={t("cancel")}
-					onChange={handleResetForm}
-				/>
-			</div>
-		</form>
-    );
+		<>
+			<Checkbox
+				data={inherit}
+				onChange={(value) => {
+					setInherit(value)
+					setFilter(data.business)
+				}}
+				placeholder={t('inherit')}
+			/>
+			<form
+				className={style.block}
+				onSubmit={handleSubmit}
+			>
+				<pre>
+					{
+						JSON.stringify({
+							...filter,
+							inherit
+						}, null, 2)
+					}
+				</pre>
+				{
+					Object.entries(filter).map(([key, value]) =>
+						<Select
+							placeholder={t(key)}
+							options={convertOptions(key === 'ticket_payout' ? ticket.PAYOUT : service.ENABLE_DISABLE)}
+							data={Number(value)}
+							onChange={(value) => handlePropsChange(key, value)}
+							classes={[isDisabled && 'disabled']}
+						/>
+					)
+				}
+				{
+					!isDisabled &&
+					<div className={style.actions}>
+						<Button
+							type={'submit'}
+							classes={'primary'}
+							placeholder={t("save")}
+						/>
+						<Button
+							type={'reset'}
+							placeholder={t("cancel")}
+							onChange={handleResetForm}
+						/>
+					</div>
+				}
+			</form>
+		</>
+	);
 }
 
 export default Business;
