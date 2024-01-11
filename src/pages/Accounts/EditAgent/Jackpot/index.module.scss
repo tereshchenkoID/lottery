@@ -10,3 +10,9 @@
 
 	gap: rem(16px);
 }
+
+.list {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: rem(16px);
+}

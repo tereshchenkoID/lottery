@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {service, ticket} from "constant/config";
 
@@ -12,13 +12,26 @@ import {convertOptions} from "helpers/convertOptions";
 // import {postData} from "helpers/api";
 
 import Button from "components/Button";
+import Checkbox from "components/Checkbox";
+import Label from "components/Label";
 import Select from "components/Select";
+import Field from "components/Field";
 
 import style from './index.module.scss';
+
+const generateOptions = (count) => {
+	const options = {};
+	for (let i = 0; i < count; i++) {
+		options[i] = i < 10 ? `0${i}` : `${i}`
+	}
+	
+	return options;
+};
 
 const Jackpot = ({data}) => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
+	const {settings} = useSelector((state) => state.settings)
 	
 	const initialValue = {
 		'currency': '',
@@ -27,12 +40,12 @@ const Jackpot = ({data}) => {
 		'high_limit_amount': '',
 		'min_shown_amount': '',
 		'min_stake_win': '',
-		'from_hours': '0',
-		'from_minutes': '0',
-		'to_hours': '0',
-		'to_minutes': '0',
+		'from_hours': '',
+		'from_minutes': '',
+		'to_hours': '',
+		'to_minutes': '',
 		'jackpot_display_period': '',
-		'games_allowed': [],
+		'games_allowed': {},
 	}
 	const [filter, setFilter] = useState(initialValue)
 	// const [inherit, setInherit] = useState(null)
@@ -41,6 +54,22 @@ const Jackpot = ({data}) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
+		}))
+	}
+	
+	const handleCheckboxChange = (fieldName, checked, fieldValue) => {
+		const newDate = filter.games_allowed
+		
+		if (checked === '1') {
+			newDate[fieldName] = fieldValue
+		}
+		else {
+			delete newDate[fieldName]
+		}
+		
+		setFilter((prevData) => ({
+			...prevData,
+			'games_allowed': newDate,
 		}))
 	}
 	
@@ -59,16 +88,97 @@ const Jackpot = ({data}) => {
 		>
 			<pre>{JSON.stringify(filter, null, 2)}</pre>
 			<br />
-			{/*{*/}
-			{/*	Object.entries(filter).map(([key, value]) =>*/}
-			{/*		<Select*/}
-			{/*			placeholder={t(key)}*/}
-			{/*			options={convertOptions(key === 'ticket_payout' ? ticket.PAYOUT : service.ENABLE_DISABLE)}*/}
-			{/*			data={value}*/}
-			{/*			onChange={(value) => handlePropsChange(key, value)}*/}
-			{/*		/>*/}
-			{/*	)*/}
-			{/*}*/}
+			
+			<Select
+				placeholder={t('currency')}
+				options={
+					settings.currencies.map(currency => ({
+						value: currency,
+						label: currency
+					}))
+				}
+				data={filter["currency"]}
+				onChange={(value) => handlePropsChange('currency', value)}
+			/>
+			<Field
+				type={'number'}
+				placeholder={t('charge_share')}
+				data={filter.charge_share}
+				onChange={(value) => handlePropsChange('charge_share', value)}
+			/>
+			<Field
+				type={'number'}
+				placeholder={t('low_limit_amount')}
+				data={filter.low_limit_amount}
+				onChange={(value) => handlePropsChange('low_limit_amount', value)}
+			/>
+			<Field
+				type={'number'}
+				placeholder={t('high_limit_amount')}
+				data={filter.high_limit_amount}
+				onChange={(value) => handlePropsChange('high_limit_amount', value)}
+			/>
+			<Field
+				type={'number'}
+				placeholder={t('min_shown_amount')}
+				data={filter.min_shown_amount}
+				onChange={(value) => handlePropsChange('min_shown_amount', value)}
+			/>
+			<Field
+				type={'number'}
+				placeholder={t('min_stake_win')}
+				data={filter.min_stake_win}
+				onChange={(value) => handlePropsChange('min_stake_win', value)}
+			/>
+			<div>
+				<Label placeholder={t('draw_interval')} />
+				<div className={style.list}>
+					<Select
+						placeholder={t('hours')}
+						options={convertOptions(generateOptions(24))}
+						data={filter.from_hours}
+						onChange={(value) => handlePropsChange('from_hours', value)}
+					/>
+					<Select
+						placeholder={t('minutes')}
+						options={convertOptions(generateOptions(60))}
+						data={filter.from_minutes}
+						onChange={(value) => handlePropsChange('from_minutes', value)}
+					/>
+					<Select
+						placeholder={t('hours')}
+						options={convertOptions(generateOptions(24))}
+						data={filter.to_hours}
+						onChange={(value) => handlePropsChange('to_hours', value)}
+					/>
+					<Select
+						placeholder={t('minutes')}
+						options={convertOptions(generateOptions(60))}
+						data={filter.to_minutes}
+						onChange={(value) => handlePropsChange('to_minutes', value)}
+					/>
+				</div>
+			</div>
+			<Field
+				type={'number'}
+				placeholder={t('jackpot_display_period')}
+				data={filter.jackpot_display_period}
+				onChange={(value) => handlePropsChange('jackpot_display_period', value)}
+			/>
+			<div>
+				<Label placeholder={t('games_allowed')} />
+				<div className={style.list}>
+				{
+					Object.entries(service.GAMES).map(([key, values]) =>
+						<Checkbox
+							data={filter.games_allowed[key] ? '1' : '0'}
+							placeholder={values}
+							onChange={(value) => handleCheckboxChange(key, value, values)}
+						/>
+					)
+				}
+				</div>
+			</div>
 			<div className={style.actions}>
 				<Button
 					type={'submit'}

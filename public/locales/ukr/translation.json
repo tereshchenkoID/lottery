@@ -158,5 +158,14 @@
   "password_change": "Password change UA",
   "financial_reports": "Financial Reports UA",
   "hide_ticket_number": "Hide ticket number UA",
-  "tax_model": "Tax model UA"
+  "tax_model": "Tax model UA",
+  "charge_share": "Charge share UA",
+  "low_limit_amount": "Low limit amount UA",
+  "high_limit_amount": "High limit amount UA",
+  "min_shown_amount": "Min shown amount UA",
+  "min_stake_win": "Min stake to win UA",
+  "hours": "Hours UA",
+  "minutes": "Minutes UA",
+  "draw_interval": "Draw interval UA",
+  "jackpot_display_period": "Jackpot display period UA"
 }

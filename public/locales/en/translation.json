@@ -158,5 +158,14 @@
   "password_change": "Password change",
   "financial_reports": "Financial Reports",
   "hide_ticket_number": "Hide ticket number",
-  "tax_model": "Tax model"
+  "tax_model": "Tax model",
+  "charge_share": "Charge share",
+  "low_limit_amount": "Low limit amount",
+  "high_limit_amount": "High limit amount",
+  "min_shown_amount": "Min shown amount",
+  "min_stake_win": "Min stake to win",
+  "hours": "Hours",
+  "minutes": "Minutes",
+  "draw_interval": "Draw interval",
+  "jackpot_display_period": "Jackpot display period"
 }
