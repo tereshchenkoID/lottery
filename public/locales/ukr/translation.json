@@ -167,5 +167,6 @@
   "hours": "Hours UA",
   "minutes": "Minutes UA",
   "draw_interval": "Draw interval UA",
-  "jackpot_display_period": "Jackpot display period UA"
+  "jackpot_display_period": "Jackpot display period UA",
+  "successfully_logged": "You are successfully logged in UA"
 }

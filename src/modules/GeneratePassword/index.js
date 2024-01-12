@@ -1,10 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 
 import Button from "components/Button";
+import Password from "components/Password";
 
-const GeneratePassword = ({data, action, list}) => {
+import style from './index.module.scss';
+
+const GeneratePassword = ({
+	data,
+	action,
+	list,
+	filter,
+	handlePropsChange
+}) => {
 	const { t } = useTranslation()
+	const [password, setPassword] = useState(false)
 	
 	const generatePassword = () => {
 		const newData = data
@@ -23,17 +33,35 @@ const GeneratePassword = ({data, action, list}) => {
 		action(() => ({
 			...newData
 		}))
+		
+		setPassword(newPassword)
 	};
 	
 	return (
-		<Button
-			type={'button'}
-			classes={'primary'}
-			placeholder={t('generate_password')}
-			onChange={() => {
-				generatePassword()
-			}}
-		/>
+		<div className={style.block}>
+			{
+				list.map((el, idx) =>
+					<Password
+						key={idx}
+						placeholder={t(el)}
+						data={filter[el]}
+						onChange={(value) => handlePropsChange(el, value)}
+						password={password}
+						required={true}
+					/>
+				)
+			}
+			<div className={style.actions}>
+				<Button
+					type={'button'}
+					classes={'primary'}
+					placeholder={t('generate_password')}
+					onChange={() => {
+						generatePassword()
+					}}
+				/>
+			</div>
+		</div>
 	);
 }
 

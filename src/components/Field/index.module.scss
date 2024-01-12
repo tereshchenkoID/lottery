@@ -5,13 +5,6 @@
 
 	position: relative;
 
-	&.password {
-
-		.input {
-			@include make-spacer(pr, 66px);
-		}
-	}
-
 	&.disabled {
 		pointer-events: none;
 		opacity: 0.5;
@@ -62,10 +55,6 @@
 	&:focus {
 		outline: 0;
 		border-color: var(--color-primary);
-	}
-
-	&:read-only {
-		opacity: 0.6;
 	}
 
 	&[type="datetime-local"],

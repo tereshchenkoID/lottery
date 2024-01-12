@@ -1,29 +1,35 @@
-import {useRef} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 import classNames from "classnames";
 
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 import style from './index.module.scss';
 
-const Field = ({
-	type,
+const Password = ({
 	placeholder,
 	data,
 	onChange,
 	classes= null,
 	required = false,
+	password = false,
 }) => {
+	const [show, setShow] = useState(password)
 	const inputRef = useRef(null)
 	
 	const onFocus = () => {
 		inputRef.current.focus();
 	}
 	
+	useEffect(() => {
+		setShow(password)
+	}, [password])
+	
 	return (
-        <div
+		<div
 			className={
 				classNames(
 					style.block,
-					style[type],
 					classes && classes.map(el => style[el])
 				)
 			}
@@ -31,7 +37,7 @@ const Field = ({
 			<input
 				ref={inputRef}
 				className={style.input}
-				type={type}
+				type={show ? 'text' : 'password'}
 				value={data}
 				onChange={(e) => {
 					onChange(e.currentTarget.value)
@@ -48,8 +54,22 @@ const Field = ({
 					<span>*</span>
 				}
 			</label>
-        </div>
-    );
+			
+			<button
+				onClick={() => setShow(!show)}
+				className={style.eye}
+				type={'button'}
+			>
+				{
+					show
+						?
+							<FontAwesomeIcon icon="fa-solid fa-eye"/>
+						:
+							<FontAwesomeIcon icon="fa-solid fa-eye-slash"/>
+				}
+			</button>
+		</div>
+	);
 }
 
-export default Field;
+export default Password;

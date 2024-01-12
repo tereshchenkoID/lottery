@@ -6,6 +6,7 @@ import GeneratePassword from "modules/GeneratePassword";
 import Field from "components/Field";
 import Paper from "components/Paper";
 import Button from "components/Button";
+import Password from "components/Password";
 
 import {setToastify} from "store/actions/toastifyAction";
 import {postData} from "helpers/api";
@@ -20,9 +21,9 @@ const Settings = () => {
 	const initialValue = {
 		'id': auth.id,
 		'username': auth.username,
-		'old-password': '',
-		'new-password': '',
-		'confirm-password': ''
+		'old_password': '',
+		'new_password': '',
+		'confirm_password': ''
 	}
 	
 	const [filter, setFilter] = useState(initialValue)
@@ -44,10 +45,10 @@ const Settings = () => {
 		const formData = new FormData();
 		formData.append('id', filter.id)
 		formData.append('username', filter.username)
-		formData.append('old-password', filter['old-password'])
-		formData.append('new-password', filter['new-password'])
+		formData.append('old_password', filter.old_password)
+		formData.append('new_password', filter.new_password)
 		
-		if (filter['new-password'] !== filter['confirm-password']) {
+		if (filter.new_password !== filter.confirm_password) {
 			dispatch(
 				setToastify({
 					type: 'error',
@@ -55,7 +56,7 @@ const Settings = () => {
 				})
 			)
 		}
-		else if(filter['new-password'].length < 3 || filter['confirm-password'].length < 3) {
+		else if(filter.new_password.length < 3 || filter.confirm_password.length < 3) {
 			dispatch(
 				setToastify({
 					type: 'error',
@@ -90,7 +91,7 @@ const Settings = () => {
     return (
 		<div className={style.block}>
 			<Paper headline={t('user_profile')}>
-				{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
+				<pre>{JSON.stringify(filter, null, 2)}</pre>
 				<form
 					onSubmit={handleSubmit}
 					className={style.form}
@@ -102,34 +103,19 @@ const Settings = () => {
 						classes={['disabled']}
 						required={true}
 					/>
-					<Field
-						type={'password'}
+					<Password
 						placeholder={t('old_password')}
 						data={filter['old-password']}
-						onChange={(value) => handlePropsChange('old-password', value)}
+						onChange={(value) => handlePropsChange('old_password', value)}
 						required={true}
 					/>
-					<Field
-						type={'password'}
-						placeholder={t('new_password')}
-						data={filter['new-password']}
-						onChange={(value) => handlePropsChange('new-password', value)}
-						required={true}
+					<GeneratePassword
+						list={['new_password', 'confirm_password']}
+						data={filter}
+						action={setFilter}
+						filter={filter}
+						handlePropsChange={handlePropsChange}
 					/>
-					<Field
-						type={'password'}
-						placeholder={t('confirm_password')}
-						data={filter['confirm-password']}
-						onChange={(value) => handlePropsChange('confirm-password', value)}
-						required={true}
-					/>
-					<div className={style.actions}>
-						<GeneratePassword
-							data={filter}
-							action={setFilter}
-							list={['new-password', 'confirm-password']}
-						/>
-					</div>
 					<div className={style.actions}>
 						<Button
 							type={'submit'}

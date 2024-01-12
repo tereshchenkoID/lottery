@@ -167,5 +167,6 @@
   "hours": "Hours",
   "minutes": "Minutes",
   "draw_interval": "Draw interval",
-  "jackpot_display_period": "Jackpot display period"
+  "jackpot_display_period": "Jackpot display period",
+  "successfully_logged": "You are successfully logged in"
 }

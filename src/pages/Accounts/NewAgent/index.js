@@ -26,9 +26,9 @@ const NewAgent = ({data}) => {
 		'parent_id': data.id,
 		'parent_username': data.username,
 		'username': '',
-		'new-password': '',
-		'confirm-password': '',
-		'full-name': '',
+		'new_password': '',
+		'confirm_password': '',
+		'full_name': '',
 		'email': '',
 		'description': '',
 		'country': '',
@@ -128,8 +128,7 @@ const NewAgent = ({data}) => {
 			className={style.block}
 			onSubmit={handleSubmit}
 		>
-			{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-			{/*<br />*/}
+			<pre>{JSON.stringify(filter, null, 2)}</pre>
 			<Field
 				type={'text'}
 				placeholder={t('username')}
@@ -137,32 +136,18 @@ const NewAgent = ({data}) => {
 				onChange={(value) => handlePropsChange('username', value)}
 				required={true}
 			/>
-			<Field
-				type={'password'}
-				placeholder={t('password')}
-				data={filter['new-password']}
-				onChange={(value) => handlePropsChange('new-password', value)}
-				required={true}
+			<GeneratePassword
+				list={['new_password', 'confirm_password']}
+				data={filter}
+				action={setFilter}
+				filter={filter}
+				handlePropsChange={handlePropsChange}
 			/>
-			<Field
-				type={'password'}
-				placeholder={t('confirm_password')}
-				data={filter['confirm-password']}
-				onChange={(value) => handlePropsChange('confirm-password', value)}
-				required={true}
-			/>
-			<div className={style.actions}>
-				<GeneratePassword
-					data={filter}
-					action={setFilter}
-					list={['new-password', 'confirm-password']}
-				/>
-			</div>
 			<Field
 				type={'text'}
 				placeholder={t('full_name')}
-				data={filter['full-name']}
-				onChange={(value) => handlePropsChange('full-name', value)}
+				data={filter.full_name}
+				onChange={(value) => handlePropsChange('full_name', value)}
 			/>
 			<Field
 				type={'email'}

@@ -16,9 +16,9 @@ const ChangePassword = ({data}) => {
 	const initialValue = {
 		'id': data.id,
 		'username': data.username,
-		'new-password': '',
-		'confirm-password': '',
-		'old-password': ''
+		'old_password': '',
+		'new_password': '',
+		'confirm_password': ''
 	}
 	
 	const dispatch = useDispatch()
@@ -39,7 +39,7 @@ const ChangePassword = ({data}) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		
-		if (filter['new-password'] !== filter['confirm-password']) {
+		if (filter['new_password'] !== filter['confirm_password']) {
 			dispatch(
 				setToastify({
 					type: 'error',
@@ -51,8 +51,8 @@ const ChangePassword = ({data}) => {
 			const formData = new FormData();
 			formData.append('id', filter.id)
 			formData.append('username', filter.username)
-			formData.append('old-password', filter['old-password'])
-			formData.append('new-password', filter['new-password'])
+			formData.append('old_password', filter['old-password'])
+			formData.append('new_password', filter['new-password'])
 			
 			postData(`password/`, formData).then((json) => {
 				if (json.code === '0') {
@@ -83,32 +83,21 @@ const ChangePassword = ({data}) => {
 			className={style.block}
 			onSubmit={handleSubmit}
 		>
+			<pre>{JSON.stringify(filter, null, 2)}</pre>
 			<Field
 				type={'text'}
 				placeholder={t('username')}
 				data={filter.username}
 				onChange={(value) => handlePropsChange('username', value)}
-				classes={'disabled'}
+				classes={['disabled']}
 			/>
-			<Field
-				type={'password'}
-				placeholder={t('new_password')}
-				data={filter['new-password']}
-				onChange={(value) => handlePropsChange('new-password', value)}
+			<GeneratePassword
+				list={['new_password', 'confirm_password']}
+				data={filter}
+				action={setFilter}
+				filter={filter}
+				handlePropsChange={handlePropsChange}
 			/>
-			<Field
-				type={'password'}
-				placeholder={t('confirm_password')}
-				data={filter['confirm-password']}
-				onChange={(value) => handlePropsChange('confirm-password', value)}
-			/>
-			<div className={style.actions}>
-				<GeneratePassword
-					data={filter}
-					action={setFilter}
-					list={['new-password', 'confirm-password']}
-				/>
-			</div>
 			<div className={style.actions}>
 				<Button
 					type={'submit'}
@@ -122,7 +111,7 @@ const ChangePassword = ({data}) => {
 				/>
 			</div>
 		</form>
-    );
+	);
 }
 
 export default ChangePassword;

@@ -10,6 +10,7 @@ import {postData} from "helpers/api";
 import Field from "components/Field";
 import Paper from "components/Paper";
 import Button from "components/Button";
+import Password from "components/Password";
 
 import style from './index.module.scss';
 
@@ -51,6 +52,12 @@ const Login = () => {
 
 				sessionStorage.setItem("authToken", JSON.stringify(data))
 				dispatch(setAuth(data))
+				dispatch(
+					setToastify({
+						type: 'success',
+						text: t('successfully_logged')
+					})
+				)
 			}
 			else {
 				dispatch(
@@ -77,8 +84,7 @@ const Login = () => {
 						onChange={(value) => handlePropsChange('username', value)}
 						required={true}
 					/>
-					<Field
-						type={'password'}
+					<Password
 						placeholder={t('password')}
 						data={filter.password}
 						onChange={(value) => handlePropsChange('password', value)}
