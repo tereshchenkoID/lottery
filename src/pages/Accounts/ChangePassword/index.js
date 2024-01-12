@@ -51,8 +51,8 @@ const ChangePassword = ({data}) => {
 			const formData = new FormData();
 			formData.append('id', filter.id)
 			formData.append('username', filter.username)
-			formData.append('old_password', filter['old-password'])
-			formData.append('new_password', filter['new-password'])
+			formData.append('old_password', filter.old_password)
+			formData.append('new_password', filter.new_password)
 			
 			postData(`password/`, formData).then((json) => {
 				if (json.code === '0') {

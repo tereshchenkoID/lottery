@@ -108,7 +108,6 @@ export const service = {
 		1: 'DISABLE',
 	},
 	
-	
 	LANGUAGES: {
 		AA: "Afar",
 		AB: "Abkhazian",

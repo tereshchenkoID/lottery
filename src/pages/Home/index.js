@@ -9,8 +9,8 @@ import {setAgents} from "store/actions/agentsAction";
 
 import Loader from "components/Loader";
 import Header from "components/Header";
-import Nav from "components/Nav";
 import Aside from "components/Aside";
+import Nav from "components/Nav";
 
 import style from './index.module.scss';
 

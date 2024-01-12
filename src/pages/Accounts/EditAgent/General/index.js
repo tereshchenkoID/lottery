@@ -76,7 +76,7 @@ const General = ({data, inherit, setInherit}) => {
 				data={inherit}
 				onChange={(value) => {
 					setInherit(value)
-					setFilter(data.shop)
+					setFilter(data.general)
 				}}
 				placeholder={t('inherit')}
 			/>

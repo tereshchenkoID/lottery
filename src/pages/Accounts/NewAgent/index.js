@@ -54,11 +54,19 @@ const NewAgent = ({data}) => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		
-		if (filter['new-password'] !== filter['confirm-password']) {
+		if (filter.new_password !== filter.confirm_password) {
 			dispatch(
 				setToastify({
 					type: 'error',
 					text: t('password_mismatch')
+				})
+			)
+		}
+		else if(filter.new_password.length < 3 || filter.confirm_password.length < 3) {
+			dispatch(
+				setToastify({
+					type: 'error',
+					text: t('password_must_length')
 				})
 			)
 		}

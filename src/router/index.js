@@ -11,6 +11,7 @@ const GeneralOverview = lazy(() => import('pages/GeneralOverview'))
 export const router = [
 	{
 		path: "/",
+		exact: true,
 		element: (<Dashboard />)
 	},
 	{
