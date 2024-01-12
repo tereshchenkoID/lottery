@@ -91,7 +91,7 @@ const Settings = () => {
     return (
 		<div className={style.block}>
 			<Paper headline={t('user_profile')}>
-				<pre>{JSON.stringify(filter, null, 2)}</pre>
+				{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
 				<form
 					onSubmit={handleSubmit}
 					className={style.form}

@@ -62,7 +62,7 @@ const EditAgent = ({data}) => {
 	const [active, setActive] = useState(0)
 	const [info, setInfo] = useState(null)
 	const [loading, setLoading] = useState(true)
-	const [inherit, setInherit] = useState('1')
+	const [inherit, setInherit] = useState()
 	
 	const handleSubmit = () => {
 		const formData = new FormData()
@@ -73,6 +73,7 @@ const EditAgent = ({data}) => {
 			if (json.status === 'OK') {
 				setInfo(json.data)
 				setLoading(false)
+				setInherit(json.data.general.inherit)
 			}
 		})
 	}

@@ -72,6 +72,7 @@ const Business = ({data, inherit, setInherit}) => {
 				{
 					Object.entries(filter).map(([key, value]) =>
 						<Select
+							key={key}
 							placeholder={t(key)}
 							options={convertOptions(key === 'ticket_payout' ? ticket.PAYOUT : service.ENABLE_DISABLE)}
 							data={Number(value)}

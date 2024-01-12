@@ -149,7 +149,6 @@ const Accounts = () => {
 				<>
 					<Paper headline={t('account_search')}>
 						{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-						{/*<br />*/}
 						<form onSubmit={handleSubmit}>
 							<div className={style.grid}>
 								<div>
