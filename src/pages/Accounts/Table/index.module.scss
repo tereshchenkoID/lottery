@@ -34,7 +34,7 @@
 
 .row {
 	display: grid;
-	grid-template-columns: rem(50px) repeat(6, 1fr) rem(160px);
+	grid-template-columns: rem(50px) repeat(6, 1fr) rem(200px);
 	border-bottom: rem(1px) solid var(--color-border);
 
 	&.headline {
@@ -43,7 +43,7 @@
 	}
 
 	&.sm {
-		grid-template-columns: rem(50px) 1fr rem(160px);
+		grid-template-columns: rem(50px) 1fr rem(200px);
 	}
 
 	&.active {
@@ -56,6 +56,10 @@
 	@include make-spacer(p, 12px);
 
 	min-width: rem(120px);
+
+	&:nth-child(1) {
+		min-width: unset;
+	}
 }
 
 .empty {

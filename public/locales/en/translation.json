@@ -168,5 +168,6 @@
   "minutes": "Minutes",
   "draw_interval": "Draw interval",
   "jackpot_display_period": "Jackpot display period",
-  "successfully_logged": "You are successfully logged in"
+  "successfully_logged": "You are successfully logged in",
+  "transfer_money": "Transfer money"
 }

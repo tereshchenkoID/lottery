@@ -12,7 +12,7 @@
 	width: rem(56px);
 	overflow: hidden;
 
-	&:hover {
+	&.active {
 		width: rem(320px);
 	}
 }
@@ -23,19 +23,31 @@
 }
 
 .wrapper {
-	width: rem(320px);
+	@include flex($direction: column);
+	@include size(rem(320px), 100%);
 }
 
-.logo {
+.logo,
+.action {
 	@include size(100%, rem(64px));
 	@include make-spacer(pl, rem(7px));
 	@include flex(null, center);
+
+	flex-shrink: 0;
+}
+
+.logo {
 
 	a {
 		@include size(rem(42px));
 
 		background-color: #2B2F33;
 	}
+}
+
+.list {
+	flex-grow: 1;
+	overflow-y: auto;
 }
 
 .item {
@@ -100,4 +112,3 @@
 .submenu {
 	display: none;
 }
-

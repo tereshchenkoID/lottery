@@ -1,17 +1,21 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import {useOutsideClick} from "hooks/useOutsideClick";
 
 import classNames from "classnames";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import Toggle from "../Toggle";
+
 import style from './index.module.scss';
+
 
 const Nav = () => {
 	const { t } = useTranslation()
-	
 	const { pathname } = useLocation();
+	const [show, setShow] = useState(false)
 	const [menu, setMenu] = useState([
 		{
 			text: 'wallet_system',
@@ -62,6 +66,8 @@ const Nav = () => {
 			]
 		}
 	])
+	const blockRef = useRef(null)
+	const buttonRef = useRef(null)
 	
 	const setActive = (index, value) => {
 		setMenu((prevMenu) => {
@@ -71,8 +77,29 @@ const Nav = () => {
 		});
 	};
 	
+	useOutsideClick(
+		blockRef,
+		() => {
+			setShow(false)
+		},
+		{
+			...show,
+			meta: {
+				buttonRef: buttonRef,
+			},
+		}
+	)
+	
     return (
-        <nav className={style.block}>
+        <nav
+			ref={blockRef}
+			className={
+				classNames(
+					style.block,
+					show && style.active
+				)
+			}
+		>
 			<div className={style.wrapper}>
 				<div className={style.logo}>
 					<Link
@@ -81,7 +108,7 @@ const Nav = () => {
 					/>
 				</div>
 				<hr/>
-				<ul>
+				<ul className={style.list}>
 					{
 						menu.map((el, idx) =>
 							<li
@@ -96,6 +123,7 @@ const Nav = () => {
 								<span
 									onClick={() => {
 										setActive(idx, !el.active)
+										setShow(true)
 									}}
 									className={style.link}
 								>
@@ -127,8 +155,9 @@ const Nav = () => {
 															pathname === el_s.link && style.active
 														)
 													}
+													onClick={() => setShow(false)}
 												>
-													<i className={style.icon} />
+													<i className={style.icon}/>
 													<span>{t(el_s.text)}</span>
 												</Link>
 											)
@@ -139,8 +168,18 @@ const Nav = () => {
 						)
 					}
 				</ul>
+				<hr/>
+				<div
+					ref={buttonRef}
+					className={style.action}
+				>
+					<Toggle
+						active={show}
+						action={setShow}
+					/>
+				</div>
 			</div>
-        </nav>
+		</nav>
     );
 }
 

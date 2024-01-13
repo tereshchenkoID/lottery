@@ -91,6 +91,11 @@ export const service = {
 		19: 'Turbo football'
 	},
 	
+	TRANSFER_TYPE: {
+		'DEPOSIT': '0',
+		'PAYOUT': '1'
+	},
+	
 	MESSAGE: {
 		ACCOUNTS: {
 			ADD: 'add',
