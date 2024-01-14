@@ -44,14 +44,8 @@ const Login = () => {
 
 		postData(`login/`, formData).then((json) => {
 			if (json.code === '0') {
-				const data = {
-					id: json.id,
-					type: json.type,
-					username: json.username
-				}
-
-				sessionStorage.setItem("authToken", JSON.stringify(data))
-				dispatch(setAuth(data))
+				sessionStorage.setItem("authToken", JSON.stringify(json))
+				dispatch(setAuth(json))
 				dispatch(
 					setToastify({
 						type: 'success',

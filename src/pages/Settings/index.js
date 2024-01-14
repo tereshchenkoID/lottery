@@ -47,7 +47,7 @@ const Settings = () => {
 		formData.append('username', filter.username)
 		formData.append('old_password', filter.old_password)
 		formData.append('new_password', filter.new_password)
-		
+
 		if (filter.new_password !== filter.confirm_password) {
 			dispatch(
 				setToastify({
@@ -105,7 +105,7 @@ const Settings = () => {
 					/>
 					<Password
 						placeholder={t('old_password')}
-						data={filter['old-password']}
+						data={filter.old_password}
 						onChange={(value) => handlePropsChange('old_password', value)}
 						required={true}
 					/>

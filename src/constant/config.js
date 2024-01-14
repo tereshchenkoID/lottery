@@ -92,14 +92,15 @@ export const service = {
 	},
 	
 	TRANSFER_TYPE: {
-		'DEPOSIT': '0',
-		'PAYOUT': '1'
+		0: 'DEPOSIT',
+		1: 'PAYOUT'
 	},
 	
 	MESSAGE: {
 		ACCOUNTS: {
 			ADD: 'add',
-			TRANSFER: 'transfer'
+			TRANSFER: 'transfer',
+			BALANCE: 'balance'
 		}
 	},
 	

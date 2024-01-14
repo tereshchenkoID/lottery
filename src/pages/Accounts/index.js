@@ -85,6 +85,8 @@ const Accounts = () => {
 		event && event.preventDefault();
 		setLoading(true)
 		
+		console.log(filter)
+		
 		const formData = new FormData();
 		formData.append('id', filter.agent.id)
 		formData.append('locked', filter.locked)
@@ -125,6 +127,15 @@ const Accounts = () => {
 					handleSubmit(null)
 					dispatch(setCmd(null))
 				})
+			}
+			else if (cmd.message === service.MESSAGE.ACCOUNTS.BALANCE) {
+				handlePropsChange('agent', {
+					id: cmd.data.id,
+					username: cmd.data.username
+				})
+				
+				handleSubmit(null)
+				dispatch(setCmd(null))
 			}
 		}
 	}, [cmd])

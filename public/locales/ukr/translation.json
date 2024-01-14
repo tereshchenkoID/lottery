@@ -169,5 +169,8 @@
   "draw_interval": "Draw interval UA",
   "jackpot_display_period": "Jackpot display period UA",
   "successfully_logged": "You are successfully logged in UA",
-  "transfer_money": "Transfer money UA"
+  "transfer_money": "Transfer money UA",
+  "amount": "Amount UA",
+  "available_balance": "Available balance UA",
+  "insufficient_funds": "Insufficient funds UA"
 }

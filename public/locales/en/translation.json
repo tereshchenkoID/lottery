@@ -169,5 +169,8 @@
   "draw_interval": "Draw interval",
   "jackpot_display_period": "Jackpot display period",
   "successfully_logged": "You are successfully logged in",
-  "transfer_money": "Transfer money"
+  "transfer_money": "Transfer money",
+  "amount": "Amount",
+  "available_balance": "Available balance",
+  "insufficient_funds": "Insufficient funds"
 }

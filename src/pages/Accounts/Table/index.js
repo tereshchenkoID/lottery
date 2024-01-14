@@ -29,7 +29,6 @@ const Option = ({
 	handlePropsChange,
 }) => {
 	const dispatch = useDispatch()
-	const {auth} = useSelector((state) => state.auth)
 	const [table, setTable] = useState(null)
 	const [shops, setShops] = useState(null)
 	const [activeAccounts, setActiveAccounts] = useState(false)
@@ -176,14 +175,11 @@ const Option = ({
 						action={(e) => handleEditAgent(e, types.TYPE[0])}
 						alt={'edit_agent'}
 					/>
-					{
-						data.id !== auth.id &&
-						<Icon
-							icon={'fa-dollar'}
-							action={(e) => handleTransferMoney(e)}
-							alt={'transfer_money'}
-						/>
-					}
+					<Icon
+						icon={'fa-dollar'}
+						action={(e) => handleTransferMoney(e)}
+						alt={'transfer_money'}
+					/>
 					<Icon
 						icon={'fa-lock'}
 						action={(e) => handleChangePassword(e)}
@@ -277,7 +273,7 @@ const Option = ({
 													/>
 													<Icon
 														icon={'fa-dollar'}
-														action={(e) => handleTransferMoney(e)}
+														action={(e) => handleTransferMoney(e, el)}
 														alt={'transfer_money'}
 													/>
 													<Icon
