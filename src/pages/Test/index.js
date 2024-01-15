@@ -7,13 +7,13 @@ import {service} from "constant/config";
 import {setCmd} from "store/actions/cmdAction";
 import {setAgents} from "store/actions/agentsAction";
 import {convertOptions} from "helpers/convertOptions";
-import {getData, postData} from "helpers/api";
+import {getData} from "helpers/api";
 
+import Agents from "modules/Agents";
 import Paper from "components/Paper";
 import Select from "components/Select";
 import Button from "components/Button";
 import Loader from "components/Loader";
-import Agents from "modules/Agents";
 import Table from "./Table";
 
 import style from './index.module.scss';
@@ -61,42 +61,50 @@ const Accounts = () => {
 	
 	const initialValue = {
 		'agent': {
-			id: agents[0].id,
-			username: agents[0].username
+			'id': agents[0].id,
+			'username': agents[0].username
 		},
 		'locked': '',
 		'currency': ''
 	}
 	const [filter, setFilter] = useState(initialValue)
 	const [loading, setLoading] = useState(true)
-	const [data, setData] = useState(agents)
+	const [data, setData] = useState()
+	const [search, setSearch] = useState()
 	
 	const handleInit = () => {
 		setLoading(true)
-		getData('accounts/', null).then((json) => {
-			if (json.status === 'OK') {
-				setData(json.data)
+		getData('accounts_full/', null).then((json) => {
+			if (json.length > 0) {
+				setData(json)
+				setSearch(json)
 				setLoading(false)
 			}
 		})
 	}
 	
 	const handleSubmit = (event) => {
-		event && event.preventDefault();
-		setLoading(true)
-		
-		const formData = new FormData();
-		formData.append('id', filter.agent.id)
-		formData.append('locked', filter.locked)
-		formData.append('currency', filter.currency)
-		
-		postData(`accounts/`, formData).then((json) => {
-			if (json.status === 'OK') {
-				setData(json.data)
-				setLoading(false)
-			}
-		})
+		event && event.preventDefault()
+		setSearch(searchByUsername(data[0], filter.agent.id))
 	}
+	
+	const searchByUsername = (node, term) => {
+		
+		if (node.id && node.id === term) {
+			console.log(node.id, '-', term)
+			return [node];
+		}
+		
+		if (node.clients) {
+			let results = [];
+			for (const client of node.clients) {
+				results = results.concat(searchByUsername(client, term));
+			}
+			return results;
+		}
+		
+		return [];
+	};
 	
 	useEffect(() => {
 		handleInit()
@@ -140,7 +148,7 @@ const Accounts = () => {
 	
 	const handleResetForm = () => {
 		setFilter(initialValue)
-		handleInit()
+		setSearch(data)
 	}
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
@@ -157,7 +165,7 @@ const Accounts = () => {
 			:
 				<>
 					<Paper headline={t('account_search')}>
-						{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
+						<pre>{JSON.stringify(filter, null, 2)}</pre>
 						<form onSubmit={handleSubmit}>
 							<div className={style.grid}>
 								<div>
@@ -205,7 +213,7 @@ const Accounts = () => {
 					</Paper>
 					<Paper>
 						<Table
-							data={data}
+							data={search}
 							filter={filter}
 							config={config}
 							config_2={config_2}

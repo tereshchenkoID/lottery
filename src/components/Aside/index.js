@@ -17,7 +17,6 @@ import {setAside} from "store/actions/asideAction";
 
 import style from './index.module.scss';
 
-
 const checkCmd = (data) => {
 	switch (data.meta.cmd) {
 		case 'ticket-print':
