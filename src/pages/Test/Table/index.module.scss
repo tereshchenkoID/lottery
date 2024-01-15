@@ -14,24 +14,6 @@
 	background-color: var(--color-primary-01);
 }
 
-.overflow {
-	overflow-x: auto;
-
-	&::-webkit-scrollbar {
-		width: rem(15px);
-	}
-
-	&::-webkit-scrollbar-track {
-		background-color: var(--color-alto);
-		height: rem(5px);
-	}
-
-	&::-webkit-scrollbar-thumb {
-		background-color: var(--color-primary);
-		border: rem(5px) solid var(--color-alto);
-	}
-}
-
 .row {
 	display: grid;
 	grid-template-columns: rem(50px) repeat(6, 1fr) rem(200px);

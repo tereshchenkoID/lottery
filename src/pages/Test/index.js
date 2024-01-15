@@ -18,7 +18,7 @@ import Table from "./Table";
 
 import style from './index.module.scss';
 
-const config = [
+const config_1 = [
 	{
 		key: 'username',
 		text: 'username'
@@ -215,7 +215,7 @@ const Accounts = () => {
 						<Table
 							data={search}
 							filter={filter}
-							config={config}
+							config_1={config_1}
 							config_2={config_2}
 							handlePropsChange={handlePropsChange}
 						/>

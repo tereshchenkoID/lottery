@@ -1,15 +1,14 @@
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDispatch, useSelector} from "react-redux";
-
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useDispatch} from "react-redux";
 
 import {types, service} from "constant/config";
 
 import classNames from "classnames";
 
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
 import {setAside} from "store/actions/asideAction";
-import {getData} from "helpers/api";
 
 import Loader from "components/Loader";
 import Icon from "components/Icon";
@@ -22,7 +21,7 @@ const Option = ({
 	t,
 	data,
 	filter,
-	config,
+	config_1,
 	config_2,
 	handlePropsChange,
 }) => {
@@ -94,16 +93,13 @@ const Option = ({
 		<>
 			<div className={style.row}>
 				<div className={style.cell}>
-					{
-						(isClients || isShops) &&
-						<Dropdown
-							data={activeAccounts}
-							action={() => setActiveAccounts(!activeAccounts)}
-						/>
-					}
+					<Dropdown
+						data={activeAccounts}
+						action={() => setActiveAccounts(!activeAccounts)}
+					/>
 				</div>
 				{
-					config.map((key, value_idx) =>
+					config_1.map((key, value_idx) =>
 						<div
 							key={value_idx}
 							className={style.cell}
@@ -111,18 +107,18 @@ const Option = ({
 							{
 								(key.key !== 'commission' && key.key !== 'credits')
 									?
-									key.key === 'locked'
-										?
-										service.YES_NO[data[key.key]]
-										:
-										data[key.key]
+										key.key === 'locked'
+											?
+												service.YES_NO[data[key.key]]
+											:
+												data[key.key]
 									:
-									<div>
-										{
-											data[key.key] &&
-											<ReadMore data={data[key.key]}/>
-										}
-									</div>
+										<div>
+											{
+												data[key.key] &&
+												<ReadMore data={data[key.key]}/>
+											}
+										</div>
 							}
 						</div>
 					)
@@ -156,124 +152,121 @@ const Option = ({
 				</div>
 			</div>
 			{
-				(isClients || isShops) &&
 				activeAccounts &&
 				<div className={style.wrapper}>
-					<div className={style.overflow}>
-						{
-							isShops &&
-							<>
-								<div
-									className={
-										classNames(
-											style.row,
-											style.sm,
-										)
-									}
-								>
-									<div className={style.cell}>
-										<Dropdown
-											data={activeShops}
-											action={() => setActiveShops(!activeShops)}
-										/>
-									</div>
-									{
-										config_2.map((key, value) =>
-											<div
-												key={value}
-												className={style.cell}
-											>
-												<FontAwesomeIcon
-													icon="fa-solid fa-shop"
-													className={style.icon}
-												/>
-												{t('shops')} ({data.shops.length})
-											</div>
-										)
-									}
-								</div>
+					<>
+						<div
+							className={
+								classNames(
+									style.row,
+									style.sm,
+								)
+							}
+						>
+							<div className={style.cell}>
 								{
-									activeShops &&
-									<div className={style.wrapper}>
-										<div className={style.overflow}>
+									isShops &&
+									<Dropdown
+										data={activeShops}
+										action={() => setActiveShops(!activeShops)}
+									/>
+								}
+							</div>
+							{
+								config_2.map((key, value) =>
+									<div
+										key={value}
+										className={style.cell}
+									>
+										<FontAwesomeIcon
+											icon="fa-solid fa-shop"
+											className={style.icon}
+										/>
+										{t('shops')} ({data.shops.length})
+									</div>
+								)
+							}
+							<div className={style.cell}>
+								<Icon
+									icon={'fa-add'}
+									action={(e) => handleNewAgent(e, types.TYPE[1])}
+								/>
+							</div>
+						</div>
+						{
+							activeShops &&
+							<div className={style.wrapper}>
+								{
+									data.shops.map((el, idx) =>
+										<div
+											key={idx}
+											className={style.row}
+										>
+											<div className={style.cell}/>
 											{
-												data.shops.map((el, idx) =>
+												config_1.map((key, value_idx) =>
 													<div
-														key={idx}
-														className={style.row}
+														key={value_idx}
+														className={style.cell}
 													>
-														<div className={style.cell}/>
 														{
-															config.map((key, value_idx) =>
-																<div
-																	key={value_idx}
-																	className={style.cell}
-																>
+															(key.key !== 'commission' && key.key !== 'credits')
+																?
+																key.key === 'locked'
+																	?
+																	service.YES_NO[el[key.key]]
+																	:
+																	el[key.key]
+																:
+																<div>
 																	{
-																		(key.key !== 'commission' && key.key !== 'credits')
-																			?
-																				key.key === 'locked'
-																					?
-																						service.YES_NO[el[key.key]]
-																					:
-																						el[key.key]
-																			:
-																				<div>
-																					{
-																						el[key.key] &&
-																						<ReadMore data={el[key.key]}/>
-																					}
-																				</div>
+																		el[key.key] &&
+																		<ReadMore data={el[key.key]}/>
 																	}
 																</div>
-															)
 														}
-														<div className={style.cell}>
-															<Icon
-																icon={'fa-pencil'}
-																action={(e) => handleEditAgent(e, el)}
-															/>
-															<Icon
-																icon={'fa-dollar'}
-																action={(e) => handleTransferMoney(e, el)}
-																alt={'transfer_money'}
-															/>
-															<Icon
-																icon={'fa-lock'}
-																action={(e) => handleChangePassword(e, el)}
-															/>
-															<Icon
-																icon={'fa-exchange-alt'}
-																action={(e) => handleTransferAgent(e, el)}
-															/>
-														</div>
 													</div>
 												)
 											}
+											<div className={style.cell}>
+												<Icon
+													icon={'fa-pencil'}
+													action={(e) => handleEditAgent(e, el)}
+												/>
+												<Icon
+													icon={'fa-dollar'}
+													action={(e) => handleTransferMoney(e, el)}
+													alt={'transfer_money'}
+												/>
+												<Icon
+													icon={'fa-lock'}
+													action={(e) => handleChangePassword(e, el)}
+												/>
+												<Icon
+													icon={'fa-exchange-alt'}
+													action={(e) => handleTransferAgent(e, el)}
+												/>
+											</div>
 										</div>
-									</div>
-								}
-							</>
-						}
-						{
-							isClients &&
-							<>
-								{
-									data.clients.map((el, idx) =>
-										<Option
-											key={idx}
-											t={t}
-											data={el}
-											config={config}
-											config_2={config_2}
-											filter={filter}
-											handlePropsChange={handlePropsChange}
-										/>
 									)
 								}
-							</>
+							</div>
 						}
-					</div>
+					</>
+					{
+						isClients &&
+						data.clients.map((el, idx) =>
+							<Option
+								key={idx}
+								t={t}
+								data={el}
+								config_1={config_1}
+								config_2={config_2}
+								filter={filter}
+								handlePropsChange={handlePropsChange}
+							/>
+						)
+					}
 				</div>
 			}
 		</>
@@ -283,7 +276,7 @@ const Option = ({
 const Table = ({
 	data,
 	filter,
-	config,
+	config_1,
 	config_2,
 	handlePropsChange,
 }) => {
@@ -302,7 +295,7 @@ const Table = ({
 				>
 					<div className={style.cell}/>
 					{
-						config.map((el, idx) =>
+						config_1.map((el, idx) =>
 							<div
 								key={idx}
 								className={style.cell}
@@ -319,7 +312,7 @@ const Table = ({
 							key={idx}
 							t={t}
 							data={el}
-							config={config}
+							config_1={config_1}
 							config_2={config_2}
 							filter={filter}
 							handlePropsChange={handlePropsChange}
