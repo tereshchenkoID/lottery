@@ -2,11 +2,8 @@ import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 
-import {service} from "constant/config";
-
 import {setToastify} from "store/actions/toastifyAction";
 import {setAside} from "store/actions/asideAction";
-import {setCmd} from "store/actions/cmdAction";
 import {postData} from "helpers/api";
 
 import Field from "components/Field";
@@ -60,10 +57,6 @@ const TransferAgent = ({data}) => {
 				).then(() => {
 					handleResetForm()
 					dispatch(setAside(null))
-					dispatch(setCmd({
-						message: service.MESSAGE.ACCOUNTS.TRANSFER,
-						data: filter
-					}))
 				})
 			}
 			else {

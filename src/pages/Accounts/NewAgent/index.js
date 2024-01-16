@@ -6,8 +6,9 @@ import {types, service} from "constant/config";
 
 import {setToastify} from "store/actions/toastifyAction";
 import {setAside} from "store/actions/asideAction";
-import {setCmd} from "store/actions/cmdAction";
+import {updateAgents} from "store/actions/agentsAction";
 import {postData} from "helpers/api";
+import {searchById} from "helpers/searchById"
 
 import Field from "components/Field";
 import Button from "components/Button";
@@ -20,8 +21,8 @@ import style from './index.module.scss';
 const NewAgent = ({data}) => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
+	const {agents} = useSelector((state) => state.agents)
 	const {settings} = useSelector((state) => state.settings)
-	
 	const initialValue = {
 		'parent_id': data.id,
 		'parent_username': data.username,
@@ -39,6 +40,8 @@ const NewAgent = ({data}) => {
 	}
 	const [filter, setFilter] = useState(initialValue)
 	const [inherit, setInherit] = useState(null)
+	const list = agents
+	const find = searchById(list[0], data.id)
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
@@ -76,7 +79,7 @@ const NewAgent = ({data}) => {
 				formData.append(key, value)
 				return true
 			})
-			
+
 			postData(`new/${data.type.toLowerCase()}/`, formData).then((json) => {
 				if (json.status === 'OK') {
 					dispatch(
@@ -86,11 +89,19 @@ const NewAgent = ({data}) => {
 						})
 					).then(() => {
 						handleResetForm()
+						
+						if (find.length > 0) {
+							if (data.type === types.TYPE[0]) {
+								find[0].clients.push(json.data)
+							}
+							else {
+								find[0].shops.push(json.data)
+							}
+							
+							dispatch(updateAgents(list))
+						}
+						
 						dispatch(setAside(null))
-						dispatch(setCmd({
-							message: service.MESSAGE.ACCOUNTS.ADD,
-							data: json.data
-						}))
 					})
 				}
 				else {

@@ -99,12 +99,12 @@
 }
 
 .ul {
-	@include make-spacer(px, 8px);
+	@include make-spacer(pl, 8px);
 }
 
 .link {
 	@include flex(null, center);
-	@include make-spacer(px, 16px);
+	@include make-spacer(pl, 16px);
 	@include make-spacer(py, 5px);
 
 	width: 100%;

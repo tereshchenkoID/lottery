@@ -25,7 +25,7 @@ import style from './index.module.scss';
 const Ticket = ({
 	data,
 	action,
-	config,
+	config_1,
 	config_2,
 	config_3
 }) => {
@@ -179,7 +179,7 @@ const Ticket = ({
 					/>
 				</div>
 				{
-					config.map((el, idx) =>
+					config_1.map((el, idx) =>
 						<div
 							key={idx}
 							className={style.cell}

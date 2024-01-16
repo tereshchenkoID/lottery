@@ -6,15 +6,15 @@ import {service} from "constant/config";
 
 import {setToastify} from "store/actions/toastifyAction";
 import {setAside} from "store/actions/asideAction";
-import {setCmd} from "store/actions/cmdAction";
+import {updateAgents} from "store/actions/agentsAction";
 import {getData, postData} from "helpers/api";
+import {searchById} from "helpers/searchById"
 
 import Field from "components/Field";
 import Button from "components/Button";
 import Select from "components/Select";
 
 import style from './index.module.scss';
-
 
 const TransferMoney = ({data}) => {
 	const initialValue = {
@@ -29,9 +29,12 @@ const TransferMoney = ({data}) => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const {auth} = useSelector((state) => state.auth)
+	const {agents} = useSelector((state) => state.agents)
 	const [filter, setFilter] = useState(initialValue)
 	const [table, setTable] = useState(null)
 	const [exchange, setExchange] = useState(null)
+	const list = agents
+	const find = searchById(list[0], data.parent ? data.parent.parent_id : data.id)
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
@@ -45,20 +48,12 @@ const TransferMoney = ({data}) => {
 		setExchange(null)
 	}
 	
-	const handleInit = () => {
-		getData(`deposit/getBalances/?id=${data.id}`).then((json) => {
-			if (json.status === 'OK') {
-				setTable(json.data)
-			}
-		})
-	}
-	
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		
 		const results = exchange * filter.amount
 		const available = filter.type === '0' ? table.available_balance[filter.available_balance] : table.target_balance[filter.target_balance]
-		
+
 		if (results > exchange * available) {
 			dispatch(
 				setToastify({
@@ -76,8 +71,8 @@ const TransferMoney = ({data}) => {
 			formData.append('amount', filter.amount)
 			formData.append('exchange', exchange)
 			formData.append('type', filter.type)
-			
-			postData(`deposit/setBalance/`, formData).then((json) => {
+
+			postData('deposit/setBalance/', formData).then((json) => {
 				if (json.code === '0') {
 					dispatch(
 						setToastify({
@@ -87,13 +82,19 @@ const TransferMoney = ({data}) => {
 					).then(() => {
 						handleResetForm()
 						dispatch(setAside(null))
-						dispatch(setCmd({
-							message: service.MESSAGE.ACCOUNTS.BALANCE,
-							data: {
-								id: data.id,
-								username: data.username,
+						
+						if (find.length > 0) {
+							list[0].credits = json.data.current.balance
+							
+							if (data.parent) {
+								find[0].shops[data.parent.idx].credits = json.data.target.balance
 							}
-						}))
+							else {
+								find[0].credits = json.data.target.balance
+							}
+							
+							dispatch(updateAgents(list))
+						}
 					})
 				}
 				else {
@@ -109,7 +110,11 @@ const TransferMoney = ({data}) => {
 	}
 	
 	useEffect(() => {
-		handleInit()
+		getData(`deposit/getBalances/?id=${data.id}`).then((json) => {
+			if (json.status === 'OK') {
+				setTable(json.data)
+			}
+		})
 	}, []);
 	
 	useEffect(() => {

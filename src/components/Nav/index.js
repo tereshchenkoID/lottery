@@ -11,7 +11,6 @@ import Toggle from "../Toggle";
 
 import style from './index.module.scss';
 
-
 const Nav = () => {
 	const { t } = useTranslation()
 	const { pathname } = useLocation();

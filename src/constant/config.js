@@ -96,14 +96,6 @@ export const service = {
 		1: 'PAYOUT'
 	},
 	
-	MESSAGE: {
-		ACCOUNTS: {
-			ADD: 'add',
-			TRANSFER: 'transfer',
-			BALANCE: 'balance'
-		}
-	},
-	
 	YES_NO: {
 		0: 'NO',
 		1: 'YES',

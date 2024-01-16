@@ -20,7 +20,7 @@ import {convertOptions} from "helpers/convertOptions";
 
 import style from './index.module.scss';
 
-const config = [
+const config_1 = [
 	{
 		key: 'ticketId',
 		text: 'ticket_id'
@@ -360,7 +360,7 @@ const Tickets = () => {
 							<div className={style.row}>
 								<div className={style.cell} />
 								{
-									config.map((el, idx) =>
+									config_1.map((el, idx) =>
 										<div
 											key={idx}
 											className={style.cell}
@@ -383,7 +383,7 @@ const Tickets = () => {
 												<Ticket
 													data={el}
 													action={setData}
-													config={config}
+													config_1={config_1}
 													config_2={config_2}
 													config_3={config_3}
 												/>
