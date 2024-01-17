@@ -7,6 +7,7 @@ const Accounts = lazy(() => import('pages/Accounts'))
 const Tickets = lazy(() => import('pages/Tickets'))
 const DailySums = lazy(() => import('pages/DailySums'))
 const GeneralOverview = lazy(() => import('pages/GeneralOverview'))
+const TransferSearch = lazy(() => import('pages/TransferSearch'))
 
 export const router = [
 	{
@@ -22,6 +23,10 @@ export const router = [
         path: "/accounts",
         element: (<Accounts />)
     },
+	{
+		path: "/transfer-search",
+		element: (<TransferSearch />)
+	},
 	{
 		path: "/settings",
 		element: (<Settings />)

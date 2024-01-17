@@ -24,6 +24,10 @@ const Nav = () => {
 				{
 					text: 'accounts',
 					link: '/accounts'
+				},
+				{
+					text: 'transfer_search',
+					link: '/transfer-search'
 				}
 			]
 		},
@@ -92,6 +96,7 @@ const Nav = () => {
     return (
         <nav
 			ref={blockRef}
+			onClick={() => setShow(true)}
 			className={
 				classNames(
 					style.block,
@@ -120,10 +125,7 @@ const Nav = () => {
 								}
 							>
 								<span
-									onClick={() => {
-										setActive(idx, !el.active)
-										setShow(true)
-									}}
+									onClick={() => setActive(idx, !el.active)}
 									className={style.link}
 								>
 									<FontAwesomeIcon

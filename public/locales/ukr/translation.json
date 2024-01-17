@@ -172,5 +172,9 @@
   "transfer_money": "Transfer money UA",
   "amount": "Amount UA",
   "available_balance": "Available balance UA",
-  "insufficient_funds": "Insufficient funds UA"
+  "insufficient_funds": "Insufficient funds UA",
+  "transfer_search": "Transfer search UA",
+  "types": "Types UA",
+  "target": "Target UA",
+  "deposit": "Deposit UA"
 }

@@ -172,5 +172,9 @@
   "transfer_money": "Transfer money",
   "amount": "Amount",
   "available_balance": "Available balance",
-  "insufficient_funds": "Insufficient funds"
+  "insufficient_funds": "Insufficient funds",
+  "transfer_search": "Transfer search",
+  "types": "Types",
+  "target": "Target",
+  "deposit": "Deposit"
 }

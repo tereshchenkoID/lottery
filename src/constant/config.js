@@ -30,6 +30,22 @@ export const types = {
 		0: 'ANY',
 		1: 'SHOP',
 		2: 'WEB',
+	},
+	
+	TRANSFER_TYPE: {
+		0: 'DEPOSIT',
+		1: 'PAYOUT'
+	},
+	
+	AGENT_TRANSFER_TYPE: {
+		0: 'TO AGENT',
+		1: 'FROM AGENT',
+		2: 'TO SHOP',
+		3: 'FROM SHOP',
+		4: 'COMMISSION TO AGENT',
+		5: 'COMMISSION TO SHOP',
+		6: 'CASH-IN',
+		7: 'CASH-OUT'
 	}
 }
 
@@ -56,7 +72,7 @@ export const modes = {
 		0: 'POS',
 		1: 'WEB PRINT',
 		2: 'DISABLED'
-	},
+	}
 }
 
 export const ticket = {
@@ -89,11 +105,6 @@ export const service = {
 		17: 'Spin&Win Deluxe',
 		18: 'Tennis',
 		19: 'Turbo football'
-	},
-	
-	TRANSFER_TYPE: {
-		0: 'DEPOSIT',
-		1: 'PAYOUT'
 	},
 	
 	YES_NO: {

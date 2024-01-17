@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 
-import {service} from "constant/config";
+import {types} from "constant/config";
 
 import {setToastify} from "store/actions/toastifyAction";
 import {setAside} from "store/actions/asideAction";
@@ -34,7 +34,7 @@ const TransferMoney = ({data}) => {
 	const [table, setTable] = useState(null)
 	const [exchange, setExchange] = useState(null)
 	const list = agents
-	const find = searchById(list[0], data.parent ? data.parent.parent_id : data.id)
+	const find = useMemo(() => searchById(list[0], data.parent ? data.parent.parent_id : data.id), [])
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
@@ -138,7 +138,7 @@ const TransferMoney = ({data}) => {
 			<Select
 				placeholder={t('available_balance')}
 				options={
-					Object.entries(service.TRANSFER_TYPE).map(([key, value]) => ({
+					Object.entries(types.TRANSFER_TYPE).map(([key, value]) => ({
 						value: key,
 						label: value
 					}))

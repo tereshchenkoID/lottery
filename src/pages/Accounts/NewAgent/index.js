@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -41,7 +41,7 @@ const NewAgent = ({data}) => {
 	const [filter, setFilter] = useState(initialValue)
 	const [inherit, setInherit] = useState(null)
 	const list = agents
-	const find = searchById(list[0], data.id)
+	const find = useMemo(() => searchById(list[0], data.id), [])
 	
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
