@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
@@ -6,6 +6,7 @@ import classNames from "classnames";
 import {useOutsideClick} from "hooks/useOutsideClick";
 
 import style from './index.module.scss';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Option = ({
 	data,
@@ -14,7 +15,7 @@ const Option = ({
 	setActive,
 	onChange
 }) => {
-	
+
 	return (
 		<>
 			{
@@ -35,9 +36,40 @@ const Option = ({
 						})
 					}}
 				>
+          {
+            option.shops
+              ?
+                <FontAwesomeIcon
+                  icon="fa-solid fa-user"
+                  className={style.icon}
+                />
+              :
+                <FontAwesomeIcon
+                  icon="fa-solid fa-shop"
+                  className={style.icon}
+                />
+          }
 					{option.username}
 				</button>
 			}
+      {
+        option.shops &&
+        <ul className={style.ul}>
+          {
+            option.shops.map((childNode, idx) => (
+              <li key={idx}>
+                <Option
+                  option={childNode}
+                  data={data}
+                  active={active}
+                  setActive={setActive}
+                  onChange={onChange}
+                />
+              </li>
+            ))
+          }
+        </ul>
+      }
 			{
 				option.clients &&
 				<ul className={style.ul}>
@@ -70,10 +102,10 @@ const Agents = ({
 	const [active, setActive] = useState(false)
 	const blockRef = useRef(null)
 	const buttonRef = useRef(null)
-	
+
 	const [searchTerm, setSearchTerm] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
-	
+
 	useOutsideClick(
 		blockRef,
 		() => {
@@ -86,13 +118,12 @@ const Agents = ({
 			}
 		}
 	)
-	
+
 	const searchByUsername = (node, term) => {
-		
 		if (node.username && node.username.toLowerCase().indexOf(term.toLowerCase()) !== -1) {
 			return [node];
 		}
-		
+
 		if (node.clients) {
 			let results = [];
 			for (const client of node.clients) {
@@ -100,21 +131,21 @@ const Agents = ({
 			}
 			return results;
 		}
-		
+
 		return [];
 	};
-	
+
 	const handleSearch = () => {
 		const results= searchByUsername(options[0], searchTerm)
 		setSearchResults(results);
 	};
-	
+
 	useEffect(() => {
 		handleSearch()
 	}, [searchTerm])
-	
+
 	return (
-        <div
+    <div
 			ref={blockRef}
 			className={
 				classNames(

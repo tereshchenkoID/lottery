@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 
@@ -78,18 +78,19 @@ const TransferSearch = () => {
 		'currency': ''
 	}
 	const [filter, setFilter] = useState(initialValue)
-  const [submit, setSubmit] = useState(false)
+  const [cmd, setCmd] = useState(false)
 	const [data, setData] = useState(agents)
 
   const handleSubmit = (event) => {
     event && event.preventDefault()
     setData(searchById(agents[0], filter.agent.id))
-    setSubmit(true)
+    setCmd('submit')
   }
 
 	const handleResetForm = () => {
 		setFilter(initialValue)
 		setData(agents)
+    setCmd('reset')
 	}
 
 	const handlePropsChange = (fieldName, fieldValue) => {
@@ -196,8 +197,8 @@ const TransferSearch = () => {
           config_1={config_1}
           config_2={config_2}
           filter={filter}
-          submit={submit}
-          setSubmit={setSubmit}
+          cmd={cmd}
+          setCmd={setCmd}
         />
       </Paper>
     </>

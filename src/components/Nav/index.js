@@ -71,7 +71,7 @@ const Nav = () => {
 	])
 	const blockRef = useRef(null)
 	const buttonRef = useRef(null)
-	
+
 	const setActive = (index, value) => {
 		setMenu((prevMenu) => {
 			const newMenu = [...prevMenu];
@@ -79,7 +79,7 @@ const Nav = () => {
 			return newMenu;
 		});
 	};
-	
+
 	useOutsideClick(
 		blockRef,
 		() => {
@@ -92,95 +92,95 @@ const Nav = () => {
 			},
 		}
 	)
-	
+
     return (
-        <nav
-			ref={blockRef}
-			onClick={() => setShow(true)}
-			className={
-				classNames(
-					style.block,
-					show && style.active
-				)
-			}
-		>
-			<div className={style.wrapper}>
-				<div className={style.logo}>
-					<Link
-						to={`/`}
-						rel="noreferrer"
-					/>
-				</div>
-				<hr/>
-				<ul className={style.list}>
-					{
-						menu.map((el, idx) =>
-							<li
-								key={idx}
-								className={
-									classNames(
-										style.item,
-										el.active && style.active
-									)
-								}
-							>
-								<span
-									onClick={() => setActive(idx, !el.active)}
-									className={style.link}
-								>
-									<FontAwesomeIcon
-										icon={el.icon}
-										className={style.icon}
-									/>
-									<span>{t(el.text)}</span>
-									{
-										el.submenu.length > 0 &&
-										<FontAwesomeIcon
-											icon="fa-solid fa-angle-down"
-											className={style.arrow}
-										/>
-									}
-								</span>
-								{
-									el.submenu.length > 0 &&
-									<div className={style.submenu}>
-										{
-											el.submenu.map((el_s, idx_s) =>
-												<Link
-													key={idx_s}
-													to={el_s.link}
-													rel="noreferrer"
-													className={
-														classNames(
-															style.link,
-															pathname === el_s.link && style.active
-														)
-													}
-													onClick={() => setShow(false)}
-												>
-													<i className={style.icon}/>
-													<span>{t(el_s.text)}</span>
-												</Link>
-											)
-										}
-									</div>
-								}
-							</li>
-						)
-					}
-				</ul>
-				<hr/>
-				<div
-					ref={buttonRef}
-					className={style.action}
-				>
-					<Toggle
-						active={show}
-						action={setShow}
-					/>
-				</div>
-			</div>
-		</nav>
+      <nav
+        ref={blockRef}
+        className={
+          classNames(
+            style.block,
+            show && style.active
+          )
+        }
+      >
+        <div className={style.wrapper}>
+          <div className={style.logo}>
+            <Link
+              to={`/`}
+              rel="noreferrer"
+            />
+          </div>
+          <hr/>
+          <ul className={style.list}>
+            {
+              menu.map((el, idx) =>
+                <li
+                  key={idx}
+                  className={
+                    classNames(
+                      style.item,
+                      el.active && style.active
+                    )
+                  }
+                  onClick={() => setShow(true)}
+                >
+                  <span
+                    onClick={() => setActive(idx, !el.active)}
+                    className={style.link}
+                  >
+                    <FontAwesomeIcon
+                      icon={el.icon}
+                      className={style.icon}
+                    />
+                    <span>{t(el.text)}</span>
+                    {
+                      el.submenu.length > 0 &&
+                      <FontAwesomeIcon
+                        icon="fa-solid fa-angle-down"
+                        className={style.arrow}
+                      />
+                    }
+                  </span>
+                  {
+                    el.submenu.length > 0 &&
+                    <div className={style.submenu}>
+                      {
+                        el.submenu.map((el_s, idx_s) =>
+                          <Link
+                            key={idx_s}
+                            to={el_s.link}
+                            rel="noreferrer"
+                            className={
+                              classNames(
+                                style.link,
+                                pathname === el_s.link && style.active
+                              )
+                            }
+                            onClick={() => setShow(false)}
+                          >
+                            <i className={style.icon}/>
+                            <span>{t(el_s.text)}</span>
+                          </Link>
+                        )
+                      }
+                    </div>
+                  }
+                </li>
+              )
+            }
+          </ul>
+          <hr/>
+          <div
+            ref={buttonRef}
+            className={style.action}
+          >
+            <Toggle
+              active={show}
+              action={setShow}
+            />
+          </div>
+        </div>
+      </nav>
     );
 }
 

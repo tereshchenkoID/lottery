@@ -20,9 +20,8 @@ const Option = ({
 	filter,
 	config_1,
 	config_2,
-  submit,
-  setSubmit
-
+  cmd,
+  setCmd
 }) => {
 	const isClients = data.clients && data.clients.length > 0
 	const [activeAccounts, setActiveAccounts] = useState(false)
@@ -49,13 +48,41 @@ const Option = ({
     })
   }
 
-  useEffect(() => {
-    if(submit && data.id === filter.agent.id) {
-      handleSubmit()
-      setActiveAccounts(true)
-      setSubmit(false)
+  const setFieldValue = (key, el) => {
+    switch (key) {
+      case 'username':
+        return data.username
+      case 'target':
+        return el[key].username
+      case 'type':
+        return types.AGENT_TRANSFER_TYPE[el[key]]
+      case 'deposit':
+        return `${el[key] !== "" ? el.currency : ''} ${el[key]}`
+      case 'payout':
+        return `${el[key] !== "" ? el.currency : ''} ${el[key]}`
+      default:
+        return el[key]
     }
-  }, [submit]);
+  }
+
+  useEffect(() => {
+    if (cmd === 'submit') {
+      setActiveAccounts(false)
+      setActiveTransfer(false)
+
+      if(data.id === filter.agent.id) {
+        handleSubmit()
+        setActiveAccounts(true)
+        setCmd(false)
+      }
+    }
+    if (cmd === 'reset') {
+      setActiveAccounts(false)
+      setActiveTransfer(false)
+      setTransfer(null)
+      setCmd(false)
+    }
+  }, [cmd]);
 
 	return (
 		<>
@@ -115,61 +142,52 @@ const Option = ({
 						{
 							activeTransfer &&
 							<div className={style.wrapper}>
-                <div
-                  className={
-                    classNames(
-                      style.row,
-                      style.headline
-                    )
-                  }
-                >
-                  <div className={style.cell}/>
-                  <div className={style.cell}>{data.username}</div>
-                  <div className={style.cell}/>
-                  <div className={style.cell}>{t('total')}</div>
-                  <div className={style.cell}>Σ</div>
-                  <div className={style.cell}/>
-                  <div className={style.cell}>
-                    <ReadMore data={transfer.total.deposits}/>
-                  </div>
-                  <div className={style.cell}>
-                    <ReadMore data={transfer.total.payouts}/>
-                  </div>
-                </div>
                 {
                   transfer.transfers.length > 0
                     ?
-                      transfer.transfers.map((el, idx) =>
+                      <>
                         <div
-                          key={idx}
-                          className={style.row}
-                        >
-                          <div className={style.cell} />
-                          {
-                            config_1.map((key, value_idx) =>
-                              <div
-                                key={value_idx}
-                                className={style.cell}
-                              >
-                                {
-                                  key.key === 'username' && data.username
-                                }
-                                {
-                                  key.key === 'target'
-                                    ?
-                                      el[key.key].username
-                                    :
-                                      key.key === 'type'
-                                        ?
-                                          types.AGENT_TRANSFER_TYPE[el[key.key]]
-                                        :
-                                          <>{(el[key.key] !== "" && (key.key === 'deposit' || key.key === 'payout')) && el.currency} {el[key.key]}</>
-                                }
-                              </div>
+                          className={
+                            classNames(
+                              style.row,
+                              style.headline
                             )
                           }
+                        >
+                          <div className={style.cell}/>
+                          <div className={style.cell}>{data.username}</div>
+                          <div className={style.cell}/>
+                          <div className={style.cell}>{t('total')}</div>
+                          <div className={style.cell}>Σ</div>
+                          <div className={style.cell}/>
+                          <div className={style.cell}>
+                            <ReadMore data={transfer.total.deposits}/>
+                          </div>
+                          <div className={style.cell}>
+                            <ReadMore data={transfer.total.payouts}/>
+                          </div>
                         </div>
-                      )
+                        {
+                          transfer.transfers.map((el, idx) =>
+                            <div
+                              key={idx}
+                              className={style.row}
+                            >
+                              <div className={style.cell}/>
+                              {
+                                config_1.map((key, value_idx) =>
+                                  <div
+                                    key={value_idx}
+                                    className={style.cell}
+                                  >
+                                    {setFieldValue(key.key, el)}
+                                  </div>
+                                )
+                              }
+                            </div>
+                          )
+                        }
+                      </>
                     :
                       <div
                         className={
@@ -187,23 +205,23 @@ const Option = ({
           </>
           {
             isClients &&
-						data.clients.map((el, idx) =>
-							<Option
-								key={idx}
-								t={t}
-								data={el}
-								config_1={config_1}
-								config_2={config_2}
-								filter={filter}
-                submit={submit}
-                setSubmit={setSubmit}
-							/>
-						)
-					}
-				</div>
-			}
-		</>
-	)
+            data.clients.map((el, idx) =>
+              <Option
+                key={idx}
+                t={t}
+                data={el}
+                config_1={config_1}
+                config_2={config_2}
+                filter={filter}
+                cmd={cmd}
+                setCmd={setCmd}
+              />
+            )
+          }
+        </div>
+      }
+    </>
+  )
 }
 
 const Table = ({
@@ -211,8 +229,8 @@ const Table = ({
 	filter,
 	config_1,
 	config_2,
-  submit,
-  setSubmit
+  cmd,
+  setCmd
 }) => {
 	const {t} = useTranslation()
 
@@ -238,26 +256,26 @@ const Table = ({
 					)
 				}
 			</div>
-			{
-				data.length > 0
-					?
-						data.map((el, idx) =>
-							<Option
-								key={idx}
-								t={t}
-								data={el}
-								config_1={config_1}
-								config_2={config_2}
-								filter={filter}
-                submit={submit}
-                setSubmit={setSubmit}
-							/>
-						)
-					:
-						<div className={style.empty}>{t('no_matching_records_found')}</div>
-			}
-		</div>
-	);
+      {
+        data.length > 0
+          ?
+            data.map((el, idx) =>
+              <Option
+                key={idx}
+                t={t}
+                data={el}
+                config_1={config_1}
+                config_2={config_2}
+                filter={filter}
+                cmd={cmd}
+                setCmd={setCmd}
+              />
+            )
+          :
+            <div className={style.empty}>{t('no_matching_records_found')}</div>
+      }
+    </div>
+  );
 }
 
 export default Table;
