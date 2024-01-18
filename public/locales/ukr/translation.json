@@ -176,5 +176,7 @@
   "transfer_search": "Transfer search UA",
   "types": "Types UA",
   "target": "Target UA",
-  "deposit": "Deposit UA"
+  "deposit": "Deposit UA",
+  "transfers": "Transfers UA",
+  "total": "Total"
 }

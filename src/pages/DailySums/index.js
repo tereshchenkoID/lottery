@@ -96,7 +96,7 @@ const config_2 = [
 const DailyReports = () => {
 	const { t } = useTranslation()
 	const {agents} = useSelector((state) => state.agents)
-	
+
 	const initialValue = {
 		'agent': {
 			id: agents[0].id,
@@ -106,36 +106,36 @@ const DailyReports = () => {
 		'date-to': getDate(new Date(), 'datetime-local'),
 		'timeframe': ''
 	}
-	
+
 	const [filter, setFilter] = useState(initialValue)
 	const [loading, setLoading] = useState(false)
 	const [data, setData] = useState(agents)
-	
+
 	const handleResetForm = () => {
 		setFilter(initialValue)
-		
+
 		setData(agents)
 		handleSubmit(null, initialValue)
 	}
-	
+
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
 		}))
 	}
-	
+
 	const handleSubmit = (event, newData) => {
 		const data = newData ? newData : filter
-		
+
 		event && event.preventDefault();
 		setLoading(true)
-		
+
 		const formData = new FormData();
 		formData.append('id', data.agent.id)
 		formData.append('date-from', data['date-from'])
 		formData.append('date-to', data['date-to'])
-		
+
 		postData(`dailySums/`, formData).then((json) => {
 			if (json.status === 'OK') {
 				setData([json.data])
@@ -151,8 +151,8 @@ const DailyReports = () => {
 			:
 				<>
 					<Paper headline={t('daily_overview_report')}>
-						{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-						{/*<br />*/}
+						<pre>{JSON.stringify(filter, null, 2)}</pre>
+						<br />
 						<form onSubmit={handleSubmit}>
 							<div className={style.grid}>
 								<div>

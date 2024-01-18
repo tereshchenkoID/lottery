@@ -128,7 +128,7 @@ const Tickets = () => {
 		'payout-to': '',
 	}
 	const { t } = useTranslation()
-	
+
 	const {settings} = useSelector((state) => state.settings)
 	const [filter, setFilter] = useState(initialValue)
 	const [loading, setLoading] = useState(true)
@@ -139,7 +139,7 @@ const Tickets = () => {
 		quantity: 50,
 		results: 0
 	})
-	
+
 	useEffect(() => {
 		if (pagination.results > 0) {
 			setPagination((prevPagination) => ({
@@ -151,43 +151,43 @@ const Tickets = () => {
 			handleSubmit(null, 0)
 		}
 	}, [pagination.quantity])
-	
+
 	const handleResetForm = () => {
 		setFilter(initialValue)
 	}
-	
+
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
 		}))
 	}
-	
+
 	const handlePagination = (fieldName, fieldValue) => {
 		setPagination((prevPagination) => ({
 			...prevPagination,
 			[fieldName]: fieldValue
 		}))
 	}
-	
+
 	const handleSubmit = (event) => {
 		event && event.preventDefault();
 		setLoading(true)
-		
+
 		const formData = new FormData();
 		formData.append('page', pagination.page)
 		formData.append('quantity', pagination.quantity)
-		
+
 		Object.entries(filter).map(([key, value]) => {
 			formData.append(key, value)
 			return true
 		})
-		
+
 		postData(`tickets/`, formData).then((json) => {
 			if (json.status === 'OK') {
 				setData(json)
 				setLoading(false)
-				
+
 				setPagination(prev => ({
 					...prev,
 					results: json.results,
@@ -196,29 +196,29 @@ const Tickets = () => {
 			}
 		})
 	}
-	
+
 	const nextHandleSubmit = () => {
 		const next = pagination.page < pagination.pages ? pagination.page + 1 : pagination.pages
 		handlePagination('page', next)
 		handleSubmit(null)
 	}
-	
+
 	const prevHandleSubmit = () => {
 		const prev = pagination.page > 0 ? pagination.page - 1 : 0
 		handlePagination('page', prev)
 		handleSubmit(null)
 	}
-	
+
 	const startHandlerSubmit = () => {
 		handlePagination('page', 0)
 		handleSubmit(null)
 	}
-	
+
 	const endHandlerSubmit = () => {
 		handlePagination('page', pagination.pages)
 		handleSubmit(null)
 	}
-	
+
 	useEffect(() => {
 		handleSubmit(null)
 	}, []);
@@ -234,9 +234,8 @@ const Tickets = () => {
 						quantity={pagination.quantity}
 						setQuantity={setPagination}
 					>
-						{/*<pre>{pagination.quantity}</pre>*/}
-						{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
-						{/*<br />*/}
+						<pre>{JSON.stringify(filter, null, 2)}</pre>
+						<br />
 						<form onSubmit={handleSubmit}>
 							<div className={style.grid}>
 								<div>

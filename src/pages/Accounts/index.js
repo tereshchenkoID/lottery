@@ -52,7 +52,7 @@ const Accounts = () => {
 	const { t } = useTranslation()
 	const {agents} = useSelector((state) => state.agents)
 	const {settings} = useSelector((state) => state.settings)
-	
+
 	const initialValue = {
 		'agent': {
 			'id': agents[0].id,
@@ -63,12 +63,12 @@ const Accounts = () => {
 	}
 	const [filter, setFilter] = useState(initialValue)
 	const [data, setData] = useState(agents)
-	
+
 	const handleSubmit = (event) => {
 		event && event.preventDefault()
 		setData(searchFilter(agents[0]))
 	}
-	
+
 	const searchFilter = (node) => {
 		const s = {
 			id : node.id
@@ -76,7 +76,7 @@ const Accounts = () => {
 		const t = {
 			id : filter.agent.id
 		}
-		
+
 		if (filter.locked) {
 			s.locked = Number(node.locked)
 			t.locked = filter.locked
@@ -85,11 +85,11 @@ const Accounts = () => {
 			s.currency = node.currency
 			t.currency = filter.currency
 		}
-		
+
 		if (JSON.stringify(s) === JSON.stringify(t)) {
 			return [node]
 		}
-		
+
 		if (node.clients) {
 			let results = [];
 			for (const client of node.clients) {
@@ -97,81 +97,81 @@ const Accounts = () => {
 			}
 			return results;
 		}
-		
+
 		return [];
 	};
-	
+
 	const handleResetForm = () => {
 		setFilter(initialValue)
 		setData(agents)
 	}
-	
+
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
 		}))
 	}
-	
+
     return (
-		<>
-			<Paper headline={t('account_search')}>
-				<pre>{JSON.stringify(filter, null, 2)}</pre>
-				<form onSubmit={handleSubmit}>
-					<div className={style.grid}>
-						<div>
-							<Agents
-								data={filter.agent}
-								options={agents}
-								onChange={(value) => handlePropsChange('agent', value)}
-							/>
-						</div>
-						<div>
-							<Select
-								placeholder={t('locked')}
-								options={convertOptions(service.YES_NO)}
-								data={filter.locked}
-								onChange={(value) => handlePropsChange('locked', value)}
-							/>
-						</div>
-						<div>
-							<Select
-								placeholder={t('currency')}
-								options={
-									settings.currencies.map(currency => ({
-										value: currency,
-										label: currency
-									}))
-								}
-								data={filter.currency}
-								onChange={(value) => handlePropsChange('currency', value)}
-							/>
-						</div>
-					</div>
-					<div className={style.actions}>
-						<Button
-							type={'submit'}
-							classes={'primary'}
-							placeholder={t("search")}
-						/>
-						<Button
-							type={'reset'}
-							placeholder={t("cancel")}
-							onChange={handleResetForm}
-						/>
-					</div>
-				</form>
-			</Paper>
-			<Paper>
-				<Table
-					data={data}
-					filter={filter}
-					config_1={config_1}
-					config_2={config_2}
-					handleDataChange={setData}
-				/>
-			</Paper>
-		</>
+      <>
+        <Paper headline={t('account_search')}>
+          <pre>{JSON.stringify(filter, null, 2)}</pre>
+          <form onSubmit={handleSubmit}>
+            <div className={style.grid}>
+              <div>
+                <Agents
+                  data={filter.agent}
+                  options={agents}
+                  onChange={(value) => handlePropsChange('agent', value)}
+                />
+              </div>
+              <div>
+                <Select
+                  placeholder={t('locked')}
+                  options={convertOptions(service.YES_NO)}
+                  data={filter.locked}
+                  onChange={(value) => handlePropsChange('locked', value)}
+                />
+              </div>
+              <div>
+                <Select
+                  placeholder={t('currency')}
+                  options={
+                    settings.currencies.map(currency => ({
+                      value: currency,
+                      label: currency
+                    }))
+                  }
+                  data={filter.currency}
+                  onChange={(value) => handlePropsChange('currency', value)}
+                />
+              </div>
+            </div>
+            <div className={style.actions}>
+              <Button
+                type={'submit'}
+                classes={'primary'}
+                placeholder={t("search")}
+              />
+              <Button
+                type={'reset'}
+                placeholder={t("cancel")}
+                onChange={handleResetForm}
+              />
+            </div>
+          </form>
+        </Paper>
+        <Paper>
+          <Table
+            data={data}
+            filter={filter}
+            config_1={config_1}
+            config_2={config_2}
+            handleDataChange={setData}
+          />
+        </Paper>
+      </>
     )
 }
 

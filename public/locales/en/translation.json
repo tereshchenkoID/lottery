@@ -176,5 +176,7 @@
   "transfer_search": "Transfer search",
   "types": "Types",
   "target": "Target",
-  "deposit": "Deposit"
+  "deposit": "Deposit",
+  "transfers": "Transfers",
+  "total": "Total"
 }
