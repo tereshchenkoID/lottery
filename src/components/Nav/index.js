@@ -122,10 +122,12 @@ const Nav = () => {
                       el.active && style.active
                     )
                   }
-                  onClick={() => setShow(true)}
                 >
                   <span
-                    onClick={() => setActive(idx, !el.active)}
+                    onClick={() => {
+                      setActive(idx, !el.active)
+                      setShow(true)
+                    }}
                     className={style.link}
                   >
                     <FontAwesomeIcon

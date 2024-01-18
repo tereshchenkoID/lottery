@@ -26,10 +26,10 @@ const Option = ({
 	const dispatch = useDispatch()
 	const isShops = data.shops && data.shops.length > 0
 	const isClients = data.clients && data.clients.length > 0
-	
+
 	const [activeAccounts, setActiveAccounts] = useState(false)
 	const [activeShops, setActiveShops] = useState(false)
-	
+
 	const handleTransferMoney = (e, value, parent = null) => {
 		dispatch(setAside({
 			meta: {
@@ -41,7 +41,7 @@ const Option = ({
 			...value || data,
 		}))
 	}
-	
+
 	const handleChangePassword = (e, value) => {
 		dispatch(setAside({
 			meta: {
@@ -52,7 +52,7 @@ const Option = ({
 			...value || data,
 		}))
 	}
-	
+
 	const handleTransferAgent = (e, value) => {
 		dispatch(setAside({
 			meta: {
@@ -63,7 +63,7 @@ const Option = ({
 			...value || data,
 		}))
 	}
-	
+
 	const handleEditAgent = (e, type) => {
 		dispatch(setAside({
 			meta: {
@@ -75,7 +75,7 @@ const Option = ({
 			...data,
 		}))
 	}
-	
+
 	const handleNewAgent = (e, type) => {
 		dispatch(setAside({
 			meta: {
@@ -87,7 +87,7 @@ const Option = ({
 			...data,
 		}))
 	}
-	
+
 	return (
 		<>
 			<div className={style.row}>
@@ -277,7 +277,7 @@ const Table = ({
 	config_2,
 }) => {
 	const {t} = useTranslation()
-	
+
 	return (
 		<div className={style.block}>
 			<div
