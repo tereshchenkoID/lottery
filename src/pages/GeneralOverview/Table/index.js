@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
@@ -7,7 +7,6 @@ import {postData} from "helpers/api";
 import {getDate} from "helpers/getDate";
 import {convertFixed} from "helpers/convertFixed";
 
-import Loader from "components/Loader";
 import Dropdown from "actions/Dropdown";
 
 import style from './index.module.scss';
@@ -19,41 +18,62 @@ const Option = ({
 	handlePropsChange,
 	config,
 	config_2,
-	loading,
-	setLoading,
+  cmd,
+  setCmd,
 }) => {
-	const isValidate = data.days && data.days.length > 0
-	const [table, setTable] = useState(isValidate ? data : null)
-	const [active, setActive] = useState(isValidate)
-	
-	const handleSubmit = (el) => {
-		if (table) {
+	const [table, setTable] = useState(null)
+	const [active, setActive] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+	const handleSubmit = (id, username, event) => {
+    if (table && event) {
 			setActive(!active)
 		}
 		else {
-			setLoading(true)
-			
-			const formData = new FormData();
-			formData.append('id', el.id)
+      setLoading(true)
+      const formData = new FormData();
+			formData.append('id', id)
+      formData.append('username', username)
 			formData.append('date-from', filter['date-from'])
 			formData.append('date-to', filter['date-to'])
-			
-			postData(`financialOverview/`, formData).then((json) => {
+
+			postData('financialOverview/', formData).then((json) => {
 				if (json.status === 'OK') {
 					setTable(json.data)
-					setActive(!active)
-					setLoading(false)
-				}
+					setActive(true)
+          setLoading(false)
+          setCmd(false)
+        }
 			})
 		}
 	}
-	
+
+  const handleReset = () => {
+    setTable(null)
+    setActive(false)
+  }
+
+  useEffect(() => {
+    if (cmd === 'submit') {
+      if(data.id === filter.agent.id) {
+        handleReset()
+        handleSubmit(filter.agent.id, filter.agent.username, false)
+      }
+    }
+
+    if (cmd === 'reset') {
+      handleReset()
+      setCmd(false)
+    }
+  }, [cmd]);
+
 	return (
 		<>
 			<div
 				className={
 					classNames(
 						style.row,
+            style.sm,
 						active && style.active
 					)
 				}
@@ -61,219 +81,177 @@ const Option = ({
 				<div className={style.cell}>
 					<Dropdown
 						data={active}
-						action={() => handleSubmit(data)}
+						action={() => handleSubmit(data.id, data.username, true)}
+            loading={loading}
 					/>
 				</div>
 				<div className={style.cell}>{data.username || filter.agent.username}</div>
 			</div>
-			{
-				active &&
-				<div className={style.wrapper}>
-					<div className={style.overflow}>
-						<div
-							className={
-								classNames(
-									style.table,
-									style.lg
-								)
-							}
-						>
-							<div
-								className={
-									classNames(
-										style.row,
-										style.headline,
-										style.wide
-									)
-								}
-							>
-								{
-									config_2.map((el, idx) =>
-										<div
-											key={idx}
-											className={style.cell}
-										>
-											{t(el.text)}
-										</div>
-									)
-								}
-							</div>
-							{
-								table.days?.map((day, days_idx) =>
-									<div
-										key={days_idx}
-										className={style.day}
-									>
-										{
-											day.report.length > 0
-												?
-													day.report.map((report, report_idx) =>
-														<div
-															key={report_idx}
-															className={style.row}
-														>
-															{
-																config_2.map((key, value_idx) =>
-																	<div
-																		key={value_idx}
-																		className={style.cell}
-																	>
-																		{
-																			key.key === 'date-from'
-																				?
-																					report_idx === 0
-																						?
-																							<>
-																								<div>{getDate(filter['date-from'])}</div>
-																								<div>{getDate(filter['date-to'])}</div>
-																							</>
-																						:
-																							''
-																				:
-																					(key.key !== 'date-from' && key.key !== 'currency')
-																						?
-																							convertFixed(report[key.key])
-																						:
-																							report[key.key]
-																		}
-																	</div>
-																)
-															}
-														</div>
-													)
-												:
-													<div
-														className={
-															classNames(
-																style.row,
-																style.empty
-															)
-														}
-													>
-														<div className={style.cell}>
-															<div>
-																<div>{getDate(filter['date-from'])}</div>
-																<div>{getDate(filter['date-to'])}</div>
-															</div>
-														</div>
-														<div className={style.cell}>{t('no_matching_records_found')}</div>
-													</div>
-										}
-									</div>
-								)
-							}
-						</div>
-					</div>
-					{
-						data.clients &&
-						<Tree
-							t={t}
-							state={data.clients}
-							filter={filter}
-							handlePropsChange={handlePropsChange}
-							config={config}
-							config_2={config_2}
-							loading={loading}
-							setLoading={setLoading}
-						/>
-					}
-				</div>
-			}
-		</>
-	)
-}
-
-const Tree = ({
-	t,
-	state,
-	filter,
-	handlePropsChange,
-	config,
-	config_2,
-	loading,
-	setLoading,
-}) => {
-	
-	return (
-		<div
-			className={
-				classNames(
-					style.table,
-					style.sm
-				)
-			}
-		>
-			{
-				state &&
-				state.length > 0 &&
-				<div
-					className={
-						classNames(
-							style.row,
-							style.headline
-						)
-					}
-				>
-					<div className={style.cell} />
-					{
-						config.map((el, idx) =>
-							<div
-								key={idx}
-								className={style.cell}
-							>
-								{t(el.text)}
-							</div>
-						)
-					}
-				</div>
-			}
-			{
-				state.map((el, idx) =>
-					<Option
-						key={idx}
-						t={t}
-						data={el}
-						config={config}
-						config_2={config_2}
-						filter={filter}
-						handlePropsChange={handlePropsChange}
-						loading={loading}
-						setLoading={setLoading}
-					/>
-				)
-			}
-		</div>
-	)
+      {
+        active &&
+        <div className={style.wrapper}>
+          <div className={style.overflow}>
+            <div className={style.table}>
+              <div
+                className={
+                  classNames(
+                    style.row,
+                    style.lg,
+                    style.headline
+                  )
+                }
+              >
+                {
+                  config_2.map((el, idx) =>
+                    <div
+                      key={idx}
+                      className={style.cell}
+                    >
+                      {t(el.text)}
+                    </div>
+                  )
+                }
+              </div>
+              {
+                table &&
+                table.days?.map((day, days_idx) =>
+                  <React.Fragment key={days_idx}>
+                    {
+                      day.report.length > 0
+                        ?
+                          day.report.map((report, report_idx) =>
+                            <div
+                              key={report_idx}
+                              className={
+                                classNames(
+                                  style.row,
+                                  style.lg
+                                )
+                              }
+                            >
+                              {
+                                config_2.map((key, value_idx) =>
+                                  <div
+                                    key={value_idx}
+                                    className={style.cell}
+                                  >
+                                    {
+                                      key.key === 'date-from'
+                                        ?
+                                          report_idx === 0
+                                            ?
+                                              <>
+                                                <div>{day['date-from']}</div>
+                                                <div>{day['date-to']}</div>
+                                              </>
+                                            :
+                                              ''
+                                        :
+                                          (key.key !== 'date-from' && key.key !== 'currency')
+                                            ?
+                                              convertFixed(report[key.key])
+                                            :
+                                              report[key.key]
+                                    }
+                                  </div>
+                                )
+                              }
+                            </div>
+                          )
+                        :
+                          <div
+                            className={
+                              classNames(
+                                style.row,
+                                style.wide
+                              )
+                            }
+                          >
+                            <div className={style.cell}>
+                              <div>
+                                <div>{getDate(filter['date-from'])}</div>
+                                <div>{getDate(filter['date-to'])}</div>
+                              </div>
+                            </div>
+                            <div className={style.cell}>{t('no_matching_records_found')}</div>
+                          </div>
+                    }
+                  </React.Fragment>
+                )
+              }
+            </div>
+          </div>
+          {
+            data.clients &&
+            data.clients.map((el, idx) =>
+              <Option
+                key={idx}
+                t={t}
+                data={el}
+                filter={filter}
+                handlePropsChange={handlePropsChange}
+                config={config}
+                config_2={config_2}
+                cmd={cmd}
+                setCmd={setCmd}
+              />
+            )
+          }
+        </div>
+      }
+    </>
+  )
 }
 
 const Table = ({
-	data,
-	filter,
-	config,
-	config_2,
-	handlePropsChange,
+  data,
+  filter,
+  config_1,
+  config_2,
+  cmd,
+  setCmd
 }) => {
-	const { t } = useTranslation()
-	const [loading, setLoading] = useState(false)
-	
-	return (
-        <div className={style.block}>
-			{
-				loading && <Loader />
-			}
-			
-			<Tree
-				t={t}
-				state={data}
-				config={config}
-				config_2={config_2}
-				filter={filter}
-				handlePropsChange={handlePropsChange}
-				loading={loading}
-				setLoading={setLoading}
-			/>
-        </div>
-    );
+  const {t} = useTranslation()
+
+  return (
+    <div className={style.block}>
+      <div
+        className={
+          classNames(
+            style.row,
+            style.sm,
+            style.headline
+          )
+        }
+      >
+        <div className={style.cell}/>
+        {
+          config_1.map((el, idx) =>
+            <div
+              key={idx}
+              className={style.cell}
+            >
+              {t(el.text)}
+            </div>
+          )
+        }
+      </div>
+      {
+        data.map((el, idx) =>
+          <Option
+            key={idx}
+            t={t}
+            data={el}
+            config_1={config_1}
+            config_2={config_2}
+            filter={filter}
+            cmd={cmd}
+            setCmd={setCmd}
+          />
+        )
+      }
+    </div>
+  );
 }
 
 export default Table;

@@ -9,17 +9,16 @@ import Paper from "components/Paper";
 import Field from "components/Field";
 import Select from "components/Select";
 import Button from "components/Button";
-import Loader from "components/Loader";
 import Table from "./Table";
 
 import {getTimeframeFrom, getTimeframeTo} from "helpers/getTimeframe";
 import {convertOptions} from "helpers/convertOptions";
-import {postData} from "helpers/api";
+import {searchById} from "helpers/searchById";
 import {getDate} from "helpers/getDate";
 
 import style from './index.module.scss';
 
-const config = [
+const config_1 = [
 	{
 		key: 'username',
 		text: 'username'
@@ -99,8 +98,8 @@ const GeneralOverview = () => {
 
 	const initialValue = {
 		'agent': {
-			id: agents[0].id,
-			username: agents[0].username
+			'id': agents[0].id,
+			'username': agents[0].username
 		},
 		'date-from': getDate(new Date().setHours(0, 0, 0, 0), 'datetime-local'),
 		'date-to': getDate(new Date(), 'datetime-local'),
@@ -108,15 +107,14 @@ const GeneralOverview = () => {
 	}
 
 	const [filter, setFilter] = useState(initialValue)
-	const [loading, setLoading] = useState(false)
+  const [cmd, setCmd] = useState(false)
 	const [data, setData] = useState(agents)
 
 	const handleResetForm = () => {
 		setFilter(initialValue)
-
 		setData(agents)
-		handleSubmit(null, initialValue)
-	}
+    setCmd('reset')
+  }
 
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
@@ -125,97 +123,81 @@ const GeneralOverview = () => {
 		}))
 	}
 
-	const handleSubmit = (event, newData) => {
-		const data = newData ? newData : filter
-
-		event && event.preventDefault();
-		setLoading(true)
-
-		const formData = new FormData();
-		formData.append('id', data.agent.id)
-		formData.append('date-from', data['date-from'])
-		formData.append('date-to', data['date-to'])
-
-		postData(`financialOverview/`, formData).then((json) => {
-			if (json.status === 'OK') {
-				setData([json.data])
-				setLoading(false)
-			}
-		})
+	const handleSubmit = (event) => {
+    event && event.preventDefault();
+    setData(searchById(agents[0], filter.agent.id))
+    setCmd('submit')
 	}
 
-    return (
-		loading
-			?
-				<Loader />
-			:
-				<>
-					<Paper headline={t('general_overview_report')}>
-						<pre>{JSON.stringify(filter, null, 2)}</pre>
-						<br />
-						<form onSubmit={handleSubmit}>
-							<div className={style.grid}>
-								<div>
-									<Agents
-										data={filter.agent}
-										options={agents}
-										onChange={(value) => handlePropsChange('agent', value)}
-									/>
-								</div>
-								<div>
-									<Select
-										placeholder={t('timeframe')}
-										options={convertOptions(timeframe.TIMEFRAME)}
-										data={filter.timeframe}
-										onChange={(value) => {
-											handlePropsChange('timeframe', value)
-											handlePropsChange('date-from', getTimeframeFrom(value, 'datetime-local'))
-											handlePropsChange('date-to', getTimeframeTo(value, 'datetime-local'))
-										}}
-									/>
-								</div>
-								<div>
-									<Field
-										type={'datetime-local'}
-										placeholder={t('date_from')}
-										data={filter["date-from"]}
-										onChange={(value) => handlePropsChange('date-from', value)}
-									/>
-								</div>
-								<div>
-									<Field
-										type={'datetime-local'}
-										placeholder={t('date_to')}
-										data={filter["date-to"]}
-										onChange={(value) => handlePropsChange('date-to', value)}
-									/>
-								</div>
-							</div>
-							<div className={style.actions}>
-								<Button
-									type={'submit'}
-									classes={'primary'}
-									placeholder={t("search")}
-								/>
-								<Button
-									type={'reset'}
-									placeholder={t("cancel")}
-									onChange={handleResetForm}
-								/>
-							</div>
-						</form>
-					</Paper>
-					<Paper>
-						<Table
-							config={config}
-							config_2={config_2}
-							data={data}
-							filter={filter}
-							handlePropsChange={handlePropsChange}
-						/>
-					</Paper>
-				</>
-    );
+  return (
+    <>
+      <Paper headline={t('general_overview_report')}>
+        <pre>{JSON.stringify(filter, null, 2)}</pre>
+        <br />
+        <form onSubmit={handleSubmit}>
+          <div className={style.grid}>
+            <div>
+              <Agents
+                data={filter.agent}
+                options={agents}
+                onChange={(value) => handlePropsChange('agent', value)}
+              />
+            </div>
+            <div>
+              <Select
+                placeholder={t('timeframe')}
+                options={convertOptions(timeframe.TIMEFRAME)}
+                data={filter.timeframe}
+                onChange={(value) => {
+                  handlePropsChange('timeframe', value)
+                  handlePropsChange('date-from', getTimeframeFrom(value, 'datetime-local'))
+                  handlePropsChange('date-to', getTimeframeTo(value, 'datetime-local'))
+                }}
+              />
+            </div>
+            <div>
+              <Field
+                type={'datetime-local'}
+                placeholder={t('date_from')}
+                data={filter["date-from"]}
+                onChange={(value) => handlePropsChange('date-from', value)}
+              />
+            </div>
+            <div>
+              <Field
+                type={'datetime-local'}
+                placeholder={t('date_to')}
+                data={filter["date-to"]}
+                onChange={(value) => handlePropsChange('date-to', value)}
+              />
+            </div>
+          </div>
+          <div className={style.actions}>
+            <Button
+              type={'submit'}
+              classes={'primary'}
+              placeholder={t("search")}
+            />
+            <Button
+              type={'reset'}
+              placeholder={t("cancel")}
+              onChange={handleResetForm}
+            />
+          </div>
+        </form>
+      </Paper>
+      <Paper>
+        <Table
+          config_1={config_1}
+          config_2={config_2}
+          data={data}
+          filter={filter}
+          cmd={cmd}
+          setCmd={setCmd}
+        />
+      </Paper>
+    </>
+  );
 }
 
 export default GeneralOverview;

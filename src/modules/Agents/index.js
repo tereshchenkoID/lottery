@@ -4,16 +4,17 @@ import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 
 import {useOutsideClick} from "hooks/useOutsideClick";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 import style from './index.module.scss';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Option = ({
 	data,
 	option,
 	active,
 	setActive,
-	onChange
+	onChange,
+  full
 }) => {
 
 	return (
@@ -37,22 +38,28 @@ const Option = ({
 					}}
 				>
           {
-            option.shops
-              ?
-                <FontAwesomeIcon
-                  icon="fa-solid fa-user"
-                  className={style.icon}
-                />
-              :
-                <FontAwesomeIcon
-                  icon="fa-solid fa-shop"
-                  className={style.icon}
-                />
+            full &&
+              <>
+                {
+                  option.shops
+                    ?
+                      <FontAwesomeIcon
+                        icon="fa-solid fa-user"
+                        className={style.icon}
+                      />
+                    :
+                      <FontAwesomeIcon
+                        icon="fa-solid fa-shop"
+                        className={style.icon}
+                      />
+                }
+              </>
           }
 					{option.username}
 				</button>
 			}
       {
+        full &&
         option.shops &&
         <ul className={style.ul}>
           {
@@ -64,6 +71,7 @@ const Option = ({
                   active={active}
                   setActive={setActive}
                   onChange={onChange}
+                  full={full}
                 />
               </li>
             ))
@@ -82,6 +90,7 @@ const Option = ({
 									active={active}
 									setActive={setActive}
 									onChange={onChange}
+                  full={full}
 								/>
 							</li>
 						))
@@ -96,7 +105,8 @@ const Agents = ({
 	data,
 	options,
 	onChange,
-	placeholder = false
+	placeholder = false,
+  full = false
 }) => {
 	const { t } = useTranslation()
 	const [active, setActive] = useState(false)
@@ -185,6 +195,7 @@ const Agents = ({
 								active={active}
 								setActive={setActive}
 								onChange={onChange}
+                full={full}
 							/>
 						</li>
 					))}

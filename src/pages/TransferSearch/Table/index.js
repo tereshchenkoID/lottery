@@ -27,8 +27,10 @@ const Option = ({
 	const [activeAccounts, setActiveAccounts] = useState(false)
 	const [activeTransfer, setActiveTransfer] = useState(false)
   const [transfer, setTransfer] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = (id = filter.agent.id, username = filter.agent.username) => {
+    setLoading(true)
     const formData = new FormData();
     formData.append('id', id)
     formData.append('username', username)
@@ -44,6 +46,7 @@ const Option = ({
       if (json.status === "OK") {
         setTransfer(json.data)
         setActiveTransfer(true)
+        setLoading(false)
       }
     })
   }
@@ -122,6 +125,7 @@ const Option = ({
                   action={() => {
                     transfer ? setActiveTransfer(!activeTransfer) : handleSubmit(data.id, data.username)
                   }}
+                  loading={loading}
                 />
 							</div>
 							{

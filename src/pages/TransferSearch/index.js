@@ -120,6 +120,7 @@ const TransferSearch = () => {
                   options={agents}
                   placeholder={t('target')}
                   onChange={(value) => handlePropsChange('target', value)}
+                  full={true}
                 />
               </div>
             </div>
