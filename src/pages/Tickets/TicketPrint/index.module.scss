@@ -10,7 +10,7 @@ $color: #000;
 .wrapper {
   @include make-spacer(p, 20px);
 
-  max-width: rem(420px);
+  max-width: rem(490px);
   font-size: rem(12px);
   color: $color;
 }

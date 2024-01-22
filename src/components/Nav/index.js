@@ -54,7 +54,11 @@ const Nav = () => {
 				{
 					text: 'daily_sums',
 					link: '/daily-sums'
-				}
+				},
+        {
+          text: 'settlement',
+          link: '/settlement'
+        },
 			]
 		},
 		{

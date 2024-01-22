@@ -1,11 +1,11 @@
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {statuses, types} from "constant/config";
 
+import Debug from "modules/Debug";
 import Pagination from "modules/Pagination";
-
 import Paper from "components/Paper";
 import Field from "components/Field";
 import Select from "components/Select";
@@ -223,188 +223,188 @@ const Tickets = () => {
 		handleSubmit(null)
 	}, []);
 
-    return (
-		loading
-			?
-				<Loader />
-			:
-				<>
-					<Paper
-						headline={t('tickets_search')}
-						quantity={pagination.quantity}
-						setQuantity={setPagination}
-					>
-						<pre>{JSON.stringify(filter, null, 2)}</pre>
-						<br />
-						<form onSubmit={handleSubmit}>
-							<div className={style.grid}>
-								<div>
-									<Field
-										type={'text'}
-										placeholder={t('ticket')}
-										data={filter.ticket}
-										onChange={(value) => handlePropsChange('ticket', value)}
-									/>
-								</div>
-								<div>
-									<Field
-										type={'text'}
-										placeholder={t('username')}
-										data={filter.username}
-										onChange={(value) => handlePropsChange('username', value)}
-									/>
-								</div>
-								<div>
-									<Select
-										placeholder={t('state')}
-										options={convertOptions(statuses.TICKET_STATUSES)}
-										data={filter.state}
-										onChange={(value) => handlePropsChange('state', value)}
-									/>
-								</div>
-								<div>
-									<Select
-										placeholder={t('player_type')}
-										options={convertOptions(types.PLAYER_TYPE)}
-										data={filter.type}
-										onChange={(value) => handlePropsChange('type', value)}
-									/>
-								</div>
-								<div>
-									<Field
-										type={'datetime-local'}
-										placeholder={t('date_from')}
-										data={filter["date-from"]}
-										onChange={(value) => handlePropsChange('date-from', value)}
-									/>
-								</div>
-								<div>
-									<Field
-										type={'datetime-local'}
-										placeholder={t('date_to')}
-										data={filter["date-to"]}
-										onChange={(value) => handlePropsChange('date-to', value)}
-									/>
-								</div>
-								<div>
-									<Field
-										type={'number'}
-										placeholder={t('amount_from')}
-										data={filter["amount-from"]}
-										onChange={(value) => handlePropsChange('amount-from', value)}
-									/>
-								</div>
-								<div>
-									<Field
-										type={'number'}
-										placeholder={t('amount_to')}
-										data={filter["amount-to"]}
-										onChange={(value) => handlePropsChange('amount-to', value)}
-									/>
-								</div>
-								<div>
-									<Select
-										placeholder={t('currency')}
-										options={
-											settings.currencies.map(currency => ({
-												value: currency,
-												label: currency
-											}))
-										}
-										data={filter["currency"]}
-										onChange={(value) => handlePropsChange('currency', value)}
-									/>
-								</div>
-								<div>
-									<Field
-										type={'number'}
-										placeholder={t('payout_from')}
-										data={filter['payout-from']}
-										onChange={(value) => handlePropsChange('payout-from', value)}
-									/>
-								</div>
-								<div>
-									<Field
-										type={'number'}
-										placeholder={t('payout_to')}
-										data={filter['payout-to']}
-										onChange={(value) => handlePropsChange('payout-to', value)}
-									/>
-								</div>
-							</div>
-							<div className={style.actions}>
-								<Button
-									type={'submit'}
-									classes={'primary'}
-									placeholder={t("search")}
-								/>
-								<Button
-									type={'reset'}
-									placeholder={t("cancel")}
-									onChange={handleResetForm}
-								/>
-							</div>
-						</form>
-					</Paper>
-					<Paper>
-						<Pagination
-							position={'top'}
-							pagination={pagination}
-							nextHandler={nextHandleSubmit}
-							prevHandler={prevHandleSubmit}
-							startHandlerSubmit={startHandlerSubmit}
-							endHandlerSubmit={endHandlerSubmit}
-						/>
-						<div className={style.table}>
-							<div className={style.row}>
-								<div className={style.cell} />
-								{
-									config_1.map((el, idx) =>
-										<div
-											key={idx}
-											className={style.cell}
-										>
-											{t(el.text)}
-										</div>
-									)
-								}
-								<div className={style.cell} />
-							</div>
-							{
-								data.data &&
-								data.data.length > 0
-									?
-										data.data.map((el, idx) =>
-											<div
-												className={style.ticket}
-												key={idx}
-											>
-												<Ticket
-													data={el}
-													action={setData}
-													config_1={config_1}
-													config_2={config_2}
-													config_3={config_3}
-												/>
-											</div>
-										)
-									:
-										<div className={style.ticket}>
-											<div className={style.empty}>{t('no_matching_records_found')}</div>
-										</div>
-							}
-						</div>
-						<Pagination
-							position={'bottom'}
-							pagination={pagination}
-							nextHandler={nextHandleSubmit}
-							prevHandler={prevHandleSubmit}
-							startHandlerSubmit={startHandlerSubmit}
-							endHandlerSubmit={endHandlerSubmit}
-						/>
-					</Paper>
-				</>
-    );
+  return (
+    loading
+      ?
+        <Loader />
+      :
+        <>
+          <Paper
+            headline={t('tickets_search')}
+            quantity={pagination.quantity}
+            setQuantity={setPagination}
+          >
+            <Debug data={filter} />
+
+            <form onSubmit={handleSubmit}>
+              <div className={style.grid}>
+                <div>
+                  <Field
+                    type={'text'}
+                    placeholder={t('ticket')}
+                    data={filter.ticket}
+                    onChange={(value) => handlePropsChange('ticket', value)}
+                  />
+                </div>
+                <div>
+                  <Field
+                    type={'text'}
+                    placeholder={t('username')}
+                    data={filter.username}
+                    onChange={(value) => handlePropsChange('username', value)}
+                  />
+                </div>
+                <div>
+                  <Select
+                    placeholder={t('state')}
+                    options={convertOptions(statuses.TICKET_STATUSES)}
+                    data={filter.state}
+                    onChange={(value) => handlePropsChange('state', value)}
+                  />
+                </div>
+                <div>
+                  <Select
+                    placeholder={t('player_type')}
+                    options={convertOptions(types.PLAYER_TYPE)}
+                    data={filter.type}
+                    onChange={(value) => handlePropsChange('type', value)}
+                  />
+                </div>
+                <div>
+                  <Field
+                    type={'datetime-local'}
+                    placeholder={t('date_from')}
+                    data={filter["date-from"]}
+                    onChange={(value) => handlePropsChange('date-from', value)}
+                  />
+                </div>
+                <div>
+                  <Field
+                    type={'datetime-local'}
+                    placeholder={t('date_to')}
+                    data={filter["date-to"]}
+                    onChange={(value) => handlePropsChange('date-to', value)}
+                  />
+                </div>
+                <div>
+                  <Field
+                    type={'number'}
+                    placeholder={t('amount_from')}
+                    data={filter["amount-from"]}
+                    onChange={(value) => handlePropsChange('amount-from', value)}
+                  />
+                </div>
+                <div>
+                  <Field
+                    type={'number'}
+                    placeholder={t('amount_to')}
+                    data={filter["amount-to"]}
+                    onChange={(value) => handlePropsChange('amount-to', value)}
+                  />
+                </div>
+                <div>
+                  <Select
+                    placeholder={t('currency')}
+                    options={
+                      settings.currencies.map(currency => ({
+                        value: currency,
+                        label: currency
+                      }))
+                    }
+                    data={filter["currency"]}
+                    onChange={(value) => handlePropsChange('currency', value)}
+                  />
+                </div>
+                <div>
+                  <Field
+                    type={'number'}
+                    placeholder={t('payout_from')}
+                    data={filter['payout-from']}
+                    onChange={(value) => handlePropsChange('payout-from', value)}
+                  />
+                </div>
+                <div>
+                  <Field
+                    type={'number'}
+                    placeholder={t('payout_to')}
+                    data={filter['payout-to']}
+                    onChange={(value) => handlePropsChange('payout-to', value)}
+                  />
+                </div>
+              </div>
+              <div className={style.actions}>
+                <Button
+                  type={'submit'}
+                  classes={'primary'}
+                  placeholder={t("search")}
+                />
+                <Button
+                  type={'reset'}
+                  placeholder={t("cancel")}
+                  onChange={handleResetForm}
+                />
+              </div>
+            </form>
+          </Paper>
+          <Paper>
+            <Pagination
+              position={'top'}
+              pagination={pagination}
+              nextHandler={nextHandleSubmit}
+              prevHandler={prevHandleSubmit}
+              startHandlerSubmit={startHandlerSubmit}
+              endHandlerSubmit={endHandlerSubmit}
+            />
+            <div className={style.table}>
+              <div className={style.row}>
+                <div className={style.cell} />
+                {
+                  config_1.map((el, idx) =>
+                    <div
+                      key={idx}
+                      className={style.cell}
+                    >
+                      {t(el.text)}
+                    </div>
+                  )
+                }
+                <div className={style.cell} />
+              </div>
+              {
+                data.data &&
+                data.data.length > 0
+                  ?
+                    data.data.map((el, idx) =>
+                      <div
+                        className={style.ticket}
+                        key={idx}
+                      >
+                        <Ticket
+                          data={el}
+                          action={setData}
+                          config_1={config_1}
+                          config_2={config_2}
+                          config_3={config_3}
+                        />
+                      </div>
+                    )
+                  :
+                    <div className={style.ticket}>
+                      <div className={style.empty}>{t('no_matching_records_found')}</div>
+                    </div>
+              }
+            </div>
+            <Pagination
+              position={'bottom'}
+              pagination={pagination}
+              nextHandler={nextHandleSubmit}
+              prevHandler={prevHandleSubmit}
+              startHandlerSubmit={startHandlerSubmit}
+              endHandlerSubmit={endHandlerSubmit}
+            />
+          </Paper>
+        </>
+  );
 }
 
 export default Tickets;

@@ -9,6 +9,7 @@ import {convertOptions} from "helpers/convertOptions";
 import {searchById} from "helpers/searchById";
 import {getDate} from "helpers/getDate";
 
+import Debug from "modules/Debug";
 import Agents from "modules/Agents";
 import Paper from "components/Paper";
 import Field from "components/Field";
@@ -103,7 +104,8 @@ const TransferSearch = () => {
   return (
     <>
       <Paper headline={t('transfer_search')}>
-        <pre>{JSON.stringify(filter, null, 2)}</pre>
+        <Debug data={filter} />
+
         <form onSubmit={handleSubmit}>
           <div className={style.grid}>
             <div>

@@ -31,12 +31,13 @@ const Ticket = ({
 }) => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
-	
+
 	const [table, setTable] = useState(null)
 	const [active, setActive] = useState(false)
 	const [cancel, setCancel] = useState(false)
 	const [calculate, setCalculate] = useState(false)
-	
+  const [loading, setLoading] = useState(false)
+
 	const handleDetails = () => {
 		if (active) {
 			setActive(false)
@@ -46,28 +47,30 @@ const Ticket = ({
 				setActive(true)
 			}
 			else {
+        setLoading(true)
 				getData(`tickets/details/?id=${data.ticketId}`).then((json) => {
 					if (json.status === 'OK') {
 						setTable(json)
 						setActive(true)
+            setLoading(false)
 					}
 				})
 			}
 		}
 	}
-	
+
 	const handleCancelled = () => {
 		getData(`tickets/cancel/?id=${data.ticketId}`).then((json) => {
 			if (json.status === 'OK') {
 				if (json.data[0].code === '0') {
 					const newData = data
 					newData.status = 13
-					
+
 					action((prevData) => ({
 						...prevData,
 						[data]: newData,
 					}))
-					
+
 					dispatch(
 						setToastify({
 							type: 'success',
@@ -83,18 +86,18 @@ const Ticket = ({
 						})
 					)
 				}
-				
+
 				setCancel(false)
 			}
 		})
 	}
-	
+
 	const handleCalculate = () => {
 		const formData = {
 			action: 'save',
 			...table.data[0]
 		}
-		
+
 		postData(`tickets/calculate/?id=${data.ticketId}`, JSON.stringify(formData)).then((json) => {
 			if (json.status === 'OK') {
 				if (json.data[0].code === '0') {
@@ -117,17 +120,17 @@ const Ticket = ({
 			}
 		})
 	}
-	
+
 	const handleChange = (array, key, value) => {
 		const newData = array
 		array[key] = value
-		
+
 		action((prevData) => ({
 			...prevData,
 			[array]: newData,
 		}))
 	}
-	
+
 	const handlePrint = (e) => {
 		if (table) {
 			dispatch(setAside({
@@ -144,7 +147,7 @@ const Ticket = ({
 			getData(`tickets/details/?id=${data.ticketId}`).then((json) => {
 				if (json.status === 'OK') {
 					setTable(json)
-					
+
 					dispatch(setAside({
 						meta: {
 							title: t('ticket_print'),
@@ -176,6 +179,7 @@ const Ticket = ({
 						action={() => {
 							handleDetails()
 						}}
+            loading={loading}
 					/>
 				</div>
 				{

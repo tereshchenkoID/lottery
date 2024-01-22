@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 
+import Debug from "modules/Debug";
 import GeneratePassword from "modules/GeneratePassword";
 import Field from "components/Field";
 import Paper from "components/Paper";
@@ -17,7 +18,7 @@ const Settings = () => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const {auth} = useSelector((state) => state.auth)
-	
+
 	const initialValue = {
 		'id': auth.id,
 		'username': auth.username,
@@ -25,23 +26,23 @@ const Settings = () => {
 		'new_password': '',
 		'confirm_password': ''
 	}
-	
+
 	const [filter, setFilter] = useState(initialValue)
-	
+
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
 		}))
 	}
-	
+
 	const handleResetForm = () => {
 		setFilter(initialValue)
 	}
-	
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		
+
 		const formData = new FormData();
 		formData.append('id', filter.id)
 		formData.append('username', filter.username)
@@ -87,11 +88,12 @@ const Settings = () => {
 			})
 		}
 	}
-	
-    return (
+
+  return (
 		<div className={style.block}>
 			<Paper headline={t('user_profile')}>
-				{/*<pre>{JSON.stringify(filter, null, 2)}</pre>*/}
+        <Debug data={filter} />
+
 				<form
 					onSubmit={handleSubmit}
 					className={style.form}
