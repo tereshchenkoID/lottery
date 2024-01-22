@@ -36,7 +36,7 @@ const Option = ({
 			formData.append('date-from', filter['date-from'])
 			formData.append('date-to', filter['date-to'])
 
-			postData('dailySums/', formData).then((json) => {
+			postData('financialOverview/', formData).then((json) => {
 				if (json.status === 'OK') {
 					setTable(json.data)
 					setActive(true)
@@ -139,9 +139,12 @@ const Option = ({
                                         ?
                                           report_idx === 0
                                             ?
-                                              <div>{day['date-from'].slice(0, 10)}</div>
+                                              <>
+                                                <div>{day['date-from']}</div>
+                                                <div>{day['date-to']}</div>
+                                              </>
                                             :
-                                              ''
+                                             ''
                                         :
                                           (key.key !== 'date-from' && key.key !== 'currency')
                                             ?
@@ -164,7 +167,8 @@ const Option = ({
                             }
                           >
                             <div className={style.cell}>
-                              <div>{day['date-from'].slice(0, 10)}</div>
+                              <div>{day['date-from']}</div>
+                              <div>{day['date-to']}</div>
                             </div>
                             <div className={style.cell}>{t('no_matching_records_found')}</div>
                           </div>

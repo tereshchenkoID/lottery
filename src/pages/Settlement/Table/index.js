@@ -6,10 +6,46 @@ import classNames from "classnames";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-import Icon from "components/Icon";
 import Dropdown from "actions/Dropdown";
 
 import style from './index.module.scss';
+
+const Shop = ({
+  t,
+  data,
+  config_1,
+  config_2,
+}) => {
+  const [active, setActive] = useState(false)
+  const [table, setTable] = useState(null)
+
+  return (
+    <>
+      <div className={style.row}>
+        <div className={style.cell}>
+          <Dropdown
+            data={active}
+            action={() => setActive(!active)}
+          />
+        </div>
+        {
+          config_1.map((key, value_idx) =>
+            <div
+              key={value_idx}
+              className={style.cell}
+            >
+              {data[key.key]}
+            </div>
+          )
+        }
+      </div>
+      <div className={style.wrapper}>
+        1
+      </div>
+    </>
+  )
+}
+
 
 const Option = ({
   t,
@@ -17,7 +53,6 @@ const Option = ({
   config_1,
   config_2,
 }) => {
-  const dispatch = useDispatch()
   const isShops = data.shops && data.shops.length > 0
   const isClients = data.clients && data.clients.length > 0
 
@@ -85,22 +120,13 @@ const Option = ({
               <div className={style.wrapper}>
                 {
                   data.shops.map((el, idx) =>
-                    <div
+                    <Shop
                       key={idx}
-                      className={style.row}
-                    >
-                      <div className={style.cell}/>
-                      {
-                        config_1.map((key, value_idx) =>
-                          <div
-                            key={value_idx}
-                            className={style.cell}
-                          >
-                            {el[key.key]}
-                          </div>
-                        )
-                      }
-                    </div>
+                      t={t}
+                      data={el}
+                      config_1={config_1}
+                      config_2={config_2}
+                    />
                   )
                 }
               </div>
@@ -155,19 +181,15 @@ const Table = ({
         <div className={style.cell}/>
       </div>
       {
-        data.length > 0
-          ?
-            data.map((el, idx) =>
-              <Option
-                key={idx}
-                t={t}
-                data={el}
-                config_1={config_1}
-                config_2={config_2}
-              />
-            )
-          :
-            <div className={style.empty}>{t('no_matching_records_found')}</div>
+        data.map((el, idx) =>
+          <Option
+            key={idx}
+            t={t}
+            data={el}
+            config_1={config_1}
+            config_2={config_2}
+          />
+        )
       }
     </div>
   );

@@ -6,7 +6,7 @@ const Settings = lazy(() => import("pages/Settings"))
 const Accounts = lazy(() => import('pages/Accounts'))
 const Tickets = lazy(() => import('pages/Tickets'))
 const DailySums = lazy(() => import('pages/DailySums'))
-const GeneralOverview = lazy(() => import('pages/DailySums'))
+const GeneralOverview = lazy(() => import('pages/GeneralOverview'))
 const TransferSearch = lazy(() => import('pages/TransferSearch'))
 const Settlement = lazy(() => import('pages/Settlement'))
 

@@ -62,13 +62,13 @@
   }
 
   &.lg {
-    grid-template-columns: 1fr rem(150px) repeat(14, 1fr);
+    grid-template-columns: 1fr rem(180px) repeat(14, 1fr);
     width: fit-content;
 
     .cell {
       @include make-spacer(py, 6px);
 
-      min-width: rem(150px);
+      min-width: rem(180px);
     }
   }
 
