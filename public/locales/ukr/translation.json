@@ -178,5 +178,7 @@
   "target": "Target UA",
   "deposit": "Deposit UA",
   "transfers": "Transfers UA",
-  "total": "Total"
+  "total": "Total",
+  "num": "Num UA",
+  "total_open": "Total Open UA"
 }

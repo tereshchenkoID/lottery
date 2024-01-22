@@ -178,5 +178,7 @@
   "target": "Target",
   "deposit": "Deposit",
   "transfers": "Transfers",
-  "total": "Total"
+  "total": "Total",
+  "num": "Num",
+  "total_open": "Total Open"
 }
