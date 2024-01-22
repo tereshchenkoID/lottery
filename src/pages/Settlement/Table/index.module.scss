@@ -22,6 +22,16 @@
   }
 }
 
+.table {
+
+  .row {
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
 .row {
 	display: grid;
 	grid-template-columns: 1fr repeat(2, rem(80px)) repeat(8, 1fr);
@@ -60,7 +70,6 @@
 
 .empty {
 	@include make-spacer(pt, 12px);
-	@include make-spacer(px, 12px);
 
 	text-align: center;
 }

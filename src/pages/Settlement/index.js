@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 
@@ -73,19 +73,11 @@ const config_3 = [
 const Settlement = () => {
 	const { t } = useTranslation()
 	const {agents} = useSelector((state) => state.agents)
-	const [data, setData] = useState(agents)
-
-	const handleSubmit = (event) => {
-		event && event.preventDefault()
-	}
-	const handleResetForm = () => {
-		setData(agents)
-	}
 
   return (
     <Paper headline={t('settlement')}>
       <Table
-        data={data}
+        data={agents}
         config_1={config_1}
         config_2={config_2}
         config_3={config_3}

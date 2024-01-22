@@ -15,9 +15,9 @@ const Pagination = ({
 	endHandlerSubmit
 }) => {
 	const { t } = useTranslation()
-	
+
 	return (
-        <div
+    <div
 			className={
 				classNames(
 					style.block,
@@ -115,7 +115,7 @@ const Pagination = ({
 				</button>
 			</div>
 		</div>
-    );
+  );
 }
 
 export default Pagination;

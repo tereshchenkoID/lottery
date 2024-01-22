@@ -11,16 +11,49 @@ import Dropdown from "actions/Dropdown";
 
 import style from './index.module.scss';
 
+import Pagination from "modules/Pagination";
+
 const Shop = ({
   t,
   data,
   config_1,
-  config_2,
   config_3
 }) => {
   const [active, setActive] = useState(false)
   const [table, setTable] = useState(null)
   const [loading, setLoading] = useState(null)
+
+  const [pagination, setPagination] = useState({
+    page: 0,
+    pages: 0,
+    quantity: 30,
+    results: 0
+  })
+
+  const handlePagination = (fieldName, fieldValue) => {
+    setPagination((prevPagination) => ({
+      ...prevPagination,
+      [fieldName]: fieldValue
+    }))
+  }
+
+  const nextHandleSubmit = () => {
+    const next = pagination.page < pagination.pages ? pagination.page + 1 : pagination.pages
+    handlePagination('page', next)
+  }
+
+  const prevHandleSubmit = () => {
+    const prev = pagination.page > 0 ? pagination.page - 1 : 0
+    handlePagination('page', prev)
+  }
+
+  const startHandlerSubmit = () => {
+    handlePagination('page', 0)
+  }
+
+  const endHandlerSubmit = () => {
+    handlePagination('page', pagination.pages)
+  }
 
   const handleSubmit = () => {
     if (table) {
@@ -29,13 +62,21 @@ const Shop = ({
     else {
       setLoading(true)
       const formData = new FormData();
-      // formData.append('id', data.id)
-      formData.append('id', 102128)
+      // formData.append('id', 102326)
+      formData.append('id', data.id)
       formData.append('username', data.username)
       formData.append('type', 0)
 
       postData('settlement/', formData).then((json) => {
         if (json.status === 'OK') {
+
+          setPagination({
+            page: 0,
+            pages: Math.floor(json.data.length / 50),
+            quantity: 50,
+            results: json.data.length
+          })
+
           setTable(json.data)
           setActive(true)
           setLoading(false)
@@ -78,48 +119,75 @@ const Shop = ({
           {
             table.length > 0
               ?
-              <>
-                <div
-                  className={
-                    classNames(
-                        style.row,
-                        style.headline
-                      )
-                    }
-                  >
+                <>
+                  <Pagination
+                    position={'top'}
+                    pagination={pagination}
+                    nextHandler={nextHandleSubmit}
+                    prevHandler={prevHandleSubmit}
+                    startHandlerSubmit={startHandlerSubmit}
+                    endHandlerSubmit={endHandlerSubmit}
+                  />
+                  <div className={style.table}>
+                    <div
+                      className={
+                        classNames(
+                          style.row,
+                          style.headline
+                        )
+                      }
+                    >
+                      {
+                        config_3.map((key, value_idx) =>
+                          <div
+                            key={value_idx}
+                            className={style.cell}
+                          >
+                            {t(key.text)}
+                          </div>
+                        )
+                      }
+                    </div>
                     {
-                      config_3.map((key, value_idx) =>
+                      table.slice(pagination.page * pagination.quantity, (pagination.page + 1) * pagination.quantity + 1).map((el, idx) =>
                         <div
-                          key={value_idx}
-                          className={style.cell}
+                          key={idx}
+                          className={style.row}
                         >
-                          {t(key.text)}
+                          {
+                            config_3.map((key, value_idx) =>
+                              <div
+                                key={value_idx}
+                                className={style.cell}
+                              >
+                                {el[key.key]}
+                              </div>
+                            )
+                          }
                         </div>
                       )
                     }
                   </div>
-                  {
-                    table.map((el, idx) =>
-                      <div
-                        key={idx}
-                        className={style.row}
-                      >
-                        {
-                          config_3.map((key, value_idx) =>
-                            <div
-                              key={value_idx}
-                              className={style.cell}
-                            >
-                              {el[key.key]}
-                            </div>
-                          )
-                        }
-                      </div>
-                    )
-                  }
+                  <Pagination
+                    position={'bottom'}
+                    pagination={pagination}
+                    nextHandler={nextHandleSubmit}
+                    prevHandler={prevHandleSubmit}
+                    startHandlerSubmit={startHandlerSubmit}
+                    endHandlerSubmit={endHandlerSubmit}
+                  />
                 </>
               :
-                <div>empty</div>
+                <div
+                  className={
+                    classNames(
+                      style.row,
+                      style.wide
+                    )
+                  }
+                >
+                  <div className={style.empty}>{t('no_matching_records_found')}</div>
+                </div>
           }
         </div>
       }
