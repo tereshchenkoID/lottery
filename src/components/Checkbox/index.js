@@ -6,7 +6,7 @@ const Checkbox = ({
 	onChange
 }) => {
 	return (
-        <label className={style.block}>
+    <label className={style.block}>
 			<input
 				type={'checkbox'}
 				className={style.input}
@@ -17,8 +17,8 @@ const Checkbox = ({
 			/>
 			<span className={style.item} />
 			<span>{placeholder}</span>
-        </label>
-    );
+    </label>
+  );
 }
 
 export default Checkbox;

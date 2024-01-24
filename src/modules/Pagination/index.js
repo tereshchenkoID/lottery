@@ -16,6 +16,8 @@ const Pagination = ({
 }) => {
 	const { t } = useTranslation()
 
+  const isLargest = (pagination.page === pagination.pages || pagination.quantity >= pagination.results)
+
 	return (
     <div
 			className={
@@ -38,7 +40,7 @@ const Pagination = ({
 				<span>-</span>
 				<strong>
 					{
-						pagination.pages === pagination.page
+            isLargest
 							?
 								pagination.results
 							:
@@ -87,7 +89,7 @@ const Pagination = ({
 					className={
 						classNames(
 							style.action,
-							pagination.page === pagination.pages && style.disabled
+              isLargest && style.disabled
 						)
 					}
 					onClick={nextHandler}
@@ -103,7 +105,7 @@ const Pagination = ({
 					className={
 						classNames(
 							style.action,
-							pagination.page === pagination.pages && style.disabled
+              isLargest && style.disabled
 						)
 					}
 					onClick={endHandlerSubmit}

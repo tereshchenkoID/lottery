@@ -9,7 +9,7 @@ export const statuses = {
 		5:  'WIN',
 		13: 'CANCEL',
 	},
-	
+
 	TICKET_STATUSES: {
 		0:  'CONFIRMED',
 		4:  'LOSE',
@@ -25,18 +25,23 @@ export const types = {
 		0: 'AGENT',
 		1: 'SHOP'
 	},
-	
+
+  LEVEL_TYPE: {
+    0: 'STAFF',
+    1: 'MASTER'
+  },
+
 	PLAYER_TYPE: {
 		0: 'ANY',
 		1: 'SHOP',
 		2: 'WEB',
 	},
-	
+
 	TRANSFER_TYPE: {
 		0: 'DEPOSIT',
 		1: 'PAYOUT'
 	},
-	
+
 	AGENT_TRANSFER_TYPE: {
 		0: 'TO AGENT',
 		1: 'FROM AGENT',
@@ -67,7 +72,7 @@ export const modes = {
 		0: 'PER BET',
 		1: 'PER GROUP'
 	},
-	
+
 	PRINTING_MODE: {
 		0: 'POS',
 		1: 'WEB PRINT',
@@ -106,17 +111,17 @@ export const service = {
 		18: 'Tennis',
 		19: 'Turbo football'
 	},
-	
+
 	YES_NO: {
 		0: 'NO',
 		1: 'YES',
 	},
-	
+
 	ENABLE_DISABLE: {
 		0: 'ENABLE',
 		1: 'DISABLE',
 	},
-	
+
 	LANGUAGES: {
 		AA: "Afar",
 		AB: "Abkhazian",
@@ -303,7 +308,7 @@ export const service = {
 		ZH: "Chinese",
 		ZU: "Zulu"
 	},
-	
+
 	COUNTRIES: {
 		AF: "Afghanistan",
 		AL: "Albania",

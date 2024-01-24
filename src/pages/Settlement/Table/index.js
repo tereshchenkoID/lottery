@@ -1,27 +1,32 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
+import {types} from "constant/config";
+
 import {postData} from "helpers/api";
+import {convertOptions} from "helpers/convertOptions";
 
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
+import Pagination from "modules/Pagination";
 import Dropdown from "actions/Dropdown";
+import Select from "components/Select";
 
 import style from './index.module.scss';
-
-import Pagination from "modules/Pagination";
 
 const Shop = ({
   t,
   data,
   config_1,
-  config_3
+  config_3,
+  filter
 }) => {
   const [active, setActive] = useState(false)
   const [table, setTable] = useState(null)
   const [loading, setLoading] = useState(null)
+  const [type, setType] = useState(0)
 
   const [pagination, setPagination] = useState({
     page: 0,
@@ -55,33 +60,34 @@ const Shop = ({
     handlePagination('page', pagination.pages)
   }
 
-  const handleSubmit = () => {
-    if (table) {
-      setActive(!active)
-    }
-    else {
-      setLoading(true)
-      const formData = new FormData();
-      // formData.append('id', 102326)
-      formData.append('id', data.id)
-      formData.append('username', data.username)
-      formData.append('type', 0)
+  const handleSubmit = (id = filter.agent.id, username = filter.agent.username, level = type) => {
+    setLoading(true)
+    const formData = new FormData();
+    formData.append('id', id)
+    formData.append('username', username)
+    formData.append('type', level)
 
-      postData('settlement/', formData).then((json) => {
-        if (json.status === 'OK') {
+    postData('settlement/', formData).then((json) => {
+      if (json.status === 'OK') {
 
-          setPagination({
-            page: 0,
-            pages: Math.floor(json.data.length / 50),
-            quantity: 50,
-            results: json.data.length
-          })
+        setPagination({
+          page: 0,
+          pages: Math.floor(json.data.length / 30),
+          quantity: 30,
+          results: json.data.length
+        })
 
-          setTable(json.data)
-          setActive(true)
-          setLoading(false)
-        }
-      })
+        setTable(json.data)
+        setActive(true)
+        setLoading(false)
+      }
+    })
+  }
+
+  const handleType = (value, id, username) => {
+    if (value !== type) {
+      setType(value)
+      handleSubmit(id, username, value)
     }
   }
 
@@ -98,7 +104,9 @@ const Shop = ({
         <div className={style.cell}>
           <Dropdown
             data={active}
-            action={handleSubmit}
+            action={() => {
+              table ? setActive(!active) : handleSubmit(data.id, data.username)
+            }}
             loading={loading}
           />
         </div>
@@ -112,6 +120,14 @@ const Shop = ({
             </div>
           )
         }
+        <div className={style.cell}>
+          <Select
+            options={convertOptions(types.LEVEL_TYPE)}
+            data={type}
+            onChange={(value) => handleType(value, data.id, data.username)}
+            classes={['sm']}
+          />
+        </div>
       </div>
       {
         active &&
@@ -149,7 +165,7 @@ const Shop = ({
                       }
                     </div>
                     {
-                      table.slice(pagination.page * pagination.quantity, (pagination.page + 1) * pagination.quantity + 1).map((el, idx) =>
+                      table.slice(pagination.page * pagination.quantity, (pagination.page + 1) * pagination.quantity).map((el, idx) =>
                         <div
                           key={idx}
                           className={style.row}
@@ -201,12 +217,32 @@ const Option = ({
   data,
   config_1,
   config_2,
-  config_3
+  config_3,
+  cmd,
+  setCmd,
+  filter
 }) => {
   const isShops = data.shops && data.shops.length > 0
   const isClients = data.clients && data.clients.length > 0
   const [activeAccounts, setActiveAccounts] = useState(false)
   const [activeShops, setActiveShops] = useState(false)
+
+  useEffect(() => {
+    if (cmd === 'submit') {
+      setActiveAccounts(false)
+      setActiveShops(false)
+
+      if(data.id === filter.agent.id) {
+        setActiveAccounts(true)
+        setCmd(false)
+      }
+    }
+    if (cmd === 'reset') {
+      setActiveAccounts(false)
+      setActiveShops(null)
+      setCmd(false)
+    }
+  }, [cmd]);
 
   return (
     <>
@@ -282,6 +318,7 @@ const Option = ({
                       data={el}
                       config_1={config_1}
                       config_3={config_3}
+                      filter={filter}
                     />
                   )
                 }
@@ -298,6 +335,9 @@ const Option = ({
                 config_1={config_1}
                 config_2={config_2}
                 config_3={config_3}
+                cmd={cmd}
+                setCmd={setCmd}
+                filter={filter}
               />
             )
           }
@@ -311,7 +351,10 @@ const Table = ({
   data,
   config_1,
   config_2,
-  config_3
+  config_3,
+  cmd,
+  setCmd,
+  filter
 }) => {
   const {t} = useTranslation()
 
@@ -347,6 +390,9 @@ const Table = ({
             config_1={config_1}
             config_2={config_2}
             config_3={config_3}
+            cmd={cmd}
+            setCmd={setCmd}
+            filter={filter}
           />
         )
       }

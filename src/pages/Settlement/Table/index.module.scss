@@ -1,7 +1,6 @@
 @import "scss/config";
 
 .block {
-	overflow: hidden;
 	width: 100%;
 	font-size: rem(14px);
 	font-weight: var(--typography-thin);
@@ -49,7 +48,7 @@
   }
 
 	&.sm {
-		grid-template-columns: rem(50px) repeat(2, rem(300px));
+		grid-template-columns: rem(50px) rem(300px) 1fr rem(150px);
 	}
 
 	&.active {
