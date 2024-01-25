@@ -40,7 +40,7 @@ const Aside = () => {
 	const dispatch = useDispatch()
 	const {aside} = useSelector((state) => state.aside)
 	const blockRef = useRef(null)
-	
+
 	useOutsideClick(
 		blockRef,
 		() => {
@@ -48,9 +48,9 @@ const Aside = () => {
 		},
 		aside
 	)
-	
+
 	return (
-        <aside
+    <aside
 			ref={blockRef}
 			className={
 				classNames(
@@ -71,8 +71,8 @@ const Aside = () => {
 					</Paper>
 				</div>
 			}
-        </aside>
-    );
+    </aside>
+  );
 }
 
 export default Aside;

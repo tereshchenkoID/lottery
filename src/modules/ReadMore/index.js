@@ -42,7 +42,7 @@ const ReadMore = ({data}) => {
 				</button>
 			}
 		</div>
-    );
+  );
 }
 
 export default ReadMore;

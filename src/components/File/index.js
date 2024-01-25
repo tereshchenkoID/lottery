@@ -14,22 +14,22 @@ const File = ({
 }) => {
 	const { t } = useTranslation()
 	const [image, setImage] = useState(data)
-	
+
 	const handleFileChange = (event) => {
 		const file = event.target.files[0]
-		
+
 		if (file) {
 			const reader = new FileReader()
-			
+
 			reader.onloadend = () => {
 				setImage(reader.result)
 			}
-			
+
 			reader.readAsDataURL(file)
 			onChange(file)
 		}
 	}
-	
+
 	return (
 		<div
 			className={
@@ -79,7 +79,7 @@ const File = ({
 				<FontAwesomeIcon icon="fa-solid fa-trash" />
 			</button>
 		</div>
-    );
+  );
 }
 
 export default File;

@@ -11,11 +11,11 @@ const Textarea = ({
 	classes
 }) => {
 	const inputRef = useRef(null)
-	
+
 	const onFocus = () => {
 		inputRef.current.focus();
 	}
-	
+
 	return (
 		<div
 			className={
@@ -42,8 +42,8 @@ const Textarea = ({
 					{placeholder}
 				</label>
 			}
-        </div>
-    );
+    </div>
+  );
 }
 
 export default Textarea;

@@ -9,7 +9,7 @@ const Button = ({
 	onChange
 }) => {
 	return (
-        <button
+    <button
 			type={type}
 			className={
 				classNames(
@@ -20,8 +20,8 @@ const Button = ({
 			onClick={onChange}
 		>
 			{placeholder}
-        </button>
-    );
+    </button>
+  );
 }
 
 export default Button;

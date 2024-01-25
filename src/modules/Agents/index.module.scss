@@ -121,8 +121,9 @@
 	}
 
 	&.active {
-		background-color: var(--color-border);
-		color: var(--color-text);
+    pointer-events: none;
+    background-color: var(--color-border);
+    color: var(--color-text);
 	}
 }
 

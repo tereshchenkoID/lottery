@@ -9,8 +9,8 @@ import style from './index.module.scss';
 const Paper = ({headline, children, quantity = null, setQuantity, classes = null}) => {
 	const { t } = useTranslation()
 
-    return (
-        <div
+  return (
+    <div
 			className={
 				classNames(
 					style.block,
@@ -48,8 +48,8 @@ const Paper = ({headline, children, quantity = null, setQuantity, classes = null
 				</>
 			}
 			<div className={style.body}>{children}</div>
-        </div>
-    );
+    </div>
+  );
 }
 
 export default Paper;

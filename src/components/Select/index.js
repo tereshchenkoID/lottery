@@ -17,23 +17,23 @@ const Select = ({
 	const { t } = useTranslation()
 	const [search, setSearch]= useState([...options])
 	const selectRef = useRef()
-	
+
 	const handleSelectChange = (newValue) => {
 		onChange(newValue)
 	}
-	
+
 	const handleSearch = (text) => {
 		setSearch(options.filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) !== -1))
 	}
-	
+
 	useEffect(() => {
 		if (data === '') {
 			selectRef.current.option = null
 		}
 	}, [data])
-	
+
 	return (
-        <div
+    <div
 			className={
 				classNames(
 					style.block,
@@ -57,8 +57,8 @@ const Select = ({
 					{placeholder}
 				</label>
 			}
-        </div>
-    );
+    </div>
+  );
 }
 
 export default Select;

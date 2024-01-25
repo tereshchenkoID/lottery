@@ -13,13 +13,13 @@ const Field = ({
 	required = false,
 }) => {
 	const inputRef = useRef(null)
-	
+
 	const onFocus = () => {
 		inputRef.current.focus();
 	}
-	
+
 	return (
-        <div
+    <div
 			className={
 				classNames(
 					style.block,
@@ -48,8 +48,8 @@ const Field = ({
 					<span>*</span>
 				}
 			</label>
-        </div>
-    );
+    </div>
+  );
 }
 
 export default Field;

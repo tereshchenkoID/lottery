@@ -6,20 +6,20 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Toastify = () => {
 	const {toastify} = useSelector((state) => state.toastify)
-	
+
 	useEffect(() => {
 		if (toastify) {
 			toast[toastify.type](toastify.text, {})
 		}
 	},[toastify])
-	
-    return (
+
+  return (
 		<ToastContainer
 			position="top-right"
 			autoClose={3000}
 			theme="colored"
 		/>
-    );
+  );
 }
 
 export default Toastify;
