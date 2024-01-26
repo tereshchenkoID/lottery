@@ -1,28 +1,8 @@
 @import "scss/config";
 
-.block,
-.group,
-.grid {
+.block {
 	display: grid;
 	gap: rem(16px);
-}
-
-.actions {
-	@include flex(flex-end, center);
-
-	gap: rem(16px);
-}
-
-.group {
-	@include make-spacer(mb, 16px);
-
-	&:last-child {
-		@include make-spacer(mb, 0);
-	}
-}
-
-.grid {
-	grid-template-columns: repeat(2, 1fr);
 }
 
 .currencies {
@@ -48,18 +28,60 @@
 }
 
 .currency {
-	@include make-spacer(p, 5px);
+  @include make-spacer(p, 5px);
 
-	border-radius: var(--default-border-radius);
-	font-size: rem(14px);
+  border-radius: var(--default-border-radius);
+  font-size: rem(14px);
 
-	&:hover {
-		color: var(--color-primary);
-	}
+  &:hover {
+    color: var(--color-primary);
+  }
 
-	&.active {
-		pointer-events: none;
-		background: var(--color-primary);
-		color: var(--color-white);
-	}
+  &.active {
+    pointer-events: none;
+    background: var(--color-primary);
+    color: var(--color-white);
+  }
+}
+
+.tab {
+  @include flex(null, center);
+
+  border-bottom: rem(1px) solid var(--color-border);
+  height: rem(40px);
+}
+
+.link {
+  @include flex(center, center);
+  @include make-spacer(px, 10px);
+
+  position: relative;
+  height: 100%;
+  font-size: rem(14px);
+  text-transform: uppercase;
+
+  &::after {
+    @include transition(width);
+    @include size(0, rem(2px));
+
+    position: absolute;
+    bottom: rem(-1px);
+    left: 0;
+    right: 0;
+    background-color: var(--color-primary);
+    content: '';
+  }
+
+  &.active,
+  &:hover {
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &.active {
+    pointer-events: none;
+    color: var(--color-primary);
+  }
 }

@@ -13,6 +13,7 @@ import {searchById} from "helpers/searchById"
 import Field from "components/Field";
 import Button from "components/Button";
 import Select from "components/Select";
+import Debug from "modules/Debug";
 
 import style from './index.module.scss';
 
@@ -25,7 +26,7 @@ const TransferMoney = ({data}) => {
 		'amount': '',
 		'type': ''
 	}
-	
+
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const {auth} = useSelector((state) => state.auth)
@@ -35,22 +36,22 @@ const TransferMoney = ({data}) => {
 	const [exchange, setExchange] = useState(null)
 	const list = agents
 	const find = useMemo(() => searchById(list[0], data.parent ? data.parent.parent_id : data.id), [])
-	
+
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
 		}))
 	}
-	
+
 	const handleResetForm = () => {
 		setFilter(initialValue)
 		setExchange(null)
 	}
-	
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		
+
 		const results = exchange * filter.amount
 		const available = filter.type === '0' ? table.available_balance[filter.available_balance] : table.target_balance[filter.target_balance]
 
@@ -82,17 +83,17 @@ const TransferMoney = ({data}) => {
 					).then(() => {
 						handleResetForm()
 						dispatch(setAside(null))
-						
+
 						if (find.length > 0) {
 							list[0].credits = json.data.current.balance
-							
+
 							if (data.parent) {
 								find[0].shops[data.parent.idx].credits = json.data.target.balance
 							}
 							else {
 								find[0].credits = json.data.target.balance
 							}
-							
+
 							dispatch(updateAgents(list))
 						}
 					})
@@ -108,7 +109,7 @@ const TransferMoney = ({data}) => {
 			})
 		}
 	}
-	
+
 	useEffect(() => {
 		getData(`deposit/getBalances/?id=${data.id}`).then((json) => {
 			if (json.status === 'OK') {
@@ -116,7 +117,7 @@ const TransferMoney = ({data}) => {
 			}
 		})
 	}, []);
-	
+
 	useEffect(() => {
 		if (filter.target_balance !== '' && filter.available_balance !== '') {
 			setExchange(filter.type === "0" ? table.exchange[`${filter.target_balance}-${filter.available_balance}`] : table.exchange[`${filter.available_balance}-${filter.target_balance}`])
@@ -125,16 +126,16 @@ const TransferMoney = ({data}) => {
 			setExchange(null)
 		}
 	}, [filter.type, filter.target_balance, filter.available_balance]);
-	
+
 	if (!table)
 		return
-	
+
 	return (
 		<form
 			className={style.block}
 			onSubmit={handleSubmit}
 		>
-			<pre>{JSON.stringify(filter, null, 2)}</pre>
+      <Debug data={filter} />
 			<Select
 				placeholder={t('available_balance')}
 				options={

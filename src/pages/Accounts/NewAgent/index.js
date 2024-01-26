@@ -15,6 +15,7 @@ import Button from "components/Button";
 import Select from "components/Select";
 import Textarea from "components/Textarea";
 import GeneratePassword from "modules/GeneratePassword";
+import Debug from "modules/Debug";
 
 import style from './index.module.scss';
 
@@ -42,21 +43,21 @@ const NewAgent = ({data}) => {
 	const [inherit, setInherit] = useState(null)
 	const list = agents
 	const find = useMemo(() => searchById(list[0], data.id), [])
-	
+
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
 		}))
 	}
-	
+
 	const handleResetForm = () => {
 		setFilter(initialValue)
 	}
-	
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		
+
 		if (filter.new_password !== filter.confirm_password) {
 			dispatch(
 				setToastify({
@@ -89,7 +90,7 @@ const NewAgent = ({data}) => {
 						})
 					).then(() => {
 						handleResetForm()
-						
+
 						if (find.length > 0) {
 							if (data.type === types.TYPE[0]) {
 								find[0].clients.push(json.data)
@@ -97,10 +98,10 @@ const NewAgent = ({data}) => {
 							else {
 								find[0].shops.push(json.data)
 							}
-							
+
 							dispatch(updateAgents(list))
 						}
-						
+
 						dispatch(setAside(null))
 					})
 				}
@@ -115,39 +116,39 @@ const NewAgent = ({data}) => {
 			})
 		}
 	}
-	
+
 	const handleInherit = () => {
 		const formData = new FormData();
 		formData.append('id', data.id)
 		formData.append('type', data.type.toLowerCase())
-		
+
 		postData(`inherit/`, formData).then((json) => {
 			if (json.status === 'OK') {
 				setInherit(json.data)
-				
+
 				initialValue.country = json.data.country
 				initialValue.currency = json.data.currency
 				initialValue.web_players_allowed = json.data.web_players_allowed
 				initialValue.children_creation_allowed = json.data.children_creation_allowed
-				
+
 				setFilter(() => initialValue)
 			}
 		})
 	}
-	
+
 	useEffect(() => {
 		handleInherit()
 	}, [])
-	
+
 	if (!inherit)
 		return
-	
+
 	return (
 		<form
 			className={style.block}
 			onSubmit={handleSubmit}
 		>
-			<pre>{JSON.stringify(filter, null, 2)}</pre>
+      <Debug data={filter} />
 			<Field
 				type={'text'}
 				placeholder={t('username')}
@@ -256,7 +257,7 @@ const NewAgent = ({data}) => {
 				/>
 			</div>
 		</form>
-    );
+  );
 }
 
 export default NewAgent;

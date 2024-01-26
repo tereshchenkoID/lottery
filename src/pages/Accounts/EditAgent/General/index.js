@@ -4,94 +4,61 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {types, service} from "constant/config";
 
-import {setToastify} from "store/actions/toastifyAction";
-import {setAside} from "store/actions/asideAction";
-import {postData} from "helpers/api";
-
 import Field from "components/Field";
 import Button from "components/Button";
 import Select from "components/Select";
 import Textarea from "components/Textarea";
 import Checkbox from "components/Checkbox";
+import Debug from "modules/Debug";
 
 import style from './index.module.scss';
 
 const General = ({data, inherit, setInherit}) => {
 	const { t } = useTranslation()
-	const dispatch = useDispatch()
 	const {settings} = useSelector((state) => state.settings)
 	const [filter, setFilter] = useState(data.general)
 	const isDisabled = inherit === '1'
-	
+
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
 		}))
 	}
-	
+
 	const handleResetForm = () => {
 		setFilter(data.general)
 	}
-	
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		
+
 		const formData = new FormData()
 		formData.append('id', data.id)
 		formData.append('username', data.username)
 		formData.append('inherit', inherit)
-		
+
 		Object.entries(filter).map(([key, value]) => {
 			formData.append(key, value)
 			return true
 		})
-		
-		// postData(`new/${data.type.toLowerCase()}/`, formData).then((json) => {
-		// 	if (json.status === 'OK') {
-		// 		dispatch(
-		// 			setToastify({
-		// 				type: 'success',
-		// 				text: json.message
-		// 			})
-		// 		).then(() => {
-		// 			handleResetForm()
-		// 			dispatch(setAside(null))
-		// 		})
-		// 	}
-		// 	else {
-		// 		dispatch(
-		// 			setToastify({
-		// 				type: 'error',
-		// 				text: json.error_message
-		// 			})
-		// 		)
-		// 	}
-		// })
 	}
-	
+
 	return (
 		<>
-			<Checkbox
-				data={inherit}
-				onChange={(value) => {
-					setInherit(value)
-					setFilter(data.general)
-				}}
-				placeholder={t('inherit')}
-			/>
+      <Debug data={filter} />
 			<form
 				className={style.block}
 				onSubmit={handleSubmit}
 			>
-				<pre>
-					{
-						JSON.stringify({
-							...filter,
-							inherit
-						}, null, 2)
-					}
-				</pre>
+        <Checkbox
+          data={inherit}
+          onChange={(value) => {
+            setInherit(value)
+            setFilter(data.general)
+          }}
+          placeholder={t('inherit')}
+        />
 				<Field
 					type={'text'}
 					placeholder={t('username')}

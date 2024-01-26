@@ -8,7 +8,6 @@ import {postData} from "helpers/api";
 import Business from "./Business";
 import Currency from "./Currency";
 import General from "./General";
-import Jackpot from "./Jackpot";
 import Shop from "./Shop";
 import Logo from "./Logo";
 
@@ -18,40 +17,34 @@ const getContent = (active, data, inherit, setInherit) => {
 	switch (active) {
 		case 0:
 			return <General
-						data={data}
-						inherit={inherit}
-						setInherit={setInherit}
-					/>
+              data={data}
+              inherit={inherit}
+              setInherit={setInherit}
+            />
 		case 1:
 			return <Shop
-						data={data}
-						inherit={inherit}
-						setInherit={setInherit}
-					/>
+              data={data}
+              inherit={inherit}
+              setInherit={setInherit}
+            />
 		case 2:
 			return <Logo
-						data={data}
-						inherit={inherit}
-						setInherit={setInherit}
-					/>
+              data={data}
+              inherit={inherit}
+              setInherit={setInherit}
+            />
 		case 3:
 			return <Currency
-						data={data}
-						inherit={inherit}
-						setInherit={setInherit}
-					/>
+              data={data}
+              inherit={inherit}
+              setInherit={setInherit}
+            />
 		case 4:
 			return <Business
-						data={data}
-						inherit={inherit}
-						setInherit={setInherit}
-					/>
-		case 5:
-			return <Jackpot
-						data={data}
-						inherit={inherit}
-						setInherit={setInherit}
-					/>
+              data={data}
+              inherit={inherit}
+              setInherit={setInherit}
+            />
 		default:
 			return null
 	}
@@ -63,12 +56,12 @@ const EditAgent = ({data}) => {
 	const [info, setInfo] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [inherit, setInherit] = useState()
-	
+
 	const handleSubmit = () => {
 		const formData = new FormData()
 		formData.append('id', data.id)
 		formData.append('username', data.username)
-		
+
 		postData('account_details/', formData).then((json) => {
 			if (json.status === 'OK') {
 				setInfo(json.data)
@@ -77,11 +70,11 @@ const EditAgent = ({data}) => {
 			}
 		})
 	}
-	
+
 	useEffect(() => {
 		handleSubmit()
 	}, [])
-	
+
 	return (
 		<div className={style.block}>
 			<div className={style.header}>
@@ -140,17 +133,6 @@ const EditAgent = ({data}) => {
 				>
 					{t('business')}
 				</button>
-				<button
-					className={
-						classNames(
-							style.link,
-							active === 5 && style.active,
-						)
-					}
-					onClick={() => setActive(5)}
-				>
-					{t('jackpot')}
-				</button>
 			</div>
 			<div className={style.body}>
 				{
@@ -169,7 +151,7 @@ const EditAgent = ({data}) => {
 				}
 			</div>
 		</div>
-    );
+  );
 }
 
 export default EditAgent;

@@ -9,6 +9,7 @@ import {postData} from "helpers/api";
 import Field from "components/Field";
 import Button from "components/Button";
 import Agents from "modules/Agents";
+import Debug from "modules/Debug";
 
 import style from './index.module.scss';
 
@@ -16,7 +17,7 @@ const TransferAgent = ({data}) => {
 	const dispatch = useDispatch()
 	const { t } = useTranslation()
 	const {agents} = useSelector((state) => state.agents)
-	
+
 	const initialValue = {
 		'id': data.id,
 		'username': data.username,
@@ -26,27 +27,27 @@ const TransferAgent = ({data}) => {
 		},
 	}
 	const [filter, setFilter] = useState(initialValue)
-	
+
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
 		}))
 	}
-	
+
 	const handleResetForm = () => {
 		setFilter(initialValue)
 	}
-	
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		
+
 		const formData = new FormData();
 		formData.append('id', filter.id)
 		formData.append('username', filter.username)
 		formData.append('new-id', filter.agent.id)
 		formData.append('new-username', filter.agent.username)
-		
+
 		postData(`transfer/`, formData).then((json) => {
 			if (json.code === '0') {
 				dispatch(
@@ -69,14 +70,13 @@ const TransferAgent = ({data}) => {
 			}
 		})
 	}
-	
+
 	return (
 		<form
 			className={style.block}
 			onSubmit={handleSubmit}
 		>
-			<pre>{JSON.stringify(filter, null, 2)}</pre>
-			<br />
+      <Debug data={filter} />
 			<Field
 				type={'text'}
 				placeholder={t('username')}
@@ -103,7 +103,7 @@ const TransferAgent = ({data}) => {
 				/>
 			</div>
 		</form>
-    );
+  );
 }
 
 export default TransferAgent;

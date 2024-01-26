@@ -1,39 +1,37 @@
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDispatch} from "react-redux";
 
 import {modes, service} from "constant/config";
 
 import {convertOptions} from "helpers/convertOptions";
-import {postData} from "helpers/api";
 
 import Button from "components/Button";
 import Select from "components/Select";
 import Textarea from "components/Textarea";
 import Checkbox from "components/Checkbox";
+import Debug from "modules/Debug";
 
 import style from './index.module.scss';
 
 const Shop = ({data, inherit, setInherit}) => {
 	const { t } = useTranslation()
-	const dispatch = useDispatch()
 	const [filter, setFilter] = useState(data.shop)
 	const isDisabled = inherit === '1'
-	
+
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
 		}))
 	}
-	
+
 	const handleResetForm = () => {
 		setFilter(data.shop)
 	}
-	
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		
+
 		const formData = new FormData();
 		formData.append('id', data.id)
 		formData.append('username', data.username)
@@ -42,26 +40,19 @@ const Shop = ({data, inherit, setInherit}) => {
 
 	return (
 		<>
-			<Checkbox
-				data={inherit}
-				onChange={(value) => {
-					setInherit(value)
-					setFilter(data.shop)
-				}}
-				placeholder={t('inherit')}
-			/>
+      <Debug data={filter} />
 			<form
 				className={style.block}
 				onSubmit={handleSubmit}
 			>
-				<pre>
-					{
-						JSON.stringify({
-							...filter,
-							inherit
-						}, null, 2)
-					}
-				</pre>
+        <Checkbox
+          data={inherit}
+          onChange={(value) => {
+            setInherit(value)
+            setFilter(data.shop)
+          }}
+          placeholder={t('inherit')}
+        />
 				<Select
 					placeholder={t('language')}
 					options={

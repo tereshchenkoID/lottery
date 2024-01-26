@@ -13,9 +13,9 @@ import style from './index.module.scss'
 
 const App = () => {
 	const {auth} = useSelector((state) => state.auth)
-	
+
 	return (
-        <div className={style.root}>
+    <div className={style.root}>
 			<Toastify />
 			{
 				(auth || sessionStorage.getItem('authToken'))
@@ -24,8 +24,8 @@ const App = () => {
 					:
 						<Login />
 			}
-        </div>
-    );
+    </div>
+  );
 }
 
 export default App;

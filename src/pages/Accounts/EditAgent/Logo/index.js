@@ -5,6 +5,7 @@ import File from "components/File";
 import Label from "components/Label";
 import Button from "components/Button";
 import Checkbox from "components/Checkbox";
+import Debug from "modules/Debug";
 
 import style from './index.module.scss';
 
@@ -12,44 +13,37 @@ const Logo = ({data, inherit, setInherit}) => {
 	const { t } = useTranslation()
 	const [filter, setFilter] = useState(data.logo)
 	const isDisabled = inherit === '1'
-	
+
 	const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
 		}))
 	}
-	
+
 	const handleResetForm = () => {
 		setFilter(data.logo)
 	}
-	
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
 	}
-	
+
 	return (
 		<>
-			<Checkbox
-				data={inherit}
-				onChange={(value) => {
-					setInherit(value)
-					setFilter(data.logo)
-				}}
-				placeholder={t('inherit')}
-			/>
-			<form
+      <Debug data={filter} />
+      <form
 				className={style.block}
 				onSubmit={handleSubmit}
 			>
-				<pre>
-					{
-						JSON.stringify({
-							...filter,
-							inherit
-						}, null, 2)
-					}
-				</pre>
+        <Checkbox
+          data={inherit}
+          onChange={(value) => {
+            setInherit(value)
+            setFilter(data.logo)
+          }}
+          placeholder={t('inherit')}
+        />
 				<div>
 					<Label placeholder={t('logo')}/>
 					<File

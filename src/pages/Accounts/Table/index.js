@@ -64,7 +64,8 @@ const Option = ({
 		}))
 	}
 
-	const handleEditAgent = (e, type) => {
+	const handleEditAgent = (e, type, el = null) => {
+    const values = el || data
 		dispatch(setAside({
 			meta: {
 				title: `${t('edit')} ${t(type)}`,
@@ -72,7 +73,7 @@ const Option = ({
 				buttonRef: e.target,
 			},
 			type: type,
-			...data,
+			...values,
 		}))
 	}
 
@@ -226,7 +227,7 @@ const Option = ({
 											<div className={style.cell}>
 												<Icon
 													icon={'fa-pencil'}
-													action={(e) => handleEditAgent(e, el)}
+													action={(e) => handleEditAgent(e, types.TYPE[1])}
 												/>
 												<Icon
 													icon={'fa-dollar'}
