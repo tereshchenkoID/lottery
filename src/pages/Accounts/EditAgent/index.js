@@ -12,6 +12,7 @@ import Shop from "./Shop";
 import Logo from "./Logo";
 
 import style from './index.module.scss';
+import {types} from "../../../constant/config";
 
 const getContent = (active, data, inherit, setInherit) => {
 	switch (active) {
@@ -111,46 +112,51 @@ const EditAgent = ({data}) => {
 				>
 					{t('logo')}
 				</button>
-				<button
-					className={
-						classNames(
-							style.link,
-							active === 3 && style.active,
-						)
-					}
-					onClick={() => setActive(3)}
-				>
-					{t('currency')}
-				</button>
-				<button
-					className={
-						classNames(
-							style.link,
-							active === 4 && style.active,
-						)
-					}
-					onClick={() => setActive(4)}
-				>
-					{t('business')}
-				</button>
-			</div>
-			<div className={style.body}>
-				{
-					!loading &&
-					getContent(
-						active,
-						{
-							...info,
-							id: data.id,
-							username: data.username,
-							type: data.type
-						},
-						inherit,
-						setInherit
-					)
-				}
-			</div>
-		</div>
+        {
+          data.type !== types.TYPE[1] &&
+          <>
+            <button
+              className={
+                classNames(
+                  style.link,
+                  active === 3 && style.active,
+                )
+              }
+              onClick={() => setActive(3)}
+            >
+              {t('currency')}
+            </button>
+            <button
+              className={
+                classNames(
+                  style.link,
+                  active === 4 && style.active,
+                )
+              }
+              onClick={() => setActive(4)}
+            >
+              {t('business')}
+            </button>
+          </>
+        }
+      </div>
+      <div className={style.body}>
+        {
+          !loading &&
+          getContent(
+            active,
+            {
+              ...info,
+              id: data.id,
+              username: data.username,
+              type: data.type
+            },
+            inherit,
+            setInherit
+          )
+        }
+      </div>
+    </div>
   );
 }
 
