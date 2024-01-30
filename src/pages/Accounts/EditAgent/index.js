@@ -3,8 +3,11 @@ import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
+import {types} from "constant/config";
+
 import {postData} from "helpers/api";
 
+import Checkbox from "components/Checkbox";
 import Business from "./Business";
 import Currency from "./Currency";
 import General from "./General";
@@ -12,43 +15,43 @@ import Shop from "./Shop";
 import Logo from "./Logo";
 
 import style from './index.module.scss';
-import {types} from "../../../constant/config";
 
-const getContent = (active, data, inherit, setInherit) => {
-	switch (active) {
-		case 0:
-			return <General
-              data={data}
-              inherit={inherit}
-              setInherit={setInherit}
-            />
-		case 1:
-			return <Shop
-              data={data}
-              inherit={inherit}
-              setInherit={setInherit}
-            />
-		case 2:
-			return <Logo
-              data={data}
-              inherit={inherit}
-              setInherit={setInherit}
-            />
-		case 3:
-			return <Currency
-              data={data}
-              inherit={inherit}
-              setInherit={setInherit}
-            />
-		case 4:
-			return <Business
-              data={data}
-              inherit={inherit}
-              setInherit={setInherit}
-            />
-		default:
-			return null
-	}
+
+const getContent = (active, data, inherit, setUpdate) => {
+  switch (active) {
+    case 0:
+      return <General
+        data={data}
+        inherit={inherit}
+        setUpdate={setUpdate}
+      />
+    case 1:
+      return <Shop
+        data={data}
+        inherit={inherit}
+        setUpdate={setUpdate}
+      />
+    case 2:
+      return <Logo
+        data={data}
+        inherit={inherit}
+        setUpdate={setUpdate}
+      />
+    case 3:
+      return <Currency
+        data={data}
+        inherit={inherit}
+        setUpdate={setUpdate}
+      />
+    case 4:
+      return <Business
+        data={data}
+        inherit={inherit}
+        setUpdate={setUpdate}
+      />
+    default:
+      return null
+  }
 }
 
 const EditAgent = ({data}) => {
@@ -57,6 +60,7 @@ const EditAgent = ({data}) => {
 	const [info, setInfo] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [inherit, setInherit] = useState()
+  const [update, setUpdate] = useState(true)
 
 	const handleSubmit = () => {
 		const formData = new FormData()
@@ -65,16 +69,23 @@ const EditAgent = ({data}) => {
 
 		postData('account_details/', formData).then((json) => {
 			if (json.status === 'OK') {
-				setInfo(json.data)
+        const response = json.data
+        response.id = data.id
+        response.username = data.username
+
+				setInfo(response)
 				setLoading(false)
 				setInherit(json.data.general.inherit)
+        setUpdate(false)
 			}
 		})
 	}
 
 	useEffect(() => {
-		handleSubmit()
-	}, [])
+		if(update) {
+      handleSubmit()
+    }
+	}, [update])
 
 	return (
 		<div className={style.block}>
@@ -141,18 +152,23 @@ const EditAgent = ({data}) => {
         }
       </div>
       <div className={style.body}>
+        <Checkbox
+          data={inherit}
+          onChange={(value) => {
+            setInherit(value)
+          }}
+          placeholder={t('inherit')}
+        />
         {
           !loading &&
           getContent(
             active,
             {
               ...info,
-              id: data.id,
-              username: data.username,
               type: data.type
             },
             inherit,
-            setInherit
+            setUpdate
           )
         }
       </div>

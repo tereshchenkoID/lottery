@@ -47,7 +47,7 @@ const Paper = ({headline, children, quantity = null, setQuantity, classes = null
 					<hr className={style.hr}/>
 				</>
 			}
-			<div className={style.body}>{children}</div>
+			{children}
     </div>
   );
 }

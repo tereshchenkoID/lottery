@@ -17,14 +17,16 @@ import Debug from "modules/Debug";
 
 import style from './index.module.scss';
 
-const Stakes = ({data, currency, inherit, setInherit}) => {
+const Stakes = ({data, currency, inherit}) => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 	const [filter, setFilter] = useState(null)
   const [loading, setLoading] = useState(true)
+  const isDisabled = inherit === '1'
 
 	const handlePropsChange = (group, parent, fieldName, fieldValue) => {
-		const newData= filter
+		const newData = filter
+
 		if (parent) {
 			newData[group][parent][fieldName] = fieldValue
 		}
@@ -44,6 +46,33 @@ const Stakes = ({data, currency, inherit, setInherit}) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
+
+    const formData = new FormData()
+    formData.append('id', data.id)
+    formData.append('username', data.username)
+    formData.append('currency', currency)
+    formData.append('data', JSON.stringify(filter))
+    formData.append('inherit', inherit)
+
+    postData('accounts/edit/stakes/', formData).then((json) => {
+      if (json.code === '0') {
+        dispatch(
+          setToastify({
+            type: 'success',
+            text: json.message
+          })
+        )
+        handleCurrency()
+      }
+      else {
+        dispatch(
+          setToastify({
+            type: 'error',
+            text: json.error_message
+          })
+        )
+      }
+    })
 	}
 
   const handleCurrency = () => {
@@ -108,6 +137,7 @@ const Stakes = ({data, currency, inherit, setInherit}) => {
                                     placeholder={t(key_i)}
                                     data={value_i}
                                     onChange={(value) => handlePropsChange(key, key_g, key_i, value)}
+                                    classes={[isDisabled && 'disabled']}
                                   />
                                 )
                               }
@@ -121,6 +151,7 @@ const Stakes = ({data, currency, inherit, setInherit}) => {
                                 options={convertOptions(modes.STAKE_MODE)}
                                 data={value_g}
                                 onChange={(value) => handlePropsChange(key, null, key_g, value)}
+                                classes={[isDisabled && 'disabled']}
                               />
                             :
                               <Field
@@ -128,6 +159,7 @@ const Stakes = ({data, currency, inherit, setInherit}) => {
                                 placeholder={t(key_g)}
                                 data={value_g}
                                 onChange={(value) => handlePropsChange(key, null, key_g, value)}
+                                classes={[isDisabled && 'disabled']}
                               />
                     }
                   </div>

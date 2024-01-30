@@ -184,5 +184,6 @@
   "transfers": "Transfers UA",
   "total": "Total",
   "num": "Num UA",
-  "total_open": "Total Open UA"
+  "total_open": "Total Open UA",
+  "games_allowed": "Games allowed UA"
 }

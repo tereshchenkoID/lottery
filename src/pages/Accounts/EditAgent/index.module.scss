@@ -66,4 +66,7 @@
 
 .body {
 	@include make-spacer(pt, 20px);
+
+  display: grid;
+  grid-gap: rem(16px);
 }

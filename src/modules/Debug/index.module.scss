@@ -6,10 +6,11 @@
 	position: relative;
   border: rem(1px) solid var(--color-border);
   border-radius: var(--default-border-radius);
+  background-color: #f4f4f4;
 }
 
 .button {
-  @include flex($align-items: center);
+  @include flex(space-between, center);
   @include make-spacer(p, 10px);
 
   gap: rem(5px);

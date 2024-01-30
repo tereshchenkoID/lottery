@@ -44,7 +44,7 @@ const Pagination = ({
 							?
 								pagination.results
 							:
-								(pagination.page + 1) * pagination.quantity + 1
+								(pagination.page + 1) * pagination.quantity
 					}
 				</strong>
 				<span>{t('of')}</span>

@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useDispatch} from "react-redux";
 
 import {service, ticket} from "constant/config";
 
@@ -8,14 +7,12 @@ import {convertOptions} from "helpers/convertOptions";
 
 import Button from "components/Button";
 import Select from "components/Select";
-import Checkbox from "components/Checkbox";
 import Debug from "modules/Debug";
 
 import style from './index.module.scss';
 
-const Business = ({data, inherit, setInherit}) => {
+const Business = ({data, inherit, setUpdate}) => {
 	const { t } = useTranslation()
-	const dispatch = useDispatch()
 	const [filter, setFilter] = useState( data.business)
 	const isDisabled = inherit === '1'
 
@@ -51,14 +48,6 @@ const Business = ({data, inherit, setInherit}) => {
 				className={style.block}
 				onSubmit={handleSubmit}
 			>
-        <Checkbox
-          data={inherit}
-          onChange={(value) => {
-            setInherit(value)
-            setFilter(data.business)
-          }}
-          placeholder={t('inherit')}
-        />
 				{
 					Object.entries(filter).map(([key, value]) =>
 						<Select
@@ -71,21 +60,18 @@ const Business = ({data, inherit, setInherit}) => {
 						/>
 					)
 				}
-				{
-					!isDisabled &&
-					<div className={style.actions}>
-						<Button
-							type={'submit'}
-							classes={'primary'}
-							placeholder={t("save")}
-						/>
-						<Button
-							type={'reset'}
-							placeholder={t("cancel")}
-							onChange={handleResetForm}
-						/>
-					</div>
-				}
+        <div className={style.actions}>
+          <Button
+            type={'submit'}
+            classes={'primary'}
+            placeholder={t("save")}
+          />
+          <Button
+            type={'reset'}
+            placeholder={t("cancel")}
+            onChange={handleResetForm}
+          />
+        </div>
 			</form>
 		</>
 	);

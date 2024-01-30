@@ -4,12 +4,11 @@ import {useTranslation} from "react-i18next";
 import File from "components/File";
 import Label from "components/Label";
 import Button from "components/Button";
-import Checkbox from "components/Checkbox";
 import Debug from "modules/Debug";
 
 import style from './index.module.scss';
 
-const Logo = ({data, inherit, setInherit}) => {
+const Logo = ({data, inherit, setUpdate}) => {
 	const { t } = useTranslation()
 	const [filter, setFilter] = useState(data.logo)
 	const isDisabled = inherit === '1'
@@ -36,14 +35,6 @@ const Logo = ({data, inherit, setInherit}) => {
 				className={style.block}
 				onSubmit={handleSubmit}
 			>
-        <Checkbox
-          data={inherit}
-          onChange={(value) => {
-            setInherit(value)
-            setFilter(data.logo)
-          }}
-          placeholder={t('inherit')}
-        />
 				<div>
 					<Label placeholder={t('logo')}/>
 					<File
@@ -60,21 +51,18 @@ const Logo = ({data, inherit, setInherit}) => {
 						classes={[isDisabled && 'disabled']}
 					/>
 				</div>
-				{
-					!isDisabled &&
-					<div className={style.actions}>
-						<Button
-							type={'submit'}
-							classes={'primary'}
-							placeholder={t("save")}
-						/>
-						<Button
-							type={'reset'}
-							placeholder={t("cancel")}
-							onChange={handleResetForm}
-						/>
-					</div>
-				}
+        <div className={style.actions}>
+          <Button
+            type={'submit'}
+            classes={'primary'}
+            placeholder={t("save")}
+          />
+          <Button
+            type={'reset'}
+            placeholder={t("cancel")}
+            onChange={handleResetForm}
+          />
+        </div>
 			</form>
 		</>
 	);

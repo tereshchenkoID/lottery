@@ -1,12 +1,22 @@
+import classNames from "classnames";
+
 import style from './index.module.scss';
 
 const Checkbox = ({
 	data,
 	placeholder,
-	onChange
+	onChange,
+  classes= null,
 }) => {
 	return (
-    <label className={style.block}>
+    <label
+      className={
+        classNames(
+          style.block,
+          classes && classes.map(el => style[el])
+        )
+      }
+    >
 			<input
 				type={'checkbox'}
 				className={style.input}

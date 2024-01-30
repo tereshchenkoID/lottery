@@ -1,21 +1,24 @@
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useDispatch} from "react-redux";
 
 import {modes, service} from "constant/config";
 
+import {postData} from "helpers/api";
 import {convertOptions} from "helpers/convertOptions";
+import {setToastify} from "store/actions/toastifyAction";
 
 import Button from "components/Button";
 import Select from "components/Select";
 import Textarea from "components/Textarea";
-import Checkbox from "components/Checkbox";
 import Debug from "modules/Debug";
 
 import style from './index.module.scss';
 
-const Shop = ({data, inherit, setInherit}) => {
+const Shop = ({data, inherit, setUpdate}) => {
 	const { t } = useTranslation()
-	const [filter, setFilter] = useState(data.shop)
+  const dispatch = useDispatch()
+  const [filter, setFilter] = useState(data.shop)
 	const isDisabled = inherit === '1'
 
 	const handlePropsChange = (fieldName, fieldValue) => {
@@ -29,14 +32,38 @@ const Shop = ({data, inherit, setInherit}) => {
 		setFilter(data.shop)
 	}
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault()
 
-		const formData = new FormData();
-		formData.append('id', data.id)
-		formData.append('username', data.username)
-		formData.append('inherit', inherit)
-	}
+    const formData = new FormData()
+    formData.append('id', data.id)
+    formData.append('username', data.username)
+
+    Object.entries(filter).map(([key, value]) => {
+      formData.append(key, value)
+      return true
+    })
+
+    postData('accounts/edit/shop/', formData).then((json) => {
+      if (json.code === '0') {
+        dispatch(
+          setToastify({
+            type: 'success',
+            text: json.message
+          })
+        )
+        setUpdate(true)
+      }
+      else {
+        dispatch(
+          setToastify({
+            type: 'error',
+            text: json.error_message
+          })
+        )
+      }
+    })
+  }
 
 	return (
 		<>
@@ -45,14 +72,6 @@ const Shop = ({data, inherit, setInherit}) => {
 				className={style.block}
 				onSubmit={handleSubmit}
 			>
-        <Checkbox
-          data={inherit}
-          onChange={(value) => {
-            setInherit(value)
-            setFilter(data.shop)
-          }}
-          placeholder={t('inherit')}
-        />
 				<Select
 					placeholder={t('language')}
 					options={
@@ -97,21 +116,18 @@ const Shop = ({data, inherit, setInherit}) => {
 					onChange={(value) => handlePropsChange('printing_mode', value)}
 					classes={[isDisabled && 'disabled']}
 				/>
-				{
-					!isDisabled &&
-					<div className={style.actions}>
-						<Button
-							type={'submit'}
-							classes={'primary'}
-							placeholder={t("save")}
-						/>
-						<Button
-							type={'reset'}
-							placeholder={t("cancel")}
-							onChange={handleResetForm}
-						/>
-					</div>
-				}
+        <div className={style.actions}>
+          <Button
+            type={'submit'}
+            classes={'primary'}
+            placeholder={t("save")}
+          />
+          <Button
+            type={'reset'}
+            placeholder={t("cancel")}
+            onChange={handleResetForm}
+          />
+        </div>
 			</form>
 		</>
     );

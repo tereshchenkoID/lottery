@@ -26,15 +26,16 @@ const generateOptions = (count) => {
 	return options;
 };
 
-const Jackpot = ({data, currency, inherit, setInherit}) => {
+const Jackpot = ({data, currency, inherit}) => {
 	const { t } = useTranslation()
 	const dispatch = useDispatch()
 	const {settings} = useSelector((state) => state.settings)
 	const [filter, setFilter] = useState(null)
   const [loading, setLoading] = useState(true)
 	const [active, setActive] = useState(0)
+  const isDisabled = inherit === '1'
 
-	const handlePropsChange = (fieldName, fieldValue) => {
+  const handlePropsChange = (fieldName, fieldValue) => {
 		setFilter((prevData) => ({
 			...prevData,
 			[fieldName]: fieldValue,
@@ -132,30 +133,35 @@ const Jackpot = ({data, currency, inherit, setInherit}) => {
           placeholder={t('charge_share')}
           data={filter.charge_share}
           onChange={(value) => handlePropsChange('charge_share', value)}
+          classes={[isDisabled && 'disabled']}
         />
         <Field
           type={'number'}
           placeholder={t('low_limit_amount')}
           data={filter.low_limit_amount}
           onChange={(value) => handlePropsChange('low_limit_amount', value)}
+          classes={[isDisabled && 'disabled']}
         />
         <Field
           type={'number'}
           placeholder={t('high_limit_amount')}
           data={filter.high_limit_amount}
           onChange={(value) => handlePropsChange('high_limit_amount', value)}
+          classes={[isDisabled && 'disabled']}
         />
         <Field
           type={'number'}
           placeholder={t('min_shown_amount')}
           data={filter.min_shown_amount}
           onChange={(value) => handlePropsChange('min_shown_amount', value)}
+          classes={[isDisabled && 'disabled']}
         />
         <Field
           type={'number'}
           placeholder={t('min_stake_win')}
           data={filter.min_stake_win}
           onChange={(value) => handlePropsChange('min_stake_win', value)}
+          classes={[isDisabled && 'disabled']}
         />
         <div>
           <Label placeholder={t('draw_interval')}/>
@@ -165,24 +171,28 @@ const Jackpot = ({data, currency, inherit, setInherit}) => {
               options={convertOptions(generateOptions(24))}
               data={filter.from_hours}
               onChange={(value) => handlePropsChange('from_hours', value)}
+              classes={[isDisabled && 'disabled']}
             />
             <Select
               placeholder={t('minutes')}
               options={convertOptions(generateOptions(60))}
               data={filter.from_minutes}
               onChange={(value) => handlePropsChange('from_minutes', value)}
+              classes={[isDisabled && 'disabled']}
             />
             <Select
               placeholder={t('hours')}
               options={convertOptions(generateOptions(24))}
               data={filter.to_hours}
               onChange={(value) => handlePropsChange('to_hours', value)}
+              classes={[isDisabled && 'disabled']}
             />
             <Select
               placeholder={t('minutes')}
               options={convertOptions(generateOptions(60))}
               data={filter.to_minutes}
               onChange={(value) => handlePropsChange('to_minutes', value)}
+              classes={[isDisabled && 'disabled']}
             />
           </div>
         </div>
@@ -191,6 +201,7 @@ const Jackpot = ({data, currency, inherit, setInherit}) => {
           placeholder={t('jackpot_display_period')}
           data={filter.jackpot_display_period}
           onChange={(value) => handlePropsChange('jackpot_display_period', value)}
+          classes={[isDisabled && 'disabled']}
         />
         <div>
           <Label placeholder={t('games_allowed')}/>
@@ -202,6 +213,7 @@ const Jackpot = ({data, currency, inherit, setInherit}) => {
                   data={filter.games_allowed[key] ? '1' : '0'}
                   placeholder={values}
                   onChange={(value) => handleCheckboxChange(key, value, values)}
+                  classes={[isDisabled && 'disabled']}
                 />
               )
             }

@@ -101,7 +101,12 @@ const Option = ({
 					config_1.map((key, value_idx) =>
 						<div
 							key={value_idx}
-							className={style.cell}
+							className={
+                classNames(
+                  style.cell,
+                  data[key.key] === '1' && style.warning
+                )
+              }
 						>
 							{
 								(key.key !== 'commission' && key.key !== 'credits')

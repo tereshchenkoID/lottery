@@ -9,10 +9,9 @@ import Jackpot from "./Jackpot";
 
 import style from './index.module.scss';
 
-const Currency = ({data, inherit, setInherit}) => {
+const Currency = ({data, inherit, setUpdate}) => {
 	const { t } = useTranslation()
 	const {settings} = useSelector((state) => state.settings)
-
 	const [active, setActive] = useState(settings.currencies[0])
   const [tab, setTab] = useState(0)
 
@@ -70,7 +69,6 @@ const Currency = ({data, inherit, setInherit}) => {
             data={data}
             currency={active}
             inherit={inherit}
-            setInherit={setInherit}
           />
         }
         {
@@ -79,7 +77,6 @@ const Currency = ({data, inherit, setInherit}) => {
             data={data}
             currency={active}
             inherit={inherit}
-            setInherit={setInherit}
           />
         }
       </div>

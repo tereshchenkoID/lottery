@@ -17,7 +17,7 @@ import style from './index.module.scss';
 const Home = () => {
 	const dispatch = useDispatch()
 	const [loading, setLoading] = useState(true)
-	
+
 	useEffect(() => {
 		dispatch(setSettings())
 		dispatch(setAgents()).then((json) => {
@@ -27,7 +27,7 @@ const Home = () => {
 		})
 	},[])
 
-    return (
+  return (
 		loading
 			?
 				<Loader />

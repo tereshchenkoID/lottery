@@ -1,4 +1,4 @@
-@import "../../../../../scss/config";
+@import "scss/config";
 
 .block {
 	display: grid;
@@ -9,6 +9,7 @@
 	@include flex(flex-end, center);
 
 	gap: rem(16px);
+  position: relative;
 }
 
 .list {

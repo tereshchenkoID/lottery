@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useSelector} from "react-redux";
 
@@ -53,6 +53,7 @@ const Accounts = () => {
 	const { t } = useTranslation()
 	const {agents} = useSelector((state) => state.agents)
 	const {settings} = useSelector((state) => state.settings)
+  const [search, setSearch] = useState(false)
 
 	const initialValue = {
 		'agent': {
@@ -68,6 +69,7 @@ const Accounts = () => {
 	const handleSubmit = (event) => {
 		event && event.preventDefault()
 		setData(searchFilter(agents[0]))
+    setSearch(true)
 	}
 
 	const searchFilter = (node) => {
@@ -105,6 +107,7 @@ const Accounts = () => {
 	const handleResetForm = () => {
 		setFilter(initialValue)
 		setData(agents)
+    setSearch(false)
 	}
 
 	const handlePropsChange = (fieldName, fieldValue) => {
@@ -114,67 +117,75 @@ const Accounts = () => {
 		}))
 	}
 
-    return (
-      <>
-        <Paper headline={t('account_search')}>
-          <Debug data={filter} />
+  useEffect(() => {
+    if (search) {
+      setData(searchFilter(agents[0]))
+    }
+    else {
+      setData(agents)
+    }
+  }, [agents]);
 
-          <form onSubmit={handleSubmit}>
-            <div className={style.grid}>
-              <div>
-                <Agents
-                  data={filter.agent}
-                  options={agents}
-                  onChange={(value) => handlePropsChange('agent', value)}
-                />
-              </div>
-              <div>
-                <Select
-                  placeholder={t('locked')}
-                  options={convertOptions(service.YES_NO)}
-                  data={filter.locked}
-                  onChange={(value) => handlePropsChange('locked', value)}
-                />
-              </div>
-              <div>
-                <Select
-                  placeholder={t('currency')}
-                  options={
-                    settings.currencies.map(currency => ({
-                      value: currency,
-                      label: currency
-                    }))
-                  }
-                  data={filter.currency}
-                  onChange={(value) => handlePropsChange('currency', value)}
-                />
-              </div>
-            </div>
-            <div className={style.actions}>
-              <Button
-                type={'submit'}
-                classes={'primary'}
-                placeholder={t("search")}
-              />
-              <Button
-                type={'reset'}
-                placeholder={t("cancel")}
-                onChange={handleResetForm}
+  return (
+    <>
+      <Paper headline={t('account_search')}>
+        <Debug data={filter} />
+        <form onSubmit={handleSubmit}>
+          <div className={style.grid}>
+            <div>
+              <Agents
+                data={filter.agent}
+                options={agents}
+                onChange={(value) => handlePropsChange('agent', value)}
               />
             </div>
-          </form>
-        </Paper>
-        <Paper>
-          <Table
-            data={data}
-            filter={filter}
-            config_1={config_1}
-            config_2={config_2}
-            handleDataChange={setData}
-          />
-        </Paper>
-      </>
-    )
+            <div>
+              <Select
+                placeholder={t('locked')}
+                options={convertOptions(service.YES_NO)}
+                data={filter.locked}
+                onChange={(value) => handlePropsChange('locked', value)}
+              />
+            </div>
+            <div>
+              <Select
+                placeholder={t('currency')}
+                options={
+                  settings.currencies.map(currency => ({
+                    value: currency,
+                    label: currency
+                  }))
+                }
+                data={filter.currency}
+                onChange={(value) => handlePropsChange('currency', value)}
+              />
+            </div>
+          </div>
+          <div className={style.actions}>
+            <Button
+              type={'submit'}
+              classes={'primary'}
+              placeholder={t("search")}
+            />
+            <Button
+              type={'reset'}
+              placeholder={t("cancel")}
+              onChange={handleResetForm}
+            />
+          </div>
+        </form>
+      </Paper>
+      <Paper>
+        <Table
+          data={data}
+          filter={filter}
+          config_1={config_1}
+          config_2={config_2}
+          handleDataChange={setData}
+        />
+      </Paper>
+    </>
+  )
 }
 
 export default Accounts;

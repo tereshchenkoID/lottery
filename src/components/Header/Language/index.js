@@ -1,27 +1,20 @@
 import {useRef, useState} from "react";
+import {useSelector} from "react-redux";
 import i18n from 'i18next'
-import {useOutsideClick} from "hooks/useOutsideClick";
 
 import classNames from "classnames";
+
+import {useOutsideClick} from "hooks/useOutsideClick";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import style from './index.module.scss';
 
 const Language = () => {
+  const {settings} = useSelector((state) => state.settings)
   const [active, setActive] = useState(false)
   const blockRef = useRef(null)
   const buttonRef = useRef(null)
-  const language = [
-    {
-      code: 'en',
-      text: 'en',
-    },
-    {
-      code: 'ukr',
-      text: 'ua'
-    }
-  ]
 
   useOutsideClick(
     blockRef,
@@ -36,7 +29,7 @@ const Language = () => {
   )
 
   const handleSearch = (data) => {
-    return language.find((lang) => lang.code === data);
+    return settings.languages.find((lang) => lang.code === data);
   };
 
   return (
@@ -57,16 +50,19 @@ const Language = () => {
         className={style.selected}
       >
         <span>{handleSearch(i18n.language).text}</span>
-        <FontAwesomeIcon
-          icon="fa-solid fa-angle-down"
-          className={style.arrow}
-        />
+        {
+          settings.languages.length > 1 &&
+          <FontAwesomeIcon
+            icon="fa-solid fa-angle-down"
+            className={style.arrow}
+          />
+        }
       </div>
       {
         active &&
         <div className={style.dropdown}>
           {
-            language.map((el, idx) =>
+            settings.languages.map((el, idx) =>
               i18n.language !== el.code &&
               <button
                 key={idx}

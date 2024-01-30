@@ -184,5 +184,6 @@
   "transfers": "Transfers",
   "total": "Total",
   "num": "Num",
-  "total_open": "Total Open"
+  "total_open": "Total Open",
+  "games_allowed": "Games allowed"
 }
