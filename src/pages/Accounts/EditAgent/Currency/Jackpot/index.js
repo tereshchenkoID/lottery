@@ -62,9 +62,37 @@ const Jackpot = ({data, currency, inherit}) => {
     handleJackpot()
 	}
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
-	}
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    const formData = new FormData()
+    formData.append('id', data.id)
+    formData.append('username', data.username)
+    formData.append('currency', currency)
+    formData.append('data', JSON.stringify(filter))
+    formData.append('inherit', inherit)
+    formData.append('jackpot', active + 1)
+
+    postData('accounts/edit/jackpots/', formData).then((json) => {
+      if (json.code === '0') {
+        dispatch(
+          setToastify({
+            type: 'success',
+            text: json.message
+          })
+        )
+        handleJackpot()
+      }
+      else {
+        dispatch(
+          setToastify({
+            type: 'error',
+            text: json.error_message
+          })
+        )
+      }
+    })
+  }
 
   const handleJackpot = () => {
     const formData = new FormData()

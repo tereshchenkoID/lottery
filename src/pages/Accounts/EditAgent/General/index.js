@@ -31,11 +31,9 @@ const General = ({data, inherit, setUpdate}) => {
 			[fieldName]: fieldValue,
 		}))
 	}
-
 	const handleResetForm = () => {
 		setFilter(data.general)
   }
-
 	const handleSubmit = (e) => {
 		e.preventDefault()
 
@@ -113,21 +111,21 @@ const General = ({data, inherit, setUpdate}) => {
           data={filter.country}
           onChange={(value) => handlePropsChange('country', value)}
         />
-        <Select
-          placeholder={t('currency')}
-          options={
-            settings.currencies.map(item => ({
-              value: item,
-              label: item
-            }))
-          }
-          data={filter.currency}
-          onChange={(value) => handlePropsChange('currency', value)}
-          classes={[isDisabled && 'disabled']}
-        />
         {
           data.type === types.TYPE[0] &&
           <>
+            <Select
+              placeholder={t('currency')}
+              options={
+                settings.currencies.map(item => ({
+                  value: item,
+                  label: item
+                }))
+              }
+              data={filter.currency}
+              onChange={(value) => handlePropsChange('currency', value)}
+              classes={[isDisabled && 'disabled']}
+            />
             <Select
               placeholder={t('locked')}
               options={convertOptions(service.YES_NO)}
