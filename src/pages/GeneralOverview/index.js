@@ -1,134 +1,134 @@
-import React, {useState} from "react";
-import {useSelector} from "react-redux";
-import {useTranslation} from "react-i18next";
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
-import {timeframe} from "constant/config";
+import { timeframe } from 'constant/config'
 
-import Debug from "modules/Debug";
-import Agents from "modules/Agents";
-import Paper from "components/Paper";
-import Field from "components/Field";
-import Select from "components/Select";
-import Button from "components/Button";
-import Table from "./Table";
+import Debug from 'modules/Debug'
+import Agents from 'modules/Agents'
+import Paper from 'components/Paper'
+import Field from 'components/Field'
+import Select from 'components/Select'
+import Button from 'components/Button'
+import Table from './Table'
 
-import {getTimeframeFrom, getTimeframeTo} from "helpers/getTimeframe";
-import {convertOptions} from "helpers/convertOptions";
-import {searchById} from "helpers/searchById";
-import {getDate} from "helpers/getDate";
+import { getTimeframeFrom, getTimeframeTo } from 'helpers/getTimeframe'
+import { convertOptions } from 'helpers/convertOptions'
+import { searchById } from 'helpers/searchById'
+import { getDate } from 'helpers/getDate'
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
 const config_1 = [
-	{
-		key: 'username',
-		text: 'username'
-	},
+  {
+    key: 'username',
+    text: 'username',
+  },
 ]
 
 const config_2 = [
-	{
-		key: 'date-from',
-		text: 'date_from'
-	},
-	{
-		key: 'currency',
-		text: 'currency'
-	},
-	{
-		key: 'tickets',
-		text: 'tickets'
-	},
-	{
-		key: 'total_in',
-		text: 'total_in'
-	},
-	{
-		key: 'total_out',
-		text: 'total_out'
-	},
-	{
-		key: 'open_payouts',
-		text: 'open_payouts'
-	},
-	{
-		key: 'Jackpot_1_payout',
-		text: 'jackpot_1_payout'
-	},
-	{
-		key: 'Jackpot_2_payout',
-		text: 'jackpot_2_payout'
-	},
-	{
-		key: 'Jackpot_3_payout',
-		text: 'jackpot_3_payout'
-	},
-	{
-		key: 'Jackpot_1_contribution',
-		text: 'jackpot_1_contribution',
-	},
-	{
-		key: 'Jackpot_2_contribution',
-		text: 'jackpot_2_contribution',
-	},
-	{
-		key: 'Jackpot_3_contribution',
-		text: 'jackpot_3_contribution',
-	},
-	{
-		key: 'reversal',
-		text: 'reversal'
-	},
-	{
-		key: 'commission',
-		text: 'commission'
-	},
-	{
-		key: 'taxes',
-		text: 'taxes'
-	},
-	{
-		key: 'profit',
-		text: 'profit'
-	}
+  {
+    key: 'date-from',
+    text: 'date_from',
+  },
+  {
+    key: 'currency',
+    text: 'currency',
+  },
+  {
+    key: 'tickets',
+    text: 'tickets',
+  },
+  {
+    key: 'total_in',
+    text: 'total_in',
+  },
+  {
+    key: 'total_out',
+    text: 'total_out',
+  },
+  {
+    key: 'open_payouts',
+    text: 'open_payouts',
+  },
+  {
+    key: 'Jackpot_1_payout',
+    text: 'jackpot_1_payout',
+  },
+  {
+    key: 'Jackpot_2_payout',
+    text: 'jackpot_2_payout',
+  },
+  {
+    key: 'Jackpot_3_payout',
+    text: 'jackpot_3_payout',
+  },
+  {
+    key: 'Jackpot_1_contribution',
+    text: 'jackpot_1_contribution',
+  },
+  {
+    key: 'Jackpot_2_contribution',
+    text: 'jackpot_2_contribution',
+  },
+  {
+    key: 'Jackpot_3_contribution',
+    text: 'jackpot_3_contribution',
+  },
+  {
+    key: 'reversal',
+    text: 'reversal',
+  },
+  {
+    key: 'commission',
+    text: 'commission',
+  },
+  {
+    key: 'taxes',
+    text: 'taxes',
+  },
+  {
+    key: 'profit',
+    text: 'profit',
+  },
 ]
 
 const GeneralOverview = () => {
-	const { t } = useTranslation()
-	const {agents} = useSelector((state) => state.agents)
+  const { t } = useTranslation()
+  const { agents } = useSelector(state => state.agents)
 
-	const initialValue = {
-		'agent': {
-			'id': agents[0].id,
-			'username': agents[0].username
-		},
-		'date-from': getDate(new Date().setHours(0, 0, 0, 0), 'datetime-local'),
-		'date-to': getDate(new Date(), 'datetime-local'),
-		'timeframe': ''
-	}
+  const initialValue = {
+    agent: {
+      id: agents[0].id,
+      username: agents[0].username,
+    },
+    'date-from': getDate(new Date().setHours(0, 0, 0, 0), 'datetime-local'),
+    'date-to': getDate(new Date(), 'datetime-local'),
+    timeframe: '',
+  }
 
-	const [filter, setFilter] = useState(initialValue)
+  const [filter, setFilter] = useState(initialValue)
   const [cmd, setCmd] = useState(false)
-	const [data, setData] = useState(agents)
+  const [data, setData] = useState(agents)
 
-	const handleResetForm = () => {
-		setFilter(initialValue)
-		setData(agents)
+  const handleResetForm = () => {
+    setFilter(initialValue)
+    setData(agents)
     setCmd('reset')
   }
 
-	const handlePropsChange = (fieldName, fieldValue) => {
-		setFilter((prevData) => ({
-			...prevData,
-			[fieldName]: fieldValue,
-		}))
-	}
+  const handlePropsChange = (fieldName, fieldValue) => {
+    setFilter(prevData => ({
+      ...prevData,
+      [fieldName]: fieldValue,
+    }))
+  }
 
-	const handleSubmit = (event) => {
-    event && event.preventDefault();
+  const handleSubmit = event => {
+    event && event.preventDefault()
     setData(searchById(agents[0], filter.agent.id))
     setCmd('submit')
-	}
+  }
 
   return (
     <>
@@ -141,7 +141,7 @@ const GeneralOverview = () => {
               <Agents
                 data={filter.agent}
                 options={agents}
-                onChange={(value) => handlePropsChange('agent', value)}
+                onChange={value => handlePropsChange('agent', value)}
               />
             </div>
             <div>
@@ -149,10 +149,16 @@ const GeneralOverview = () => {
                 placeholder={t('timeframe')}
                 options={convertOptions(timeframe.TIMEFRAME)}
                 data={filter.timeframe}
-                onChange={(value) => {
+                onChange={value => {
                   handlePropsChange('timeframe', value)
-                  handlePropsChange('date-from', getTimeframeFrom(value, 'datetime-local'))
-                  handlePropsChange('date-to', getTimeframeTo(value, 'datetime-local'))
+                  handlePropsChange(
+                    'date-from',
+                    getTimeframeFrom(value, 'datetime-local'),
+                  )
+                  handlePropsChange(
+                    'date-to',
+                    getTimeframeTo(value, 'datetime-local'),
+                  )
                 }}
               />
             </div>
@@ -160,16 +166,16 @@ const GeneralOverview = () => {
               <Field
                 type={'datetime-local'}
                 placeholder={t('date_from')}
-                data={filter["date-from"]}
-                onChange={(value) => handlePropsChange('date-from', value)}
+                data={filter['date-from']}
+                onChange={value => handlePropsChange('date-from', value)}
               />
             </div>
             <div>
               <Field
                 type={'datetime-local'}
                 placeholder={t('date_to')}
-                data={filter["date-to"]}
-                onChange={(value) => handlePropsChange('date-to', value)}
+                data={filter['date-to']}
+                onChange={value => handlePropsChange('date-to', value)}
               />
             </div>
           </div>
@@ -177,11 +183,11 @@ const GeneralOverview = () => {
             <Button
               type={'submit'}
               classes={'primary'}
-              placeholder={t("search")}
+              placeholder={t('search')}
             />
             <Button
               type={'reset'}
-              placeholder={t("cancel")}
+              placeholder={t('cancel')}
               onChange={handleResetForm}
             />
           </div>
@@ -198,7 +204,7 @@ const GeneralOverview = () => {
         />
       </Paper>
     </>
-  );
+  )
 }
 
-export default GeneralOverview;
+export default GeneralOverview

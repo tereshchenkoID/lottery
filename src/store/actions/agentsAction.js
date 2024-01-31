@@ -1,29 +1,27 @@
-import {useRequest} from "hooks/useRequest";
+import { useRequest } from 'hooks/useRequest'
 
-import { types } from "store/actionTypes";
+import { types } from 'store/actionTypes'
 
 export const setAgents = () => async dispatch => {
-    const { get } = useRequest('tree/')
+  const { get } = useRequest('tree/')
 
-    try {
-        const data = await get()
+  try {
+    const data = await get()
 
-        dispatch({
-            type: types.SET_AGENTS,
-            payload: data,
-        })
+    dispatch({
+      type: types.SET_AGENTS,
+      payload: data,
+    })
 
-        return data
-    }
-    catch (e) {
-        console.log(e)
-    }
-};
+    return data
+  } catch (e) {
+    console.log(e)
+  }
+}
 
-
-export const updateAgents = (data) => async dispatch => {
-	dispatch({
-		type: types.SET_AGENTS,
-		payload: data,
-	})
+export const updateAgents = data => async dispatch => {
+  dispatch({
+    type: types.SET_AGENTS,
+    payload: data,
+  })
 }

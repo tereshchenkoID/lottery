@@ -1,51 +1,41 @@
-import {useTranslation} from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
-import classNames from "classnames";
+import classNames from 'classnames'
 
-import Button from "components/Button";
-import Icon from "components/Icon";
+import Button from 'components/Button'
+import Icon from 'components/Icon'
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
-const Cancel = ({data, action, setCancel}) => {
-	const { t } = useTranslation()
-	
-	return (
-		<>
-			<Icon
-				icon={'fa-times'}
-				action={setCancel}
-			/>
-			
-			<div
-				className={
-					classNames(
-						style.modal,
-						data && style.active
-					)
-				}
-			>
-				<div className={style.wrapper}>
-					<div className={style.body}>
-						<p>{t('confirm_cancel_stake')}</p>
-					</div>
-					<div className={style.actions}>
-						<Button
-							type={'button'}
-							classes={'primary'}
-							placeholder={t('yes')}
-							onChange={action}
-						/>
-						<Button
-							type={'button'}
-							placeholder={t('no')}
-							onChange={setCancel}
-						/>
-					</div>
-				</div>
-			</div>
-		</>
-	);
+const Cancel = ({ data, action, setCancel }) => {
+  const { t } = useTranslation()
+
+  return (
+    <>
+      <Icon icon={'fa-times'} action={setCancel} />
+
+      <div className={classNames(style.modal, data && style.active)}>
+        <div className={style.wrapper}>
+          <div className={style.body}>
+            <p>{t('confirm_cancel_stake')}</p>
+          </div>
+          <div className={style.actions}>
+            <Button
+              type={'button'}
+              classes={'primary'}
+              placeholder={t('yes')}
+              onChange={action}
+            />
+            <Button
+              type={'button'}
+              placeholder={t('no')}
+              onChange={setCancel}
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  )
 }
 
-export default Cancel;
+export default Cancel

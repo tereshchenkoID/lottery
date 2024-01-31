@@ -1,106 +1,106 @@
-import React, {useState} from "react";
-import {useTranslation} from "react-i18next";
-import {useSelector} from "react-redux";
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
-import Debug from "modules/Debug";
-import Agents from "modules/Agents";
-import Paper from "components/Paper";
-import Button from "components/Button";
-import Table from "./Table";
+import Debug from 'modules/Debug'
+import Agents from 'modules/Agents'
+import Paper from 'components/Paper'
+import Button from 'components/Button'
+import Table from './Table'
 
-import style from "./index.module.scss";
+import style from './index.module.scss'
 
 const config_1 = [
-	{
-		key: 'username',
-		text: 'username'
-	},
-	{
-		key: 'full_name',
-		text: 'full_name'
-	}
+  {
+    key: 'username',
+    text: 'username',
+  },
+  {
+    key: 'full_name',
+    text: 'full_name',
+  },
 ]
 
 const config_2 = [
-	{
-		key: 'shops',
-		text: 'shops'
-	}
+  {
+    key: 'shops',
+    text: 'shops',
+  },
 ]
 
 const config_3 = [
   {
     key: 'date',
-    text: 'date'
+    text: 'date',
   },
   {
     key: 'number',
-    text: 'num'
+    text: 'num',
   },
   {
     key: 'currency',
-    text: 'currency'
+    text: 'currency',
   },
   {
     key: 'total_in',
-    text: 'total_in'
+    text: 'total_in',
   },
   {
     key: 'total_out',
-    text: 'total_out'
+    text: 'total_out',
   },
   {
     key: 'total_open',
-    text: 'total_open'
+    text: 'total_open',
   },
   {
     key: 'jackpot_1',
-    text: 'jackpot_1_payout'
+    text: 'jackpot_1_payout',
   },
   {
     key: 'jackpot_2',
-    text: 'jackpot_2_payout'
+    text: 'jackpot_2_payout',
   },
   {
     key: 'jackpot_3',
-    text: 'jackpot_3_payout'
+    text: 'jackpot_3_payout',
   },
   {
     key: 'reversal',
-    text: 'reversal'
+    text: 'reversal',
   },
   {
     key: 'profit',
-    text: 'profit'
+    text: 'profit',
   },
 ]
 
 const Settlement = () => {
-	const { t } = useTranslation()
-	const {agents} = useSelector((state) => state.agents)
+  const { t } = useTranslation()
+  const { agents } = useSelector(state => state.agents)
 
   const initialValue = {
-    'agent': {
-      'id': agents[0].id,
-      'username': agents[0].username
-    }
+    agent: {
+      id: agents[0].id,
+      username: agents[0].username,
+    },
   }
   const [filter, setFilter] = useState(initialValue)
   const [cmd, setCmd] = useState(false)
   const [data, setData] = useState(agents)
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event && event.preventDefault()
     setData(searchFilter(agents[0], filter.agent.id))
     setCmd('submit')
   }
 
-  const searchFilter = (node) => {
+  const searchFilter = node => {
     const s = {
-      id : node.id
+      id: node.id,
     }
     const t = {
-      id : filter.agent.id
+      id: filter.agent.id,
     }
 
     if (filter.locked) {
@@ -117,15 +117,15 @@ const Settlement = () => {
     }
 
     if (node.clients) {
-      let results = [];
+      let results = []
       for (const client of node.clients) {
-        results = results.concat(searchFilter(client));
+        results = results.concat(searchFilter(client))
       }
-      return results;
+      return results
     }
 
-    return [];
-  };
+    return []
+  }
 
   const handleResetForm = () => {
     setFilter(initialValue)
@@ -134,7 +134,7 @@ const Settlement = () => {
   }
 
   const handlePropsChange = (fieldName, fieldValue) => {
-    setFilter((prevData) => ({
+    setFilter(prevData => ({
       ...prevData,
       [fieldName]: fieldValue,
     }))
@@ -143,14 +143,14 @@ const Settlement = () => {
   return (
     <>
       <Paper headline={t('settlement')}>
-        <Debug data={filter}/>
+        <Debug data={filter} />
         <form onSubmit={handleSubmit}>
           <div className={style.grid}>
             <div>
               <Agents
                 data={filter.agent}
                 options={agents}
-                onChange={(value) => handlePropsChange('agent', value)}
+                onChange={value => handlePropsChange('agent', value)}
               />
             </div>
           </div>
@@ -158,11 +158,11 @@ const Settlement = () => {
             <Button
               type={'submit'}
               classes={'primary'}
-              placeholder={t("search")}
+              placeholder={t('search')}
             />
             <Button
               type={'reset'}
-              placeholder={t("cancel")}
+              placeholder={t('cancel')}
               onChange={handleResetForm}
             />
           </div>
@@ -183,4 +183,4 @@ const Settlement = () => {
   )
 }
 
-export default Settlement;
+export default Settlement

@@ -1,32 +1,26 @@
-import {useSelector} from "react-redux";
+import { useSelector } from 'react-redux'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 
-import Login from "pages/Login";
-import Home from "pages/Home"
-import Toastify from "components/Toastify";
+import Login from 'pages/Login'
+import Home from 'pages/Home'
+import Toastify from 'components/Toastify'
 
 import style from './index.module.scss'
 
 const App = () => {
-	const {auth} = useSelector((state) => state.auth)
+  const { auth } = useSelector(state => state.auth)
 
-	return (
+  return (
     <div className={style.root}>
-			<Toastify />
-			{
-				(auth || sessionStorage.getItem('authToken'))
-					?
-						<Home />
-					:
-						<Login />
-			}
+      <Toastify />
+      {auth || sessionStorage.getItem('authToken') ? <Home /> : <Login />}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
 library.add(fab, fas, far)

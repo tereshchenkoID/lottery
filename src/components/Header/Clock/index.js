@@ -1,26 +1,26 @@
-import {useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
 const Clock = () => {
   const { t } = useTranslation()
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(new Date())
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
+      setTime(new Date())
+    }, 1000)
 
-    return () => clearInterval(intervalId);
-  }, []);
+    return () => clearInterval(intervalId)
+  }, [])
 
   return (
     <div className={style.block}>
       <h6>{t('title')}</h6>
       <div>{time.toLocaleString()}</div>
     </div>
-  );
+  )
 }
 
-export default Clock;
+export default Clock

@@ -1,8 +1,8 @@
-import Clock from "./Clock";
-import Language from "./Language";
+import Clock from './Clock'
+import Language from './Language'
 
-import style from './index.module.scss';
-import Account from "./Account";
+import style from './index.module.scss'
+import Account from './Account'
 
 const Header = () => {
   return (
@@ -11,7 +11,7 @@ const Header = () => {
       <Language />
       <Account />
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header

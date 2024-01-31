@@ -1,9 +1,7 @@
-import style from './index.module.scss';
+import style from './index.module.scss'
 
-const Label = ({placeholder}) => {
-  return (
-    <div className={style.block}>{placeholder}</div>
-  );
+const Label = ({ placeholder }) => {
+  return <div className={style.block}>{placeholder}</div>
 }
 
-export default Label;
+export default Label

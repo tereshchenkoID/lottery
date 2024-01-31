@@ -1,179 +1,130 @@
-import React, {useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import classNames from "classnames";
+import classNames from 'classnames'
 
-import {types} from "constant/config";
+import { types } from 'constant/config'
 
-import {postData} from "helpers/api";
+import { postData } from 'helpers/api'
 
-import Checkbox from "components/Checkbox";
-import Business from "./Business";
-import Currency from "./Currency";
-import General from "./General";
-import Shop from "./Shop";
-import Logo from "./Logo";
+import Checkbox from 'components/Checkbox'
+import Business from './Business'
+import Currency from './Currency'
+import General from './General'
+import Shop from './Shop'
+import Logo from './Logo'
 
-import style from './index.module.scss';
-
+import style from './index.module.scss'
 
 const getContent = (active, data, inherit, setUpdate) => {
   switch (active) {
     case 0:
-      return <General
-        data={data}
-        inherit={inherit}
-        setUpdate={setUpdate}
-      />
+      return <General data={data} inherit={inherit} setUpdate={setUpdate} />
     case 1:
-      return <Shop
-        data={data}
-        inherit={inherit}
-        setUpdate={setUpdate}
-      />
+      return <Shop data={data} inherit={inherit} setUpdate={setUpdate} />
     case 2:
-      return <Logo
-        data={data}
-        inherit={inherit}
-        setUpdate={setUpdate}
-      />
+      return <Logo data={data} inherit={inherit} setUpdate={setUpdate} />
     case 3:
-      return <Currency
-        data={data}
-        inherit={inherit}
-        setUpdate={setUpdate}
-      />
+      return <Currency data={data} inherit={inherit} setUpdate={setUpdate} />
     case 4:
-      return <Business
-        data={data}
-        inherit={inherit}
-        setUpdate={setUpdate}
-      />
+      return <Business data={data} inherit={inherit} setUpdate={setUpdate} />
     default:
       return null
   }
 }
 
-const EditAgent = ({data}) => {
-	const { t } = useTranslation()
-	const [active, setActive] = useState(0)
-	const [info, setInfo] = useState(null)
-	const [loading, setLoading] = useState(true)
-	const [inherit, setInherit] = useState()
+const EditAgent = ({ data }) => {
+  const { t } = useTranslation()
+  const [active, setActive] = useState(0)
+  const [info, setInfo] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [inherit, setInherit] = useState()
   const [update, setUpdate] = useState(true)
 
-	const handleSubmit = () => {
-		const formData = new FormData()
-		formData.append('id', data.id)
-		formData.append('username', data.username)
+  const handleSubmit = () => {
+    const formData = new FormData()
+    formData.append('id', data.id)
+    formData.append('username', data.username)
 
-		postData('account_details/', formData).then((json) => {
-			if (json.status === 'OK') {
+    postData('account_details/', formData).then(json => {
+      if (json.status === 'OK') {
         const response = json.data
         response.id = data.id
         response.username = data.username
 
-				setInfo(response)
-				setLoading(false)
-				setInherit(json.data.general.inherit)
+        setInfo(response)
+        setLoading(false)
+        setInherit(json.data.general.inherit)
         setUpdate(false)
-			}
-		})
-	}
+      }
+    })
+  }
 
-	useEffect(() => {
-		if(update) {
+  useEffect(() => {
+    if (update) {
       handleSubmit()
     }
-	}, [update])
+  }, [update])
 
-	return (
-		<div className={style.block}>
-			<div className={style.header}>
-				<button
-					className={
-						classNames(
-							style.link,
-							active === 0 && style.active,
-						)
-					}
-					onClick={() => setActive(0)}
-				>
-					{t('general')}
-				</button>
-				<button
-					className={
-						classNames(
-							style.link,
-							active === 1 && style.active,
-						)
-					}
-					onClick={() => setActive(1)}
-				>
-					{t('shop')}
-				</button>
-				<button
-					className={
-						classNames(
-							style.link,
-							active === 2 && style.active,
-						)
-					}
-					onClick={() => setActive(2)}
-				>
-					{t('logo')}
-				</button>
-        {
-          data.type !== types.TYPE[1] &&
+  return (
+    <div className={style.block}>
+      <div className={style.header}>
+        <button
+          className={classNames(style.link, active === 0 && style.active)}
+          onClick={() => setActive(0)}
+        >
+          {t('general')}
+        </button>
+        <button
+          className={classNames(style.link, active === 1 && style.active)}
+          onClick={() => setActive(1)}
+        >
+          {t('shop')}
+        </button>
+        <button
+          className={classNames(style.link, active === 2 && style.active)}
+          onClick={() => setActive(2)}
+        >
+          {t('logo')}
+        </button>
+        {data.type !== types.TYPE[1] && (
           <>
             <button
-              className={
-                classNames(
-                  style.link,
-                  active === 3 && style.active,
-                )
-              }
+              className={classNames(style.link, active === 3 && style.active)}
               onClick={() => setActive(3)}
             >
               {t('currency')}
             </button>
             <button
-              className={
-                classNames(
-                  style.link,
-                  active === 4 && style.active,
-                )
-              }
+              className={classNames(style.link, active === 4 && style.active)}
               onClick={() => setActive(4)}
             >
               {t('business')}
             </button>
           </>
-        }
+        )}
       </div>
       <div className={style.body}>
         <Checkbox
           data={inherit}
-          onChange={(value) => {
+          onChange={value => {
             setInherit(value)
           }}
           placeholder={t('inherit')}
         />
-        {
-          !loading &&
+        {!loading &&
           getContent(
             active,
             {
               ...info,
-              type: data.type
+              type: data.type,
             },
             inherit,
-            setUpdate
-          )
-        }
+            setUpdate,
+          )}
       </div>
     </div>
-  );
+  )
 }
 
-export default EditAgent;
+export default EditAgent
