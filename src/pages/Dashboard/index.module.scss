@@ -2,7 +2,7 @@
 
 .block {
   display: grid;
-  grid-template-rows: rem(500px);
+  grid-template-rows: repeat(2, rem(500px));
   grid-template-columns: repeat(2, 1fr);
   align-items: stretch;
   gap: rem(32px);
