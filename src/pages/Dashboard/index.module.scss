@@ -1,17 +1,9 @@
 @import "scss/config";
 
 .block {
-	max-width: 50%;
-}
-
-.form {
 	display: grid;
-	gap: rem(16px);
-	min-width: rem(450px);
-}
-
-.actions {
-	@include flex(flex-end, center);
-
-	gap: rem(16px);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: rem(500px);
+  align-items: stretch;
+  gap: rem(32px);
 }
