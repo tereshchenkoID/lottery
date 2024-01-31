@@ -1,12 +1,12 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-	display: grid;
-	gap: rem(16px);
+  display: grid;
+  gap: rem(16px);
 }
 
 .actions {
-	@include flex(flex-end, center);
+  @include flex(flex-end, center);
 
-	gap: rem(16px);
+  gap: rem(16px);
 }

@@ -1,27 +1,27 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
 
-	&.active {
+  &.active {
 
-		.list {
-			-webkit-line-clamp: unset;
-		}
-	}
+    .list {
+      -webkit-line-clamp: unset;
+    }
+  }
 }
 
 .list {
-	@include line-clamp(2);
+  @include line-clamp(2);
 }
 
 .button {
-	@include make-spacer(mt, 5px);
+  @include make-spacer(mt, 5px);
 
-	color: var(--color-primary);
-	text-align: right;
-	font-weight: var(--typography-medium);
+  text-align: right;
+  color: var(--color-primary);
+  font-weight: var(--typography-medium);
 
-	&:hover {
-		color: var(--color-primary-hover);
-	}
+  &:hover {
+    color: var(--color-primary-hover);
+  }
 }

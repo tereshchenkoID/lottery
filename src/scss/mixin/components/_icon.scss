@@ -1,25 +1,25 @@
 @mixin icon {
-	@include make-spacer(mx, 1px);
-	@include size(rem(32px));
+  @include make-spacer(mx, 1px);
+  @include size(rem(32px));
 
-	display: inline-flex;
-	position: relative;
-	align-items: center;
-	justify-content: center;
-	font-size: rem(18px);
-	color: var(--color-primary);
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-size: rem(18px);
 
-	&:hover {
-		color: var(--color-primary-hover);
-	}
+  .icon {
+    font-size: rem(20px);
+    pointer-events: none;
+  }
 
-	&.disabled {
-		pointer-events: none;
-		opacity: 0.6;
-	}
+  &:hover {
+    color: var(--color-primary-hover);
+  }
 
-	.icon {
-		font-size: rem(20px);
-		pointer-events: none;
-	}
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
 }

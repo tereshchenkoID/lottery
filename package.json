@@ -53,16 +53,15 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "browserslist": [
+    "last 4 versions"
+  ],
+  "devDependencies": {
+    "stylelint": "^10.1.0",
+    "stylelint-config-concentric-order": "^3.4.1",
+    "stylelint-config-recommended-scss": "^14.0.0",
+    "stylelint-config-sass-guidelines": "^6.0.0",
+    "stylelint-order": "^3.0.0",
+    "stylelint-scss": "^3.8.0"
   }
 }

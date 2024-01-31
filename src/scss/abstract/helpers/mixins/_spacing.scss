@@ -1,13 +1,17 @@
 @use 'rem-converter' as *;
 
-// stylelint-disable at-rule-empty-line-before
+// stylelint-disable
 
 @function get-prop-name($prop) {
   @if (index((m, mx, my, mt, mb, ml, mr), $prop)) {
     @return margin;
-  } @else if (index((p, px, py, pt, pb, pl, pr), $prop)) {
+  }
+
+  @else if (index((p, px, py, pt, pb, pl, pr), $prop)) {
     @return padding;
-  } @else {
+  }
+
+  @else {
     @return null;
   }
 }
@@ -37,17 +41,22 @@
 @function get-prop-value($prop, $size) {
   @if (index((px, mx, pl, pr, ml, mr), $prop)) {
     @return $size;
-  } @else if (index((py, my, pt, pb, mt, mb), $prop)) {
+  }
+
+  @else if (index((py, my, pt, pb, mt, mb), $prop)) {
     @return $size;
-  } @else if (index((p, m), $prop)) {
+  }
+
+  @else if (index((p, m), $prop)) {
     @return $size;
-  } @else {
+  }
+
+  @else {
     @error '#{$prop} is invalid value';
   }
 }
 
 @mixin _make-spacer($prop, $size) {
-  // stylelint-disable-line
   $prop-size: rem($size);
   $prop-name: get-prop-name($prop);
   $prop-value: get-prop-value($prop, $prop-size);
@@ -57,7 +66,9 @@
     @each $postfix in $prop-postfixes {
       #{$prop-name}#{$postfix}: $prop-value;
     }
-  } @else {
+  }
+
+  @else {
     #{$prop-name}: $prop-value;
   }
 }

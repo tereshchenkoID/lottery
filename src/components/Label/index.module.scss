@@ -1,8 +1,8 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-	@include make-spacer(mb, 8px);
+  @include make-spacer(mb, 8px);
 
-	font-size: rem(12px);
-	text-transform: uppercase;
+  text-transform: uppercase;
+  font-size: rem(12px);
 }

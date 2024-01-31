@@ -1,68 +1,68 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-	position: relative;
+  position: relative;
 }
 
 .text,
 .link {
-	@include make-spacer(px, 15px);
+  @include make-spacer(px, 15px);
 }
 
 .icon {
-	font-size: rem(18px);
-	color: var(--color-white);
+  color: var(--color-white);
+  font-size: rem(18px);
 }
 
 .toggle {
-	@include flex(center, center);
-	@include size(rem(40px));
+  @include flex(center, center);
+  @include size(rem(40px));
 
-	border-radius: 50%;
-	background-color: #bdbdbd;
+  border-radius: 50%;
+  background-color: #bdbdbd;
 }
 
 .wrapper {
-	@include make-spacer(py, 10px);
+  @include make-spacer(py, 10px);
 
-	position: absolute;
-	top: calc(100% + rem(12px));
-	right: 0;
-	width: rem(250px);
-	background-color: var(--color-white);
-	box-shadow: var(--default-box-shadow);
-	border-radius: var(--default-border-radius);
-	z-index: $z-index-11;
+  position: absolute;
+  top: calc(100% + rem(12px));
+  right: 0;
+  z-index: $z-index-11;
+  border-radius: var(--default-border-radius);
+  box-shadow: var(--default-box-shadow);
+  background-color: var(--color-white);
+  width: rem(250px);
 }
 
 .text {
-	@include make-spacer(mb, 5px);
+  @include make-spacer(mb, 5px);
 
-	font-size: rem(14px);
-	opacity: 0.7;
+  opacity: 0.7;
+  font-size: rem(14px);
 
-	span {
-		font-size: rem(12px);
-	}
+  span {
+    font-size: rem(12px);
+  }
 }
 
 .ul {
-	@include make-spacer(mt, 5px);
+  @include make-spacer(mt, 5px);
 }
 
 .link {
-	@include flex(null, center);
-	@include make-spacer(py, 8px);
+  @include flex(null, center);
+  @include make-spacer(py, 8px);
 
-	width: 100%;
+  width: 100%;
 
-	&:hover {
-		background-color: rgba(0, 0, 0, 0.04);
-		color: var(--color-primary);
-	}
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    color: var(--color-primary);
+  }
 
-	&.active {
-		color: var(--color-primary);
-		pointer-events: none;
-	}
+  &.active {
+    color: var(--color-primary);
+    pointer-events: none;
+  }
 }

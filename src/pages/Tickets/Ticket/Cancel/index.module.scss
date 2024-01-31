@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .modal {
   display: none;
@@ -11,18 +11,18 @@
   background-color: rgba(255, 255, 255, 0.8);
 
   &.active {
-	@include flex(center, center);
+    @include flex(center, center);
   }
 }
 
 .wrapper {
   @include make-spacer(p, 20px);
 
-  max-width: rem(500px);
-  background-color: var(--color-white);
   border-radius: var(--default-border-radius);
   box-shadow: var(--default-box-shadow);
+  background-color: var(--color-white);
   width: 100%;
+  max-width: rem(500px);
 }
 
 .body {

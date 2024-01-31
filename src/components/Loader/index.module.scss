@@ -1,43 +1,43 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-	@include flex(center, center);
+  @include flex(center, center);
 
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: $z-index-13;
-	background-color: rgba(255, 255, 255, 0.8);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-13;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .item {
-	@include size(rem(50px));
-	
-	position: relative;
-	border-radius: 50%;
-	
-	&::before {
-		@include size(100%);
-		
-		position: absolute;
-		top: 0;
-		left: 0;
-		border: rem(10px) solid var(--color-primary);
-		animation: 1s infinite ease-in-out spin;
-		border-radius: inherit;
-		content: '';
-	}
-	
-	@keyframes spin {
-		
-		0% {
-			transform: scale(0);
-		}
-		
-		100% {
-			transform: scale(1);
-		}
-	}
+  @include size(rem(50px));
+
+  position: relative;
+  border-radius: 50%;
+
+  &::before {
+    @include size(100%);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: rem(10px) solid var(--color-primary);
+    border-radius: inherit;
+    animation: 1s infinite ease-in-out spin;
+    content: '';
+  }
+
+  @keyframes spin {
+
+    0% {
+      transform: scale(0);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
 }

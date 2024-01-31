@@ -1,10 +1,10 @@
-@import "scss/config";
+@import 'scss/config';
 
 .main {
-	@include make-spacer(p, 24px);
-	@include make-spacer(ml, 56px);
+  @include make-spacer(p, 24px);
+  @include make-spacer(ml, 56px);
 
-	position: relative;
-	overflow-x: auto;
-	min-height: calc(100vh - rem(64px));
+  position: relative;
+  min-height: calc(100vh - rem(64px));
+  overflow-x: auto;
 }

@@ -1,37 +1,37 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-	@include make-spacer(mb, 16px);
-	@include make-spacer(p, 16px);
+  @include make-spacer(mb, 16px);
+  @include make-spacer(p, 16px);
   @include flex($direction: column);
 
-	border-radius: var(--default-border-radius);
-	box-shadow: var(--default-box-shadow);
-	background-color: var(--color-white);
+  border-radius: var(--default-border-radius);
+  box-shadow: var(--default-box-shadow);
+  background-color: var(--color-white);
   height: 100%;
 
-	&.transparent {
-		background-color: transparent;
-		box-shadow: unset;
-		border-radius: unset;
-	}
+  &:last-child {
+    @include make-spacer(mb, 0);
+  }
 
-	&:last-child {
-		@include make-spacer(mb, 0);
-	}
+  &.transparent {
+    border-radius: unset;
+    box-shadow: unset;
+    background-color: transparent;
+  }
 }
 
 .headline {
-	@include flex(space-between, center);
+  @include flex(space-between, center);
 }
 
 .option {
-	flex-shrink: 0;
-	width: rem(200px);
+  flex-shrink: 0;
+  width: rem(200px);
 }
 
 .hr {
-	@include make-spacer(my, 24px);
+  @include make-spacer(my, 24px);
 }
 
 .body {

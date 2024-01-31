@@ -1,136 +1,136 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-	position: relative;
+  position: relative;
 
-	&.active {
+  &.active {
 
-		.wrapper {
-			display: block;
-		}
-	}
+    .wrapper {
+      display: block;
+    }
+  }
 }
 
 .selected {
-	@include flex($align-items: center);
-	@include size(100%, rem(56px));
-	@include make-spacer(pl, 16px);
-	@include make-spacer(pr, 60px);
+  @include flex($align-items: center);
+  @include size(100%, rem(56px));
+  @include make-spacer(pl, 16px);
+  @include make-spacer(pr, 60px);
 
-	position: relative;
-	border-radius: var(--default-border-radius);
-	border: rem(1px) solid var(--color-border);
-	overflow: hidden;
-	text-align: left;
+  position: relative;
+  border: rem(1px) solid var(--color-border);
+  border-radius: var(--default-border-radius);
+  overflow: hidden;
+  text-align: left;
 
-	&::after {
-		@include size(rem(56px));
-		@include transition;
+  &::after {
+    @include size(rem(56px));
+    @include transition;
 
-		position: absolute;
-		top: 0;
-		right: 0;
-		background-image: url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 opacity=%270.7%27 fill=%27%23000000%27 width=%27800px%27 height=%27800px%27 viewBox=%27-8.5 0 32 32%27 version=%271.1%27%3E%3Ctitle%3Eangle-down%3C/title%3E%3Cpath d=%27M7.28 20.040c-0.24 0-0.44-0.080-0.6-0.24l-6.44-6.44c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l5.84 5.84 5.84-5.84c0.32-0.32 0.84-0.32 1.2 0 0.32 0.32 0.32 0.84 0 1.2l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24z%27/%3E%3C/svg%3E');
-		background-repeat: no-repeat;
-		background-position: 50% 50%;
-		background-size: rem(24px);
-		content: ''
-	}
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 opacity=%270.7%27 fill=%27%23000000%27 width=%27800px%27 height=%27800px%27 viewBox=%27-8.5 0 32 32%27 version=%271.1%27%3E%3Ctitle%3Eangle-down%3C/title%3E%3Cpath d=%27M7.28 20.040c-0.24 0-0.44-0.080-0.6-0.24l-6.44-6.44c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l5.84 5.84 5.84-5.84c0.32-0.32 0.84-0.32 1.2 0 0.32 0.32 0.32 0.84 0 1.2l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24z%27/%3E%3C/svg%3E');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: rem(24px);
+    content: '';
+  }
 
-	&.active {
+  &.active {
 
-		&::after {
-			transform: rotateZ(180deg);
-		}
-	}
+    &::after {
+      transform: rotateZ(180deg);
+    }
+  }
 }
 
 .wrapper {
-	display: none;
-	position: absolute;
-	top: calc(100% - 1px);
-	left: 0;
-	right: 0;
-	background-color: var(--color-white);
-	border-radius: 0 0 var(--default-border-radius) var(--default-border-radius);
-	border: rem(1px) solid var(--color-border);
-	z-index: $z-index-11;
+  display: none;
+  position: absolute;
+  top: calc(100% - 1px);
+  right: 0;
+  left: 0;
+  z-index: $z-index-11;
+  border: rem(1px) solid var(--color-border);
+  border-radius: 0 0 var(--default-border-radius) var(--default-border-radius);
+  background-color: var(--color-white);
 }
 
 .list {
-	max-height: rem(300px);
-	overflow-y: auto;
+  max-height: rem(300px);
+  overflow-y: auto;
 }
 
 
 .search {
-	@include make-spacer(p, 4px);
+  @include make-spacer(p, 4px);
 }
 
 .field {
-	@include make-spacer(p, 4px);
-	@include size(100%, rem(34px));
+  @include make-spacer(p, 4px);
+  @include size(100%, rem(34px));
 
-	border: rem(1px) solid var(--color-border);
-	border-radius: var(--default-border-radius);
-	line-height: var(--line-height);
-	color: var(--color-text);
-	font-family: var(--font-family);
-	font-size: var(--font-size);
-	font-weight: var(--typography-thin);
+  border: rem(1px) solid var(--color-border);
+  border-radius: var(--default-border-radius);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--typography-thin);
 
-	&:focus {
-		border-color: var(--color-primary);
-	}
+  &:focus {
+    border-color: var(--color-primary);
+  }
 }
 
 .label {
-	@include make-spacer(px, 4px);
-	@include transition;
+  @include make-spacer(px, 4px);
+  @include transition;
 
-	pointer-events: none;
-	position: absolute;
-	top: rem(16px);
-	left: rem(16px);
-	background-color: var(--color-white);
-	color: rgba(0, 0, 0, 0.8);
-	transform: translateY(rem(-23px));
-	font-size: rem(12px);
+  position: absolute;
+  top: rem(16px);
+  left: rem(16px);
+  transform: translateY(rem(-23px));
+  background-color: var(--color-white);
+  color: rgba(0, 0, 0, 0.8);
+  font-size: rem(12px);
+  pointer-events: none;
 }
 
 .ul {
-	@include make-spacer(pl, 8px);
+  @include make-spacer(pl, 8px);
 }
 
 .link {
-	@include flex(null, center);
-	@include make-spacer(pl, 16px);
-	@include make-spacer(py, 5px);
+  @include flex(null, center);
+  @include make-spacer(pl, 16px);
+  @include make-spacer(py, 5px);
 
-	width: 100%;
-	min-height: rem(36px);
-	text-align: left;
+  width: 100%;
+  min-height: rem(36px);
+  text-align: left;
 
-	&:hover {
-		background-color: var(--color-primary);
-		color: var(--color-white);
+  &:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
 
     .icon {
       color: var(--color-white);
     }
-	}
+  }
 
-	&.active {
-    pointer-events: none;
+  &.active {
     background-color: var(--color-border);
     color: var(--color-text);
-	}
+    pointer-events: none;
+  }
 }
 
 .icon {
   @include transition;
   @include make-spacer(mr, 10px);
 
-  font-size: rem(14px);
   color: var(--color-primary);
+  font-size: rem(14px);
 }

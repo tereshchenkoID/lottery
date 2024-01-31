@@ -1,9 +1,9 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-	display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: grid;
   grid-template-rows: rem(500px);
+  grid-template-columns: repeat(2, 1fr);
   align-items: stretch;
   gap: rem(32px);
 }

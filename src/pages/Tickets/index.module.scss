@@ -1,54 +1,54 @@
-@import "scss/config";
+@import 'scss/config';
 
 .grid {
-	@include make-spacer(mb, rem(16px));
+  @include make-spacer(mb, rem(16px));
 
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: rem(16px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: rem(16px);
 }
 
 .actions {
-	@include flex(flex-end, center);
+  @include flex(flex-end, center);
 
-	gap: rem(16px);
+  gap: rem(16px);
 }
 
 .row {
-	display: grid;
-	grid-template-columns: rem(50px) repeat(4, 1fr) rem(100px) repeat(3, 1fr) rem(135px);
-	border-bottom: rem(1px) solid var(--color-border);
-	font-weight: var(--typography-medium);
-	font-size: rem(12px);
+  display: grid;
+  grid-template-columns: rem(50px) repeat(4, 1fr) rem(100px) repeat(3, 1fr) rem(135px);
+  border-bottom: rem(1px) solid var(--color-border);
+  font-size: rem(12px);
+  font-weight: var(--typography-medium);
 
-	&.wide {
-		grid-template-columns: 1fr;
-	}
+  &:last-child {
+    border-bottom: 0;
+  }
 
-	&:last-child {
-		border-bottom: 0;
-	}
+  &.wide {
+    grid-template-columns: 1fr;
+  }
 }
 
 .cell {
-	@include flex(null, center, null, wrap);
-	@include make-spacer(p, 12px);
+  @include flex(null, center, null, wrap);
+  @include make-spacer(p, 12px);
 
-	&.wide {
-		justify-content: center;
-	}
+  &.wide {
+    justify-content: center;
+  }
 }
 
 .ticket {
-	border-bottom: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color-border);
 
-	&:last-child {
-		border-bottom: 0;
-	}
+  &:last-child {
+    border-bottom: 0;
+  }
 }
 
 .empty {
-	@include make-spacer(p, 12px);
+  @include make-spacer(p, 12px);
 
-	text-align: center;
+  text-align: center;
 }

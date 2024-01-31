@@ -1,61 +1,61 @@
-@import "scss/config";
+@import 'scss/config';
 
 .row {
-	display: grid;
-	grid-template-columns: rem(50px) repeat(4, 1fr) rem(100px) repeat(3, 1fr) rem(130px);
-	font-size: rem(14px);
+  display: grid;
+  grid-template-columns: rem(50px) repeat(4, 1fr) rem(100px) repeat(3, 1fr) rem(130px);
+  font-size: rem(14px);
 
-	&.headline {
-		font-weight: var(--typography-medium);
-		font-size: rem(12px);
-	}
+  &.headline {
+    font-size: rem(12px);
+    font-weight: var(--typography-medium);
+  }
 
-	&.active {
-		background-color: var(--color-primary-05);
-	}
+  &.active {
+    background-color: var(--color-primary-05);
+  }
 }
 
 .cell {
-	@include flex(null, center, null, wrap);
-	@include make-spacer(p, 12px);
+  @include flex(null, center, null, wrap);
+  @include make-spacer(p, 12px);
 }
 
 .dropdown {
-	@include make-spacer(p, 16px);
+  @include make-spacer(p, 16px);
 
-	background-color: var(--color-primary-01);
+  background-color: var(--color-primary-01);
 
-	.row {
-		border-bottom: rem(1px) solid var(--color-border);
+  .row {
+    border-bottom: rem(1px) solid var(--color-border);
 
-		&:last-child {
-			border-bottom: 0;
-		}
-	}
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
 }
 
 
 .table {
 
-	.row {
+  .row {
 
-		&:nth-child(1) {
-			font-size: rem(12px);
-		}
-	}
+    &:nth-child(1) {
+      font-size: rem(12px);
+    }
+  }
 
-	&.sm {
-		@include make-spacer(mb, 16px);
+  &.sm {
+    @include make-spacer(mb, 16px);
 
-		.row {
-			grid-template-columns: repeat(6, 1fr);
-		}
-	}
+    .row {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
 
-	&.lg {
+  &.lg {
 
-		.row {
-			grid-template-columns: 1.5fr repeat(3, 1fr) rem(150px) 2fr rem(200px);
-		}
-	}
+    .row {
+      grid-template-columns: 1.5fr repeat(3, 1fr) rem(150px) 2fr rem(200px);
+    }
+  }
 }

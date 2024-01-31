@@ -1,60 +1,60 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-	@include size(100%, rem(56px));
+  @include size(100%, rem(56px));
 
-	position: relative;
+  position: relative;
 
-	&.disabled {
-		pointer-events: none;
-		opacity: 0.5;
-	}
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 .label {
-	@include make-spacer(px, 4px);
-	@include transition;
+  @include make-spacer(px, 4px);
+  @include transition;
 
-	pointer-events: none;
-	position: absolute;
-	top: rem(16px);
-	left: rem(16px);
-	background-color: var(--color-white);
-	color: rgba(0, 0, 0, 0.8);
-	transform: translateY(rem(-23px));
-	font-size: rem(12px);
+  position: absolute;
+  top: rem(16px);
+  left: rem(16px);
+  transform: translateY(rem(-23px));
+  background-color: var(--color-white);
+  color: rgba(0, 0, 0, 0.8);
+  font-size: rem(12px);
+  pointer-events: none;
 
-	span {
-		@include make-spacer(ml, 3px);
+  span {
+    @include make-spacer(ml, 3px);
 
-		color: var(--color-warning);
-	}
+    color: var(--color-warning);
+  }
 }
 
 .eye {
-	@include absolute-center-right(0);
-	@include size(rem(56px), 100%);
+  @include absolute-center-right(0);
+  @include size(rem(56px), 100%);
 
-	opacity: 0.5;
+  opacity: 0.5;
 
-	&:hover {
-		background-color: rgba(0, 0, 0, 0.04);
-	}
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
 }
 
 .input {
-	@include make-spacer(pl, 16px);
-	@include make-spacer(pr, 66px);
-	@include transition(border-color);
-	@include size(100%);
+  @include make-spacer(pl, 16px);
+  @include make-spacer(pr, 66px);
+  @include transition(border-color);
+  @include size(100%);
 
-	border-radius: var(--default-border-radius);
-	border: rem(1px) solid var(--color-border);
-	overflow: hidden;
-	font-weight: var(--typography-thin);
+  border: rem(1px) solid var(--color-border);
+  border-radius: var(--default-border-radius);
+  overflow: hidden;
+  font-weight: var(--typography-thin);
 
-	&:focus {
-		outline: 0;
-		border-color: var(--color-primary);
-	}
+  &:focus {
+    outline: 0;
+    border-color: var(--color-primary);
+  }
 }

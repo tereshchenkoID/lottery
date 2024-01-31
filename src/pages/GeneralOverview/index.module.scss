@@ -1,15 +1,15 @@
-@import "../../scss/config";
+@import '../../scss/config';
 
 .grid {
-	@include make-spacer(mb, rem(16px));
+  @include make-spacer(mb, rem(16px));
 
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: rem(16px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: rem(16px);
 }
 
 .actions {
-	@include flex(flex-end, center);
+  @include flex(flex-end, center);
 
-	gap: rem(16px);
+  gap: rem(16px);
 }

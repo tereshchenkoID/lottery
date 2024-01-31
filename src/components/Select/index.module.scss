@@ -1,155 +1,159 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-	@include size(100%, rem(56px));
+  @include size(100%, rem(56px));
 
-	position: relative;
+  position: relative;
 
-	&.sm {
-		height: rem(44px);
+  &.sm {
+    height: rem(44px);
 
-		:global {
+    // stylelint-disable
 
-			.select2 {
+    :global {
 
-				.select2-container--default,
-				.select2-selection--single,
-				.select2-selection--multiple {
-					@include make-spacer(px, 8px);
+      .select2 {
 
-					height: rem(46px);
-					font-size: rem(12px);
+        .select2-container--default,
+        .select2-selection--single,
+        .select2-selection--multiple {
+          @include make-spacer(px, 8px);
 
-					.select2-selection {
+          height: rem(46px);
+          font-size: rem(12px);
 
-						&__arrow {
-							width: rem(36px);
-						}
-					}
-				}
-			}
+          .select2-selection {
 
-			.select2-container .select2-selection--single .select2-selection {
+            &__arrow {
+              width: rem(36px);
+            }
+          }
+        }
+      }
 
-				&__rendered {
-					@include make-spacer(pl, 0)
-				}
-			}
-		}
-	}
+      .select2-container .select2-selection--single .select2-selection {
 
-	&.disabled {
-		pointer-events: none;
-		opacity: 0.5;
-	}
+        &__rendered {
+          @include make-spacer(pl, 0); }
+      }
+    }
+    // stylelint-enable
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 .label {
-	@include make-spacer(px, 4px);
-	@include transition;
+  @include make-spacer(px, 4px);
+  @include transition;
 
-	pointer-events: none;
-	position: absolute;
-	top: rem(16px);
-	left: rem(16px);
-	background-color: var(--color-white);
-	color: rgba(0, 0, 0, 0.8);
-	transform: translateY(rem(-23px));
-	font-size: rem(12px);
+  position: absolute;
+  top: rem(16px);
+  left: rem(16px);
+  transform: translateY(rem(-23px));
+  background-color: var(--color-white);
+  color: rgba(0, 0, 0, 0.8);
+  font-size: rem(12px);
+  pointer-events: none;
 }
 
+// stylelint-disable
+
 :global {
-	@import "./default";
+  @import './default';
 
-	.select2-container {
-		height: 100%;
-	}
+  .select2-container {
+    height: 100%;
+  }
 
-	.selection {
-		height: 100%;
-	}
+  .selection {
+    height: 100%;
+  }
 
-	.select2-container--default .select2-selection--multiple,
-	.select2-container--default .select2-selection--single {
-		height: 100%;
-		border-color: var(--color-border);
-	}
+  .select2-container--default .select2-selection--multiple,
+  .select2-container--default .select2-selection--single {
+    border-color: var(--color-border);
+    height: 100%;
+  }
 
-	.select2-dropdown {
-		border-color: var(--color-border);
-		overflow: hidden;
-	}
+  .select2-dropdown {
+    border-color: var(--color-border);
+    overflow: hidden;
+  }
 
-	.select2-results__options {
-		border: 0;
+  .select2-results__options {
+    border: 0;
 
-		&:focus {
-			outline: none;
-		}
-	}
+    &:focus {
+      outline: none;
+    }
+  }
 
-	.select2-container--default .select2-search--dropdown .select2-search__field {
-		border-color: var(--color-border);
-		border-radius: var(--default-border-radius);
-		line-height: var(--line-height);
-		color: var(--color-text);
-		font-family: var(--font-family);
-		font-size: var(--font-size);
-		font-weight: var(--typography-thin);
+  .select2-container--default .select2-search--dropdown .select2-search__field {
+    border-radius: var(--default-border-radius);
+    border-color: var(--color-border);
+    line-height: var(--line-height);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    font-weight: var(--typography-thin);
 
-		&:focus {
-			border-color: var(--color-primary);
-		}
-	}
+    &:focus {
+      border-color: var(--color-primary);
+    }
+  }
 
-	.select2-container--default .select2-selection--multiple .select2-selection__rendered {
-		@include size(100%);
-		@include flex($align-items: center, $wrap: wrap);
-	}
+  .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    @include size(100%);
+    @include flex($align-items: center, $wrap: wrap);
+  }
 
-	.select2-container--default .select2-selection--multiple .select2-selection__choice {
-		border-color: var(--color-border);
-	}
+  .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    border-color: var(--color-border);
+  }
 
-	.select2-results__option {
-		@include make-spacer(px, 16px);
-	}
+  .select2-results__option {
+    @include make-spacer(px, 16px);
+  }
 
-	.select2-container--default.select2-container.select2-container--open .select2-selection__arrow b {
-		transform: rotateZ(180deg);
-	}
+  .select2-container--default.select2-container.select2-container--open .select2-selection__arrow b {
+    transform: rotateZ(180deg);
+  }
 
-	.select2-container .select2-selection--single .select2-selection__rendered {
-		@include size(100%);
-		@include flex($align-items: center);
-		@include make-spacer(pl, 16px);
+  .select2-container .select2-selection--single .select2-selection__rendered {
+    @include size(100%);
+    @include flex($align-items: center);
+    @include make-spacer(pl, 16px);
 
-		color: var(--color-text);
-	}
+    color: var(--color-text);
+  }
 
-	.select2-container--default .select2-results__option--highlighted[aria-selected] {
-		background-color: var(--color-primary);
-	}
+  .select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--color-primary);
+  }
 
-	.select2-container--default .select2-selection--single .select2-selection__arrow {
-		@include size(rem(56px), 100%);
-		@include flex(center, center);
-		@include transition;
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    @include size(rem(56px), 100%);
+    @include flex(center, center);
+    @include transition;
 
-		top: 0;
-		bottom: 0;
+    top: 0;
+    bottom: 0;
 
-		b {
-			@include make-spacer(m, 0);
-			@include size(rem(24px));
-			@include transition;
+    b {
+      @include make-spacer(m, 0);
+      @include size(rem(24px));
+      @include transition;
 
-			position: static;
-			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' opacity='0.7' fill='%23000000' width='800px' height='800px' viewBox='-8.5 0 32 32' version='1.1'%3E%3Ctitle%3Eangle-down%3C/title%3E%3Cpath d='M7.28 20.040c-0.24 0-0.44-0.080-0.6-0.24l-6.44-6.44c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l5.84 5.84 5.84-5.84c0.32-0.32 0.84-0.32 1.2 0 0.32 0.32 0.32 0.84 0 1.2l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24z'/%3E%3C/svg%3E");
-			background-repeat: no-repeat;
-			background-position: 50% 50%;
-			background-size: rem(24px);
-			border: 0;
-		}
-	}
+      position: static;
+      border: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' opacity='0.7' fill='%23000000' width='800px' height='800px' viewBox='-8.5 0 32 32' version='1.1'%3E%3Ctitle%3Eangle-down%3C/title%3E%3Cpath d='M7.28 20.040c-0.24 0-0.44-0.080-0.6-0.24l-6.44-6.44c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l5.84 5.84 5.84-5.84c0.32-0.32 0.84-0.32 1.2 0 0.32 0.32 0.32 0.84 0 1.2l-6.44 6.44c-0.16 0.16-0.4 0.24-0.6 0.24z'/%3E%3C/svg%3E");
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      background-size: rem(24px);
+    }
+  }
 }

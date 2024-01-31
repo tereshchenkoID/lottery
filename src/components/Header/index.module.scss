@@ -1,17 +1,17 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-	@include make-spacer(ml, 56px);
-	@include make-spacer(px, 24px);
-	
-	display: grid;
-	grid-template-columns: 1fr rem(80px) auto;
-	align-items: center;
-	position: sticky;
-	top: 0;
-	column-gap: rem(15px);
-	background-color: var(--color-primary);
-	box-shadow: var(--default-box-shadow);
-	min-height: rem(64px);
-	z-index: $z-index-10;
+  @include make-spacer(ml, 56px);
+  @include make-spacer(px, 24px);
+
+  display: grid;
+  position: sticky;
+  top: 0;
+  grid-template-columns: 1fr rem(80px) auto;
+  align-items: center;
+  column-gap: rem(15px);
+  z-index: $z-index-10;
+  box-shadow: var(--default-box-shadow);
+  background-color: var(--color-primary);
+  min-height: rem(64px);
 }
