@@ -142,7 +142,7 @@ const Settlement = () => {
 
   return (
     <>
-      <Paper headline={t('settlement')}>
+      <Paper headline={t('settlement')} classes={['sm']}>
         <Debug data={filter} />
         <form onSubmit={handleSubmit}>
           <div className={style.grid}>
@@ -168,7 +168,7 @@ const Settlement = () => {
           </div>
         </form>
       </Paper>
-      <Paper>
+      <Paper classes={['sm']}>
         <Table
           data={data}
           config_1={config_1}

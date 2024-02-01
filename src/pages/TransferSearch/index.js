@@ -103,9 +103,8 @@ const TransferSearch = () => {
 
   return (
     <>
-      <Paper headline={t('transfer_search')}>
+      <Paper headline={t('transfer_search')} classes={['sm']}>
         <Debug data={filter} />
-
         <form onSubmit={handleSubmit}>
           <div className={style.grid}>
             <div>
@@ -192,7 +191,7 @@ const TransferSearch = () => {
           </div>
         </form>
       </Paper>
-      <Paper>
+      <Paper classes={['sm']}>
         <Table
           data={data}
           config_1={config_1}

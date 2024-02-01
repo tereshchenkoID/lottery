@@ -19,6 +19,14 @@
     box-shadow: unset;
     background-color: transparent;
   }
+
+  &.sm {
+    height: auto;
+
+    .body {
+      overflow: unset;
+    }
+  }
 }
 
 .headline {

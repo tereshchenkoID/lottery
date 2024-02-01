@@ -58,7 +58,7 @@ const Aside = () => {
         <div className={style.wrapper}>
           <Paper
             headline={aside.meta.title}
-            classes={'transparent'}
+            classes={['transparent', 'sm']}
             quantity={false}
           >
             {checkCmd(aside)}

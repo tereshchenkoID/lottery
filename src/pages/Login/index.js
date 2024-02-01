@@ -65,7 +65,7 @@ const Login = () => {
 
   return (
     <div className={style.block}>
-      <Paper headline={t('login')}>
+      <Paper headline={t('login')} classes={['sm']}>
         <form onSubmit={handleSubmit} className={style.form}>
           <Field
             type={'text'}

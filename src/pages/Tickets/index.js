@@ -234,6 +234,7 @@ const Tickets = () => {
         headline={t('tickets_search')}
         quantity={pagination.quantity}
         setQuantity={setPagination}
+        classes={['sm']}
       >
         <Debug data={filter} />
 
@@ -345,7 +346,7 @@ const Tickets = () => {
           </div>
         </form>
       </Paper>
-      <Paper>
+      <Paper classes={['sm']}>
         <Pagination
           position={'top'}
           pagination={pagination}

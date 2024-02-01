@@ -127,7 +127,7 @@ const Accounts = () => {
 
   return (
     <>
-      <Paper headline={t('account_search')}>
+      <Paper headline={t('account_search')} classes={['sm']}>
         <Debug data={filter} />
         <form onSubmit={handleSubmit}>
           <div className={style.grid}>

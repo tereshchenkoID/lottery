@@ -91,9 +91,8 @@ const Settings = () => {
 
   return (
     <div className={style.block}>
-      <Paper headline={t('user_profile')}>
+      <Paper headline={t('user_profile')} classes={['sm']}>
         <Debug data={filter} />
-
         <form onSubmit={handleSubmit} className={style.form}>
           <Field
             type={'text'}

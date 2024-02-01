@@ -16,7 +16,12 @@ const Paper = ({
   const { t } = useTranslation()
 
   return (
-    <div className={classNames(style.block, style[classes])}>
+    <div
+      className={classNames(
+        style.block,
+        classes && classes.map(el => style[el]),
+      )}
+    >
       {headline && (
         <>
           <div className={style.headline}>

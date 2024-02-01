@@ -132,9 +132,8 @@ const DailyReports = () => {
 
   return (
     <>
-      <Paper headline={t('general_overview_report')}>
+      <Paper headline={t('general_overview_report')} classes={['sm']}>
         <Debug data={filter} />
-
         <form onSubmit={handleSubmit}>
           <div className={style.grid}>
             <div>
@@ -193,7 +192,7 @@ const DailyReports = () => {
           </div>
         </form>
       </Paper>
-      <Paper>
+      <Paper classes={['sm']}>
         <Table
           config_1={config_1}
           config_2={config_2}
