@@ -1,8 +1,4 @@
-@import '../../../../scss/config';
-
-.block {
-  @include make-spacer(mb, 16px);
-}
+@import 'scss/config';
 
 .title {
   @include make-spacer(pb, 4px);

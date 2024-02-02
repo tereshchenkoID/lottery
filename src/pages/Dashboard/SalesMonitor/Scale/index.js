@@ -2,7 +2,7 @@ import style from './index.module.scss'
 
 const Scale = ({ name, value, color }) => {
   return (
-    <div className={style.block}>
+    <div>
       <div className={style.title}>
         <p>{name}</p>
         <p>{value}%</p>
