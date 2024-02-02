@@ -95,7 +95,14 @@ const Nav = () => {
     >
       <div className={style.wrapper}>
         <div className={style.logo}>
-          <Link to={`/`} rel="noreferrer" />
+          <Link
+            to={`/`}
+            rel="noreferrer"
+            onClick={() => {
+              setShow(false)
+              setActive(false)
+            }}
+          />
         </div>
         <hr />
         <ul className={style.list}>

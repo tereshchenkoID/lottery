@@ -1,0 +1,42 @@
+@import 'scss/config';
+
+.block {
+  @include flex($direction: column);
+
+  gap: rem(20px);
+  height: 100%;
+}
+
+.chart {
+  flex-grow: 1;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+}
+
+.item {
+  text-align: center;
+  font-size: rem(14px);
+}
+
+.meta {
+  @include flex(center, center);
+}
+
+.icon {
+  @include make-spacer(ml, 5px);
+  @include size(rem(15px));
+
+  font-size: rem(12px);
+
+  &.up {
+    color: var(--color-primary);
+  }
+
+  &.down {
+    color: var(--color-warning);
+  }
+}

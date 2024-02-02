@@ -89,6 +89,8 @@ export const ticket = {
 }
 
 export const service = {
+  COLORS: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0'],
+
   YES_NO: {
     0: 'NO',
     1: 'YES',
