@@ -186,5 +186,16 @@
   "total": "Total",
   "num": "Num",
   "total_open": "Total Open",
-  "games_allowed": "Games allowed"
+  "games_allowed": "Games allowed",
+  "cashiers_online": "Cashiers online",
+  "web_viewers": "Web Viewers",
+  "app_viewers": "App Viewers",
+  "online_monitors": "Online Monitors",
+  "games_type_usage": "Games Type Usage",
+  "games_report": "Games Report",
+  "sales_report": "Sales Report",
+  "sales_by_country": "Sales By Country",
+  "rtp_control": "RTP control",
+  "total_stakes": "Total Stakes",
+  "total_profit": "Total Profit"
 }

@@ -186,5 +186,16 @@
   "total": "Total",
   "num": "Num UA",
   "total_open": "Total Open UA",
-  "games_allowed": "Games allowed UA"
+  "games_allowed": "Games allowed UA",
+  "cashiers_online": "Cashiers online UA",
+  "web_viewers": "Web Viewers UA",
+  "app_viewers": "App Viewers UA",
+  "online_monitors": "Online Monitors UA",
+  "games_type_usage": "Games Type Usage UA",
+  "games_report": "Games Report UA",
+  "sales_report": "Sales Report UA",
+  "sales_by_country": "Sales By Country UA",
+  "rtp_control": "RTP control UA",
+  "total_stakes": "Total Stakes UA",
+  "total_profit": "Total Profit UA"
 }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { service } from 'constant/config'
 
@@ -9,34 +10,16 @@ import Scale from './Scale'
 
 import style from './index.module.scss'
 
-const DATA = [
-  {
-    name: 'Europe',
-    value: 20,
-  },
-  {
-    name: 'Latin America',
-    value: 40,
-  },
-  {
-    name: 'Australia',
-    value: 30,
-  },
-  {
-    name: 'Asia',
-    value: 10,
-  },
-]
-
-const SalesMonitor = ({ country, percent }) => {
+const SalesCountry = ({ data }) => {
+  const { t } = useTranslation()
   return (
-    <Paper headline={'Sales monitor'}>
+    <Paper headline={t('sales_by_country')}>
       <div className={style.block}>
-        {DATA.map((el, idx) => (
+        {data.countries.map((el, idx) => (
           <Scale
             key={idx}
-            value={el.value}
             name={el.name}
+            value={el.value}
             color={hexToRgba(service.COLORS[idx], 1)}
           />
         ))}
@@ -45,4 +28,4 @@ const SalesMonitor = ({ country, percent }) => {
   )
 }
 
-export default SalesMonitor
+export default SalesCountry

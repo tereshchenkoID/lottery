@@ -16,6 +16,27 @@
   column-gap: rem(16px);
   border-bottom: rem(1px) solid var(--color-border);
   font-size: rem(14px);
+
+  &.success {
+
+    .circle {
+      background-color: var(--color-primary);
+    }
+  }
+
+  &.danger {
+
+    .circle {
+      background-color: var(--color-danger);
+    }
+  }
+
+  &.error {
+
+    .circle {
+      background-color: var(--color-warning);
+    }
+  }
 }
 
 .line {
@@ -27,30 +48,11 @@
   left: 0;
 }
 
-.meta {
-  text-transform: uppercase;
-}
-
 .circle {
   @include flex(center, center);
   @include size(rem(65px));
 
   border-radius: 50%;
-  background-color: var(--color-primary);
+  background-color: var(--color-border);
   color: var(--color-white);
-}
-
-.icon {
-  @include make-spacer(ml, 5px);
-  @include size(rem(15px));
-
-  font-size: rem(12px);
-
-  &.up {
-    color: var(--color-primary);
-  }
-
-  &.down {
-    color: var(--color-warning);
-  }
 }

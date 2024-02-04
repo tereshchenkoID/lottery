@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Doughnut } from 'react-chartjs-2'
 
@@ -24,55 +25,37 @@ const options = {
   },
 }
 
-const DATA = [
-  {
-    name: 'Football',
-    value: 20,
-  },
-  {
-    name: 'Keno',
-    value: 40,
-  },
-  {
-    name: 'Roulette',
-    value: 30,
-  },
-  {
-    name: 'Dog Racing',
-    value: 10,
-  },
-]
+const GamesTypeUsage = ({ data }) => {
+  const { t } = useTranslation()
+  const dataset = {
+    labels: data.games.map(game => game.name),
+    datasets: [
+      {
+        label: false,
+        data: data.games.map(game => game.usage),
+        backgroundColor: data.games.map((_, idx) =>
+          hexToRgba(service.COLORS[idx], 0.2),
+        ),
+        borderColor: data.games.map((_, idx) => service.COLORS[idx]),
+        borderWidth: 1,
+      },
+    ],
+  }
 
-const data = {
-  labels: DATA.map(game => game.name),
-  datasets: [
-    {
-      label: false,
-      data: DATA.map(game => game.value),
-      backgroundColor: DATA.map((_, idx) =>
-        hexToRgba(service.COLORS[idx], 0.2),
-      ),
-      borderColor: DATA.map((_, idx) => service.COLORS[idx]),
-      borderWidth: 1,
-    },
-  ],
-}
-
-const GameMonitor = ({ country, percent }) => {
   return (
-    <Paper headline={'Games'}>
+    <Paper headline={t('games_type_usage')}>
       <div className={style.block}>
         <div className={style.chart}>
-          <Doughnut options={options} data={data} />
+          <Doughnut options={options} data={dataset} />
         </div>
         <div>
-          {DATA.map((el, idx) => (
+          {data.games.map((el, idx) => (
             <div key={idx} className={style.item}>
               <div
                 style={{ backgroundColor: hexToRgba(service.COLORS[idx], 0.2) }}
                 className={style.color}
               />
-              <div>{el.value}%</div>
+              <div>{el.usage}%</div>
               <h6 className={style.name}>{el.name}</h6>
             </div>
           ))}
@@ -82,4 +65,4 @@ const GameMonitor = ({ country, percent }) => {
   )
 }
 
-export default GameMonitor
+export default GamesTypeUsage

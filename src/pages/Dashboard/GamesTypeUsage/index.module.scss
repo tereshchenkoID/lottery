@@ -2,7 +2,7 @@
 
 .block {
   display: grid;
-  grid-template-columns: 1fr minmax(rem(200px), 40%);
+  grid-template-columns: 1fr minmax(rem(200px), 50%);
   align-items: center;
   gap: rem(32px);
   height: 100%;
