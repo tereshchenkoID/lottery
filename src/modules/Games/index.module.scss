@@ -1,0 +1,54 @@
+@import 'scss/config';
+
+.block {
+  @include flex($direction: column);
+  @include make-spacer(pt, 16px);
+  @include make-spacer(pb, 22px);
+
+  position: fixed;
+  top: 0;
+  left: rem(20px);
+  gap: rem(6px);
+  z-index: $z-index-11;
+  background-color: var(--color-background);
+  white-space: nowrap;
+
+  &.active {
+
+    .item {
+      width: rem(220px);
+    }
+  }
+}
+
+.item {
+  @include make-spacer(p, 4px);
+
+  display: grid;
+  grid-template-columns: rem(36px) 1fr;
+  align-items: center;
+  gap: rem(6px);
+  border-radius: rem(6px);
+  font-size: rem(14px);
+  line-height: rem(20px);
+  letter-spacing: rem(0.2px);
+  width: rem(44px);
+  overflow: hidden;
+
+  &:hover {
+    background-color: var(--grey-alpha-100);
+  }
+}
+
+.picture {
+  @include size(rem(36px));
+
+  aspect-ratio: 1 / 1;
+}
+
+.img {
+  @include size(100%);
+
+  display: block;
+  object-fit: contain;
+}

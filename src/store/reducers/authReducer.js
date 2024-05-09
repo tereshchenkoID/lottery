@@ -1,7 +1,7 @@
 import { types } from 'store/actionTypes'
 
 const initialState = {
-  auth: JSON.parse(sessionStorage.getItem('authToken')) || false,
+  auth: null,
 }
 const authReducer = (state = initialState, action) => {
   switch (action.type) {

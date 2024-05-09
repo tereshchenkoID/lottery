@@ -1,18 +1,21 @@
 @import 'scss/config';
 
 .block {
-  @include flex(center, center);
-  @include size(100%, 100vh);
+  @include flex($align-items: center);
+  @include make-spacer(pt, 30px);
+  @include make-spacer(px, 76px);
+
+  flex-grow: 1;
+  border-radius: rem(32px) rem(32px) 0 0;
+  background-color: var(--color-white);
+  width: 100%;
 }
 
 .form {
+  @include make-spacer(mx, auto);
+
   display: grid;
-  gap: rem(16px);
-  min-width: rem(450px);
-}
-
-.actions {
-  @include flex(flex-end, center);
-
-  gap: rem(16px);
+  gap: rem(24px);
+  width: 100%;
+  max-width: rem(380px);
 }

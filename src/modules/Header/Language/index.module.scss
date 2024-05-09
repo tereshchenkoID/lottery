@@ -1,0 +1,101 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(ml, auto);
+
+  position: relative;
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(ml, 0);
+  }
+
+  &.active {
+
+    .arrow {
+      transform: rotateZ(180deg);
+    }
+
+    .dropdown {
+      display: grid;
+      animation: slide_bottom 0.2s linear forwards;
+    }
+  }
+}
+
+.selected {
+  @include flex(space-between, center);
+  @include size(100%, rem(40px));
+  @include make-spacer(px, 16px);
+
+  position: relative;
+  background-color: var(--grey-alpha-100);
+  border-radius: rem(12px);
+  cursor: pointer;
+  min-width: rem(60px);
+  overflow: hidden;
+  gap: rem(4px);
+  text-transform: uppercase;
+  font-weight: var(--typography-medium);
+}
+
+.dropdown {
+  @include make-spacer(p, 8px);
+
+  display: none;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: rem(16px);
+  position: absolute;
+  top: calc(100% + rem(12px));
+  right: 0;
+  border-radius: rem(16px);
+  box-shadow: var(--default-box-shadow);
+  background-color: var(--color-white);
+  min-width: rem(250px);
+  max-height: calc(rem(-72px) + 100vh);
+  overflow-y: auto;
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 12px);
+
+    min-width: rem(300px);
+  }
+}
+
+.link {
+  @include flex($align-items: center);
+  @include make-spacer(px, 16px);
+  @include transition;
+
+  position: relative;
+  line-height: rem(36px);
+  text-transform: uppercase;
+
+  &:nth-child(even) {
+
+    &::before {
+      @include size(rem(1px), rem(16px));
+
+      position: absolute;
+      top: 50%;
+      left: rem(-8px);
+      transform: translateY(-50%);
+      opacity: 0.2;
+      background-color: var(--color-black);
+      content: '';
+    }
+  }
+
+  &:hover {
+    background-color: var(--grey-alpha-100);
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(px, 8px);
+
+    border-radius: rem(8px);
+  }
+}
+
+.arrow {
+  @include transition;
+}

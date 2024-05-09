@@ -1,11 +1,7 @@
 {
-  "extends": [
-    "stylelint-config-sass-guidelines",
-    "stylelint-config-concentric-order"
-  ],
   "plugins": [
-    "stylelint-order",
-    "stylelint-scss"
+    "stylelint-scss",
+    "stylelint-order"
   ],
   "rules": {
     "at-rule-empty-line-before": [ "always", {
@@ -24,6 +20,7 @@
         ]
       }
     ],
+
     "at-rule-semicolon-newline-after": "always",
     "scss/at-rule-no-unknown": true,
     "string-quotes": "single",
@@ -37,7 +34,8 @@
     "declaration-colon-space-before": "never",
     "declaration-colon-space-after": "always",
     "property-no-vendor-prefix": true,
-    "value-no-vendor-prefix": true,
+    "selector-max-compound-selectors": 4,
+    "value-no-vendor-prefix": false,
     "number-leading-zero": "always",
     "function-url-quotes": "always",
     "font-weight-notation": "numeric",

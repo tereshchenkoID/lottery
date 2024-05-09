@@ -1,12 +1,11 @@
-@use '../../config' as *;
+@use 'scss/config' as *;
 
 :root {
   --font-size: 16px;
   --font-family: 'Roboto', sans-serif;
   --font-family-alt: 'Montserrat', sans-serif;
-  --font-family-code: 'Barcode', serif;
   --line-height: 1.5;
-  --typography-thin: 300;
+  --typography-regular: 400;
   --typography-medium: 500;
   --typography-bold: 700;
 }
@@ -19,30 +18,54 @@ h5,
 h6 {
   @include make-spacer(m, 0);
 
-  font-weight: var(--typography-medium);
+  font-family: var(--font-family-alt);
+  font-weight: var(--typography-bold);
 }
 
-
 h1 {
-  font-size: 1.375rem;
+  font-size: rem(36px);
+
+  @include media-breakpoint-up(lg) {
+    font-size: rem(42px);
+  }
 }
 
 h2 {
-  font-size: 1.325rem;
+  font-size: rem(30px);
+
+  @include media-breakpoint-up(lg) {
+    font-size: rem(36px);
+  }
 }
 
 h3 {
-  font-size: 1.3rem;
+  font-size: rem(26px);
+
+  @include media-breakpoint-up(lg) {
+    font-size: rem(32px);
+  }
 }
 
 h4 {
-  font-size: 1.275rem;
+  font-size: rem(24px);
+
+  @include media-breakpoint-up(lg) {
+    font-size: rem(30px);
+  }
 }
 
 h5 {
-  font-size: 1.25rem;
+  font-size: rem(20px);
+
+  @include media-breakpoint-up(lg) {
+    font-size: rem(24px);
+  }
 }
 
 h6 {
-  font-size: 1rem;
+  font-size: rem(18px);
+
+  @include media-breakpoint-up(lg) {
+    font-size: rem(22px);
+  }
 }

@@ -1,0 +1,89 @@
+@import 'scss/config';
+
+.block {
+  @include flex($align-items: center);
+  @include make-spacer(px, 10px);
+
+  position: sticky;
+  top: 0;
+  z-index: $z-index-10;
+  height: rem(72px);
+  backdrop-filter: blur(10px);
+  gap: rem(8px);
+
+  @include media-breakpoint-up(lg) {
+    justify-content: flex-start;
+
+    &::after {
+      @include transition;
+
+      position: absolute;
+      inset: 0;
+      background-color: var(--color-background);
+      z-index: -1;
+      opacity: 0.6;
+      pointer-events: none;
+      content: '';
+    }
+  }
+}
+
+.icon,
+.text {
+  @include transition;
+}
+
+.logo {
+  @include make-spacer(mr, 0);
+  @include size(rem(140px), rem(42px));
+
+  flex-shrink: 0;
+  background-color: var(--color-black);
+
+  @include media-breakpoint-up(lg) {
+    @include size(rem(130px), rem(40px));
+  }
+}
+
+.link {
+  @include make-spacer(mr, auto);
+
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    @include flex(center, center);
+
+    cursor: pointer;
+    font-weight: var(--typography-medium);
+  }
+
+  &:hover {
+
+    .text {
+      background-color: var(--grey-alpha-100);
+    }
+  }
+
+  &.active {
+
+    .icon {
+      transform: rotateZ(180deg);
+    }
+  }
+}
+
+.text {
+  @include flex($align-items: center);
+  @include make-spacer(px, 8px);
+
+  border-radius: rem(8px);
+  line-height: rem(36px);
+  gap: rem(4px);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(px, 12px);
+
+    line-height: rem(40px);
+    border-radius: rem(12px);
+  }
+}

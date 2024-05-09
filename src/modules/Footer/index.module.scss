@@ -1,0 +1,17 @@
+@import 'scss/config';
+
+.block {
+  @include flex(space-between, center);
+  @include make-spacer(py, 24px);
+  @include make-spacer(px, 10px);
+
+  border-top: rem(1px) solid var(--grey-alpha-300);
+}
+
+.limitation {
+  @include size(rem(56px), rem(48px));
+  @include flex(center, center);
+
+  border-radius: rem(16px);
+  background-color: var(--grey-alpha-100);
+}

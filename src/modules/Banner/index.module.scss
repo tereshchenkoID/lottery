@@ -1,0 +1,18 @@
+@import 'scss/config';
+
+.block {
+  display: block;
+  border-radius: rem(16px);
+  overflow: hidden;
+
+  @include media-breakpoint-up(lg) {
+    border-radius: rem(20px);
+  }
+}
+
+.img {
+  @include size(100%);
+
+  display: block;
+  object-fit: cover;
+}

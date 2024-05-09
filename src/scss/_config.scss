@@ -2,3 +2,16 @@
 @forward 'abstract/variables/index';
 
 @import 'mixin/components/icon';
+
+@keyframes slide_bottom {
+
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

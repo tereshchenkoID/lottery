@@ -1,0 +1,10 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(pr, 140px);
+  @include make-spacer(mb, 20px);
+}
+
+.title {
+  letter-spacing: 2px;
+}

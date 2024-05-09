@@ -1,5 +1,5 @@
 {
-  "name": "admin",
+  "name": "lottery",
   "author": "Ihor Tereshchenko",
   "version": "0.1.0",
   "private": true,
@@ -14,7 +14,6 @@
     "@testing-library/user-event": "^13.5.0",
     "animejs": "^3.2.1",
     "axios": "^0.24.0",
-    "chart.js": "^4.4.1",
     "classnames": "^2.3.2",
     "file-saver": "^2.0.5",
     "i18next": "^22.5.1",
@@ -22,20 +21,19 @@
     "i18next-http-backend": "^2.1.1",
     "node-sass": "^8.0.0",
     "react": "^18.2.0",
-    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.1.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
-    "react-simple-keyboard": "^3.6.16",
-    "react-to-print": "^2.14.12",
     "react-toastify": "^9.1.3",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
     "sass": "^1.57.1",
     "select2-react-component": "^6.1.1",
     "socket.io-client": "^4.7.2",
+    "stylelint-scss": "^6.3.0",
+    "swiper": "^11.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -50,16 +48,17 @@
       "react-app/jest"
     ]
   },
+  "devDependencies": {
+    "postcss": "^8.4.38",
+    "prettier": "^3.2.4",
+    "stylelint": "^16.5.0",
+    "stylelint-config-concentric-order": "^5.2.0",
+    "stylelint-config-recommended-scss": "^14.0.0",
+    "stylelint-config-sass-guidelines": "^11.1.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-order": "^6.0.4"
+  },
   "browserslist": [
     "last 4 versions"
-  ],
-  "devDependencies": {
-    "prettier": "^3.2.4",
-    "stylelint": "^10.1.0",
-    "stylelint-config-concentric-order": "^3.4.1",
-    "stylelint-config-recommended-scss": "^14.0.0",
-    "stylelint-config-sass-guidelines": "^6.0.0",
-    "stylelint-order": "^3.0.0",
-    "stylelint-scss": "^3.8.0"
-  }
+  ]
 }

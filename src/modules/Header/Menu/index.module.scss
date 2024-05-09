@@ -1,0 +1,157 @@
+@import 'scss/config';
+
+.block {
+  @include transition;
+
+  display: none;
+  position: fixed;
+  top: rem(72px);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-10;
+  background-color: rgba(12, 11, 20, 0.5);
+  height: calc(100dvh - rem(72px));
+
+  &.active {
+    display: block;
+    animation: slide_mobile 0.2s linear forwards;
+
+    @include media-breakpoint-up(lg) {
+      animation: slide_desktop 0.2s linear forwards;
+    }
+
+    .menu {
+      animation: menu_mobile 0.2s 0.2s linear forwards;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    position: absolute;
+    top: 100%;
+    height: auto;
+    background-color: transparent;
+  }
+}
+
+.menu {
+  @include transition;
+  @include make-spacer(m, 0);
+  @include make-spacer(px, 0);
+  @include size(rem(320px), 100%);
+
+  transform: translateX(-100%);
+  background-color: var(--color-background);
+  overflow-y: auto;
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 20px);
+    @include size(100%, auto);
+
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    transform: translateX(0) !important;
+    border-top: rem(1px) solid var(--grey-alpha-100);
+    box-shadow: var(--default-box-shadow);
+    overflow-y: unset;
+    gap: rem(20px);
+  }
+}
+
+.link {
+  @include transition;
+
+  display: block;
+
+  &:hover,
+  &.active {
+
+    .text {
+      background-color: var(--grey-alpha-100);
+    }
+  }
+}
+
+.text {
+  @include flex($align-items: center);
+  @include make-spacer(px, 16px);
+  @include transition;
+
+  width: 100%;
+  line-height: rem(52px);
+  gap: rem(12px);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(px, 8px);
+
+    border-radius: rem(8px);
+    line-height: rem(36px);
+  }
+}
+
+.icon {
+  @include transition;
+
+  opacity: 0.325;
+  width: rem(24px);
+
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+}
+
+.column {
+  border-bottom: rem(1px) solid var(--grey-alpha-300);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include flex($direction: column);
+
+    gap: rem(8px);
+    border-bottom: 0;
+  }
+
+  &:nth-child(1) {
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+  }
+}
+
+@keyframes slide_desktop {
+
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide_mobile {
+
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes menu_mobile {
+
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
