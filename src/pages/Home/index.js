@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import {
   Autoplay,
@@ -25,9 +27,10 @@ import Qr from 'modules/Qr'
 import Games from 'modules/Games'
 
 const Home = () => {
+  const { t } = useTranslation()
+  const { games } = useSelector(state => state.games)
   const [promo, setPromo] = useState([])
   const [banners, setBanners] = useState([])
-  const [cards, setCards] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -38,13 +41,20 @@ const Home = () => {
       getData('banners/').then(json => {
         setBanners(json)
       }),
-      getData('cards/').then(json => {
-        setCards(json)
-      }),
     ]).then(() => {
       setLoading(false)
     })
   }, [])
+
+  const sortedGames = useMemo(() => {
+    return games.reduce((acc, item) => {
+      if (!acc[item.type]) {
+        acc[item.type] = []
+      }
+      acc[item.type].push(item)
+      return acc
+    }, {})
+  }, [games])
 
   return (
     <div className={style.block}>
@@ -92,7 +102,7 @@ const Home = () => {
           </Section>
 
           <Section>
-            <Title text={'Stock'} />
+            <Title text={t('stock')} />
             <Swiper
               slidesPerView={'auto'}
               spaceBetween={16}
@@ -111,7 +121,7 @@ const Home = () => {
           </Section>
 
           <Section>
-            <Title text={'Winnings every 15 minutes'} />
+            <Title text={t('drawing_games')} />
             <Swiper
               slidesPerView={'auto'}
               spaceBetween={16}
@@ -121,12 +131,35 @@ const Home = () => {
               modules={[Navigation, Pagination, Mousewheel, Keyboard]}
               className="swiper-multiply"
             >
-              {cards?.map((el, idx) => (
+              {sortedGames[0]?.map((el, idx) => (
                 <SwiperSlide key={idx}>
                   <Card data={el} classes={style.card} />
                 </SwiperSlide>
               ))}
             </Swiper>
+          </Section>
+
+          <Section>
+            <Title text={t('quick_games_15')} />
+            <Swiper
+              slidesPerView={'auto'}
+              spaceBetween={16}
+              navigation={true}
+              keyboard={true}
+              grabCursor={true}
+              modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+              className="swiper-multiply"
+            >
+              {sortedGames[1]?.map((el, idx) => (
+                <SwiperSlide key={idx}>
+                  <Card data={el} classes={style.card} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Section>
+
+          <Section>
+            <Title text={t('instant_games')} />
           </Section>
         </>
       )}

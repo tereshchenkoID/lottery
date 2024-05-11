@@ -24,5 +24,77 @@
   "bonuses": "Bonuses",
   "prize": "Prize",
   "play": "Play",
-  "bonus_game": "Bonus games"
+  "bonus_game": "Bonus games",
+  "jackpot": "Jackpot",
+  "all_games": "All games",
+  "drawing_games": "Drawing games",
+  "quick_games_15": "Quick games, every 15 min",
+  "instant_games": "Instant games",
+  "stock": "Stock",
+  "games": {
+    "1": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "2": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "3": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "4": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "5": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "6": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "7": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "8": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "9": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "10": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "11": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "12": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    },
+    "13": {
+      "title": "Lorem ipsum dolor",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
+    }
 }

@@ -5,8 +5,6 @@ export const useOutsideClick = (elementRef, handler, attached = true) => {
     if (!attached) return
 
     const handleClick = e => {
-      console.log(attached.buttonRef.current, e.target)
-
       if (!elementRef.current) return
       if (!elementRef.current && !attached.buttonRef.current) return
       if (e.target === attached.buttonRef) return

@@ -2,19 +2,21 @@
 
 .block {
   @include make-spacer(pt, 16px);
+  @include make-spacer(px, 10px);
   @include make-spacer(pb, 22px);
 
   display: none;
   position: fixed;
   top: 0;
-  left: rem(10px);
+  left: 0;
   bottom: 0;
   gap: rem(6px);
   z-index: $z-index-11;
   background-color: var(--color-background);
   white-space: nowrap;
+  box-shadow: var(--default-box-shadow);
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xxl) {
     @include flex($direction: column);
   }
 
@@ -43,8 +45,8 @@
 .toggle {
   @include flex(center, center);
 
-  height: rem(44px);
   background-color: var(--grey-alpha-100);
+  height: rem(44px);
 
   &:hover {
     background-color: var(--grey-alpha-200);
@@ -59,6 +61,7 @@
   line-height: rem(20px);
   letter-spacing: rem(0.2px);
 
+  &.active,
   &:hover {
     background-color: var(--grey-alpha-100);
   }
@@ -74,9 +77,6 @@
   aspect-ratio: 1 / 1;
 }
 
-.img {
-  @include size(100%);
-
-  display: block;
-  object-fit: contain;
+.name {
+  @include ellipsis;
 }

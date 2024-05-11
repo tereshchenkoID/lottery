@@ -20,6 +20,24 @@ const Profile = () => {
   const blockRef = useRef(null)
   const buttonRef = useRef(null)
 
+  // name, description, alt
+
+  const a = [
+    {
+      id: 0,
+      image:
+        'https://static.stoloto.ru/new/_next/image?url=https%3A%2F%2Fstatic.stoloto.ru%2Fnew%2F_next%2Fstatic%2Fmedia%2FsportlotoBig.1091980c.svg&w=1750&q=75',
+      jackpots: 54738096,
+      maxBetSize: 12,
+      bonus: false,
+      betCost: 50,
+      color: 'rgb(0, 161, 228)',
+      font_color: '#000',
+      font: 'https://static.stoloto.ru/new/_next/image?url=https%3A%2F%2Fstatic.stoloto.ru%2Fnew%2F_next%2Fstatic%2Fmedia%2FsportlotoBig.1091980c.svg&w=1750&q=75',
+      time: '1716316200000',
+    },
+  ]
+
   useOutsideClick(
     blockRef,
     () => {
@@ -59,7 +77,14 @@ const Profile = () => {
               <FontAwesomeIcon icon="fa-solid fa-user" />
             </div>
             <div>
-              <Link to={'/'} rel="noreferrer" className={style.title}>
+              <Link
+                to={'/account'}
+                rel="noreferrer"
+                className={style.title}
+                onClick={() => {
+                  setActive(!active)
+                }}
+              >
                 <span>{t('personal_area')}</span>
                 <FontAwesomeIcon
                   icon="fa-solid fa-angle-right"
@@ -71,7 +96,14 @@ const Profile = () => {
           </div>
           <div className={style.body}>
             <div className={style.content}>
-              <Link to={'/'} rel="noreferrer" className={style.subtitle}>
+              <Link
+                to={'/wallet'}
+                rel="noreferrer"
+                className={style.subtitle}
+                onClick={() => {
+                  setActive(!active)
+                }}
+              >
                 <span>{t('wallet')}:</span>
                 <h6>{auth.account.balance}</h6>
                 <span>{auth.account.currency.symbol}</span>
@@ -80,10 +112,23 @@ const Profile = () => {
                   className={style.icon}
                 />
               </Link>
-              <Reference link={'/login'} placeholder={t('top_up_account')} />
+              <Reference
+                link={'/'}
+                placeholder={t('top_up_account')}
+                onClick={() => {
+                  setActive(!active)
+                }}
+              />
             </div>
             <div className={style.content}>
-              <Link to={'/'} rel="noreferrer" className={style.subtitle}>
+              <Link
+                to={'/bonuses'}
+                rel="noreferrer"
+                className={style.subtitle}
+                onClick={() => {
+                  setActive(!active)
+                }}
+              >
                 <span>{t('bonuses')}:</span>
                 <h6>{auth.account.bonus}</h6>
                 <span>{auth.account.currency.symbol}</span>
@@ -92,16 +137,26 @@ const Profile = () => {
                   className={style.icon}
                 />
               </Link>
-              <Link to={'/'} rel="noreferrer" className={style.all}>
+              <Link
+                to={'/'}
+                rel="noreferrer"
+                className={style.all}
+                onClick={() => {
+                  setActive(!active)
+                }}
+              >
                 {t('bonus_game')}
               </Link>
               <div className={style.games}>
                 {bonuses?.map((el, idx) => (
                   <Link
                     key={idx}
-                    to={el.link}
+                    to={`/game/${el.id}`}
                     rel="noreferrer"
                     className={style.game}
+                    onClick={() => {
+                      setActive(!active)
+                    }}
                   >
                     <img src={el.image} alt={el.alt} className={style.img} />
                   </Link>
@@ -110,12 +165,32 @@ const Profile = () => {
             </div>
             <ul className={style.list}>
               <li className={style.item}>
-                <Link to={'/'} rel="noreferrer">
+                <Link
+                  to={'/'}
+                  rel="noreferrer"
+                  onClick={() => {
+                    setActive(!active)
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-percent"
+                    className={style.icon}
+                  />
                   {t('menu_12')}
                 </Link>
               </li>
               <li className={style.item}>
-                <Link to={'/'} rel="noreferrer">
+                <Link
+                  to={'/'}
+                  rel="noreferrer"
+                  onClick={() => {
+                    setActive(!active)
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-receipt"
+                    className={style.icon}
+                  />
                   {t('menu_13')}
                 </Link>
               </li>

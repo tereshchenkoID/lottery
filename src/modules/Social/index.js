@@ -8,18 +8,22 @@ const Social = () => {
   const social = [
     {
       icon: 'fa-tiktok',
+      text: 'Tiktok',
       link: '/',
     },
     {
       icon: 'fa-google',
+      text: 'Google',
       link: '/',
     },
     {
       icon: 'fa-telegram',
+      text: 'Telegram',
       link: '/',
     },
     {
       icon: 'fa-twitter',
+      text: 'Twitter',
       link: '/',
     },
   ]
@@ -33,6 +37,7 @@ const Social = () => {
           href={el.link}
           target="_blank"
           rel="noreferrer"
+          aria-label={el.text}
         >
           <FontAwesomeIcon
             icon={`fa-brands ${el.icon}`}

@@ -24,5 +24,78 @@
   "bonuses": "Bonuses UA",
   "prize": "Prize UA",
   "play": "Play UA",
-  "bonus_game": "Bonus games UA"
+  "bonus_game": "Bonus games UA",
+  "jackpot": "Jackpot UA",
+  "all_games": "All games UA",
+  "drawing_games": "Drawing games UA",
+  "quick_games_15": "Quick games, every 15 min UA",
+  "instant_games": "Instant games UA",
+  "stock": "Stock UA",
+  "games": {
+    "1": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "2": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "3": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "4": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "5": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "6": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "7": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "8": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "9": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "10": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "11": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "12": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    },
+    "13": {
+      "title": "Lorem ipsum dolor UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
+      "alt": "Lorem ipsum dolor UA"
+    }
+  }
 }

@@ -1,0 +1,45 @@
+@import 'scss/config';
+
+.block {
+  @include flex($direction: column);
+
+  flex-grow: 1;
+}
+
+.content {
+  @include size(100%);
+  @include make-spacer(pt, 16px);
+  @include make-spacer(px, 24px);
+
+  flex-grow: 1;
+  border-radius: rem(32px) rem(32px) 0 0;
+  background-color: var(--color-white);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(pt, 24px);
+  }
+}
+
+.header {
+  @include flex(space-between);
+
+  position: relative;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: rem(106px) 1fr;
+  align-items: center;
+  gap: rem(16px);
+}
+
+.picture {
+  @include size(100%, rem(106px));
+}
+
+.jackpot {
+
+  span {
+    color: var(--color-warning);
+  }
+}

@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
 import Menu from './Menu'
-// import Toggle from './Toggle'
 import Account from './Account'
 import Language from './Language'
 
@@ -19,11 +18,11 @@ const Header = () => {
 
   return (
     <header className={style.block}>
-      {/*<Toggle active={show} action={setShow} buttonRef={buttonRef} />*/}
       <Link
         to={`/`}
         rel="noreferrer"
         className={style.logo}
+        aria-label="Logo"
         onClick={() => {
           setShow(false)
         }}

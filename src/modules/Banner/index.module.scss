@@ -9,10 +9,3 @@
     border-radius: rem(20px);
   }
 }
-
-.img {
-  @include size(100%);
-
-  display: block;
-  object-fit: cover;
-}

@@ -49,9 +49,6 @@
 }
 
 .img {
-  @include size(100%);
-
-  display: block;
   aspect-ratio: 53 / 21;
 }
 
@@ -128,6 +125,7 @@
   gap: rem(17px);
   font-weight: var(--typography-medium);
   font-size: rem(12px);
+  color: var(--color-text);
 
   @include media-breakpoint-up(lg) {
     @include make-spacer(p, 12px);
