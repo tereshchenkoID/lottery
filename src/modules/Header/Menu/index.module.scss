@@ -18,7 +18,7 @@
     animation: slide_mobile 0.2s linear forwards;
 
     @include media-breakpoint-up(lg) {
-      animation: slide_desktop 0.2s linear forwards;
+      animation: slide_bottom 0.2s linear forwards;
     }
 
     .menu {
@@ -87,6 +87,10 @@
     border-radius: rem(8px);
     line-height: rem(36px);
   }
+
+  span {
+    @include make-spacer(ml, auto);
+  }
 }
 
 .icon {
@@ -94,6 +98,7 @@
 
   opacity: 0.325;
   width: rem(24px);
+  font-size: rem(18px);
 
   @include media-breakpoint-up(lg) {
     display: none;
@@ -107,31 +112,27 @@
     border-bottom: 0;
   }
 
+  &:nth-child(1),
+  &:nth-child(5) {
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+  }
+
+  &.alt {
+    @include make-spacer(p, 10px);
+  }
+
   @include media-breakpoint-up(lg) {
     @include flex($direction: column);
 
     gap: rem(8px);
     border-bottom: 0;
   }
-
-  &:nth-child(1) {
-    @include media-breakpoint-up(lg) {
-      display: none;
-    }
-  }
 }
 
-@keyframes slide_desktop {
-
-  0% {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.logout {
+  width: 100%;
 }
 
 @keyframes slide_mobile {

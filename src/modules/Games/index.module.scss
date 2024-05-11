@@ -1,43 +1,71 @@
 @import 'scss/config';
 
 .block {
-  @include flex($direction: column);
   @include make-spacer(pt, 16px);
   @include make-spacer(pb, 22px);
 
+  display: none;
   position: fixed;
   top: 0;
-  left: rem(20px);
+  left: rem(10px);
+  bottom: 0;
   gap: rem(6px);
   z-index: $z-index-11;
   background-color: var(--color-background);
   white-space: nowrap;
+
+  @include media-breakpoint-up(lg) {
+    @include flex($direction: column);
+  }
 
   &.active {
 
     .item {
       width: rem(220px);
     }
+
+    .icon {
+      transform: rotateZ(180deg);
+    }
+  }
+}
+
+.toggle,
+.item {
+  @include make-spacer(p, 4px);
+
+  gap: rem(6px);
+  border-radius: rem(6px);
+  width: rem(44px);
+  overflow: hidden;
+}
+
+.toggle {
+  @include flex(center, center);
+
+  height: rem(44px);
+  background-color: var(--grey-alpha-100);
+
+  &:hover {
+    background-color: var(--grey-alpha-200);
   }
 }
 
 .item {
-  @include make-spacer(p, 4px);
-
   display: grid;
   grid-template-columns: rem(36px) 1fr;
   align-items: center;
-  gap: rem(6px);
-  border-radius: rem(6px);
   font-size: rem(14px);
   line-height: rem(20px);
   letter-spacing: rem(0.2px);
-  width: rem(44px);
-  overflow: hidden;
 
   &:hover {
     background-color: var(--grey-alpha-100);
   }
+}
+
+.icon {
+  @include transition;
 }
 
 .picture {

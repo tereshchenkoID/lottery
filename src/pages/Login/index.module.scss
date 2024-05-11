@@ -2,13 +2,18 @@
 
 .block {
   @include flex($align-items: center);
-  @include make-spacer(pt, 30px);
-  @include make-spacer(px, 76px);
+  @include make-spacer(pt, 16px);
+  @include make-spacer(px, 24px);
 
   flex-grow: 1;
   border-radius: rem(32px) rem(32px) 0 0;
   background-color: var(--color-white);
   width: 100%;
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(pt, 30px);
+    @include make-spacer(px, 76px);
+  }
 }
 
 .form {

@@ -1,0 +1,193 @@
+@import 'scss/config';
+
+.block {
+  position: relative;
+}
+
+.wrapper {
+  width: fit-content;
+  position: relative;
+
+  &.active {
+
+    .dropdown {
+      display: grid;
+      animation: slide_bottom 0.2s linear forwards;
+    }
+
+    .arrow {
+      transform: rotateZ(180deg);
+    }
+  }
+}
+
+.toggle {
+  display: grid;
+  grid-template-columns: rem(40px) auto;
+  align-items: center;
+  column-gap: rem(4px);
+  cursor: pointer;
+}
+
+.avatar {
+  @include size(rem(40px));
+  @include flex(center, center);
+
+  background-color: var(--grey-500);
+  color: var(--color-white);
+  border-radius: 50%;
+  font-size: rem(18px);
+}
+
+.arrow {
+  @include transition;
+  @include size(rem(18px));
+
+  color: var(--grey-500);
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + rem(12px));
+  right: 0;
+  border-radius: rem(16px);
+  background-color: var(--color-white);
+  width: rem(378px);
+  box-shadow: 0 rem(12px) rem(24px) var(--grey-alpha-200);
+  max-height: calc(rem(-72px) + 100vh);
+  overflow-y: auto;
+}
+
+.top,
+.body,
+.bottom {
+  @include make-spacer(p, 16px);
+}
+
+.title,
+.subtitle,
+.all {
+
+  &:hover {
+    color: var(--color-warning);
+
+    .icon {
+      color: var(--color-warning);
+    }
+  }
+}
+
+.top {
+  display: grid;
+  grid-template-columns: rem(40px) 1fr;
+  column-gap: rem(8px);
+}
+
+.title {
+  @include flex($align-items: center);
+
+  font-weight: var(--typography-bold);
+  color: var(--grey-900);
+}
+
+.nickname {
+  font-size: rem(14px);
+  color: var(--grey-500);
+  line-height: 1.2;
+}
+
+.body {
+  @include flex($direction: column);
+
+  border-top: rem(1px) solid var(--grey-200);
+  border-bottom: rem(1px) solid var(--grey-200);
+  gap: rem(16px);
+}
+
+.bottom {
+
+  button {
+    width: 100%;
+  }
+}
+
+.list {
+  @include flex($direction: column);
+
+  gap: rem(8px);
+}
+
+.item {
+
+  a {
+    @include make-spacer(py, 5px);
+
+    display: block;
+
+    &:hover {
+      color: var(--color-warning);
+    }
+  }
+}
+
+.content {
+  @include make-spacer(p, 16px);
+
+  border-radius: rem(16px);
+  background-color: var(--grey-100);
+}
+
+.subtitle {
+  @include make-spacer(mb, 10px);
+  @include flex($align-items: baseline);
+
+  gap: rem(4px);
+}
+
+.icon {
+  @include transition;
+  @include make-spacer(ml, auto);
+  @include make-spacer(mr, 0);
+
+  font-size: rem(20px);
+  color: var(--grey-500);
+}
+
+.all {
+  @include make-spacer(mb, 10px);
+
+  display: block;
+  font-size: rem(12px);
+}
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: rem(12px);
+}
+
+.game {
+  @include make-spacer(p, 10px);
+
+  overflow: hidden;
+  border-radius: rem(10px);
+  aspect-ratio: 1 / 1;
+  background: var(--color-white);
+  box-shadow: var(--default-box-shadow);
+
+  &:hover {
+
+    img {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.img {
+  @include transition;
+  @include size(100%);
+
+  display: block;
+  object-fit: contain;
+}

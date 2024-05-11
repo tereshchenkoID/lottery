@@ -22,7 +22,7 @@ import Loader from 'components/Loader'
 import Banner from 'modules/Banner'
 import Card from 'modules/Card'
 import Qr from 'modules/Qr'
-import Games from '../../modules/Games'
+import Games from 'modules/Games'
 
 const Home = () => {
   const [promo, setPromo] = useState([])

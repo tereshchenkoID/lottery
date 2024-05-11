@@ -2,10 +2,14 @@
 
 .block {
   @include flex(space-between, center);
-  @include make-spacer(py, 24px);
+  @include make-spacer(py, 16px);
   @include make-spacer(px, 10px);
 
   border-top: rem(1px) solid var(--grey-alpha-300);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(py, 24px);
+  }
 }
 
 .limitation {

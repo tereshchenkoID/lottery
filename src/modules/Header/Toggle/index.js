@@ -2,9 +2,10 @@ import styles from './index.module.scss'
 
 import classNames from 'classnames'
 
-const Toggle = ({ active, action }) => {
+const Toggle = ({ active, action, buttonRef }) => {
   return (
     <button
+      ref={buttonRef}
       className={classNames(styles.block, active && styles.active)}
       type={'button'}
       onClick={() => action(!active)}

@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   border-radius: rem(12px);
+  background-color: var(--color-primary);
   min-width: rem(100px);
   height: rem(48px);
   overflow: hidden;
@@ -19,11 +20,7 @@
     pointer-events: none;
   }
 
-  &.default {
-    background-color: var(--color-primary);
-
-    &:hover {
-      background-color: var(--color-primary-hover);
-    }
+  &:hover {
+    background-color: var(--color-primary-hover);
   }
 }

@@ -1,17 +1,37 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { useRef } from 'react'
+import { useOutsideClick } from 'hooks/useOutsideClick'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
 
+import Logout from 'modules/Logout'
+
 import style from './index.module.scss'
 
-const Menu = ({ setShow, show }) => {
+const Menu = ({ setShow, show, buttonRef }) => {
   const { t } = useTranslation()
   const { pathname } = useLocation()
+  const { auth } = useSelector(state => state.auth)
+  const isLogin = auth.id
 
-  const submenu = [
+  const blockRef = useRef(null)
+
+  useOutsideClick(
+    blockRef,
+    () => {
+      setShow(false)
+    },
     {
+      buttonRef: buttonRef,
+    },
+  )
+
+  const MENU = [
+    {
+      hide: isLogin,
       submenu: [
         {
           link: '/login',
@@ -79,33 +99,92 @@ const Menu = ({ setShow, show }) => {
     },
   ]
 
+  const SUBMENU = [
+    {
+      link: '/account',
+      icon: 'fa-user',
+      nickname: auth.username,
+    },
+    {
+      link: '/account',
+      icon: 'fa-wallet',
+      text: 'wallet',
+      value: auth.account.balance,
+    },
+    {
+      link: '/account',
+      icon: 'fa-money-bill',
+      text: 'bonuses',
+      value: auth.account.bonus,
+    },
+  ]
+
   return (
-    <div className={classNames(style.block, show && style.active)}>
+    <div
+      ref={blockRef}
+      className={classNames(style.block, show && style.active)}
+    >
       <menu className={style.menu}>
-        {submenu.map((el, idx) => (
-          <div key={idx} className={style.column}>
-            {el.submenu.map((s_el, s_idx) => (
+        {isLogin && (
+          <div className={style.column}>
+            {SUBMENU.map((el, idx) => (
               <Link
-                to={s_el.link}
+                to={el.link}
                 rel="noreferrer"
-                key={s_idx}
+                key={idx}
                 onClick={() => setShow(false)}
-                className={classNames(
-                  style.link,
-                  pathname === s_el.link && style.active,
-                )}
+                className={style.link}
               >
                 <span className={style.text}>
                   <FontAwesomeIcon
-                    icon={`fa-solid ${s_el.icon}`}
+                    icon={`fa-solid ${el.icon}`}
                     className={style.icon}
                   />
-                  {t(s_el.text)}
+                  {el.nickname && el.nickname}
+                  {el.text && t(el.text)}
+                  {el.value && (
+                    <span>
+                      {el.value} <strong>{auth.account.currency.symbol}</strong>
+                    </span>
+                  )}
                 </span>
               </Link>
             ))}
           </div>
-        ))}
+        )}
+
+        {MENU.map(
+          (el, idx) =>
+            !el.hide && (
+              <div key={idx} className={style.column}>
+                {el.submenu.map((s_el, s_idx) => (
+                  <Link
+                    to={s_el.link}
+                    rel="noreferrer"
+                    key={s_idx}
+                    onClick={() => setShow(false)}
+                    className={classNames(
+                      style.link,
+                      pathname === s_el.link && style.active,
+                    )}
+                  >
+                    <span className={style.text}>
+                      <FontAwesomeIcon
+                        icon={`fa-solid ${s_el.icon}`}
+                        className={style.icon}
+                      />
+                      {t(s_el.text)}
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            ),
+        )}
+        {isLogin && (
+          <div className={classNames(style.column, style.alt)}>
+            <Logout onChange={() => setShow(false)} classes={style.logout} />
+          </div>
+        )}
       </menu>
     </div>
   )
