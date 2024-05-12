@@ -21,20 +21,21 @@
 }
 
 .header {
-  @include flex(space-between);
+  @include flex($justify-content: space-between, $align-items: flex-start, $wrap: wrap);
 
   position: relative;
+  gap: rem(8px);
 }
 
 .info {
   display: grid;
-  grid-template-columns: rem(106px) 1fr;
+  grid-template-columns: rem(90px) 1fr;
   align-items: center;
   gap: rem(16px);
 }
 
 .picture {
-  @include size(100%, rem(106px));
+  @include size(100%, rem(90px));
 }
 
 .jackpot {
@@ -42,4 +43,19 @@
   span {
     color: var(--color-warning);
   }
+}
+
+.meta {
+  @include make-spacer(pt, 8px);
+  @include flex($align-items: center, $wrap: wrap);
+
+  gap: rem(16px);
+}
+
+.icon {
+  @include make-spacer(mr, 8px);
+}
+
+.time {
+  font-weight: var(--typography-medium);
 }

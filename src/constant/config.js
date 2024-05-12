@@ -1,3 +1,3 @@
 export const hostnames = {
-  PROD: 'https://api.oddsbit.io//lottery',
+  PROD: 'https://api.oddsbit.io/lottery',
 }
