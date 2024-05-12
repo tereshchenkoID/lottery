@@ -2,18 +2,16 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import classNames from 'classnames'
-
 import style from './index.module.scss'
 
-const Card = ({ data, classes = null }) => {
+const Card = ({ data }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
 
   return (
     <a
       href={`/game/${data.id}`}
-      className={classNames(style.block, classes)}
+      className={style.block}
       style={{
         backgroundColor: data.color,
         color: data.font_color,

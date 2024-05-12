@@ -1,12 +1,14 @@
 @import 'scss/config';
 
 .block {
+  @include size(rem(162px), rem(216px));
   @include make-spacer(px, 8px);
   @include make-spacer(pt, 12px);
   @include make-spacer(pb, 8px);
   @include flex($direction: column);
 
   @include media-breakpoint-up(lg) {
+    @include size(rem(264px), rem(352px));
     @include make-spacer(px, 12px);
     @include make-spacer(pt, 40px);
     @include make-spacer(pb, 12px);

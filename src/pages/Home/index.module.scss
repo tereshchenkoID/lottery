@@ -128,10 +128,8 @@
   }
 }
 
-.card {
-  @include size(rem(162px), rem(216px));
+.games {
+  @include flex($wrap: wrap);
 
-  @include media-breakpoint-up(lg) {
-    @include size(rem(264px), rem(352px));
-  }
+  gap: rem(16px);
 }

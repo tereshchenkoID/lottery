@@ -1,0 +1,85 @@
+@import 'scss/config';
+
+.block {
+  @include size(rem(184px), rem(195px));
+  @include make-spacer(p, 12px);
+  @include flex($direction: column);
+
+  position: relative;
+  flex-shrink: 0;
+  background-color: var(--grey-200);
+
+  @include media-breakpoint-up(lg) {
+
+    &:hover {
+      transform: scale(1.03);
+
+      .action {
+        background-color: var(--color-primary);
+      }
+    }
+  }
+
+  border-radius: rem(12px);
+  overflow: hidden;
+}
+
+.header {
+  @include flex(space-between, flex-start);
+}
+
+.picture {
+  @include size(rem(52px));
+}
+
+.img {
+  aspect-ratio: 41 / 40;
+}
+
+.content {
+  @include make-spacer(mt, 4px);
+
+  flex-grow: 1;
+}
+
+.title {
+  font-size: rem(12px);
+
+  @include media-breakpoint-up(lg) {
+    font-size: rem(14px);
+  }
+}
+
+.prize {
+  font-size: rem(16px);
+}
+
+.action,
+.price {
+  @include flex(center, center);
+
+  background-color: var(--color-white);
+  font-weight: var(--typography-medium);
+}
+
+.action {
+  @include transition;
+
+  border-radius: rem(6px);
+  padding: rem(10px);
+  font-size: rem(12px);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 12px);
+
+    border-radius: rem(10px);
+    font-size: rem(16px);
+  }
+}
+
+.price {
+  @include make-spacer(py, 4px);
+  @include make-spacer(px, 8px);
+
+  border-radius: rem(8px);
+}

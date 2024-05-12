@@ -136,6 +136,7 @@
   }
 
   .icon {
+    @include make-spacer(ml, 0);
     @include make-spacer(mr, 8px);
 
     font-size: rem(16px);

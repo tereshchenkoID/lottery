@@ -22,9 +22,10 @@ import Section from 'components/Section'
 import Title from 'components/Title'
 import Loader from 'components/Loader'
 import Banner from 'modules/Banner'
+import Games from 'modules/Games'
+import Game from 'modules/Game'
 import Card from 'modules/Card'
 import Qr from 'modules/Qr'
-import Games from 'modules/Games'
 
 const Home = () => {
   const { t } = useTranslation()
@@ -133,7 +134,7 @@ const Home = () => {
             >
               {sortedGames[0]?.map((el, idx) => (
                 <SwiperSlide key={idx}>
-                  <Card data={el} classes={style.card} />
+                  <Card data={el} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -152,7 +153,7 @@ const Home = () => {
             >
               {sortedGames[1]?.map((el, idx) => (
                 <SwiperSlide key={idx}>
-                  <Card data={el} classes={style.card} />
+                  <Card data={el} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -160,6 +161,11 @@ const Home = () => {
 
           <Section>
             <Title text={t('instant_games')} />
+            <div className={style.games}>
+              {sortedGames[2]?.map((el, idx) => (
+                <Game key={idx} data={el} />
+              ))}
+            </div>
           </Section>
         </>
       )}

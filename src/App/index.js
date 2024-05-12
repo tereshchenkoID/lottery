@@ -30,8 +30,8 @@ const App = () => {
       dispatch(setSettings()),
       dispatch(setGames()),
     ]).then(json => {
-      setLoading(false)
       i18n.changeLanguage(json[0].account.language.code)
+      setLoading(false)
     })
   }, [dispatch])
 
