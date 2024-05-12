@@ -1,9 +1,0 @@
-@import 'scss/config';
-
-.block {
-  @include icon;
-
-  &.active {
-    transform: rotateZ(45deg);
-  }
-}

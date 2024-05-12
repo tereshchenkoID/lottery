@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useOutsideClick } from 'hooks/useOutsideClick'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -28,6 +28,14 @@ const Menu = ({ setShow, show, buttonRef }) => {
       buttonRef: buttonRef,
     },
   )
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }, [show])
 
   const MENU = [
     {

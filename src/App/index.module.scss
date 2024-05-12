@@ -7,11 +7,14 @@ body {
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
-  overflow-y: auto;
+
+  @include media-breakpoint-up(lg) {
+    overflow-y: auto!important;
+  }
 }
 
-button,
 a,
+button,
 input {
   color: var(--color-text);
 
@@ -25,19 +28,11 @@ a {
   @include transition(all);
 }
 
-
 button {
   @include reset-button;
 }
 
-button,
-a,
-.a {
-  @include transition(all);
-}
-
-a,
-.a {
+a {
   cursor: pointer;
   text-decoration: none;
   color: inherit;
