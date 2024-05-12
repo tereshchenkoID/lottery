@@ -71,6 +71,7 @@
   border-radius: rem(14px);
   width: fit-content;
   font-size: rem(14px);
+  font-weight: var(--typography-medium);
 
   @include media-breakpoint-up(lg) {
     @include make-spacer(mt, 0);

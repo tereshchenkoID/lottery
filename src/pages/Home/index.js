@@ -91,7 +91,7 @@ const Home = () => {
                 >
                   {banners?.map((el, idx) => (
                     <SwiperSlide key={idx}>
-                      <Banner data={el} classes={style.banner} />
+                      <Banner data={el} classes={style.banner} link={'/sdf'} />
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -115,7 +115,11 @@ const Home = () => {
             >
               {promo?.map((el, idx) => (
                 <SwiperSlide key={idx}>
-                  <Banner data={el} classes={style.stock} />
+                  <Banner
+                    data={el}
+                    classes={style.stock}
+                    link={`/game/${el.gameId}`}
+                  />
                 </SwiperSlide>
               ))}
             </Swiper>

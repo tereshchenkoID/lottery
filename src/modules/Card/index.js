@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import style from './index.module.scss'
+import { getDifferent } from '../../helpers/getDifferent'
 
 const Card = ({ data }) => {
   const { t } = useTranslation()
@@ -37,7 +38,7 @@ const Card = ({ data }) => {
       {data.time && (
         <div className={style.time}>
           <FontAwesomeIcon icon="fa-solid fa-clock" />
-          <span>{data.time}</span>
+          <span>{getDifferent(data.time, t)}</span>
         </div>
       )}
       <div className={style.description}>

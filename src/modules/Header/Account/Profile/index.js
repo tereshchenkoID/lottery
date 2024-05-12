@@ -20,24 +20,6 @@ const Profile = () => {
   const blockRef = useRef(null)
   const buttonRef = useRef(null)
 
-  // name, description, alt
-
-  const a = [
-    {
-      id: 0,
-      image:
-        'https://static.stoloto.ru/new/_next/image?url=https%3A%2F%2Fstatic.stoloto.ru%2Fnew%2F_next%2Fstatic%2Fmedia%2FsportlotoBig.1091980c.svg&w=1750&q=75',
-      jackpots: 54738096,
-      maxBetSize: 12,
-      bonus: false,
-      betCost: 50,
-      color: 'rgb(0, 161, 228)',
-      font_color: '#000',
-      font: 'https://static.stoloto.ru/new/_next/image?url=https%3A%2F%2Fstatic.stoloto.ru%2Fnew%2F_next%2Fstatic%2Fmedia%2FsportlotoBig.1091980c.svg&w=1750&q=75',
-      time: '1716316200000',
-    },
-  ]
-
   useOutsideClick(
     blockRef,
     () => {
@@ -147,21 +129,23 @@ const Profile = () => {
               >
                 {t('bonus_game')}
               </Link>
-              <div className={style.games}>
-                {bonuses?.map((el, idx) => (
-                  <Link
-                    key={idx}
-                    to={`/game/${el.id}`}
-                    rel="noreferrer"
-                    className={style.game}
-                    onClick={() => {
-                      setActive(!active)
-                    }}
-                  >
-                    <img src={el.image} alt={el.alt} className={style.img} />
-                  </Link>
-                ))}
-              </div>
+              {bonuses.length > 0 && (
+                <div className={style.games}>
+                  {bonuses.map((el, idx) => (
+                    <Link
+                      key={idx}
+                      to={`/game/${el.id}`}
+                      rel="noreferrer"
+                      className={style.game}
+                      onClick={() => {
+                        setActive(!active)
+                      }}
+                    >
+                      <img src={el.image} alt={el.alt} className={style.img} />
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
             <ul className={style.list}>
               <li className={style.item}>

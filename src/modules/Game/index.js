@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 import style from './index.module.scss'
 
@@ -8,7 +9,7 @@ const Game = ({ data }) => {
   const { auth } = useSelector(state => state.auth)
 
   return (
-    <a href={`/game/${data.id}`} className={style.block}>
+    <Link to={`/game/${data.id}`} rel="noreferrer" className={style.block}>
       <div className={style.header}>
         <div className={style.picture}>
           <img
@@ -34,7 +35,7 @@ const Game = ({ data }) => {
       <div className={style.action}>
         <span>{t('play')}</span>
       </div>
-    </a>
+    </Link>
   )
 }
 

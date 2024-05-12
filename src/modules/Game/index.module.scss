@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  @include size(rem(184px), rem(195px));
+  @include size(rem(168px), rem(195px));
   @include make-spacer(p, 12px);
   @include flex($direction: column);
 
@@ -10,6 +10,7 @@
   background-color: var(--grey-200);
 
   @include media-breakpoint-up(lg) {
+    width: rem(184px);
 
     &:hover {
       transform: scale(1.03);

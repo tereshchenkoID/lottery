@@ -139,7 +139,11 @@ const Menu = ({ setShow, show, buttonRef }) => {
   return (
     <div
       ref={blockRef}
-      className={classNames(style.block, show && style.active)}
+      className={classNames(
+        style.block,
+        show && style.active,
+        isLogin && style.auth,
+      )}
     >
       <menu className={style.menu}>
         {isLogin &&
