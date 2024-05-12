@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 
@@ -8,6 +9,7 @@ import style from './index.module.scss'
 const KENO = ({ data }) => {
   const COUNT = 8
   const { t } = useTranslation()
+  const { auth } = useSelector(state => state.auth)
   const [selectedType, setSelectedType] = useState(0)
   const [selectedCount, setSelectedCount] = useState(0)
   const [numbers, setNumbers] = useState(
@@ -43,7 +45,7 @@ const KENO = ({ data }) => {
       updatedNumbers[randomNumbers[idx].number - 1].active = true
     })
     setNumbers(updatedNumbers)
-    setSelectedCount(10)
+    setSelectedCount(COUNT)
   }
 
   const handleColumnClick = columnNumber => {
@@ -59,6 +61,14 @@ const KENO = ({ data }) => {
     setNumbers(numbers.map(num => ({ ...num, active: false })))
     setSelectedCount(0)
   }
+
+  const tips = useMemo(
+    () =>
+      data.odds.numbers
+        .filter(market => Number(market.a[0]) === selectedCount)
+        .sort((a, b) => b.b - a.b),
+    [data, selectedCount],
+  )
 
   return (
     <div className={style.block}>
@@ -93,20 +103,23 @@ const KENO = ({ data }) => {
           <div className={style.left}>
             <p>Угадайте числа</p>
             <p>Выберите от 1 до 10 чисел</p>
-            <div className={style.table}>
-              <div className={style.row}>
-                <div className={style.cell}>Угадано</div>
-                <div className={style.cell}>Выигрыш, ₽</div>
+
+            {tips.length > 0 && (
+              <div className={style.table}>
+                <div className={style.row}>
+                  <div className={style.cell}>{t('guessed')}</div>
+                  <div className={style.cell}>
+                    {t('winning')}, {auth.account.currency.symbol}
+                  </div>
+                </div>
+                {tips.map((el, idx) => (
+                  <div key={idx} className={style.row}>
+                    <div className={style.cell}>{el.a[2]}</div>
+                    <div className={style.cell}>{el.b}</div>
+                  </div>
+                ))}
               </div>
-              <div className={style.row}>
-                <div className={style.cell}>8</div>
-                <div className={style.cell}>1 500 000 ₽</div>
-              </div>
-              <div className={style.row}>
-                <div className={style.cell}>8</div>
-                <div className={style.cell}>1 500 000 ₽</div>
-              </div>
-            </div>
+            )}
           </div>
           <div className={style.right}>
             <div className={style.numbers}>
@@ -131,7 +144,7 @@ const KENO = ({ data }) => {
               onClick={handleRandomClick}
             >
               <FontAwesomeIcon icon="fa-solid fa-cube" className={style.icon} />
-              <span>Random</span>
+              <span>{t('random')}</span>
             </button>
             <div className={style.actions}>
               <button
@@ -139,7 +152,7 @@ const KENO = ({ data }) => {
                 className={style.button}
                 onClick={handleResetClick}
               >
-                <span>Reset</span>
+                <span>{t('reset')}</span>
               </button>
               <button
                 type={'button'}
@@ -148,7 +161,7 @@ const KENO = ({ data }) => {
                   selectedCount < COUNT && style.disabled,
                 )}
               >
-                <span>Place bet</span>
+                <span>{t('placebet')}</span>
               </button>
             </div>
           </div>
@@ -169,7 +182,7 @@ const KENO = ({ data }) => {
                 )}
                 onClick={() => setSelectedType(selectedType === 1 ? 0 : 1)}
               >
-                <span>Even</span>
+                <span>{t('even')}</span>
               </button>
               <button
                 type={'button'}
@@ -179,7 +192,7 @@ const KENO = ({ data }) => {
                 )}
                 onClick={() => setSelectedType(selectedType === 2 ? 0 : 2)}
               >
-                <span>Odd</span>
+                <span>{t('odd')}</span>
               </button>
               <button
                 type={'button'}
@@ -189,7 +202,7 @@ const KENO = ({ data }) => {
                 )}
                 onClick={() => setSelectedType(selectedType === 3 ? 0 : 3)}
               >
-                <span>Equally</span>
+                <span>{t('equally')}</span>
               </button>
             </div>
           </div>

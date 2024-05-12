@@ -80,15 +80,17 @@
   line-height: rem(28px);
   font-weight: var(--typography-medium);
 
+  &:not(.active) {
+
+    &:hover {
+      background-color: var(--color-primary);
+      color: var(--color-text)
+    }
+  }
+
   &.active {
     background-color: #a5faff;
     color: var(--color-text);
-  }
-
-  &:not(.active) {
-    &:hover {
-      background-color: var(--color-primary);
-    }
   }
 
   &.disabled {

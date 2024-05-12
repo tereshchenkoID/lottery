@@ -32,6 +32,14 @@
   "instant_games": "Instant games",
   "stock": "Stock",
   "days": "days",
+  "guessed": "Guessed",
+  "winning": "Winning",
+  "random": "Random",
+  "reset": "Reset",
+  "placebet": "Place bet",
+  "even": "Even",
+  "odd": "Odd",
+  "equally": "Equally",
   "games": {
     "1": {
       "title": "Lorem ipsum dolor",

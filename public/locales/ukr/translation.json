@@ -32,6 +32,14 @@
   "instant_games": "Instant games UA",
   "stock": "Stock UA",
   "days": "days UA",
+  "guessed": "Guessed UA",
+  "winning": "Winning UA",
+  "random": "Random UA",
+  "reset": "Reset UA",
+  "placebet": "Place bet UA",
+  "even": "Even UA",
+  "odd": "Odd UA",
+  "equally": "Equally UA",
   "games": {
     "1": {
       "title": "Lorem ipsum dolor UA",
