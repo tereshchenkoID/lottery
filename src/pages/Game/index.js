@@ -4,20 +4,24 @@ import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import classNames from 'classnames'
+
 import { getData } from 'helpers/api'
 
 import Games from 'modules/Games'
 import Loader from 'components/Loader'
+import Multibet from './Multibet'
+import KENO from './KENO'
 
 import style from './index.module.scss'
-import KENO from './KENO'
 
 const Game = () => {
   const { t } = useTranslation()
-  const { auth } = useSelector(state => state.auth)
   const { gameId } = useParams()
+  const { auth } = useSelector(state => state.auth)
   const [game, setGame] = useState({})
   const [loading, setLoading] = useState(true)
+  const [active, setActive] = useState(0)
 
   useEffect(() => {
     setLoading(true)
@@ -45,6 +49,15 @@ const Game = () => {
     return `${day}:${month}:${year} ${hours}:${minutes}:${seconds}`
   }
 
+  const handleStakeChange = (index, newValue) => {
+    const updatedOptions = [...game.multibet]
+    updatedOptions[index].value = newValue
+    setGame(prevState => ({
+      ...prevState,
+      multibet: updatedOptions,
+    }))
+  }
+
   return (
     <div className={style.block}>
       <Games />
@@ -52,13 +65,7 @@ const Game = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div
-          className={style.content}
-          style={{
-            backgroundColor: game.color,
-            color: game.font_color,
-          }}
-        >
+        <div className={style.content} style={{ ...game.skin }}>
           <div className={style.header}>
             <div className={style.info}>
               <div className={style.picture}>
@@ -67,7 +74,7 @@ const Game = () => {
               <div>
                 <h6>{t(`games.${game.id}.title`)}</h6>
                 {game.jackpots && (
-                  <h4 className={style.jackpot}>
+                  <h4>
                     {t('jackpot')} -{' '}
                     <span>
                       {auth.account.currency.symbol} {game.jackpots}
@@ -77,7 +84,14 @@ const Game = () => {
               </div>
             </div>
             <div className={style.meta}>
-              <div className={style.id}># {game.round?.id}</div>
+              <div>
+                <FontAwesomeIcon
+                  icon="fa-solid fa-ticket"
+                  className={style.icon}
+                />
+                {game.round?.id}
+              </div>
+              <hr className={style.hr} />
               <div className={style.time}>
                 <FontAwesomeIcon
                   icon="fa-solid fa-clock"
@@ -88,7 +102,58 @@ const Game = () => {
             </div>
           </div>
           <div className={style.body}>
-            <KENO data={game} />
+            <div className={style.tab}>
+              <button
+                type="button"
+                className={classNames(
+                  style.button,
+                  active === 0 && style.active,
+                )}
+                onClick={() => setActive(0)}
+              >
+                <span className={style.icon}>
+                  <FontAwesomeIcon icon="fa-solid fa-ticket" />
+                </span>
+                <span>Tickets</span>
+              </button>
+              <button
+                type="button"
+                className={classNames(
+                  style.button,
+                  active === 1 && style.active,
+                )}
+                onClick={() => setActive(1)}
+              >
+                <span className={style.icon}>
+                  <FontAwesomeIcon icon="fa-solid fa-sliders" />
+                </span>
+                <span>Multibet</span>
+              </button>
+              <button
+                type="button"
+                className={classNames(
+                  style.button,
+                  active === 2 && style.active,
+                )}
+                onClick={() => setActive(2)}
+              >
+                <span className={style.icon}>
+                  <FontAwesomeIcon icon="fa-solid fa-folder" />
+                </span>
+                <span>Archive</span>
+              </button>
+            </div>
+            <div className={style.toggle}>
+              {active === 0 && <KENO data={game} />}
+              {active === 1 && (
+                <Multibet
+                  data={game?.multibet}
+                  handleStakeChange={handleStakeChange}
+                />
+              )}
+
+              {active !== 2 && <div className={style.betslip}>1</div>}
+            </div>
           </div>
         </div>
       )}

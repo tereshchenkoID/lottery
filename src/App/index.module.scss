@@ -23,6 +23,18 @@ input {
   }
 }
 
+input {
+  font-weight: var(--typography-medium);
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    @include make-spacer(m, 0);
+
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+  }
+}
+
 button,
 a {
   @include transition(all);

@@ -1,0 +1,16 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 8px);
+
+  background-color: var(--game_background_color);
+  border-radius: rem(20px);
+  width: 100%;
+}
+
+.container {
+  @include flex($direction: column);
+
+  gap: rem(4px);
+  border-radius: inherit;
+}

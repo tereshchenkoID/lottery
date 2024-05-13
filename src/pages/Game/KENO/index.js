@@ -29,6 +29,7 @@ const KENO = ({ data }) => {
       setSelectedCount(prevCount => prevCount + 1)
     }
     setNumbers(updatedNumbers)
+    setSelectedType(0)
   }
 
   const handleRandomClick = () => {
@@ -46,6 +47,7 @@ const KENO = ({ data }) => {
     })
     setNumbers(updatedNumbers)
     setSelectedCount(COUNT)
+    setSelectedType(0)
   }
 
   const handleColumnClick = columnNumber => {
@@ -55,11 +57,13 @@ const KENO = ({ data }) => {
     }
     setNumbers(updatedNumbers)
     setSelectedCount(COUNT)
+    setSelectedType(0)
   }
 
   const handleResetClick = () => {
     setNumbers(numbers.map(num => ({ ...num, active: false })))
     setSelectedCount(0)
+    setSelectedType(0)
   }
 
   const tips = useMemo(
@@ -71,144 +75,149 @@ const KENO = ({ data }) => {
   )
 
   return (
-    <div className={style.block}>
-      <div className={style.field}>
-        <div className={style.container}>
-          <div className={style.left}>
-            <p>Угадайте столбец</p>
-            <p>Где выпадет больше чисел?</p>
-          </div>
-          <div className={style.right}>
-            <div className={style.numbers}>
-              {Array.from({ length: 10 }).map((el, idx) => (
-                <div className={style.column} key={idx}>
-                  <button
-                    type={'button'}
-                    className={style.button}
-                    onClick={() => handleColumnClick(idx)}
-                  >
-                    {++idx}
-                  </button>
-                  <FontAwesomeIcon
-                    icon="fa-solid fa-caret-down"
-                    className={style.icon}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+    <div
+      className={classNames(
+        style.block,
+        (selectedCount === COUNT || selectedType !== 0) && style.active,
+      )}
+    >
+      <h6 className={style.title}>
+        Стоимость билета - {data.betCost} {auth.account.currency.symbol}
+      </h6>
+      <div className={style.container}>
+        <div className={style.left}>
+          <p>Угадайте столбец</p>
+          <p>Где выпадет больше чисел?</p>
         </div>
-
-        <div className={style.container}>
-          <div className={style.left}>
-            <p>Угадайте числа</p>
-            <p>Выберите от 1 до 10 чисел</p>
-
-            {tips.length > 0 && (
-              <div className={style.table}>
-                <div className={style.row}>
-                  <div className={style.cell}>{t('guessed')}</div>
-                  <div className={style.cell}>
-                    {t('winning')}, {auth.account.currency.symbol}
-                  </div>
-                </div>
-                {tips.map((el, idx) => (
-                  <div key={idx} className={style.row}>
-                    <div className={style.cell}>{el.a[2]}</div>
-                    <div className={style.cell}>{el.b}</div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-          <div className={style.right}>
-            <div className={style.numbers}>
-              {numbers.map((el, idx) => (
+        <div className={style.right}>
+          <div className={style.numbers}>
+            {Array.from({ length: 10 }).map((el, idx) => (
+              <div className={style.column} key={idx}>
                 <button
-                  key={idx}
                   type={'button'}
-                  className={classNames(
-                    style.button,
-                    el.active && style.active,
-                    selectedCount === COUNT && !el.active && style.disabled,
-                  )}
-                  onClick={() => handleNumberClick(idx)}
+                  className={style.button}
+                  onClick={() => handleColumnClick(idx)}
                 >
-                  {el.number}
+                  {++idx}
                 </button>
-              ))}
-            </div>
-            <button
-              type={'button'}
-              className={style.button}
-              onClick={handleRandomClick}
-            >
-              <FontAwesomeIcon icon="fa-solid fa-cube" className={style.icon} />
-              <span>{t('random')}</span>
-            </button>
-            <div className={style.actions}>
-              <button
-                type={'button'}
-                className={style.button}
-                onClick={handleResetClick}
-              >
-                <span>{t('reset')}</span>
-              </button>
-              <button
-                type={'button'}
-                className={classNames(
-                  style.button,
-                  selectedCount < COUNT && style.disabled,
-                )}
-              >
-                <span>{t('placebet')}</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className={style.container}>
-          <div className={style.left}>
-            <p>Угадайте чётность</p>
-            <p>Каких чисел выпадет больше?</p>
-          </div>
-          <div className={style.right}>
-            <div className={style.actions}>
-              <button
-                type={'button'}
-                className={classNames(
-                  style.button,
-                  selectedType === 1 && style.active,
-                )}
-                onClick={() => setSelectedType(selectedType === 1 ? 0 : 1)}
-              >
-                <span>{t('even')}</span>
-              </button>
-              <button
-                type={'button'}
-                className={classNames(
-                  style.button,
-                  selectedType === 2 && style.active,
-                )}
-                onClick={() => setSelectedType(selectedType === 2 ? 0 : 2)}
-              >
-                <span>{t('odd')}</span>
-              </button>
-              <button
-                type={'button'}
-                className={classNames(
-                  style.button,
-                  selectedType === 3 && style.active,
-                )}
-                onClick={() => setSelectedType(selectedType === 3 ? 0 : 3)}
-              >
-                <span>{t('equally')}</span>
-              </button>
-            </div>
+                <FontAwesomeIcon
+                  icon="fa-solid fa-caret-down"
+                  className={style.icon}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>
-      <div className={style.betslip}>1</div>
+
+      <div className={style.container}>
+        <div className={style.left}>
+          <p>Угадайте числа</p>
+          <p>Выберите от 1 до 10 чисел</p>
+
+          {tips.length > 0 && (
+            <div className={style.table}>
+              <div className={style.row}>
+                <div className={style.cell}>{t('guessed')}</div>
+                <div className={style.cell}>
+                  {t('winning')}, {auth.account.currency.symbol}
+                </div>
+              </div>
+              {tips.map((el, idx) => (
+                <div key={idx} className={style.row}>
+                  <div className={style.cell}>{el.a[2]}</div>
+                  <div className={style.cell}>{el.b}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className={style.right}>
+          <div className={style.numbers}>
+            {numbers.map((el, idx) => (
+              <button
+                key={idx}
+                type={'button'}
+                className={classNames(
+                  style.button,
+                  el.active && style.active,
+                  selectedCount === COUNT && !el.active && style.disabled,
+                )}
+                onClick={() => handleNumberClick(idx)}
+              >
+                {el.number}
+              </button>
+            ))}
+          </div>
+          <button
+            type={'button'}
+            className={style.button}
+            onClick={handleRandomClick}
+          >
+            <FontAwesomeIcon icon="fa-solid fa-cube" className={style.icon} />
+            <span>{t('random')}</span>
+          </button>
+          <div className={style.actions}>
+            <button
+              type={'button'}
+              className={style.button}
+              onClick={handleResetClick}
+            >
+              <span>{t('reset')}</span>
+            </button>
+            <button
+              type={'button'}
+              className={classNames(
+                style.button,
+                selectedCount < COUNT && style.disabled,
+              )}
+            >
+              <span>{t('placebet')}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className={style.container}>
+        <div className={style.left}>
+          <p>Угадайте чётность</p>
+          <p>Каких чисел выпадет больше?</p>
+        </div>
+        <div className={style.right}>
+          <div className={style.actions}>
+            <button
+              type={'button'}
+              className={classNames(
+                style.button,
+                selectedType === 1 && style.active,
+              )}
+              onClick={() => setSelectedType(selectedType === 1 ? 0 : 1)}
+            >
+              <span>{t('even')}</span>
+            </button>
+            <button
+              type={'button'}
+              className={classNames(
+                style.button,
+                selectedType === 2 && style.active,
+              )}
+              onClick={() => setSelectedType(selectedType === 2 ? 0 : 2)}
+            >
+              <span>{t('odd')}</span>
+            </button>
+            <button
+              type={'button'}
+              className={classNames(
+                style.button,
+                selectedType === 3 && style.active,
+              )}
+              onClick={() => setSelectedType(selectedType === 3 ? 0 : 3)}
+            >
+              <span>{t('equally')}</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

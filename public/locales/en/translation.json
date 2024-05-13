@@ -106,5 +106,10 @@
       "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
       "alt": "Lorem ipsum dolor"
     }
+  },
+  "multibet": {
+    "tickets": "Tickets",
+    "factor": "Factor",
+    "draws": "Draws"
   }
 }

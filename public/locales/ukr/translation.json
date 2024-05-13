@@ -106,5 +106,10 @@
       "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
       "alt": "Lorem ipsum dolor UA"
     }
+  },
+  "multibet": {
+    "tickets": "Tickets UA",
+    "factor": "Factor UA",
+    "draws": "Draws UA"
   }
 }

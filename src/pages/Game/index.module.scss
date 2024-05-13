@@ -13,7 +13,8 @@
 
   flex-grow: 1;
   border-radius: rem(32px) rem(32px) 0 0;
-  background-color: var(--color-white);
+  background-color: var(--game_color);
+  color: var(--font_color);
 
   @include media-breakpoint-up(lg) {
     @include make-spacer(pt, 24px);
@@ -38,18 +39,13 @@
   @include size(100%, rem(90px));
 }
 
-.jackpot {
-
-  span {
-    color: var(--color-warning);
-  }
-}
-
 .meta {
   @include make-spacer(pt, 8px);
   @include flex($align-items: center, $wrap: wrap);
 
   gap: rem(16px);
+  font-size: rem(18px);
+  font-weight: var(--typography-medium);
 }
 
 .icon {
@@ -58,4 +54,74 @@
 
 .time {
   font-weight: var(--typography-medium);
+}
+
+.hr {
+  @include size(rem(1px), rem(16px));
+
+}
+
+.body {
+  @include make-spacer(mt, 20px);
+}
+
+.tab {
+  @include flex;
+
+  gap: rem(8px);
+  height: rem(48px);
+}
+
+.button {
+  @include flex($align-items: center);
+  @include make-spacer(pl, 6px);
+  @include make-spacer(pr, 20px);
+
+  border-radius: rem(16px);
+  gap: rem(10px);
+  background-color: var(--game_button_color);
+  color: var(--game_button_font_color);
+  text-transform: uppercase;
+  font-weight: var(--typography-medium);
+  letter-spacing: rem(1px);
+  font-size: rem(14px);
+
+  .icon {
+    @include make-spacer(mr, 0);
+    @include flex(center, center);
+    @include size(rem(36px));
+
+    border-radius: rem(10px);
+    font-size: rem(20px);
+  }
+
+  &:hover {
+    background-color: var(--game_button_color_hover);
+    color: var(--game_button_font_color_hover);
+  }
+
+  &.active {
+    pointer-events: none;
+    background-color: var(--game_button_color_active);
+    color: var(--game_button_font_color_active);
+
+    .icon {
+      color: var(--game_icon_color_active);
+      background-color: var(--game_icon_color);
+    }
+  }
+}
+
+.toggle {
+  @include flex($align-items: flex-start);
+  @include make-spacer(py, 24px);
+
+  gap: rem(16px);
+}
+
+.betslip {
+  flex-shrink: 0;
+  width: rem(290px);
+  border-radius: rem(20px);
+  background-color: var(--game_betslip_color);
 }
