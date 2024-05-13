@@ -3,6 +3,10 @@ import { Route, Routes } from 'react-router-dom'
 import { Suspense, useEffect, useState } from 'react'
 import i18n from 'i18next'
 
+import { Tooltip } from 'react-tooltip'
+import 'react-tooltip/dist/react-tooltip.css'
+import 'rc-slider/assets/index.css'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -55,6 +59,7 @@ const App = () => {
       </div>
       <Footer />
       <Toastify />
+      <Tooltip id="tooltip" place={'bottom-start'} />
     </main>
   )
 }

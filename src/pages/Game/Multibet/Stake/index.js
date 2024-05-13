@@ -4,11 +4,13 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
+import Range from 'components/Range'
+
 const Stake = ({ data, index, handleStakeChange }) => {
   const { t } = useTranslation()
 
-  const handleInputChange = e => {
-    const newValue = parseInt(e.currentTarget.value, 10)
+  const handleInputChange = value => {
+    const newValue = parseInt(value, 10)
     if (!isNaN(newValue)) {
       const newValueInRange = Math.min(Math.max(newValue, data.min), data.max)
       handleStakeChange(index, newValueInRange)
@@ -17,7 +19,7 @@ const Stake = ({ data, index, handleStakeChange }) => {
 
   return (
     <div className={style.block}>
-      <h6 className={style.title}>{t(`multibet.${data.name}`)}</h6>
+      <h6 className={style.title}>{t(`multibet.${data.name}`)}:</h6>
       <div className={style.control}>
         <button
           type="button"
@@ -37,7 +39,7 @@ const Stake = ({ data, index, handleStakeChange }) => {
           value={data.value}
           min={data.min}
           max={data.max}
-          onChange={handleInputChange}
+          onChange={e => handleInputChange(e.currentTarget.value)}
         />
         <button
           type="button"
@@ -52,6 +54,7 @@ const Stake = ({ data, index, handleStakeChange }) => {
           +
         </button>
       </div>
+      <Range data={data} onChange={handleInputChange} />
     </div>
   )
 }

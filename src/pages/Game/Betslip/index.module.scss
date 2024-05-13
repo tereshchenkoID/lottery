@@ -1,0 +1,27 @@
+@import 'scss/config';
+
+.block {
+  @include flex(center, center, column);
+  @include make-spacer(p, 8px);
+
+  background-color: var(--game_betslip_color);
+  border-radius: rem(20px);
+  height: rem(232px);
+
+  @include media-breakpoint-up(lg) {
+    position: sticky;
+    top: rem(90px);
+  }
+}
+
+
+.icon {
+  @include make-spacer(mb, 16px);
+  @include flex(center, center);
+  @include size(rem(80px));
+
+  border-radius: 50%;
+  color: var(--font_color);
+  font-size: rem(32px);
+  background-color: var(--game_container_color);
+}

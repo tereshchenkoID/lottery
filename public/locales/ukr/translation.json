@@ -40,6 +40,11 @@
   "even": "Even UA",
   "odd": "Odd UA",
   "equally": "Equally UA",
+  "place_bet": "Place your bet UA",
+  "ticket_price": "Ticket price UA",
+  "tickets": "Tickets UA",
+  "multi": "Multibet UA",
+  "archive": "Archive UA",
   "games": {
     "1": {
       "title": "Lorem ipsum dolor UA",
@@ -54,7 +59,19 @@
     "3": {
       "title": "Lorem ipsum dolor UA",
       "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
-      "alt": "Lorem ipsum dolor UA"
+      "alt": "Lorem ipsum dolor UA",
+      "tooltip": {
+        "1": "If the selected column contains more numbers from the winning combination than the other columns, you win. UA",
+        "2": "Your winnings depend on the number of selected and guessed numbers. UA",
+        "3": "Guess which numbers will be more in the drawing - even or odd. UA"
+      },
+      "rules": {
+        "1": "Guess the column UA",
+        "2": "Guess the numbers UA",
+        "3": "Guess the parity UA",
+        "4": "Select from 1 to 8 numbers UA",
+        "5": "Which numbers will come up more? UA"
+      }
     },
     "4": {
       "title": "Lorem ipsum dolor UA",

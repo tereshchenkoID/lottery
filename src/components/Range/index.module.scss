@@ -1,0 +1,30 @@
+@import 'scss/config';
+
+.block {
+  position: relative;
+}
+
+.slider {
+  @include make-spacer(px, 20px);
+
+  background-color: var(--color-black);
+  border-radius: rem(20px);
+  overflow: hidden;
+}
+
+.scale {
+  @include flex(space-between, center);
+
+  position: absolute;
+  top: calc(100% + rem(4px));
+  left: 0;
+  right: 0;
+  font-size: rem(12px);
+  font-weight: var(--typography-medium);
+  letter-spacing: rem(1px);
+
+  span {
+    text-align: center;
+    width: rem(40px);
+  }
+}

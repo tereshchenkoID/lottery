@@ -1,0 +1,18 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(mb, 4px);
+  @include flex($align-items: center);
+
+  gap: rem(8px);
+}
+
+.label {
+  @include size(rem(24px));
+
+  cursor: pointer;
+}
+
+.icon {
+  font-size: rem(18px);
+}

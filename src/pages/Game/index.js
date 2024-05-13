@@ -11,6 +11,8 @@ import { getData } from 'helpers/api'
 import Games from 'modules/Games'
 import Loader from 'components/Loader'
 import Multibet from './Multibet'
+import Betslip from './Betslip'
+
 import KENO from './KENO'
 
 import style from './index.module.scss'
@@ -114,7 +116,7 @@ const Game = () => {
                 <span className={style.icon}>
                   <FontAwesomeIcon icon="fa-solid fa-ticket" />
                 </span>
-                <span>Tickets</span>
+                <span>{t('tickets')}</span>
               </button>
               <button
                 type="button"
@@ -127,7 +129,7 @@ const Game = () => {
                 <span className={style.icon}>
                   <FontAwesomeIcon icon="fa-solid fa-sliders" />
                 </span>
-                <span>Multibet</span>
+                <span>{t('multi')}</span>
               </button>
               <button
                 type="button"
@@ -140,19 +142,25 @@ const Game = () => {
                 <span className={style.icon}>
                   <FontAwesomeIcon icon="fa-solid fa-folder" />
                 </span>
-                <span>Archive</span>
+                <span>{t('archive')}</span>
               </button>
             </div>
             <div className={style.toggle}>
-              {active === 0 && <KENO data={game} />}
-              {active === 1 && (
-                <Multibet
-                  data={game?.multibet}
-                  handleStakeChange={handleStakeChange}
-                />
-              )}
+              <div className={style.column}>
+                {active === 0 && <KENO data={game} />}
+                {active === 1 && (
+                  <Multibet
+                    data={game?.multibet}
+                    handleStakeChange={handleStakeChange}
+                  />
+                )}
+              </div>
 
-              {active !== 2 && <div className={style.betslip}>1</div>}
+              {active !== 2 && (
+                <div className={style.column}>
+                  <Betslip stakes={null} />
+                </div>
+              )}
             </div>
           </div>
         </div>

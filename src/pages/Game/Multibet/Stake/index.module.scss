@@ -1,22 +1,33 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(py, 22px);
-  @include make-spacer(px, 24px);
+  @include make-spacer(pt, 16px);
+  @include make-spacer(px, 16px);
+  @include make-spacer(pb, 24px);
 
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  gap: rem(8px);
   align-items: center;
-  color: var(--color-white);
-  background-color: var(--game_container_color);
-  border-radius: rem(18px);
+  color: var(--font_color);
   width: 100%;
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(pt, 24px);
+    @include make-spacer(px, 24px);
+    @include make-spacer(pb, 32px);
+
+    grid-template-columns: 1fr auto 1fr;
+  }
 }
 
 .control {
   display: grid;
-  grid-template-columns: rem(40px) rem(68px) rem(48px);
+  grid-template-columns: rem(40px) 1fr rem(48px);
   gap: rem(4px);
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: rem(40px) rem(68px) rem(48px);
+  }
 }
 
 .field {

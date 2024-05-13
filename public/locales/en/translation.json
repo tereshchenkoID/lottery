@@ -40,6 +40,11 @@
   "even": "Even",
   "odd": "Odd",
   "equally": "Equally",
+  "place_bet": "Place your bet",
+  "ticket_price": "Ticket price",
+  "tickets": "Tickets",
+  "multi": "Multibet",
+  "archive": "Archive",
   "games": {
     "1": {
       "title": "Lorem ipsum dolor",
@@ -54,7 +59,19 @@
     "3": {
       "title": "Lorem ipsum dolor",
       "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
-      "alt": "Lorem ipsum dolor"
+      "alt": "Lorem ipsum dolor",
+      "tooltip": {
+        "1": "If the selected column contains more numbers from the winning combination than the other columns, you win.",
+        "2": "Your winnings depend on the number of selected and guessed numbers.",
+        "3": "Guess which numbers will be more in the drawing - even or odd."
+      },
+      "rules": {
+        "1": "Guess the column",
+        "2": "Guess the numbers",
+        "3": "Guess the parity",
+        "4": "Select from 1 to 8 numbers",
+        "5": "Which numbers will come up more?"
+      }
     },
     "4": {
       "title": "Lorem ipsum dolor",

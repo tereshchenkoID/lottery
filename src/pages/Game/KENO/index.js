@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 
+import Tooltip from 'components/Tooltip'
+
 import style from './index.module.scss'
 
 const KENO = ({ data }) => {
@@ -82,11 +84,14 @@ const KENO = ({ data }) => {
       )}
     >
       <h6 className={style.title}>
-        Стоимость билета - {data.betCost} {auth.account.currency.symbol}
+        {t('ticket_price')} - {data.betCost} {auth.account.currency.symbol}
       </h6>
       <div className={style.container}>
         <div className={style.left}>
-          <p>Угадайте столбец</p>
+          <Tooltip
+            text={t(`games.${data.id}.rules.1`)}
+            placeholder={t(`games.${data.id}.tooltip.1`)}
+          />
           <p>Где выпадет больше чисел?</p>
         </div>
         <div className={style.right}>
@@ -112,8 +117,11 @@ const KENO = ({ data }) => {
 
       <div className={style.container}>
         <div className={style.left}>
-          <p>Угадайте числа</p>
-          <p>Выберите от 1 до 10 чисел</p>
+          <Tooltip
+            text={t(`games.${data.id}.rules.2`)}
+            placeholder={t(`games.${data.id}.tooltip.2`)}
+          />
+          <p>{t(`games.${data.id}.rules.4`)}</p>
 
           {tips.length > 0 && (
             <div className={style.table}>
@@ -180,8 +188,11 @@ const KENO = ({ data }) => {
 
       <div className={style.container}>
         <div className={style.left}>
-          <p>Угадайте чётность</p>
-          <p>Каких чисел выпадет больше?</p>
+          <Tooltip
+            text={t(`games.${data.id}.rules.3`)}
+            placeholder={t(`games.${data.id}.tooltip.3`)}
+          />
+          <p>{t(`games.${data.id}.rules.5`)}</p>
         </div>
         <div className={style.right}>
           <div className={style.actions}>

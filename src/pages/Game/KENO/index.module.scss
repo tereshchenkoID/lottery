@@ -2,12 +2,23 @@
 
 .block {
   @include transition(border-color);
-  @include make-spacer(p, 4px);
+  @include make-spacer(mx, auto);
+  @include make-spacer(p, 8px);
 
+  background-color: var(--game_container_color);
   border: rem(4px) solid var(--game_border_color);
-  background-color: var(--game_background_color);
   border-radius: rem(20px);
-  width: 100%;
+  max-width: rem(500px);
+
+  @include media-breakpoint-up(md) {
+    max-width: 100%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 4px);
+
+    background-color: var(--game_background_color);
+  }
 
   &.active {
     border-color: var(--game_border_color_active);
@@ -15,25 +26,32 @@
 }
 
 .title {
-  @include make-spacer(py, 15px);
-  @include make-spacer(px, 10px);
-
   color: var(--font_color);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(py, 15px);
+    @include make-spacer(px, 10px);
+  }
 }
 
 .container {
   @include make-spacer(mb, 4px);
-  @include make-spacer(py, 22px);
-  @include make-spacer(px, 24px);
+  @include make-spacer(pt, 8px);
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   border-radius: rem(20px);
   background-color: var(--game_container_color);
-  gap: rem(4px);
+  row-gap: rem(16px);
+  column-gap: rem(4px);
 
   &:last-child {
     @include make-spacer(mb, 0);
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 22px);
+
+    grid-template-columns: 1fr minmax(rem(400px), 1fr);
   }
 }
 
@@ -61,8 +79,7 @@
 
 .numbers {
   display: grid;
-  grid-template-columns: repeat(10, minmax(rem(30px), rem(40px)));
-  justify-content: space-between;
+  grid-template-columns: repeat(10, 1fr);
   gap: rem(4px);
 
   .button {
@@ -77,13 +94,18 @@
   @include size(100%, rem(40px));
   @include flex(center, center);
 
-  border-radius: rem(12px);
+  border-radius: rem(8px);
   box-shadow: inset 0 rem(2px) 0 var(--game_button_box_shadow);
   background-color: var(--game_button_color);
   color: var(--game_button_font_color);
-  font-size: rem(18px);
+  font-size: rem(14px);
   line-height: rem(28px);
   font-weight: var(--typography-bold);
+
+  @include media-breakpoint-up(lg) {
+    border-radius: rem(12px);
+    font-size: rem(18px);
+  }
 
   &:not(.active) {
 
@@ -117,6 +139,12 @@
 .table {
   @include make-spacer(pt, 16px);
   @include make-spacer(pr, 32px);
+
+  display: none;
+
+  @include media-breakpoint-up(lg) {
+    display: block;
+  }
 }
 
 .row {
