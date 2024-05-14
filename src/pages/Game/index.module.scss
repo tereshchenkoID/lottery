@@ -101,6 +101,7 @@
   font-weight: var(--typography-medium);
   letter-spacing: rem(1px);
   font-size: rem(14px);
+  white-space: nowrap;
 
   @include media-breakpoint-up(lg) {
     border-radius: rem(12px);
@@ -145,7 +146,7 @@
 
   gap: rem(16px);
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     flex-direction: row;
   }
 }
@@ -159,6 +160,6 @@
 
   &:nth-child(2) {
     flex-shrink: 0;
-    width: rem(290px);
+    width: rem(325px);
   }
 }

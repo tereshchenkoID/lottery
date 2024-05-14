@@ -45,6 +45,8 @@
   "tickets": "Tickets UA",
   "multi": "Multibet UA",
   "archive": "Archive UA",
+  "amount": "Amount UA",
+  "add_bonus": "Add bonuses UA",
   "games": {
     "1": {
       "title": "Lorem ipsum dolor UA",
@@ -63,14 +65,19 @@
       "tooltip": {
         "1": "If the selected column contains more numbers from the winning combination than the other columns, you win. UA",
         "2": "Your winnings depend on the number of selected and guessed numbers. UA",
-        "3": "Guess which numbers will be more in the drawing - even or odd. UA"
+        "3": "Guess which numbers will be more in the drawing - even or odd. UA",
+        "4": "Increase your possible winnings by a multiple of the selected multiplier. Does not apply to the “Super Prize” category. UA",
+        "5": "Your tickets will be played in several draws in a row. This significantly increases the chances of winning a Super Prize. UA"
       },
       "rules": {
         "1": "Guess the column UA",
         "2": "Guess the numbers UA",
         "3": "Guess the parity UA",
         "4": "Select from 1 to 8 numbers UA",
-        "5": "Which numbers will come up more? UA"
+        "5": "Which numbers will come up more? UA",
+        "6": "Factor UA",
+        "7": "Draw UA",
+        "8": "Where will the most numbers appear? UA"
       }
     },
     "4": {
@@ -127,6 +134,7 @@
   "multibet": {
     "tickets": "Tickets UA",
     "factor": "Factor UA",
-    "draws": "Draws UA"
+    "draws": "Draws UA",
+    "numbers": "Numbers UA"
   }
 }

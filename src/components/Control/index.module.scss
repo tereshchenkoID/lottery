@@ -1,0 +1,51 @@
+@import 'scss/config';
+
+.block {
+  display: grid;
+  grid-template-columns: rem(40px) 1fr rem(48px);
+  gap: rem(4px);
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: rem(40px) rem(68px) rem(48px);
+  }
+}
+
+.field {
+  @include transition(border-color);
+
+  border-radius: rem(12px);
+  border: rem(2px) solid transparent;
+  background-color: transparent;
+  text-align: center;
+  color: var(--font_color);
+
+  &:hover {
+    border-color: var(--game_button_color);
+  }
+
+  &:focus {
+    border-color: var(--font_color);
+  }
+}
+
+.button {
+  @include size(rem(40px));
+  @include flex(center, center);
+
+  border-radius: rem(12px);
+  background-color: var(--game_button_color);
+  color: var(--game_button_font_color);
+  font-size: rem(24px);
+  line-height: rem(28px);
+  font-weight: var(--typography-bold);
+
+  &:hover {
+    background-color: var(--game_button_color_hover);
+    color: var(--game_button_font_color_hover);
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

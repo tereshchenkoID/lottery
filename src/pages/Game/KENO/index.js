@@ -1,17 +1,23 @@
 import React, { useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
+
+import { betType } from 'constant/config'
+
+import { setBetslip } from 'store/actions/betslipAction'
 
 import Tooltip from 'components/Tooltip'
 
 import style from './index.module.scss'
 
-const KENO = ({ data }) => {
+const KENO = ({ game }) => {
   const COUNT = 8
+  const dispatch = useDispatch()
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
+  const { betslip } = useSelector(state => state.betslip)
   const [selectedType, setSelectedType] = useState(0)
   const [selectedCount, setSelectedCount] = useState(0)
   const [numbers, setNumbers] = useState(
@@ -20,6 +26,15 @@ const KENO = ({ data }) => {
       active: false,
     })),
   )
+
+  const updateBetslip = numbers => {
+    dispatch(
+      setBetslip({
+        ...betslip,
+        odds: numbers.length > 0 ? [{ numbers: numbers }] : [],
+      }),
+    )
+  }
 
   const handleNumberClick = numberIndex => {
     const updatedNumbers = [...numbers]
@@ -32,6 +47,7 @@ const KENO = ({ data }) => {
     }
     setNumbers(updatedNumbers)
     setSelectedType(0)
+    updateBetslip(activeNumbers(updatedNumbers))
   }
 
   const handleRandomClick = () => {
@@ -50,6 +66,7 @@ const KENO = ({ data }) => {
     setNumbers(updatedNumbers)
     setSelectedCount(COUNT)
     setSelectedType(0)
+    updateBetslip(activeNumbers(updatedNumbers))
   }
 
   const handleColumnClick = columnNumber => {
@@ -60,21 +77,33 @@ const KENO = ({ data }) => {
     setNumbers(updatedNumbers)
     setSelectedCount(COUNT)
     setSelectedType(0)
+    updateBetslip(activeNumbers(updatedNumbers))
+  }
+
+  const handleTypeClick = id => {
+    const t = selectedType === id ? 0 : id
+    setNumbers(numbers.map(num => ({ ...num, active: false })))
+    setSelectedCount(0)
+    setSelectedType(t)
+    updateBetslip(t === 0 ? [] : [betType[id]])
   }
 
   const handleResetClick = () => {
     setNumbers(numbers.map(num => ({ ...num, active: false })))
     setSelectedCount(0)
     setSelectedType(0)
+    updateBetslip([])
   }
 
-  const tips = useMemo(
+  const activeTips = useMemo(
     () =>
-      data.odds.numbers
+      game.odds.numbers
         .filter(market => Number(market.a[0]) === selectedCount)
         .sort((a, b) => b.b - a.b),
-    [data, selectedCount],
+    [game, selectedCount],
   )
+
+  const activeNumbers = num => num.filter(el => el.active).map(el => el.number)
 
   return (
     <div
@@ -84,15 +113,15 @@ const KENO = ({ data }) => {
       )}
     >
       <h6 className={style.title}>
-        {t('ticket_price')} - {data.betCost} {auth.account.currency.symbol}
+        {t('ticket_price')} - {game.betCost} {auth.account.currency.symbol}
       </h6>
       <div className={style.container}>
         <div className={style.left}>
           <Tooltip
-            text={t(`games.${data.id}.rules.1`)}
-            placeholder={t(`games.${data.id}.tooltip.1`)}
+            text={t(`games.${game.id}.rules.1`)}
+            placeholder={t(`games.${game.id}.tooltip.1`)}
           />
-          <p>Где выпадет больше чисел?</p>
+          <p>{t(`games.${game.id}.rules.8`)}</p>
         </div>
         <div className={style.right}>
           <div className={style.numbers}>
@@ -118,12 +147,12 @@ const KENO = ({ data }) => {
       <div className={style.container}>
         <div className={style.left}>
           <Tooltip
-            text={t(`games.${data.id}.rules.2`)}
-            placeholder={t(`games.${data.id}.tooltip.2`)}
+            text={t(`games.${game.id}.rules.2`)}
+            placeholder={t(`games.${game.id}.tooltip.2`)}
           />
-          <p>{t(`games.${data.id}.rules.4`)}</p>
+          <p>{t(`games.${game.id}.rules.4`)}</p>
 
-          {tips.length > 0 && (
+          {activeTips.length > 0 && (
             <div className={style.table}>
               <div className={style.row}>
                 <div className={style.cell}>{t('guessed')}</div>
@@ -131,7 +160,7 @@ const KENO = ({ data }) => {
                   {t('winning')}, {auth.account.currency.symbol}
                 </div>
               </div>
-              {tips.map((el, idx) => (
+              {activeTips.map((el, idx) => (
                 <div key={idx} className={style.row}>
                   <div className={style.cell}>{el.a[2]}</div>
                   <div className={style.cell}>{el.b}</div>
@@ -189,10 +218,10 @@ const KENO = ({ data }) => {
       <div className={style.container}>
         <div className={style.left}>
           <Tooltip
-            text={t(`games.${data.id}.rules.3`)}
-            placeholder={t(`games.${data.id}.tooltip.3`)}
+            text={t(`games.${game.id}.rules.3`)}
+            placeholder={t(`games.${game.id}.tooltip.3`)}
           />
-          <p>{t(`games.${data.id}.rules.5`)}</p>
+          <p>{t(`games.${game.id}.rules.5`)}</p>
         </div>
         <div className={style.right}>
           <div className={style.actions}>
@@ -202,7 +231,7 @@ const KENO = ({ data }) => {
                 style.button,
                 selectedType === 1 && style.active,
               )}
-              onClick={() => setSelectedType(selectedType === 1 ? 0 : 1)}
+              onClick={() => handleTypeClick(1)}
             >
               <span>{t('even')}</span>
             </button>
@@ -212,7 +241,7 @@ const KENO = ({ data }) => {
                 style.button,
                 selectedType === 2 && style.active,
               )}
-              onClick={() => setSelectedType(selectedType === 2 ? 0 : 2)}
+              onClick={() => handleTypeClick(2)}
             >
               <span>{t('odd')}</span>
             </button>
@@ -222,7 +251,7 @@ const KENO = ({ data }) => {
                 style.button,
                 selectedType === 3 && style.active,
               )}
-              onClick={() => setSelectedType(selectedType === 3 ? 0 : 3)}
+              onClick={() => handleTypeClick(3)}
             >
               <span>{t('equally')}</span>
             </button>

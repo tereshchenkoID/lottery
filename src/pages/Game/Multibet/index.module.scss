@@ -13,4 +13,8 @@
   gap: rem(16px);
   border-radius: inherit;
   background-color: var(--game_container_color);
+
+  @include media-breakpoint-up(lg) {
+    gap: 0;
+  }
 }
