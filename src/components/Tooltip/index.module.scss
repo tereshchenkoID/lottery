@@ -1,10 +1,11 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(mb, 4px);
+  @include make-spacer(my, 4px);
   @include flex($align-items: center);
 
   gap: rem(8px);
+  flex-shrink: 0;
 }
 
 .label {
