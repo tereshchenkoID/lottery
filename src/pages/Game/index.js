@@ -100,8 +100,10 @@ const Game = () => {
         amount: game?.betCost,
         amountStep: game?.betCost,
         type: active === 0 ? ticketType.single : ticketType.multi,
-        bet: active === 0 ? game?.bet?.single : game?.bet.multi,
+        activeTicket: null,
+        tickets: [],
         odds: [],
+        bet: active === 0 ? game?.bet?.single : game?.bet.multi,
       }),
     )
   }, [dispatch, auth.id, game, active])

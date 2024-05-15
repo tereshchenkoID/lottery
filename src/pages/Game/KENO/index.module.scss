@@ -25,6 +25,14 @@
   }
 }
 
+.meta {
+  @include flex(space-between, center);
+
+  button {
+    color: var(--font_color);
+  }
+}
+
 .title {
   color: var(--font_color);
 

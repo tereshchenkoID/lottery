@@ -44,11 +44,46 @@ const Betslip = ({ game, type }) => {
     )
   }
 
+  const handleLoadTicket = idx => {
+    dispatch(
+      setBetslip({
+        ...betslip,
+        activeTicket: idx,
+      }),
+    )
+  }
+
+  const handleDeleteTicket = idx => {
+    const updatedTickets = [...betslip.tickets]
+    updatedTickets.splice(idx, 1)
+
+    dispatch(
+      setBetslip({
+        ...betslip,
+        tickets: updatedTickets,
+        activeTicket: null,
+      }),
+    )
+  }
+
   return (
     <div className={style.block}>
+      <div className={style.tickets}>
+        {betslip?.tickets?.map((el, idx) => (
+          <div key={idx} className={style.item}>
+            <button onClick={() => handleLoadTicket(idx)}>
+              {t('ticket')} #{el?.id}
+            </button>
+            <button onClick={() => handleDeleteTicket(idx)}>
+              <FontAwesomeIcon icon="fa-solid fa-xmark" />
+            </button>
+          </div>
+        ))}
+      </div>
+
       <pre>{JSON.stringify(betslip, null, 2)}</pre>
 
-      {betslip?.odds?.length > 0 ? (
+      {betslip?.odds?.length > 0 || betslip?.tickets?.length > 0 ? (
         <>
           {type === ticketType.single && (
             <div className={style.container}>

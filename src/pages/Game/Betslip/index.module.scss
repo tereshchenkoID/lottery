@@ -14,6 +14,30 @@
   }
 }
 
+.tickets {
+  @include flex($direction: column);
+
+  gap: rem(8px);
+}
+
+.item {
+  @include make-spacer(px, 12px);
+  @include flex(space-between, center);
+
+  background-color: var(--game_button_color);
+  border-radius: rem(12px);
+  height: rem(40px);
+
+  svg {
+    font-size: rem(20px);
+    color: var(--color-warning);
+  }
+
+  button {
+    color: var(--font_color);
+  }
+}
+
 .icon {
   @include make-spacer(mb, 16px);
   @include flex(center, center);

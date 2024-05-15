@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -31,7 +31,7 @@ const KENO = ({ game }) => {
     dispatch(
       setBetslip({
         ...betslip,
-        odds: numbers.length > 0 ? [{ numbers: numbers }] : [],
+        odds: numbers,
       }),
     )
   }
@@ -95,6 +95,39 @@ const KENO = ({ game }) => {
     updateBetslip([])
   }
 
+  const handlePlaceBet = () => {
+    let updatedTickets
+
+    if (betslip.activeTicket !== null) {
+      updatedTickets = [...betslip.tickets]
+      updatedTickets[betslip.activeTicket] = {
+        ...updatedTickets[betslip.activeTicket],
+        numbers: betslip.odds,
+      }
+    } else {
+      const newId = (betslip.tickets[betslip.tickets.length - 1]?.id || 0) + 1
+      updatedTickets = [
+        ...betslip.tickets,
+        {
+          id: newId,
+          numbers: betslip.odds,
+        },
+      ]
+    }
+
+    dispatch(
+      setBetslip({
+        ...betslip,
+        tickets: updatedTickets,
+        activeTicket: null,
+        odds: [],
+      }),
+    )
+    setNumbers(numbers.map(num => ({ ...num, active: false })))
+    setSelectedCount(0)
+    setSelectedType(0)
+  }
+
   const activeTips = useMemo(
     () =>
       game.odds.numbers
@@ -105,6 +138,44 @@ const KENO = ({ game }) => {
 
   const activeNumbers = num => num.filter(el => el.active).map(el => el.number)
 
+  const handleLoadNumbers = idx => {
+    const n = betslip?.tickets[idx]?.numbers
+    let a = [...numbers]
+    let r = []
+
+    if (n) {
+      if (n.length > 1) {
+        const s = new Set(n)
+        r = a.map(num => ({ ...num, active: s.has(idx + 1) }))
+      } else {
+        const s = () => {
+          const key = Object.keys(betType).find(
+            key => betType[key] === Number(betslip?.tickets[idx]?.numbers),
+          )
+          return key ? { key: [key], value: betType[key] } : undefined
+        }
+        r = s().value
+
+        setSelectedType(s().key)
+      }
+
+      setNumbers(r)
+    }
+  }
+
+  const handleCloseTicket = () => {
+    dispatch(
+      setBetslip({
+        ...betslip,
+        activeTicket: null,
+      }),
+    )
+  }
+
+  useEffect(() => {
+    handleLoadNumbers(betslip.activeTicket)
+  }, [betslip.activeTicket])
+
   return (
     <div
       className={classNames(
@@ -112,6 +183,14 @@ const KENO = ({ game }) => {
         (selectedCount === COUNT || selectedType !== 0) && style.active,
       )}
     >
+      {betslip.activeTicket !== null && (
+        <div className={style.meta}>
+          <p>Ticket #{betslip.tickets[betslip.activeTicket].id}</p>
+          <button onClick={() => handleCloseTicket()}>
+            <FontAwesomeIcon icon="fa-solid fa-xmark" />
+          </button>
+        </div>
+      )}
       <h6 className={style.title}>
         {t('ticket_price')} - {game.betCost} {auth.account.currency.symbol}
       </h6>
@@ -143,7 +222,6 @@ const KENO = ({ game }) => {
           </div>
         </div>
       </div>
-
       <div className={style.container}>
         <div className={style.left}>
           <Tooltip
@@ -206,15 +284,15 @@ const KENO = ({ game }) => {
               type={'button'}
               className={classNames(
                 style.button,
-                selectedCount < COUNT && style.disabled,
+                betslip?.odds?.length === 0 && style.disabled,
               )}
+              onClick={() => handlePlaceBet()}
             >
               <span>{t('placebet')}</span>
             </button>
           </div>
         </div>
       </div>
-
       <div className={style.container}>
         <div className={style.left}>
           <Tooltip
