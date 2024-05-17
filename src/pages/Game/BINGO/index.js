@@ -86,7 +86,7 @@ const BINGO = ({ auth, betslip, game }) => {
       <div className={style.container}>
         <Button
           placeholder={t('load_more')}
-          classes={style.more}
+          styles={{ width: '100%' }}
           onChange={() => {}}
         />
       </div>

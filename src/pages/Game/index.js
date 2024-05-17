@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
@@ -14,6 +14,7 @@ import { setBetslip } from 'store/actions/betslipAction'
 
 import Games from 'modules/Games'
 import Loader from 'components/Loader'
+import Button from 'components/Button'
 import Multibet from './Multibet'
 import Betslip from './Betslip'
 
@@ -33,6 +34,24 @@ const getGames = (id, auth, betslip, game) => {
   }
 }
 
+const TABS = [
+  {
+    value: 0,
+    text: 'tickets',
+    icon: 'fa-ticket',
+  },
+  {
+    value: 1,
+    text: 'multi',
+    icon: 'fa-sliders',
+  },
+  {
+    value: 2,
+    text: 'archive',
+    icon: 'fa-folder',
+  },
+]
+
 const Game = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -42,6 +61,7 @@ const Game = () => {
   const [game, setGame] = useState({})
   const [loading, setLoading] = useState(true)
   const [active, setActive] = useState(0)
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
     setLoading(true)
@@ -56,6 +76,7 @@ const Game = () => {
             userType: userType.user,
             gameId: json?.id,
             bonusAmount: json?.bonusAmount,
+            type: active,
             bet: json?.bet,
           }),
         )
@@ -65,24 +86,57 @@ const Game = () => {
     })
   }, [gameId])
 
+  const handleActive = idx => {
+    setActive(idx)
+    dispatch(
+      setBetslip({
+        ...betslip,
+        type: idx,
+      }),
+    )
+  }
+
+  useEffect(() => {
+    if (show) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+  }, [show])
+
   return (
-    <div className={style.block}>
+    <div className={style.block} style={{ ...game.skin }}>
+      <div
+        className={classNames(style.shadow, show && style.active)}
+        onClick={() => setShow(!show)}
+      />
+      <div className={style.betslip}>
+        <Button
+          placeholder={`${t('place_bet')} ${betslip.bet?.[active]?.amount} ${auth.account.currency.symbol}`}
+          onChange={() => setShow(!show)}
+          styles={{ width: '100%' }}
+        />
+      </div>
       <Games />
 
       {loading ? (
         <Loader />
       ) : (
-        <div className={style.content} style={{ ...game.skin }}>
+        <div className={style.content}>
           <div className={style.header}>
             <div className={style.info}>
               <div className={style.picture}>
-                <img src={game.image} alt={game.name} loading={'lazy'} />
+                <img
+                  src={game.image}
+                  alt={t(`games.${game.id}.title`)}
+                  loading={'lazy'}
+                />
               </div>
               <div>
                 <h6>{t(`games.${game.id}.title`)}</h6>
                 {game.jackpots && (
                   <h4>
-                    {t('jackpot')} -{' '}
+                    {t('jackpot')} -
                     <span>
                       {auth.account.currency.symbol} {game.jackpots}
                     </span>
@@ -96,59 +150,36 @@ const Game = () => {
                   icon="fa-solid fa-ticket"
                   className={style.icon}
                 />
-                {game.round?.id}
+                <span>{game.round?.id}</span>
               </div>
               <hr className={style.hr} />
-              <div className={style.time}>
+              <div>
                 <FontAwesomeIcon
                   icon="fa-solid fa-clock"
                   className={style.icon}
                 />
-                {getDate(game?.time, 1)}
+                <span>{getDate(game?.time, 1)}</span>
               </div>
             </div>
           </div>
           <div className={style.body}>
             <div className={style.tab}>
-              <button
-                type="button"
-                className={classNames(
-                  style.button,
-                  active === 0 && style.active,
-                )}
-                onClick={() => setActive(0)}
-              >
-                <span className={style.icon}>
-                  <FontAwesomeIcon icon="fa-solid fa-ticket" />
-                </span>
-                <span>{t('tickets')}</span>
-              </button>
-              <button
-                type="button"
-                className={classNames(
-                  style.button,
-                  active === 1 && style.active,
-                )}
-                onClick={() => setActive(1)}
-              >
-                <span className={style.icon}>
-                  <FontAwesomeIcon icon="fa-solid fa-sliders" />
-                </span>
-                <span>{t('multi')}</span>
-              </button>
-              <button
-                type="button"
-                className={classNames(
-                  style.button,
-                  active === 2 && style.active,
-                )}
-                onClick={() => setActive(2)}
-              >
-                <span className={style.icon}>
-                  <FontAwesomeIcon icon="fa-solid fa-folder" />
-                </span>
-                <span>{t('archive')}</span>
-              </button>
+              {TABS.map((el, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={classNames(
+                    style.button,
+                    active === el.value && style.active,
+                  )}
+                  onClick={() => handleActive(el.value)}
+                >
+                  <span className={style.icon}>
+                    <FontAwesomeIcon icon={`fa-solid ${el.icon}`} />
+                  </span>
+                  <span>{t(el.text)}</span>
+                </button>
+              ))}
             </div>
             <div className={style.toggle}>
               <div className={style.column}>
@@ -163,6 +194,8 @@ const Game = () => {
                     betslip={betslip}
                     game={game}
                     active={active}
+                    show={show}
+                    setShow={setShow}
                   />
                 </div>
               )}

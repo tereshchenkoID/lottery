@@ -144,10 +144,6 @@
   }
 }
 
-.more {
-  width: 100%;
-}
-
 .button {
   @include size(100%, rem(30px));
   @include flex(center, center);

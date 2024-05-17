@@ -6,6 +6,39 @@
   flex-grow: 1;
 }
 
+.shadow {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: $z-index-11;
+  background-color: var(--grey-alpha-700);
+
+  @include media-breakpoint-up(lg) {
+    display: none!important;
+  }
+
+  &.active {
+    display: block;
+    animation: opacity 0.3s linear forwards;
+  }
+}
+
+.betslip {
+  @include make-spacer(p, 8px);
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: $z-index-9;
+  background-color: var(--game_background_color);
+  border-radius: rem(20px) rem(20px) 0 0;
+
+  @include media-breakpoint-up(lg) {
+    display: none!important;
+  }
+}
+
 .content {
   @include size(100%);
   @include make-spacer(pt, 16px);
@@ -62,13 +95,10 @@
   @include make-spacer(mr, 8px);
 }
 
-.time {
-  font-weight: var(--typography-medium);
-}
-
 .hr {
   @include size(rem(1px), rem(16px));
 
+  background-color: var(--font_color);
 }
 
 .body {

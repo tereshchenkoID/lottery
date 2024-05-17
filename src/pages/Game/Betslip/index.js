@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ticketType } from 'constant/config'
 
@@ -17,7 +17,7 @@ import Button from 'components/Button'
 
 import style from './index.module.scss'
 
-const Betslip = ({ auth, betslip, game, active }) => {
+const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
   const RULES = {
     factor: {
       text: `games.${game.id}.rules.6`,
@@ -30,7 +30,6 @@ const Betslip = ({ auth, betslip, game, active }) => {
   }
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const [show, setShow] = useState(false)
   const isNotEmpty = betslip.odds?.length > 0 || betslip.tickets?.length > 0
   const isSingle = active === ticketType.single
 
@@ -121,14 +120,13 @@ const Betslip = ({ auth, betslip, game, active }) => {
 
   return (
     <div className={classNames(style.block, show && style.active)}>
-      <div className={style.shadow} onClick={() => setShow(!show)} />
-      <div className={style.wrapper}>
-        <Button
-          placeholder={`${t('place_bet')} ${betslip.bet?.[active]?.amount} ${auth.account.currency.symbol}`}
-          onChange={() => setShow(!show)}
-          classes={style.toggle}
-        />
+      <button
+        type={'button'}
+        className={style.toggle}
+        onClick={() => setShow(!show)}
+      />
 
+      <div className={style.wrapper}>
         {/*<pre>{JSON.stringify(betslip, null, 2)}</pre>*/}
 
         {isSingle && (
@@ -200,13 +198,13 @@ const Betslip = ({ auth, betslip, game, active }) => {
                 {auth.id !== null ? (
                   <Button
                     placeholder={t('placebet')}
-                    classes={style.reference}
+                    styles={{ width: '100%' }}
                   />
                 ) : (
                   <Reference
                     link={'/login'}
                     placeholder={t('menu_2')}
-                    classes={style.reference}
+                    styles={{ width: '100%' }}
                   />
                 )}
               </div>

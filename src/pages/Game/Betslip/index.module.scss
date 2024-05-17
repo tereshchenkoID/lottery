@@ -1,34 +1,52 @@
 @import 'scss/config';
 
 .block {
+  @include make-spacer(pt, rem(24px));
   @include transition(all);
   @include flex($direction: column);
-  @include size(100%, rem(60px));
 
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
   overflow: hidden;
-  z-index: $z-index-9;
+  max-height: 100%;
+  z-index: $z-index-11;
+  transform: translateY(100%);
 
   @include media-breakpoint-up(lg) {
-    @include make-spacer(pt, 0!important);
+    @include make-spacer(pt, 0);
 
     position: sticky;
     top: rem(90px);
-    height: auto!important;
+    transform: translateY(0)!important;
   }
 
   &.active {
-    @include make-spacer(pt, 72px);
-
-    height: 100%;
+    transform: translateY(0);
     overflow-y: auto;
+  }
+}
 
-    .shadow {
-      display: block;
-    }
+.toggle {
+  @include size(rem(100%), rem(24px));
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  &::before {
+    @include absolute-center;
+    @include size(rem(40px), rem(4px));
+
+    border-radius: rem(2px);
+    background-color: var(--color-primary);
+    content: '';
+  }
+
+  @include media-breakpoint-up(lg) {
+    display: none
   }
 }
 
@@ -43,26 +61,6 @@
 
   @include media-breakpoint-up(lg) {
     border-radius: rem(24px);
-  }
-}
-
-.shadow {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background-color: var(--grey-alpha-700);
-  z-index: -1;
-  isolation: isolate;
-
-  @include media-breakpoint-up(lg) {
-    display: none!important;
-  }
-}
-
-.toggle {
-
-  @include media-breakpoint-up(lg) {
-    display: none;
   }
 }
 
@@ -160,8 +158,4 @@
   flex-grow: 1;
   height: rem(2px);
   background: repeat-x radial-gradient(2px circle at 1px 1px, var(--game_button_font_color) 50%, transparent 50.2%) 0 0 / 6px 2px;
-}
-
-.reference {
-  width: 100%;
 }
