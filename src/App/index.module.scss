@@ -108,6 +108,7 @@ hr {
     border-radius: rem(12px)!important;
     background-color: #403f5c!important;
     opacity: 1!important;
+    z-index: $z-index-9;
   }
 
   .react-tooltip-arrow {

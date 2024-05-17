@@ -1,0 +1,167 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(mx, auto);
+  @include make-spacer(p, 4px);
+
+  background-color: var(--game_background_color);
+  border-radius: rem(20px);
+  max-width: rem(500px);
+
+  @include media-breakpoint-up(md) {
+    border: rem(4px) solid transparent;
+    max-width: 100%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 4px);
+  }
+}
+
+.title {
+  @include make-spacer(py, 8px);
+  @include make-spacer(pl, 4px);
+
+  color: var(--font_color);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(py, 15px);
+    @include make-spacer(px, 10px);
+  }
+}
+
+.container {
+  @include make-spacer(mb, 4px);
+
+  &:last-child {
+    @include make-spacer(mb, 0);
+  }
+}
+
+.wrapper {
+  display: grid;
+  gap: rem(4px);
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.ticket {
+  @include transition;
+  @include flex($direction: column);
+  @include make-spacer(p, 4px);
+
+  cursor: pointer;
+  border-radius: rem(20px);
+  gap: rem(12px);
+  background-color: var(--game_container_color);
+  border: rem(4px) solid transparent;
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 18px);
+
+    gap: rem(18px);
+  }
+
+  &:not(.active) {
+
+    &:hover {
+      border-color: var(--game_button_color_hover);
+    }
+  }
+
+  &.active {
+    border-color: var(--game_button_color_active);
+
+    .check {
+      opacity: 1;
+    }
+  }
+}
+
+.head {
+  @include flex(space-between, center);
+
+  font-weight: var(--typography-medium);
+}
+
+.check {
+  @include transition;
+
+  color: var(--game_button_color_active);
+  font-size: rem(20px);
+  opacity: 0;
+}
+
+.table {
+  @include flex($direction: column);
+
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  align-items: stretch;
+}
+
+.cell {
+  @include make-spacer(p, 4px);
+  @include flex(center, center);
+
+  text-align: center;
+  flex: 1;
+  border-right: rem(1px) solid var(--game_background_color);
+  border-bottom: rem(1px) solid var(--game_background_color);
+  background-color: var(--game_container_color);
+
+  &:nth-child(1) {
+    border-radius: rem(12px) 0 0;
+  }
+
+  &:nth-child(9) {
+    border-radius: 0 rem(12px) 0 0;
+  }
+
+  &:nth-child(46) {
+    border-radius: 0 0 0 rem(12px);
+  }
+
+  &:nth-child(54) {
+    border-radius: 0 0 rem(12px) 0;
+  }
+
+  &:nth-child(-n + 9) {
+    border-top: rem(1px) solid var(--game_background_color);
+  }
+
+  &:nth-child(9n + 1) {
+    border-left: rem(1px) solid var(--game_background_color);
+  }
+
+  &:nth-child(n+28):nth-child(-n+36) {
+    @include make-spacer(mt, 12px);
+
+    border-top: rem(1px) solid var(--game_background_color);
+  }
+}
+
+.more {
+  width: 100%;
+}
+
+.button {
+  @include size(100%, rem(30px));
+  @include flex(center, center);
+
+  border-radius: rem(8px);
+  box-shadow: inset 0 rem(2px) 0 var(--game_button_box_shadow);
+  background-color: var(--game_button_color);
+  color: var(--game_button_font_color);
+  font-size: rem(14px);
+  line-height: rem(28px);
+  font-weight: var(--typography-bold);
+
+  @include media-breakpoint-up(lg) {
+    border-radius: rem(12px);
+    font-size: rem(18px);
+  }
+}

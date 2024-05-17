@@ -1,21 +1,23 @@
 import { useTranslation } from 'react-i18next'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ticketType } from 'constant/config'
 
+import { calculateMultiplier } from 'helpers/calculateMultiplier'
+import { calculatePercent } from 'helpers/calculatePercent'
 import { setBetslip } from 'store/actions/betslipAction'
 
 import classNames from 'classnames'
 
 import Tooltip from 'components/Tooltip'
 import Reference from 'components/Reference'
+import Control from 'components/Control'
+import Button from 'components/Button'
 
 import style from './index.module.scss'
 
-import Control from 'components/Control'
-
-const Betslip = ({ game, type }) => {
+const Betslip = ({ auth, betslip, game, active }) => {
   const RULES = {
     factor: {
       text: `games.${game.id}.rules.6`,
@@ -26,20 +28,31 @@ const Betslip = ({ game, type }) => {
       placeholder: `games.${game.id}.tooltip.5`,
     },
   }
-
-  const dispatch = useDispatch()
   const { t } = useTranslation()
-  const { auth } = useSelector(state => state.auth)
-  const { betslip } = useSelector(state => state.betslip)
+  const dispatch = useDispatch()
+  const [show, setShow] = useState(false)
+  const isNotEmpty = betslip.odds?.length > 0 || betslip.tickets?.length > 0
+  const isSingle = active === ticketType.single
 
   const handleStakeChange = (index, newValue) => {
-    const updatedOptions = [...betslip?.bet]
-    updatedOptions[index].value = newValue
+    const updatedOptions = betslip.bet?.[ticketType.single]
+    updatedOptions.options[index].value = newValue
+    updatedOptions.amount =
+      calculateMultiplier(updatedOptions.options) *
+      game.betCost *
+      betslip.tickets?.length
+    updatedOptions.bonuses = calculatePercent(
+      betslip.bonusAmount,
+      updatedOptions.amount,
+    )
 
     dispatch(
       setBetslip({
         ...betslip,
-        bet: updatedOptions,
+        bet: {
+          ...betslip.bet,
+          [ticketType.single]: updatedOptions,
+        },
       }),
     )
   }
@@ -48,9 +61,10 @@ const Betslip = ({ game, type }) => {
     dispatch(
       setBetslip({
         ...betslip,
-        activeTicket: idx,
+        activeTicket: betslip.activeTicket === idx ? null : idx,
       }),
     )
+    setShow(false)
   }
 
   const handleDeleteTicket = idx => {
@@ -66,86 +80,167 @@ const Betslip = ({ game, type }) => {
     )
   }
 
+  const handleAmount = () => {
+    const amounts = [
+      game.betCost *
+        betslip.tickets.length *
+        (betslip.bet[ticketType.single]?.options.length > 0
+          ? calculateMultiplier(betslip.bet[ticketType.single].options)
+          : 1),
+      game.betCost *
+        betslip.bet?.[ticketType.multi]?.options[0].value *
+        calculateMultiplier(betslip.bet[ticketType.multi].options),
+    ]
+
+    dispatch(
+      setBetslip({
+        ...betslip,
+        bet: {
+          [ticketType.single]: {
+            ...betslip.bet[ticketType.single],
+            amount: amounts[0],
+            bonuses: calculatePercent(betslip.bonusAmount, amounts[0]),
+          },
+          [ticketType.multi]: {
+            ...betslip.bet[ticketType.multi],
+            amount: amounts[1],
+            bonuses: calculatePercent(betslip.bonusAmount, amounts[1]),
+          },
+        },
+      }),
+    )
+
+    if (betslip.tickets.length === 0) {
+      setShow(false)
+    }
+  }
+
+  useEffect(() => {
+    handleAmount()
+  }, [active, betslip.tickets])
+
   return (
-    <div className={style.block}>
-      <div className={style.tickets}>
-        {betslip?.tickets?.map((el, idx) => (
-          <div key={idx} className={style.item}>
-            <button onClick={() => handleLoadTicket(idx)}>
-              {t('ticket')} #{el?.id}
-            </button>
-            <button onClick={() => handleDeleteTicket(idx)}>
-              <FontAwesomeIcon icon="fa-solid fa-xmark" />
-            </button>
-          </div>
-        ))}
-      </div>
+    <div className={classNames(style.block, show && style.active)}>
+      <div className={style.shadow} onClick={() => setShow(!show)} />
+      <div className={style.wrapper}>
+        <Button
+          placeholder={`${t('place_bet')} ${betslip.bet?.[active]?.amount} ${auth.account.currency.symbol}`}
+          onChange={() => setShow(!show)}
+          classes={style.toggle}
+        />
 
-      <pre>{JSON.stringify(betslip, null, 2)}</pre>
+        {/*<pre>{JSON.stringify(betslip, null, 2)}</pre>*/}
 
-      {betslip?.odds?.length > 0 || betslip?.tickets?.length > 0 ? (
-        <>
-          {type === ticketType.single && (
-            <div className={style.container}>
-              <div className={style.ticket}>
-                {betslip?.bet.map((el, idx) => (
-                  <div key={idx} className={style.row}>
-                    <Tooltip
-                      text={t(RULES[el.name].text)}
-                      placeholder={t(RULES[el.name].placeholder)}
-                    />
-                    <Control
-                      data={el}
-                      index={idx}
-                      onChange={handleStakeChange}
-                    />
+        {isSingle && (
+          <>
+            {isNotEmpty ? (
+              <>
+                {betslip.bet?.[ticketType.single]?.options.length > 0 && (
+                  <div className={style.container}>
+                    <div className={style.ticket}>
+                      {betslip.bet?.[ticketType.single]?.options?.map(
+                        (el, idx) => (
+                          <div key={idx} className={style.row}>
+                            <Tooltip
+                              text={t(RULES[el.name]?.text)}
+                              placeholder={t(RULES[el.name]?.placeholder)}
+                            />
+                            <Control
+                              data={el}
+                              index={idx}
+                              onChange={handleStakeChange}
+                            />
+                          </div>
+                        ),
+                      )}
+                    </div>
                   </div>
-                ))}
+                )}
+              </>
+            ) : (
+              <div className={style.container}>
+                <div className={style.icon}>
+                  <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
+                </div>
+                <p>{t('place_bet')}</p>
               </div>
-            </div>
-          )}
+            )}
+          </>
+        )}
 
+        {(isNotEmpty || active === ticketType.multi) && (
           <div className={style.container}>
             <div className={style.ticket}>
               <div className={style.row}>
                 <p>{t('amount')}</p>
                 <span className={style.dots} />
                 <h6>
-                  {game.betCost} {auth.account.currency.symbol}
+                  {betslip.bet?.[active]?.amount} {auth.account.currency.symbol}
                 </h6>
               </div>
               <div className={style.row}>
                 <p>{t('tickets')}</p>
                 <span className={style.dots} />
                 <p>
-                  <strong>1</strong>
+                  <strong>
+                    {active === ticketType.single
+                      ? betslip.tickets.length
+                      : betslip.bet?.[active]?.options[0].value}
+                  </strong>
                 </p>
               </div>
               <div className={style.row}>
                 <p>{t('add_bonus')}</p>
                 <span className={style.dots} />
                 <p>
-                  <strong>15</strong>
+                  <strong>{betslip.bet?.[active]?.bonuses}</strong>
                 </p>
               </div>
               <div className={style.row}>
-                <Reference
-                  link={'/login'}
-                  placeholder={t('menu_2')}
-                  classes={style.reference}
-                />
+                {auth.id !== null ? (
+                  <Button
+                    placeholder={t('placebet')}
+                    classes={style.reference}
+                  />
+                ) : (
+                  <Reference
+                    link={'/login'}
+                    placeholder={t('menu_2')}
+                    classes={style.reference}
+                  />
+                )}
               </div>
             </div>
           </div>
-        </>
-      ) : (
-        <div className={style.container}>
-          <div className={style.icon}>
-            <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
+        )}
+
+        {isSingle && betslip.tickets?.length > 0 && (
+          <div className={style.tickets}>
+            {betslip.tickets.map((el, idx) => (
+              <div
+                key={idx}
+                className={classNames(
+                  style.stake,
+                  betslip.activeTicket === idx && style.active,
+                )}
+              >
+                <button
+                  className={style.preview}
+                  onClick={() => handleLoadTicket(idx)}
+                >
+                  {t('ticket')} #{el.id}
+                </button>
+                <button
+                  className={style.button}
+                  onClick={() => handleDeleteTicket(idx)}
+                >
+                  <FontAwesomeIcon icon="fa-solid fa-xmark" />
+                </button>
+              </div>
+            ))}
           </div>
-          <p>{t('place_bet')}</p>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

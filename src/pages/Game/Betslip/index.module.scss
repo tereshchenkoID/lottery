@@ -1,16 +1,68 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(p, 8px);
+  @include transition(all);
   @include flex($direction: column);
+  @include size(100%, rem(60px));
 
-  gap: rem(4px);
-  background-color: var(--game_background_color);
-  border-radius: rem(24px);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: $z-index-9;
 
   @include media-breakpoint-up(lg) {
+    @include make-spacer(pt, 0!important);
+
     position: sticky;
     top: rem(90px);
+    height: auto!important;
+  }
+
+  &.active {
+    @include make-spacer(pt, 72px);
+
+    height: 100%;
+    overflow-y: auto;
+
+    .shadow {
+      display: block;
+    }
+  }
+}
+
+.wrapper {
+  @include flex($direction: column);
+  @include make-spacer(p, 8px);
+
+  margin-top: auto;
+  gap: rem(4px);
+  background-color: var(--game_background_color);
+  border-radius: rem(24px) rem(24px) 0 0;
+
+  @include media-breakpoint-up(lg) {
+    border-radius: rem(24px);
+  }
+}
+
+.shadow {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: var(--grey-alpha-700);
+  z-index: -1;
+  isolation: isolate;
+
+  @include media-breakpoint-up(lg) {
+    display: none!important;
+  }
+}
+
+.toggle {
+
+  @include media-breakpoint-up(lg) {
+    display: none;
   }
 }
 
@@ -18,23 +70,56 @@
   @include flex($direction: column);
 
   gap: rem(8px);
+  background-color: var(--game_container_color);
+  border-radius: rem(20px);
+  overflow: hidden;
+
+  @include media-breakpoint-up(lg) {
+    overflow-y: auto;
+    max-height: calc(100dvh - rem(380px));
+  }
 }
 
-.item {
-  @include make-spacer(px, 12px);
-  @include flex(space-between, center);
+.stake {
+  @include make-spacer(pr, 4px);
 
-  background-color: var(--game_button_color);
-  border-radius: rem(12px);
-  height: rem(40px);
+  display: grid;
+  grid-template-columns: 1fr rem(40px);
+  align-items: center;
+  height: rem(48px);
+  flex-shrink: 0;
 
-  svg {
-    font-size: rem(20px);
-    color: var(--color-warning);
+  &.active {
+    background-color: var(--game_button_color_active);
+
+    .preview {
+      color: var(--game_button_font_color_active)
+    }
   }
+}
 
-  button {
-    color: var(--font_color);
+.preview {
+  @include make-spacer(pl, 20px);
+
+  height: 100%;
+  color: var(--font_color);
+  text-align: left;
+}
+
+.button {
+  @include size(rem(34px));
+  @include flex(center, center);
+
+  border-radius: rem(12px);
+  background-color: var(--game_button_color);
+  color: var(--game_button_font_color);
+  font-size: rem(18px);
+  line-height: rem(28px);
+  font-weight: var(--typography-bold);
+
+  &:hover {
+    background-color: var(--game_button_color_hover);
+    color: var(--game_button_font_color_hover);
   }
 }
 
@@ -66,7 +151,7 @@
 }
 
 .row {
-  @include flex(space-between, center);
+  @include flex(space-between, baseline);
 
   gap: rem(4px);
 }

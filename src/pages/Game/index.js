@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
 
-import { ticketType, userType } from 'constant/config'
+import { userType } from 'constant/config'
 
 import { getData } from 'helpers/api'
 import { getDate } from 'helpers/getDate'
@@ -18,14 +18,27 @@ import Multibet from './Multibet'
 import Betslip from './Betslip'
 
 import KENO from './KENO'
+import BINGO from './BINGO'
 
 import style from './index.module.scss'
+
+const getGames = (id, auth, betslip, game) => {
+  switch (id) {
+    case '1':
+      return <BINGO auth={auth} betslip={betslip} game={game} />
+    case '3':
+      return <KENO auth={auth} betslip={betslip} game={game} />
+    default:
+      return <KENO auth={auth} betslip={betslip} game={game} />
+  }
+}
 
 const Game = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { gameId } = useParams()
   const { auth } = useSelector(state => state.auth)
+  const { betslip } = useSelector(state => state.betslip)
   const [game, setGame] = useState({})
   const [loading, setLoading] = useState(true)
   const [active, setActive] = useState(0)
@@ -34,79 +47,23 @@ const Game = () => {
     setLoading(true)
     Promise.all([
       getData(`game/${gameId}`).then(json => {
-        setGame({
-          ...json,
-          bet: {
-            single: [
-              {
-                name: 'factor',
-                min: 1,
-                max: 10,
-                value: 1,
-                type: 0,
-              },
-              {
-                name: 'draw',
-                min: 1,
-                max: 50,
-                value: 1,
-                type: 0,
-              },
-            ],
-            multi: [
-              {
-                name: 'tickets',
-                min: 1,
-                max: 300,
-                value: 1,
-                type: 0,
-              },
-              {
-                name: 'factor',
-                min: 1,
-                max: 10,
-                value: 1,
-                type: 0,
-              },
-              {
-                name: 'draws',
-                min: 1,
-                max: 50,
-                value: 1,
-                type: 0,
-              },
-              {
-                name: 'numbers',
-                min: 1,
-                max: 8,
-                value: 8,
-                type: 1,
-              },
-            ],
-          },
-        })
+        setGame(json)
+
+        dispatch(
+          setBetslip({
+            ...betslip,
+            userId: auth.id,
+            userType: userType.user,
+            gameId: json?.id,
+            bonusAmount: json?.bonusAmount,
+            bet: json?.bet,
+          }),
+        )
       }),
     ]).then(() => {
       setLoading(false)
     })
   }, [gameId])
-
-  useEffect(() => {
-    dispatch(
-      setBetslip({
-        userId: auth.id,
-        userType: userType.user,
-        gameId: game?.id,
-        amount: game?.betCost,
-        amountStep: game?.betCost,
-        type: active === 0 ? ticketType.single : ticketType.multi,
-        activeTicket: null,
-        tickets: [],
-        odds: [],
-        bet: active === 0 ? game?.bet?.single : game?.bet.multi,
-      }),
-    )
-  }, [dispatch, auth.id, game, active])
 
   return (
     <div className={style.block}>
@@ -195,13 +152,18 @@ const Game = () => {
             </div>
             <div className={style.toggle}>
               <div className={style.column}>
-                {active === 0 && <KENO game={game} />}
-                {active === 1 && <Multibet game={game} />}
+                {active === 0 && getGames(gameId, auth, betslip, game)}
+                {active === 1 && <Multibet betslip={betslip} game={game} />}
               </div>
 
               {active !== 2 && (
                 <div className={style.column}>
-                  <Betslip game={game} type={active} />
+                  <Betslip
+                    auth={auth}
+                    betslip={betslip}
+                    game={game}
+                    active={active}
+                  />
                 </div>
               )}
             </div>

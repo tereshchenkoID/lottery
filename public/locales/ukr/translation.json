@@ -42,11 +42,15 @@
   "equally": "Equally UA",
   "place_bet": "Place your bet UA",
   "ticket_price": "Ticket price UA",
+  "ticket": "Ticket UA",
   "tickets": "Tickets UA",
   "multi": "Multibet UA",
   "archive": "Archive UA",
   "amount": "Amount UA",
+  "save": "Save UA",
   "add_bonus": "Add bonuses UA",
+  "add_stake": "Add stake UA",
+  "load_more": "Load more UA",
   "games": {
     "1": {
       "title": "Lorem ipsum dolor UA",

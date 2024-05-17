@@ -12,11 +12,6 @@ export const userType = {
   cashbox: 1,
 }
 
-export const multibetType = {
-  factor: 0,
-  info: 1,
-}
-
 export const betType = {
   1: 101, // even
   2: 102, // odd

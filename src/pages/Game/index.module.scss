@@ -159,7 +159,9 @@
   }
 
   &:nth-child(2) {
-    flex-shrink: 0;
-    width: rem(350px);
+
+    @include media-breakpoint-up(xl) {
+      width: rem(350px);
+    }
   }
 }

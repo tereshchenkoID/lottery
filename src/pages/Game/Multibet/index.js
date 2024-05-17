@@ -1,23 +1,35 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+
+import { ticketType } from 'constant/config'
 
 import { setBetslip } from 'store/actions/betslipAction'
+import { calculateMultiplier } from 'helpers/calculateMultiplier'
+import { calculatePercent } from 'helpers/calculatePercent'
 
 import Stake from './Stake'
 
 import style from './index.module.scss'
 
-const Multibet = () => {
+const Multibet = ({ betslip, game }) => {
   const dispatch = useDispatch()
-  const { betslip } = useSelector(state => state.betslip)
 
   const handleStakeChange = (index, newValue) => {
-    const updatedOptions = [...betslip?.bet]
-    updatedOptions[index].value = newValue
+    const updatedOptions = betslip?.bet?.[ticketType.multi]
+    updatedOptions.options[index].value = newValue
+    updatedOptions.amount =
+      calculateMultiplier(updatedOptions.options) * game.betCost
+    updatedOptions.bonuses = calculatePercent(
+      betslip.bonusAmount,
+      updatedOptions.amount,
+    )
 
     dispatch(
       setBetslip({
         ...betslip,
-        bet: updatedOptions,
+        bet: {
+          ...betslip.bet,
+          [ticketType.multi]: updatedOptions,
+        },
       }),
     )
   }
@@ -25,7 +37,7 @@ const Multibet = () => {
   return (
     <div className={style.block}>
       <div className={style.container}>
-        {betslip?.bet?.map((el, idx) => (
+        {betslip?.bet?.[ticketType.multi]?.options?.map((el, idx) => (
           <Stake
             key={idx}
             data={el}

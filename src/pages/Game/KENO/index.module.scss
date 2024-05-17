@@ -3,10 +3,10 @@
 .block {
   @include transition(border-color);
   @include make-spacer(mx, auto);
-  @include make-spacer(p, 8px);
+  @include make-spacer(p, 4px);
 
-  background-color: var(--game_container_color);
-  border: rem(4px) solid var(--game_border_color);
+  background-color: var(--game_background_color);
+  border: rem(4px) solid transparent;
   border-radius: rem(20px);
   max-width: rem(500px);
 
@@ -16,8 +16,6 @@
 
   @include media-breakpoint-up(lg) {
     @include make-spacer(p, 4px);
-
-    background-color: var(--game_background_color);
   }
 
   &.active {
@@ -26,14 +24,23 @@
 }
 
 .meta {
-  @include flex(space-between, center);
+  display: grid;
+  grid-template-columns: 1fr rem(40px);
+  align-items: center;
 
-  button {
-    color: var(--font_color);
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(py, 15px);
+    @include make-spacer(px, 10px);
   }
 }
 
+.close {
+  color: var(--font_color);
+}
+
 .title {
+  @include make-spacer(py, 8px);
+
   color: var(--font_color);
 
   @include media-breakpoint-up(lg) {
@@ -44,7 +51,8 @@
 
 .container {
   @include make-spacer(mb, 4px);
-  @include make-spacer(pt, 8px);
+  @include make-spacer(px, 4px);
+  @include make-spacer(py, 8px);
 
   display: grid;
   border-radius: rem(20px);
@@ -64,6 +72,8 @@
 }
 
 .left {
+  @include make-spacer(px, 8px);
+
   color: var(--game_font_color);
   line-height: rem(24px);
 }

@@ -1,7 +1,16 @@
 import { types } from 'store/actionTypes'
 
 const initialState = {
-  betslip: [],
+  betslip: {
+    userId: null,
+    userType: null,
+    gameId: null,
+    type: null,
+    activeTicket: null,
+    tickets: [],
+    odds: [],
+    bet: null,
+  },
 }
 const betslipReducer = (state = initialState, action) => {
   switch (action.type) {

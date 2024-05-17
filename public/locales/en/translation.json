@@ -42,11 +42,15 @@
   "equally": "Equally",
   "place_bet": "Place your bet",
   "ticket_price": "Ticket price",
+  "ticket": "Ticket",
   "tickets": "Tickets",
   "multi": "Multibet",
   "archive": "Archive",
   "amount": "Amount",
+  "save": "Save",
   "add_bonus": "Add bonuses",
+  "add_stake": "Add stake",
+  "load_more": "Load more",
   "games": {
     "1": {
       "title": "Lorem ipsum dolor",

@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 
@@ -12,16 +12,15 @@ import Tooltip from 'components/Tooltip'
 
 import style from './index.module.scss'
 
-const KENO = ({ game }) => {
+const KENO = ({ auth, betslip, game }) => {
+  const NUMBERS = 80
   const COUNT = 8
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const { auth } = useSelector(state => state.auth)
-  const { betslip } = useSelector(state => state.betslip)
   const [selectedType, setSelectedType] = useState(0)
   const [selectedCount, setSelectedCount] = useState(0)
   const [numbers, setNumbers] = useState(
-    Array.from({ length: 80 }, (_, idx) => ({
+    Array.from({ length: NUMBERS }, (_, idx) => ({
       number: idx + 1,
       active: false,
     })),
@@ -34,6 +33,12 @@ const KENO = ({ game }) => {
         odds: numbers,
       }),
     )
+  }
+
+  const resetState = () => {
+    setNumbers(numbers.map(num => ({ ...num, active: false })))
+    setSelectedCount(0)
+    setSelectedType(0)
   }
 
   const handleNumberClick = numberIndex => {
@@ -89,9 +94,7 @@ const KENO = ({ game }) => {
   }
 
   const handleResetClick = () => {
-    setNumbers(numbers.map(num => ({ ...num, active: false })))
-    setSelectedCount(0)
-    setSelectedType(0)
+    resetState()
     updateBetslip([])
   }
 
@@ -123,9 +126,7 @@ const KENO = ({ game }) => {
         odds: [],
       }),
     )
-    setNumbers(numbers.map(num => ({ ...num, active: false })))
-    setSelectedCount(0)
-    setSelectedType(0)
+    resetState()
   }
 
   const activeTips = useMemo(
@@ -139,27 +140,21 @@ const KENO = ({ game }) => {
   const activeNumbers = num => num.filter(el => el.active).map(el => el.number)
 
   const handleLoadNumbers = idx => {
-    const n = betslip?.tickets[idx]?.numbers
-    let a = [...numbers]
-    let r = []
+    const n = betslip?.tickets[idx]?.numbers || 0
 
-    if (n) {
-      if (n.length > 1) {
-        const s = new Set(n)
-        r = a.map(num => ({ ...num, active: s.has(idx + 1) }))
-      } else {
-        const s = () => {
-          const key = Object.keys(betType).find(
-            key => betType[key] === Number(betslip?.tickets[idx]?.numbers),
-          )
-          return key ? { key: [key], value: betType[key] } : undefined
-        }
-        r = s().value
+    if (n.length === 1 && n[0] > NUMBERS) {
+      const s = Object.keys(betType).find(key => betType[key] === n[0])
+      resetState()
+      setSelectedType(Number(s))
+    } else {
+      const numbersSet = new Set(betslip?.tickets[idx]?.numbers)
+      const numbersArray = Array.from({ length: NUMBERS }, (_, idx) => ({
+        number: idx + 1,
+        active: numbersSet.has(idx + 1),
+      }))
 
-        setSelectedType(s().key)
-      }
-
-      setNumbers(r)
+      setNumbers(numbersArray)
+      setSelectedCount(betslip?.tickets[idx]?.numbers.length || 0)
     }
   }
 
@@ -180,13 +175,15 @@ const KENO = ({ game }) => {
     <div
       className={classNames(
         style.block,
-        (selectedCount === COUNT || selectedType !== 0) && style.active,
+        (selectedCount > 0 || selectedType !== 0) && style.active,
       )}
     >
       {betslip.activeTicket !== null && (
         <div className={style.meta}>
-          <p>Ticket #{betslip.tickets[betslip.activeTicket].id}</p>
-          <button onClick={() => handleCloseTicket()}>
+          <h6>
+            {t('ticket')} #{betslip.tickets[betslip.activeTicket].id}
+          </h6>
+          <button className={style.button} onClick={() => handleCloseTicket()}>
             <FontAwesomeIcon icon="fa-solid fa-xmark" />
           </button>
         </div>
@@ -288,7 +285,9 @@ const KENO = ({ game }) => {
               )}
               onClick={() => handlePlaceBet()}
             >
-              <span>{t('placebet')}</span>
+              <span>
+                {betslip.activeTicket !== null ? t('save') : t('add_stake')}
+              </span>
             </button>
           </div>
         </div>
