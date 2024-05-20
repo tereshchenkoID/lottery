@@ -197,7 +197,7 @@ const KENO = ({ auth, betslip, game }) => {
             text={t(`games.${game.id}.rules.1`)}
             placeholder={t(`games.${game.id}.tooltip.1`)}
           />
-          <p>{t(`games.${game.id}.rules.8`)}</p>
+          <p>{t(`games.${game.id}.rules.6`)}</p>
         </div>
         <div className={style.right}>
           <div className={style.numbers}>

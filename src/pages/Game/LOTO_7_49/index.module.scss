@@ -1,0 +1,49 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(mx, auto);
+  @include make-spacer(p, 4px);
+
+  background-color: var(--game_background_color);
+  border-radius: rem(20px);
+  max-width: rem(500px);
+
+  @include media-breakpoint-up(lg) {
+    border: rem(4px) solid transparent;
+    max-width: 100%;
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 4px);
+  }
+}
+
+.title {
+  @include make-spacer(py, 8px);
+  @include make-spacer(pl, 4px);
+
+  color: var(--font_color);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(py, 15px);
+    @include make-spacer(px, 10px);
+  }
+}
+
+.container {
+  @include make-spacer(mb, 4px);
+
+  &:last-child {
+    @include make-spacer(mb, 0);
+  }
+}
+
+.wrapper {
+  display: grid;
+  gap: rem(4px);
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: flex-start;
+  }
+}

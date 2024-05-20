@@ -2,13 +2,12 @@
 
 .block {
   @include make-spacer(mx, auto);
-  @include make-spacer(p, 4px);
 
   background-color: var(--game_background_color);
   border-radius: rem(20px);
   max-width: rem(500px);
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     border: rem(4px) solid transparent;
     max-width: 100%;
   }
@@ -70,6 +69,10 @@
 
     &:hover {
       border-color: var(--game_button_color_hover);
+
+      .check {
+        opacity: 1;
+      }
     }
   }
 
@@ -77,6 +80,7 @@
     border-color: var(--game_button_color_active);
 
     .check {
+      color: var(--game_button_color_active);
       opacity: 1;
     }
   }
@@ -91,7 +95,6 @@
 .check {
   @include transition;
 
-  color: var(--game_button_color_active);
   font-size: rem(20px);
   opacity: 0;
 }

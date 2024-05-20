@@ -13,7 +13,7 @@ import Loader from 'components/Loader'
 
 import style from './index.module.scss'
 
-const BINGO = ({ auth, betslip, game }) => {
+const BINGO = ({ auth, betslip, game, setGame }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [tickets, setTickets] = useState(game.odds?.tickets)
@@ -71,6 +71,16 @@ const BINGO = ({ auth, betslip, game }) => {
   const handleLoad = () => {
     setUpdate(true)
     getData(`game/${game.id}`).then(json => {
+      setGame(prevState => ({
+        ...prevState,
+        odds: {
+          tickets: {
+            ...convertToIdObject(betslip.tickets),
+            ...selectElements(json.odds, 10 - betslip.tickets.length),
+          },
+        },
+      }))
+
       setTickets({
         ...convertToIdObject(betslip.tickets),
         ...selectElements(json.odds, 10 - betslip.tickets.length),

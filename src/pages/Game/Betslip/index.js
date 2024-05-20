@@ -18,14 +18,15 @@ import Button from 'components/Button'
 import style from './index.module.scss'
 
 const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
+  const EXCEPTION = [1]
   const RULES = {
     factor: {
-      text: `games.${game.id}.rules.6`,
-      placeholder: `games.${game.id}.tooltip.4`,
+      text: 'rules.1',
+      placeholder: 'tooltip.1',
     },
     draw: {
-      text: `games.${game.id}.rules.7`,
-      placeholder: `games.${game.id}.tooltip.5`,
+      text: 'rules.2',
+      placeholder: 'tooltip.2',
     },
   }
   const { t } = useTranslation()
@@ -212,32 +213,34 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
           </div>
         )}
 
-        {isSingle && betslip.tickets?.length > 0 && (
-          <div className={style.tickets}>
-            {betslip.tickets.map((el, idx) => (
-              <div
-                key={idx}
-                className={classNames(
-                  style.stake,
-                  betslip.activeTicket === idx && style.active,
-                )}
-              >
-                <button
-                  className={style.preview}
-                  onClick={() => handleLoadTicket(idx)}
+        {EXCEPTION.indexOf(game.id) === -1 &&
+          isSingle &&
+          betslip.tickets?.length > 0 && (
+            <div className={style.tickets}>
+              {betslip.tickets.map((el, idx) => (
+                <div
+                  key={idx}
+                  className={classNames(
+                    style.stake,
+                    betslip.activeTicket === idx && style.active,
+                  )}
                 >
-                  {t('ticket')} #{el.id}
-                </button>
-                <button
-                  className={style.button}
-                  onClick={() => handleDeleteTicket(idx)}
-                >
-                  <FontAwesomeIcon icon="fa-solid fa-xmark" />
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
+                  <button
+                    className={style.preview}
+                    onClick={() => handleLoadTicket(idx)}
+                  >
+                    {t('ticket')} #{el.id}
+                  </button>
+                  <button
+                    className={style.button}
+                    onClick={() => handleDeleteTicket(idx)}
+                  >
+                    <FontAwesomeIcon icon="fa-solid fa-xmark" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
       </div>
     </div>
   )

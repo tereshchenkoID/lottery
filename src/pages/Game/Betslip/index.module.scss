@@ -14,7 +14,7 @@
   z-index: $z-index-11;
   transform: translateY(100%);
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     @include make-spacer(pt, 0);
 
     position: sticky;
@@ -46,8 +46,8 @@
     content: '';
   }
 
-  @include media-breakpoint-up(lg) {
-    display: none
+  @include media-breakpoint-up(xl) {
+    display: none;
   }
 }
 
@@ -60,7 +60,7 @@
   background-color: var(--game_background_color);
   border-radius: rem(24px) rem(24px) 0 0;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     border-radius: rem(24px);
   }
 }
@@ -73,7 +73,7 @@
   border-radius: rem(20px);
   overflow: hidden;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     overflow-y: auto;
     max-height: calc(100dvh - rem(380px));
   }
@@ -92,7 +92,7 @@
     background-color: var(--game_button_color_active);
 
     .preview {
-      color: var(--game_button_font_color_active)
+      color: var(--game_button_font_color_active);
     }
   }
 }

@@ -1,0 +1,27 @@
+@import 'scss/config';
+
+.block {
+  border-radius: rem(16px);
+  background-color: var(--game_container_color);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  height: rem(40px);
+  border-bottom: rem(1px) solid var(--game_background_color);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.cell {
+  @include flex(center, center);
+
+  height: 100%;
+
+  &:nth-child(1) {
+    border-right: rem(1px) solid var(--game_background_color);
+  }
+}

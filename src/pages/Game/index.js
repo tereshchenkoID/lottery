@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
@@ -18,20 +18,35 @@ import Button from 'components/Button'
 import Multibet from './Multibet'
 import Betslip from './Betslip'
 
-import KENO from './KENO'
-import BINGO from './BINGO'
-
 import style from './index.module.scss'
 
-const getGames = (id, auth, betslip, game) => {
-  switch (id) {
-    case '1':
-      return <BINGO auth={auth} betslip={betslip} game={game} />
-    case '3':
-      return <KENO auth={auth} betslip={betslip} game={game} />
-    default:
-      return <KENO auth={auth} betslip={betslip} game={game} />
+const BINGO = lazy(() => import('./BINGO'))
+const KENO = lazy(() => import('./KENO'))
+const LOTO_7_49 = lazy(() => import('./LOTO_7_49'))
+
+const gameComponents = {
+  1: BINGO,
+  2: LOTO_7_49,
+  3: KENO,
+}
+
+const getGames = (id, auth, betslip, game, setGame) => {
+  const GameComponent = gameComponents[id]
+
+  if (!GameComponent) {
+    return <div className={style.empty}>Empty</div>
   }
+
+  return (
+    <Suspense fallback={<Loader />}>
+      <GameComponent
+        auth={auth}
+        betslip={betslip}
+        game={game}
+        setGame={setGame}
+      />
+    </Suspense>
+  )
 }
 
 const TABS = [
@@ -68,7 +83,6 @@ const Game = () => {
     Promise.all([
       getData(`game/${gameId}`).then(json => {
         setGame(json)
-
         dispatch(
           setBetslip({
             ...betslip,
@@ -106,101 +120,108 @@ const Game = () => {
 
   return (
     <div className={style.block} style={{ ...game.skin }}>
-      <div
-        className={classNames(style.shadow, show && style.active)}
-        onClick={() => setShow(!show)}
-      />
-      <div className={style.betslip}>
-        <Button
-          placeholder={`${t('place_bet')} ${betslip.bet?.[active]?.amount} ${auth.account.currency.symbol}`}
-          onChange={() => setShow(!show)}
-          styles={{ width: '100%' }}
-        />
-      </div>
       <Games />
 
       {loading ? (
         <Loader />
       ) : (
         <div className={style.content}>
-          <div className={style.header}>
-            <div className={style.info}>
-              <div className={style.picture}>
-                <img
-                  src={game.image}
-                  alt={t(`games.${game.id}.title`)}
-                  loading={'lazy'}
+          {game.hasOwnProperty('bet') ? (
+            <>
+              <div
+                className={classNames(style.shadow, show && style.active)}
+                onClick={() => setShow(!show)}
+              />
+              <div className={style.betslip}>
+                <Button
+                  placeholder={`${t('place_bet')} ${betslip.bet?.[active]?.amount} ${auth.account.currency.symbol}`}
+                  onChange={() => setShow(!show)}
+                  styles={{ width: '100%' }}
                 />
               </div>
-              <div>
-                <h6>{t(`games.${game.id}.title`)}</h6>
-                {game.jackpots && (
-                  <h4>
-                    {t('jackpot')} -
-                    <span>
-                      {auth.account.currency.symbol} {game.jackpots}
-                    </span>
-                  </h4>
-                )}
-              </div>
-            </div>
-            <div className={style.meta}>
-              <div>
-                <FontAwesomeIcon
-                  icon="fa-solid fa-ticket"
-                  className={style.icon}
-                />
-                <span>{game.round?.id}</span>
-              </div>
-              <hr className={style.hr} />
-              <div>
-                <FontAwesomeIcon
-                  icon="fa-solid fa-clock"
-                  className={style.icon}
-                />
-                <span>{getDate(game?.time, 1)}</span>
-              </div>
-            </div>
-          </div>
-          <div className={style.body}>
-            <div className={style.tab}>
-              {TABS.map((el, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  className={classNames(
-                    style.button,
-                    active === el.value && style.active,
-                  )}
-                  onClick={() => handleActive(el.value)}
-                >
-                  <span className={style.icon}>
-                    <FontAwesomeIcon icon={`fa-solid ${el.icon}`} />
-                  </span>
-                  <span>{t(el.text)}</span>
-                </button>
-              ))}
-            </div>
-            <div className={style.toggle}>
-              <div className={style.column}>
-                {active === 0 && getGames(gameId, auth, betslip, game)}
-                {active === 1 && <Multibet betslip={betslip} game={game} />}
-              </div>
-
-              {active !== 2 && (
-                <div className={style.column}>
-                  <Betslip
-                    auth={auth}
-                    betslip={betslip}
-                    game={game}
-                    active={active}
-                    show={show}
-                    setShow={setShow}
-                  />
+              <div className={style.header}>
+                <div className={style.info}>
+                  <div className={style.picture}>
+                    <img
+                      src={game.image}
+                      alt={t(`games.${game.id}.title`)}
+                      loading={'lazy'}
+                    />
+                  </div>
+                  <div>
+                    <h6>{t(`games.${game.id}.title`)}</h6>
+                    {game.jackpots && (
+                      <h4>
+                        {t('jackpot')} -
+                        <span>
+                          {auth.account.currency.symbol} {game.jackpots}
+                        </span>
+                      </h4>
+                    )}
+                  </div>
                 </div>
-              )}
-            </div>
-          </div>
+                <div className={style.meta}>
+                  <div>
+                    <FontAwesomeIcon
+                      icon="fa-solid fa-ticket"
+                      className={style.icon}
+                    />
+                    <span>{game.round?.id}</span>
+                  </div>
+                  <hr className={style.hr} />
+                  <div>
+                    <FontAwesomeIcon
+                      icon="fa-solid fa-clock"
+                      className={style.icon}
+                    />
+                    <span>{getDate(game?.time, 1)}</span>
+                  </div>
+                </div>
+              </div>
+              <div className={style.body}>
+                <div className={style.tab}>
+                  {TABS.map((el, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={classNames(
+                        style.button,
+                        active === el.value && style.active,
+                      )}
+                      onClick={() => handleActive(el.value)}
+                    >
+                      <span className={style.icon}>
+                        <FontAwesomeIcon icon={`fa-solid ${el.icon}`} />
+                      </span>
+                      <span>{t(el.text)}</span>
+                    </button>
+                  ))}
+                </div>
+                <div className={style.toggle}>
+                  <div className={style.column}>
+                    {active === 0 &&
+                      getGames(gameId, auth, betslip, game, setGame)}
+                    {active === 1 && <Multibet betslip={betslip} game={game} />}
+                  </div>
+
+                  {active !== 2 && (
+                    <div className={style.column}>
+                      <Betslip
+                        auth={auth}
+                        betslip={betslip}
+                        game={game}
+                        active={active}
+                        show={show}
+                        setShow={setShow}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className={style.empty}>Game not found</div>
+          )}
         </div>
       )}
     </div>
