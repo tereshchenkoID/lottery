@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -5,14 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 
 import { setBetslip } from 'store/actions/betslipAction'
+import { getData } from 'helpers/api'
 
 import Button from 'components/Button'
+import Loader from 'components/Loader'
 
 import style from './index.module.scss'
 
 const BINGO = ({ auth, betslip, game }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
+  const [tickets, setTickets] = useState(game.odds?.tickets)
+  const [update, setUpdate] = useState(false)
 
   const isTicketExist = id => {
     return betslip.tickets.findIndex(ticket => ticket.id === id)
@@ -40,12 +45,40 @@ const BINGO = ({ auth, betslip, game }) => {
             ...betslip.tickets,
             {
               id: id,
-              numbers: game.odds.tickets[id],
+              numbers: tickets[id],
             },
           ],
         }),
       )
     }
+  }
+
+  const selectElements = (obj, n) => {
+    const keys = Object.keys(obj.tickets).slice(0, n)
+    return keys.reduce((result, key) => {
+      result[key] = obj.tickets[key]
+      return result
+    }, {})
+  }
+
+  const convertToIdObject = array => {
+    return array.reduce((acc, curr) => {
+      acc[curr.id] = curr.numbers
+      return acc
+    }, {})
+  }
+
+  const handleLoad = () => {
+    setUpdate(true)
+    getData(`game/${game.id}`).then(json => {
+      setTickets({
+        ...convertToIdObject(betslip.tickets),
+        ...selectElements(json.odds, 10 - betslip.tickets.length),
+      })
+      setTimeout(() => {
+        setUpdate(false)
+      }, 500)
+    })
   }
 
   return (
@@ -55,7 +88,7 @@ const BINGO = ({ auth, betslip, game }) => {
       </h6>
       <div className={style.container}>
         <div className={style.wrapper}>
-          {Object.keys(game.odds.tickets).map((el, idx) => (
+          {Object.keys(tickets).map((el, idx) => (
             <div
               key={idx}
               className={classNames(
@@ -64,6 +97,14 @@ const BINGO = ({ auth, betslip, game }) => {
               )}
               onClick={() => handleClick(el)}
             >
+              {isTicketExist(el) === -1 && update && (
+                <Loader
+                  type={'inline'}
+                  theme={{
+                    backgroundColor: 'var(--game_container_color)',
+                  }}
+                />
+              )}
               <div className={style.head}>
                 <span>
                   {t('ticket')} #{el}
@@ -73,7 +114,7 @@ const BINGO = ({ auth, betslip, game }) => {
                 </span>
               </div>
               <div className={style.table}>
-                {game.odds.tickets[el].map((el_c, idx_c) => (
+                {tickets[el].map((el_c, idx_c) => (
                   <div key={idx_c} className={style.cell}>
                     {el_c !== 0 && <div className={style.button}>{el_c}</div>}
                   </div>
@@ -87,7 +128,8 @@ const BINGO = ({ auth, betslip, game }) => {
         <Button
           placeholder={t('load_more')}
           styles={{ width: '100%' }}
-          onChange={() => {}}
+          onChange={() => handleLoad()}
+          disabled={betslip.tickets?.length >= 10}
         />
       </div>
     </div>

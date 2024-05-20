@@ -20,6 +20,7 @@
     position: sticky;
     top: rem(90px);
     transform: translateY(0)!important;
+    z-index: $z-index-9;
   }
 
   &.active {

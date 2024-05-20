@@ -8,6 +8,7 @@ const Button = ({
   styles = null,
   classes,
   onChange,
+  disabled,
 }) => {
   return (
     <button
@@ -15,6 +16,7 @@ const Button = ({
       className={classNames(style.block, classes)}
       onClick={onChange}
       style={styles}
+      disabled={disabled}
     >
       {placeholder}
     </button>

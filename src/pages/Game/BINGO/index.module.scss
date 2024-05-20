@@ -53,6 +53,8 @@
   @include make-spacer(p, 4px);
 
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
   border-radius: rem(20px);
   gap: rem(12px);
   background-color: var(--game_container_color);
