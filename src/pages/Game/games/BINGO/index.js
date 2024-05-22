@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { setBetslip } from 'store/actions/betslipAction'
 import { getData } from 'helpers/api'
 
+import GameButton from 'modules/GameButton'
 import Button from 'components/Button'
 import Loader from 'components/Loader'
 
@@ -16,7 +17,7 @@ import style from './index.module.scss'
 const BINGO = ({ auth, betslip, game, setGame }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const [tickets, setTickets] = useState(game.odds?.tickets)
+  const [tickets, setTickets] = useState(game.odds?.tickets || {})
   const [update, setUpdate] = useState(false)
 
   const isTicketExist = id => {
@@ -126,7 +127,9 @@ const BINGO = ({ auth, betslip, game, setGame }) => {
               <div className={style.table}>
                 {tickets[el].map((el_c, idx_c) => (
                   <div key={idx_c} className={style.cell}>
-                    {el_c !== 0 && <div className={style.button}>{el_c}</div>}
+                    {el_c !== 0 && (
+                      <GameButton classes={style.button} placeholder={el_c} />
+                    )}
                   </div>
                 ))}
               </div>

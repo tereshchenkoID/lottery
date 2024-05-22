@@ -4,58 +4,32 @@ import { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ticketType } from 'constant/config'
 
+import { calculateTotalFactorFromNumber } from 'helpers/calculateTotalFactorFromNumber'
+import { calculateTotalFactor } from 'helpers/calculateTotalFactor'
 import { calculateMultiplier } from 'helpers/calculateMultiplier'
 import { calculatePercent } from 'helpers/calculatePercent'
 import { setBetslip } from 'store/actions/betslipAction'
+import { getFactors } from 'helpers/getFactors'
 
 import classNames from 'classnames'
 
-import Tooltip from 'components/Tooltip'
 import Reference from 'components/Reference'
-import Control from 'components/Control'
 import Button from 'components/Button'
+import Singlebet from '../Singlebet'
 
 import style from './index.module.scss'
+import GameButton from '../../../modules/GameButton'
+
+const EXCEPTION = [1]
 
 const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
-  const EXCEPTION = [1]
-  const RULES = {
-    factor: {
-      text: 'rules.1',
-      placeholder: 'tooltip.1',
-    },
-    draw: {
-      text: 'rules.2',
-      placeholder: 'tooltip.2',
-    },
-  }
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const isNotEmpty = betslip.odds?.length > 0 || betslip.tickets?.length > 0
   const isSingle = active === ticketType.single
-
-  const handleStakeChange = (index, newValue) => {
-    const updatedOptions = betslip.bet?.[ticketType.single]
-    updatedOptions.options[index].value = newValue
-    updatedOptions.amount =
-      calculateMultiplier(updatedOptions.options) *
-      game.betCost *
-      betslip.tickets?.length
-    updatedOptions.bonuses = calculatePercent(
-      betslip.bonusAmount,
-      updatedOptions.amount,
-    )
-
-    dispatch(
-      setBetslip({
-        ...betslip,
-        bet: {
-          ...betslip.bet,
-          [ticketType.single]: updatedOptions,
-        },
-      }),
-    )
-  }
+  const isNotEmpty = betslip.odds?.length > 0 || betslip.tickets?.length > 0
+  const isCombination = betslip.bet[ticketType.multi].options.find(
+    el => el.name === 'combinations',
+  )
 
   const handleLoadTicket = idx => {
     dispatch(
@@ -81,15 +55,27 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
   }
 
   const handleAmount = () => {
+    const combinations = [1, 1]
+
+    if (isCombination) {
+      combinations[0] = calculateTotalFactor(
+        betslip.tickets,
+        getFactors(game.id),
+      )
+      combinations[1] =
+        calculateTotalFactorFromNumber(isCombination.value, getFactors(game.id))
+          ?.factor || 1
+    }
+
     const amounts = [
       game.betCost *
-        betslip.tickets.length *
-        (betslip.bet[ticketType.single]?.options.length > 0
-          ? calculateMultiplier(betslip.bet[ticketType.single].options)
-          : 1),
+        (isCombination ? 1 : betslip.tickets.length) *
+        calculateMultiplier(betslip.bet[ticketType.single].options) *
+        combinations[0],
       game.betCost *
         betslip.bet?.[ticketType.multi]?.options[0].value *
-        calculateMultiplier(betslip.bet[ticketType.multi].options),
+        calculateMultiplier(betslip.bet[ticketType.multi].options) *
+        combinations[1],
     ]
 
     dispatch(
@@ -99,11 +85,13 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
           [ticketType.single]: {
             ...betslip.bet[ticketType.single],
             amount: amounts[0],
+            combinations: combinations[0],
             bonuses: calculatePercent(betslip.bonusAmount, amounts[0]),
           },
           [ticketType.multi]: {
             ...betslip.bet[ticketType.multi],
             amount: amounts[1],
+            combinations: combinations[1],
             bonuses: calculatePercent(betslip.bonusAmount, amounts[1]),
           },
         },
@@ -135,25 +123,11 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
             {isNotEmpty ? (
               <>
                 {betslip.bet?.[ticketType.single]?.options.length > 0 && (
-                  <div className={style.container}>
-                    <div className={style.ticket}>
-                      {betslip.bet?.[ticketType.single]?.options?.map(
-                        (el, idx) => (
-                          <div key={idx} className={style.row}>
-                            <Tooltip
-                              text={t(RULES[el.name]?.text)}
-                              placeholder={t(RULES[el.name]?.placeholder)}
-                            />
-                            <Control
-                              data={el}
-                              index={idx}
-                              onChange={handleStakeChange}
-                            />
-                          </div>
-                        ),
-                      )}
-                    </div>
-                  </div>
+                  <Singlebet
+                    betslip={betslip}
+                    game={game}
+                    isCombination={isCombination}
+                  />
                 )}
               </>
             ) : (
@@ -188,6 +162,15 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
                   </strong>
                 </p>
               </div>
+              {isCombination && (
+                <div className={style.row}>
+                  <p>{t('combinations')}</p>
+                  <span className={style.dots} />
+                  <p>
+                    <strong>{betslip.bet?.[active]?.combinations}</strong>
+                  </p>
+                </div>
+              )}
               <div className={style.row}>
                 <p>{t('add_bonus')}</p>
                 <span className={style.dots} />
@@ -231,12 +214,11 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
                   >
                     {t('ticket')} #{el.id}
                   </button>
-                  <button
-                    className={style.button}
-                    onClick={() => handleDeleteTicket(idx)}
-                  >
-                    <FontAwesomeIcon icon="fa-solid fa-xmark" />
-                  </button>
+                  <GameButton
+                    classes={style.button}
+                    onChange={() => handleDeleteTicket}
+                    icon={'fa-solid fa-xmark'}
+                  />
                 </div>
               ))}
             </div>

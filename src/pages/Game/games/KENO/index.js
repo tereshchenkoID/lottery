@@ -8,6 +8,7 @@ import { betType } from 'constant/config'
 
 import { setBetslip } from 'store/actions/betslipAction'
 
+import GameButton from 'modules/GameButton'
 import Tooltip from 'components/Tooltip'
 
 import style from './index.module.scss'
@@ -108,11 +109,10 @@ const KENO = ({ auth, betslip, game }) => {
         numbers: betslip.odds,
       }
     } else {
-      const newId = (betslip.tickets[betslip.tickets.length - 1]?.id || 0) + 1
       updatedTickets = [
         ...betslip.tickets,
         {
-          id: newId,
+          id: (betslip.tickets[betslip.tickets.length - 1]?.id || 0) + 1,
           numbers: betslip.odds,
         },
       ]
@@ -131,10 +131,10 @@ const KENO = ({ auth, betslip, game }) => {
 
   const activeTips = useMemo(
     () =>
-      game.odds.numbers
+      (game?.odds?.numbers || [])
         .filter(market => Number(market.a[0]) === selectedCount)
         .sort((a, b) => b.b - a.b),
-    [game, selectedCount],
+    [game.odds, selectedCount],
   )
 
   const activeNumbers = num => num.filter(el => el.active).map(el => el.number)
@@ -183,9 +183,10 @@ const KENO = ({ auth, betslip, game }) => {
           <h6>
             {t('ticket')} #{betslip.tickets[betslip.activeTicket].id}
           </h6>
-          <button className={style.button} onClick={() => handleCloseTicket()}>
-            <FontAwesomeIcon icon="fa-solid fa-xmark" />
-          </button>
+          <GameButton
+            onChange={() => handleCloseTicket()}
+            icon={'fa-solid fa-xmark'}
+          />
         </div>
       )}
       <h6 className={style.title}>
@@ -203,13 +204,10 @@ const KENO = ({ auth, betslip, game }) => {
           <div className={style.numbers}>
             {Array.from({ length: 10 }).map((el, idx) => (
               <div className={style.column} key={idx}>
-                <button
-                  type={'button'}
-                  className={style.button}
-                  onClick={() => handleColumnClick(idx)}
-                >
-                  {++idx}
-                </button>
+                <GameButton
+                  placeholder={++idx}
+                  onChange={() => handleColumnClick(idx)}
+                />
                 <FontAwesomeIcon
                   icon="fa-solid fa-caret-down"
                   className={style.icon}
@@ -247,48 +245,32 @@ const KENO = ({ auth, betslip, game }) => {
         <div className={style.right}>
           <div className={style.numbers}>
             {numbers.map((el, idx) => (
-              <button
+              <GameButton
                 key={idx}
-                type={'button'}
-                className={classNames(
-                  style.button,
-                  el.active && style.active,
-                  selectedCount === COUNT && !el.active && style.disabled,
-                )}
-                onClick={() => handleNumberClick(idx)}
-              >
-                {el.number}
-              </button>
+                placeholder={el.number}
+                onChange={() => handleNumberClick(idx)}
+                isActive={el.active}
+                isDisabled={selectedCount === COUNT && !el.active}
+              />
             ))}
           </div>
-          <button
-            type={'button'}
-            className={style.button}
-            onClick={handleRandomClick}
-          >
-            <FontAwesomeIcon icon="fa-solid fa-cube" className={style.icon} />
-            <span>{t('random')}</span>
-          </button>
+          <GameButton
+            placeholder={t('random')}
+            onChange={() => handleRandomClick()}
+            icon={'fa-solid fa-cube'}
+          />
           <div className={style.actions}>
-            <button
-              type={'button'}
-              className={style.button}
-              onClick={handleResetClick}
-            >
-              <span>{t('reset')}</span>
-            </button>
-            <button
-              type={'button'}
-              className={classNames(
-                style.button,
-                betslip?.odds?.length === 0 && style.disabled,
-              )}
-              onClick={() => handlePlaceBet()}
-            >
-              <span>
-                {betslip.activeTicket !== null ? t('save') : t('add_stake')}
-              </span>
-            </button>
+            <GameButton
+              placeholder={t('reset')}
+              onChange={() => handleResetClick()}
+            />
+            <GameButton
+              placeholder={
+                betslip.activeTicket !== null ? t('save') : t('add_stake')
+              }
+              isDisabled={betslip?.odds?.length === 0}
+              onChange={() => handlePlaceBet()}
+            />
           </div>
         </div>
       </div>
@@ -302,36 +284,21 @@ const KENO = ({ auth, betslip, game }) => {
         </div>
         <div className={style.right}>
           <div className={style.actions}>
-            <button
-              type={'button'}
-              className={classNames(
-                style.button,
-                selectedType === 1 && style.active,
-              )}
-              onClick={() => handleTypeClick(1)}
-            >
-              <span>{t('even')}</span>
-            </button>
-            <button
-              type={'button'}
-              className={classNames(
-                style.button,
-                selectedType === 2 && style.active,
-              )}
-              onClick={() => handleTypeClick(2)}
-            >
-              <span>{t('odd')}</span>
-            </button>
-            <button
-              type={'button'}
-              className={classNames(
-                style.button,
-                selectedType === 3 && style.active,
-              )}
-              onClick={() => handleTypeClick(3)}
-            >
-              <span>{t('equally')}</span>
-            </button>
+            <GameButton
+              placeholder={t('even')}
+              isActive={selectedType === 1}
+              onChange={() => handleTypeClick(1)}
+            />
+            <GameButton
+              placeholder={t('odd')}
+              isActive={selectedType === 2}
+              onChange={() => handleTypeClick(2)}
+            />
+            <GameButton
+              placeholder={t('equally')}
+              isActive={selectedType === 3}
+              onChange={() => handleTypeClick(3)}
+            />
           </div>
         </div>
       </div>

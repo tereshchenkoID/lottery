@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import GameButton from 'modules/GameButton'
 
 import style from './index.module.scss'
 
@@ -12,16 +12,11 @@ const Control = ({ data, index, onChange }) => {
 
   return (
     <div className={style.block}>
-      <button
-        type="button"
-        className={classNames(
-          style.button,
-          data.value === data.min && style.disabled,
-        )}
-        onClick={() => onChange(index, Math.max(data.min, data.value - 1))}
-      >
-        -
-      </button>
+      <GameButton
+        placeholder={'-'}
+        isDisabled={data.value === data.min}
+        onChange={() => onChange(index, Math.max(data.min, data.value - 1))}
+      />
       <input
         type="number"
         className={style.field}
@@ -30,16 +25,11 @@ const Control = ({ data, index, onChange }) => {
         max={data.max}
         onChange={e => handleInputChange(e.currentTarget.value)}
       />
-      <button
-        type="button"
-        className={classNames(
-          style.button,
-          data.value === data.max && style.disabled,
-        )}
-        onClick={() => onChange(index, Math.min(data.max, data.value + 1))}
-      >
-        +
-      </button>
+      <GameButton
+        placeholder={'+'}
+        isDisabled={data.value === data.max}
+        onChange={() => onChange(index, Math.min(data.max, data.value + 1))}
+      />
     </div>
   )
 }

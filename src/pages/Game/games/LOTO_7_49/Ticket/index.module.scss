@@ -31,6 +31,12 @@
   align-items: center;
 }
 
+.info {
+  @include flex($align-items: center);
+
+  gap: rem(8px);
+}
+
 .numbers {
   gap: rem(12px);
 }
@@ -76,49 +82,21 @@
   }
 }
 
-.button {
-  @include size(rem(40px));
-  @include flex(center, center);
-
-  border-radius: rem(8px);
-  gap: rem(8px);
-  box-shadow: inset 0 rem(2px) 0 var(--game_button_box_shadow);
-  background-color: var(--game_button_color);
-  color: var(--game_button_font_color);
-  font-size: rem(14px);
-  line-height: rem(28px);
-  font-weight: var(--typography-bold);
-
-  &:not(.active) {
-
-    &:hover {
-      background-color: var(--game_button_color_hover);
-      color: var(--game_button_font_color_hover);
-    }
-  }
-
-  &.wide {
-    width: 100%;
-  }
-
-  &.active {
-    background-color: var(--game_button_color_active);
-    color: var(--game_button_font_color_active);
-  }
-
-  &.disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
-  @include media-breakpoint-up(lg) {
-    border-radius: rem(12px);
-    font-size: rem(18px);
-  }
-}
-
 .actions {
   @include flex;
 
   gap: rem(8px);
+}
+
+.combination {
+  @include make-spacer(py, 3px);
+  @include make-spacer(px, 12px);
+
+  border-radius: rem(12px);
+  background-color: var(--game_button_color_active);
+  color: var(--game_button_font_color_active);
+  font-size: rem(13px);
+  font-weight: var(--typography-medium);
+  white-space: nowrap;
+  flex-shrink: 0;
 }

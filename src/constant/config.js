@@ -17,3 +17,19 @@ export const betType = {
   2: 102, // odd
   3: 103, // equally
 }
+
+export const sports_lotto_factors = [
+  { count: 7, factor: 1 },
+  { count: 8, factor: 8 },
+  { count: 9, factor: 36 },
+  { count: 10, factor: 120 },
+  { count: 11, factor: 330 },
+  { count: 12, factor: 792 },
+  { count: 13, factor: 1716 },
+  { count: 14, factor: 3432 },
+  { count: 15, factor: 6435 },
+  { count: 16, factor: 11440 },
+  { count: 17, factor: 19448 },
+  { count: 18, factor: 31824 },
+  { count: 19, factor: 50388 },
+]

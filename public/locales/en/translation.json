@@ -47,37 +47,41 @@
   "multi": "Multibet",
   "archive": "Archive",
   "amount": "Amount",
+  "combinations": "Combinations",
   "save": "Save",
   "add_bonus": "Add bonuses",
   "add_stake": "Add stake",
   "load_more": "Load more",
   "tooltip": {
-    "1": "Increase your possible winnings by a multiple of the selected multiplier. Does not apply to the “Super Prize” category. UA",
-    "2": "Your tickets will be played in several draws in a row. This significantly increases the chances of winning a Super Prize. UA"
+    "1": "Increase your possible winnings by a multiple of the selected multiplier. Does not apply to the “Super Prize” category.",
+    "2": "Your tickets will be played in several draws in a row. This significantly increases the chances of winning a Super Prize."
   },
   "rules": {
-    "1": "Factor UA",
-    "2": "Draw UA"
+    "1": "Factor",
+    "2": "Draw"
   },
   "games": {
     "1": {
-      "title": "Lorem ipsum dolor",
+      "title": "Lotto",
       "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
       "alt": "Lorem ipsum dolor"
     },
     "2": {
-      "title": "Lorem ipsum dolor",
+      "title": "Sportsloto “7 out of 49”",
       "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
       "alt": "Lorem ipsum dolor",
       "tooltip": {
         "1": "Choose more numbers to increase your chance of winning"
       },
       "rules": {
-        "1": "Numbers selected"
+        "1": "Numbers selected",
+        "2": "Marked numbers",
+        "3": "Chance for a super prize",
+        "4": "Price"
       }
     },
     "3": {
-      "title": "Lorem ipsum dolor",
+      "title": "Keno",
       "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
       "alt": "Lorem ipsum dolor",
       "tooltip": {
@@ -99,6 +103,7 @@
     "tickets": "Tickets",
     "factor": "Factor",
     "draws": "Draws",
-    "numbers": "Numbers"
+    "numbers": "Numbers",
+    "combinations": "Fields numbers"
   }
 }

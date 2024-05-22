@@ -150,19 +150,7 @@
 }
 
 .button {
-  @include size(100%, rem(30px));
-  @include flex(center, center);
-
+  pointer-events: none;
   border-radius: rem(8px);
-  box-shadow: inset 0 rem(2px) 0 var(--game_button_box_shadow);
-  background-color: var(--game_button_color);
-  color: var(--game_button_font_color);
-  font-size: rem(14px);
-  line-height: rem(28px);
-  font-weight: var(--typography-bold);
-
-  @include media-breakpoint-up(lg) {
-    border-radius: rem(12px);
-    font-size: rem(18px);
-  }
+  height: rem(30px);
 }

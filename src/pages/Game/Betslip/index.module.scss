@@ -107,19 +107,6 @@
 
 .button {
   @include size(rem(34px));
-  @include flex(center, center);
-
-  border-radius: rem(12px);
-  background-color: var(--game_button_color);
-  color: var(--game_button_font_color);
-  font-size: rem(18px);
-  line-height: rem(28px);
-  font-weight: var(--typography-bold);
-
-  &:hover {
-    background-color: var(--game_button_color_hover);
-    color: var(--game_button_font_color_hover);
-  }
 }
 
 .icon {

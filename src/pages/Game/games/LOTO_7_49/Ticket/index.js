@@ -1,31 +1,35 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { sports_lotto_factors } from 'constant/config'
+
 import { setBetslip } from 'store/actions/betslipAction'
+
+import GameButton from 'modules/GameButton'
 
 import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const Ticket = ({ betslip, game, active, show, setShow }) => {
-  const COUNT = {
-    min: 7,
-    max: 19,
-    numbers: 49,
-  }
+const COUNT = {
+  min: 7,
+  max: 19,
+  numbers: 49,
+}
+
+const Ticket = ({ betslip, game }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [selectedCount, setSelectedCount] = useState(0)
+  const isActive = selectedCount >= COUNT.min
   const [numbers, setNumbers] = useState(
     Array.from({ length: COUNT.numbers }, (_, idx) => ({
       number: idx + 1,
       active: false,
     })),
   )
-
-  const isActive = selectedCount >= 7
 
   const updateBetslip = numbers => {
     dispatch(
@@ -135,6 +139,11 @@ const Ticket = ({ betslip, game, active, show, setShow }) => {
     )
   }
 
+  const activeFactor = useMemo(
+    () => sports_lotto_factors.find(el => el.count === selectedCount),
+    [game.id, selectedCount],
+  )
+
   useEffect(() => {
     handleLoadNumbers(betslip.activeTicket)
   }, [betslip.activeTicket])
@@ -142,15 +151,21 @@ const Ticket = ({ betslip, game, active, show, setShow }) => {
   return (
     <div className={classNames(style.block, isActive && style.active)}>
       <div className={style.meta}>
-        <h6>
-          {t('ticket')}
-          {betslip.activeTicket !== null &&
-            ` #${betslip.tickets[betslip.activeTicket].id}`}
-        </h6>
+        <div className={style.info}>
+          <h6>
+            {t('ticket')}
+            {betslip.activeTicket !== null &&
+              ` #${betslip.tickets[betslip.activeTicket].id}`}
+          </h6>
+          {activeFactor && (
+            <p className={style.combination}>x {activeFactor?.factor}</p>
+          )}
+        </div>
         {betslip.activeTicket !== null && (
-          <button className={style.button} onClick={() => handleCloseTicket()}>
-            <FontAwesomeIcon icon="fa-solid fa-xmark" />
-          </button>
+          <GameButton
+            onChange={() => handleCloseTicket()}
+            icon={'fa-solid fa-xmark'}
+          />
         )}
       </div>
 
@@ -180,50 +195,32 @@ const Ticket = ({ betslip, game, active, show, setShow }) => {
       <div className={style.numbers}>
         {numbers.map((el, idx) => (
           <div key={idx} className={style.cell}>
-            <button
-              type={'button'}
-              className={classNames(
-                style.button,
-                style.wide,
-                el.active && style.active,
-                selectedCount === COUNT.max && !el.active && style.disabled,
-              )}
-              onClick={() => handleNumberClick(idx)}
-            >
-              {el.number}
-            </button>
+            <GameButton
+              placeholder={el.number}
+              onChange={() => handleNumberClick(idx)}
+              isActive={el.active}
+              isDisabled={selectedCount === COUNT.max && !el.active}
+            />
           </div>
         ))}
       </div>
-      <button
-        type={'button'}
-        className={classNames(style.button, style.wide)}
-        onClick={handleRandomClick}
-      >
-        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.icon} />
-        <span>{t('random')}</span>
-      </button>
+      <GameButton
+        placeholder={t('random')}
+        onChange={() => handleRandomClick()}
+        icon={'fa-solid fa-cube'}
+      />
       <div className={style.actions}>
-        <button
-          type={'button'}
-          className={classNames(style.button, style.wide)}
-          onClick={handleResetClick}
-        >
-          <span>{t('reset')}</span>
-        </button>
-        <button
-          type={'button'}
-          className={classNames(
-            style.button,
-            style.wide,
-            !isActive && style.disabled,
-          )}
-          onClick={() => handlePlaceBet()}
-        >
-          <span>
-            {betslip.activeTicket !== null ? t('save') : t('add_stake')}
-          </span>
-        </button>
+        <GameButton
+          placeholder={t('reset')}
+          onChange={() => handleResetClick()}
+        />
+        <GameButton
+          placeholder={
+            betslip.activeTicket !== null ? t('save') : t('add_stake')
+          }
+          isDisabled={!isActive}
+          onChange={() => handlePlaceBet()}
+        />
       </div>
     </div>
   )

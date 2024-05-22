@@ -30,14 +30,6 @@
   }
 }
 
-.container {
-  @include make-spacer(mb, 4px);
-
-  &:last-child {
-    @include make-spacer(mb, 0);
-  }
-}
-
 .wrapper {
   display: grid;
   gap: rem(4px);

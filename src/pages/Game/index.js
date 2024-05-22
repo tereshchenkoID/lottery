@@ -20,9 +20,9 @@ import Betslip from './Betslip'
 
 import style from './index.module.scss'
 
-const BINGO = lazy(() => import('./BINGO'))
-const KENO = lazy(() => import('./KENO'))
-const LOTO_7_49 = lazy(() => import('./LOTO_7_49'))
+const BINGO = lazy(() => import('./games/BINGO'))
+const KENO = lazy(() => import('./games/KENO'))
+const LOTO_7_49 = lazy(() => import('./games/LOTO_7_49'))
 
 const gameComponents = {
   1: BINGO,
@@ -92,6 +92,8 @@ const Game = () => {
             bonusAmount: json?.bonusAmount,
             type: active,
             bet: json?.bet,
+            tickets: [],
+            odds: [],
           }),
         )
       }),
@@ -152,7 +154,7 @@ const Game = () => {
                     <h6>{t(`games.${game.id}.title`)}</h6>
                     {game.jackpots && (
                       <h4>
-                        {t('jackpot')} -
+                        {t('jackpot')} - {''}
                         <span>
                           {auth.account.currency.symbol} {game.jackpots}
                         </span>

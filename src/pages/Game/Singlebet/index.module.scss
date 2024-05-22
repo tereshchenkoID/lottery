@@ -1,0 +1,23 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(py, 28px);
+  @include make-spacer(px, 18px);
+  @include flex(center, center, column);
+
+  background-color: var(--game_container_color);
+  border-radius: rem(20px);
+}
+
+.ticket {
+  @include flex($direction: column);
+
+  width: 100%;
+  gap: rem(24px);
+}
+
+.row {
+  @include flex(space-between, baseline);
+
+  gap: rem(4px);
+}

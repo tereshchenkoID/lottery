@@ -47,6 +47,7 @@
   "multi": "Multibet UA",
   "archive": "Archive UA",
   "amount": "Amount UA",
+  "combinations": "Combinations UA",
   "save": "Save UA",
   "add_bonus": "Add bonuses UA",
   "add_stake": "Add stake UA",
@@ -61,23 +62,26 @@
   },
   "games": {
     "1": {
-      "title": "Lorem ipsum dolor UA",
+      "title": "Lotto UA",
       "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
       "alt": "Lorem ipsum dolor UA"
     },
     "2": {
-      "title": "Lorem ipsum dolor UA",
+      "title": "Sportsloto “7 out of 49” UA",
       "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
       "alt": "Lorem ipsum dolor UA",
       "tooltip": {
         "1": "Choose more numbers to increase your chance of winning UA"
       },
       "rules": {
-        "1": "Numbers selected UA"
+        "1": "Numbers selected UA",
+        "2": "Marked numbers UA",
+        "3": "Chance for a super prize UA",
+        "4": "Price UA"
       }
     },
     "3": {
-      "title": "Lorem ipsum dolor UA",
+      "title": "Keno UA",
       "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est UA",
       "alt": "Lorem ipsum dolor UA",
       "tooltip": {
@@ -99,6 +103,7 @@
     "tickets": "Tickets UA",
     "factor": "Factor UA",
     "draws": "Draws UA",
-    "numbers": "Numbers UA"
+    "numbers": "Numbers UA",
+    "combinations": "Fields numbers UA"
   }
 }
