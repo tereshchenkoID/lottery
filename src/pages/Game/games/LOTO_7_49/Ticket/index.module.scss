@@ -38,7 +38,11 @@
 }
 
 .numbers {
-  gap: rem(12px);
+  gap: rem(4px);
+
+  @include media-breakpoint-up(lg) {
+    gap: rem(12px);
+  }
 }
 
 .scale {
