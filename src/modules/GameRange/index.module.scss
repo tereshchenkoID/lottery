@@ -7,7 +7,7 @@
 .slider {
   @include make-spacer(px, 20px);
 
-  background-color: var(--color-black);
+  background-color: var(--game_range_background_color);
   border-radius: rem(20px);
   overflow: hidden;
 }

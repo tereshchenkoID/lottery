@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux'
 import { ticketType } from 'constant/config'
 
 import { setBetslip } from 'store/actions/betslipAction'
+import { getFactors } from 'helpers/getFactors'
 import { calculateMultiplier } from 'helpers/calculateMultiplier'
 import { calculatePercent } from 'helpers/calculatePercent'
 import { calculateTotalFactorFromNumber } from 'helpers/calculateTotalFactorFromNumber'
-import { getFactors } from 'helpers/getFactors'
 
 import Stake from './Stake'
 

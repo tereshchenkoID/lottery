@@ -2,7 +2,7 @@ import GameButton from 'modules/GameButton'
 
 import style from './index.module.scss'
 
-const Control = ({ data, index, onChange }) => {
+const GameControl = ({ data, index, onChange }) => {
   const handleInputChange = value => {
     const newValue = parseInt(value, 10)
     if (!isNaN(newValue)) {
@@ -34,4 +34,4 @@ const Control = ({ data, index, onChange }) => {
   )
 }
 
-export default Control
+export default GameControl

@@ -9,8 +9,8 @@ import { calculatePercent } from 'helpers/calculatePercent'
 import { calculateTotalFactor } from 'helpers/calculateTotalFactor'
 import { getFactors } from 'helpers/getFactors'
 
+import GameControl from 'modules/GameControl'
 import Tooltip from 'components/Tooltip'
-import Control from 'components/Control'
 
 import style from './index.module.scss'
 
@@ -66,7 +66,7 @@ const Singlebet = ({ betslip, game, isCombination }) => {
               text={t(RULES[el.name]?.text)}
               placeholder={t(RULES[el.name]?.placeholder)}
             />
-            <Control data={el} index={idx} onChange={handleStakeChange} />
+            <GameControl data={el} index={idx} onChange={handleStakeChange} />
           </div>
         ))}
       </div>

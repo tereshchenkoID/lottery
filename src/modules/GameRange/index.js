@@ -2,13 +2,13 @@ import Slider from 'rc-slider'
 
 import style from './index.module.scss'
 
-const Range = ({ data, onChange }) => {
+const GameRange = ({ data, onChange }) => {
   return (
     <div className={style.block}>
       <div className={style.slider}>
         <Slider
           trackStyle={{
-            backgroundColor: 'var(--color-secondary)',
+            backgroundColor: 'var(--game_range_background_color-active)',
           }}
           onChange={onChange}
           min={data.min}
@@ -25,4 +25,4 @@ const Range = ({ data, onChange }) => {
   )
 }
 
-export default Range
+export default GameRange

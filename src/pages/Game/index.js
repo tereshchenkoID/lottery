@@ -13,6 +13,7 @@ import { getDate } from 'helpers/getDate'
 import { setBetslip } from 'store/actions/betslipAction'
 
 import Games from 'modules/Games'
+import GameButton from 'modules/GameButton'
 import Loader from 'components/Loader'
 import Button from 'components/Button'
 import Multibet from './Multibet'
@@ -183,20 +184,29 @@ const Game = () => {
               <div className={style.body}>
                 <div className={style.tab}>
                   {TABS.map((el, idx) => (
-                    <button
+                    <GameButton
                       key={idx}
-                      type="button"
-                      className={classNames(
-                        style.button,
-                        active === el.value && style.active,
-                      )}
-                      onClick={() => handleActive(el.value)}
-                    >
-                      <span className={style.icon}>
-                        <FontAwesomeIcon icon={`fa-solid ${el.icon}`} />
-                      </span>
-                      <span>{t(el.text)}</span>
-                    </button>
+                      placeholder={t(el.text)}
+                      isActive={active === el.value}
+                      onChange={() => handleActive(el.value)}
+                      classes={style.button}
+                      icon={`fa-solid ${el.icon}`}
+                    />
+
+                    // <button
+                    //   key={idx}
+                    //   type="button"
+                    //   className={classNames(
+                    //     style.button,
+                    //     active === el.value && style.active,
+                    //   )}
+                    //   onClick={() => handleActive(el.value)}
+                    // >
+                    //   <span className={style.icon}>
+                    //     <FontAwesomeIcon icon={`fa-solid ${el.icon}`} />
+                    //   </span>
+                    //   <span>{t(el.text)}</span>
+                    // </button>
                   ))}
                 </div>
                 <div className={style.toggle}>

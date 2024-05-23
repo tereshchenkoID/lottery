@@ -70,7 +70,7 @@
 .left {
   @include make-spacer(px, 8px);
 
-  color: var(--game_font_color);
+  color: var(--font_color);
   line-height: rem(24px);
 }
 
@@ -87,7 +87,7 @@
     @include size(rem(14px));
 
     display: block;
-    color: var(--game_font_color);
+    color: var(--font_color);
   }
 }
 
@@ -125,10 +125,9 @@
   @include flex(space-between, center);
 
   height: rem(40px);
-  border-bottom: rem(1px) solid var(--grey-alpha-400);
+  border-bottom: rem(1px) solid var(--game_background_color);
 
   &:first-child {
-    border-bottom-color: rgba(255, 255, 255, 0.4);
 
     .cell {
       opacity: 0.6;

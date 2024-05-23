@@ -2,8 +2,8 @@ import { useTranslation } from 'react-i18next'
 
 import style from './index.module.scss'
 
-import Range from 'components/Range'
-import Control from 'components/Control'
+import GameRange from 'modules/GameRange'
+import GameControl from 'modules/GameControl'
 
 const Stake = ({ data, index, handleStakeChange }) => {
   const { t } = useTranslation()
@@ -19,8 +19,8 @@ const Stake = ({ data, index, handleStakeChange }) => {
   return (
     <div className={style.block}>
       <h6>{t(`multibet.${data.name}`)}:</h6>
-      <Control data={data} index={index} onChange={handleStakeChange} />
-      <Range data={data} onChange={handleInputChange} />
+      <GameControl data={data} index={index} onChange={handleStakeChange} />
+      <GameRange data={data} onChange={handleInputChange} />
     </div>
   )
 }

@@ -119,55 +119,11 @@
 }
 
 .button {
-  @include flex($align-items: center);
-  @include make-spacer(pl, 6px);
+  @include size(fit-content, 100%);
+  @include make-spacer(pl, 10px);
   @include make-spacer(pr, 20px);
 
-  border-radius: rem(8px);
   gap: rem(10px);
-  background-color: var(--game_button_color);
-  color: var(--game_button_font_color);
-  text-transform: uppercase;
-  font-weight: var(--typography-medium);
-  letter-spacing: rem(1px);
-  font-size: rem(14px);
-  white-space: nowrap;
-
-  @include media-breakpoint-up(xl) {
-    border-radius: rem(12px);
-  }
-
-  .icon {
-    @include make-spacer(mr, 0);
-    @include flex(center, center);
-    @include size(rem(24px));
-
-    border-radius: rem(4px);
-    font-size: rem(16px);
-
-    @include media-breakpoint-up(xl) {
-      @include size(rem(36px));
-
-      border-radius: rem(10px);
-      font-size: rem(20px);
-    }
-  }
-
-  &:hover {
-    background-color: var(--game_button_color_hover);
-    color: var(--game_button_font_color_hover);
-  }
-
-  &.active {
-    pointer-events: none;
-    background-color: var(--game_button_color_active);
-    color: var(--game_button_font_color_active);
-
-    .icon {
-      color: var(--game_icon_color_active);
-      background-color: var(--game_icon_color);
-    }
-  }
 }
 
 .toggle {

@@ -98,7 +98,6 @@ hr {
 
 :global {
   /* Tooltip */
-
   .react-tooltip {
     @include make-spacer(px, 16px);
     @include make-spacer(py, 12px);
@@ -117,6 +116,7 @@ hr {
 
 
   /* Tooltip */
+
   .rc-slider {
     @include make-spacer(px, 20px);
     @include make-spacer(py, 0!important);
@@ -131,7 +131,7 @@ hr {
   }
 
   .rc-slider-rail {
-    background-color: var(--color-black)!important;
+    background-color: var(--game_range_background_color)!important;
   }
 
   .rc-slider-track {
@@ -154,7 +154,6 @@ hr {
 
   .rc-slider-mark {
     top: 100%;
-    border: 1px solid red;
   }
 
   .rc-slider-handle {
@@ -175,7 +174,7 @@ hr {
     &::before{
       @include size(rem(40px));
 
-      background: inherit;
+      background-color: var(--game_range_background_color-active);
     }
 
     &::after,

@@ -13,12 +13,12 @@ import { getFactors } from 'helpers/getFactors'
 
 import classNames from 'classnames'
 
+import GameButton from 'modules/GameButton'
 import Reference from 'components/Reference'
 import Button from 'components/Button'
 import Singlebet from '../Singlebet'
 
 import style from './index.module.scss'
-import GameButton from '../../../modules/GameButton'
 
 const EXCEPTION = [1]
 
