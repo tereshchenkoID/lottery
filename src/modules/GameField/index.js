@@ -1,16 +1,19 @@
 import { useRef } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const Field = ({
+const GameField = ({
   type,
   placeholder,
   data,
   onChange,
-  classes = null,
   isRequired = false,
+  isDisabled = false,
+  min = null,
+  max = null,
 }) => {
   const inputRef = useRef(null)
 
@@ -19,12 +22,7 @@ const Field = ({
   }
 
   return (
-    <div
-      className={classNames(
-        style.block,
-        classes && classes.map(el => style[el]),
-      )}
-    >
+    <div className={classNames(style.block, isDisabled && style.disabled)}>
       <input
         ref={inputRef}
         className={style.input}
@@ -34,7 +32,14 @@ const Field = ({
           onChange(e.currentTarget.value)
         }}
         required={isRequired}
+        min={min}
+        max={max}
       />
+      {(type === 'datetime-local' || type === 'date') && (
+        <span className={style.icon}>
+          <FontAwesomeIcon icon="fa-solid fa-calendar-days" />
+        </span>
+      )}
       <label className={style.label} onClick={onFocus}>
         {placeholder}
         {isRequired && <span>*</span>}
@@ -43,4 +48,4 @@ const Field = ({
   )
 }
 
-export default Field
+export default GameField

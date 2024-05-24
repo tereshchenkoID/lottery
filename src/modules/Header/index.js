@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useSelector } from 'react-redux'
+
 import { Link } from 'react-router-dom'
 
 import classNames from 'classnames'
@@ -14,6 +16,7 @@ import style from './index.module.scss'
 const Header = () => {
   const { t } = useTranslation()
   const [show, setShow] = useState(false)
+  const { settings } = useSelector(state => state.settings)
   const buttonRef = useRef(null)
 
   return (
@@ -26,7 +29,9 @@ const Header = () => {
         onClick={() => {
           setShow(false)
         }}
-      />
+      >
+        <img src={settings.logo} alt="logo" />
+      </Link>
       <div
         className={style.button}
         ref={buttonRef}

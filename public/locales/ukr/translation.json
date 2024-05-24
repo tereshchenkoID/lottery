@@ -37,9 +37,6 @@
   "random": "Random UA",
   "reset": "Reset UA",
   "placebet": "Place bet UA",
-  "even": "Even UA",
-  "odd": "Odd UA",
-  "equally": "Equally UA",
   "place_bet": "Place your bet UA",
   "ticket_price": "Ticket price UA",
   "ticket": "Ticket UA",
@@ -52,6 +49,19 @@
   "add_bonus": "Add bonuses UA",
   "add_stake": "Add stake UA",
   "load_more": "Load more UA",
+  "date_from": "Date from UA",
+  "date_to": "Date from UA",
+  "search": "Search UA",
+  "jackpot_won": "Jackpot won UA",
+  "draws_from": "Draws from UA",
+  "draws_to": "Draws to UA",
+  "by_date": "By date UA",
+  "by_draws": "By draws UA",
+  "broadcast_date": "Broadcast date UA",
+  "draw": "Draw UA",
+  "draw_result": "Draw result UA",
+  "payments": "Payments UA",
+  "parity": "Parity UA",
   "tooltip": {
     "1": "Increase your possible winnings by a multiple of the selected multiplier. Does not apply to the “Super Prize” category. UA",
     "2": "Your tickets will be played in several draws in a row. This significantly increases the chances of winning a Super Prize. UA"
@@ -105,5 +115,10 @@
     "draws": "Draws UA",
     "numbers": "Numbers UA",
     "combinations": "Fields numbers UA"
+  },
+  "numbers": {
+    "101": "Even UA",
+    "102": "Odd UA",
+    "103": "Equally UA"
   }
 }

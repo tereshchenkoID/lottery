@@ -1,0 +1,168 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(pt, 28px);
+  @include make-spacer(px, 4px);
+  @include make-spacer(pb, 4px);
+  @include flex(center, center, column);
+
+  background-color: var(--game_background_color);
+  border-radius: rem(20px);
+  gap: rem(4px);
+}
+
+.container {
+  @include make-spacer(p, 4px);
+
+  width: 100%;
+  background-color: var(--game_container_color);
+  border-radius: rem(20px);
+
+  @include media-breakpoint-up(lg) {
+    border: rem(4px) solid transparent;
+    max-width: 100%;
+  }
+}
+
+.tab {
+  @include make-spacer(mb, 16px);
+  @include flex;
+  @include size(100%, rem(44px));
+
+  gap: rem(8px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.button {
+  @include size(fit-content, 100%);
+  @include make-spacer(px, 20px);
+}
+
+.search {
+  @include size(fit-content, rem(48px));
+}
+
+.form {
+  @include flex($align-items: center, $wrap: wrap);
+
+  column-gap: rem(4px);
+  row-gap: rem(8px);
+
+  @include media-breakpoint-up(lg) {
+    flex-wrap: nowrap;
+    column-gap: rem(8px);
+  }
+
+  > * {
+    flex: 1;
+
+    &:nth-child(3) {
+      flex-basis: 100%;
+
+      @include media-breakpoint-up(md) {
+        flex-basis: 0;
+      }
+    }
+  }
+}
+
+.table {
+  @include make-spacer(pt, 8px);
+}
+
+.row {
+  @include make-spacer(pb, 20px);
+  @include make-spacer(mb, 20px);
+
+  display: grid;
+  border-bottom: rem(1px) solid var(--game_background_color);
+  min-height: rem(40px);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(pb, 0);
+    @include make-spacer(mb, 0);
+
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+  }
+
+  &:last-child {
+    @include make-spacer(pb, 0);
+    @include make-spacer(mb, 0);
+
+    border-bottom: 0;
+  }
+
+  &.head {
+    display: none;
+    height: rem(50px);
+    text-transform: uppercase;
+    font-size: rem(12px);
+    letter-spacing: rem(1px);
+
+    @include media-breakpoint-up(lg) {
+      display: grid;
+    }
+  }
+}
+
+.cell {
+  @include flex($align-items: baseline);
+  @include make-spacer(p, 4px);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 10px);
+  }
+
+  &:last-child {
+    @include media-breakpoint-up(lg) {
+      text-align: right;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.results {
+  @include make-spacer(px, 8px);
+
+  border-radius: rem(12px);
+  background-color: var(--game_background_color);
+}
+
+.numbers {
+  @include make-spacer(py, 8px);
+  @include flex($align-items: center, $wrap: wrap);
+
+  border-bottom: rem(1px) solid var(--game_container_color);
+  gap: rem(8px);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.number {
+  @include size(rem(32px));
+
+  pointer-events: none;
+}
+
+.link {
+  text-decoration: underline;
+  color: var(--game_button_color_active);
+}
+
+.label {
+  @include make-spacer(mr, 8px);
+
+  opacity: 0.7;
+  font-size: rem(12px);
+
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+}

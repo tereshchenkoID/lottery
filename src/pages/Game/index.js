@@ -10,6 +10,7 @@ import { userType } from 'constant/config'
 
 import { getData } from 'helpers/api'
 import { getDate } from 'helpers/getDate'
+import { getValueFormatted } from 'helpers/getValueFormatted'
 import { setBetslip } from 'store/actions/betslipAction'
 
 import Games from 'modules/Games'
@@ -20,6 +21,7 @@ import Multibet from './Multibet'
 import Betslip from './Betslip'
 
 import style from './index.module.scss'
+import Archive from './Archive'
 
 const BINGO = lazy(() => import('./games/BINGO'))
 const KENO = lazy(() => import('./games/KENO'))
@@ -76,7 +78,7 @@ const Game = () => {
   const { betslip } = useSelector(state => state.betslip)
   const [game, setGame] = useState({})
   const [loading, setLoading] = useState(true)
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState(2)
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -131,17 +133,21 @@ const Game = () => {
         <div className={style.content}>
           {game.hasOwnProperty('bet') ? (
             <>
-              <div
-                className={classNames(style.shadow, show && style.active)}
-                onClick={() => setShow(!show)}
-              />
-              <div className={style.betslip}>
-                <Button
-                  placeholder={`${t('place_bet')} ${betslip.bet?.[active]?.amount} ${auth.account.currency.symbol}`}
-                  onChange={() => setShow(!show)}
-                  styles={{ width: '100%' }}
-                />
-              </div>
+              {active !== 2 && (
+                <>
+                  <div
+                    className={classNames(style.shadow, show && style.active)}
+                    onClick={() => setShow(!show)}
+                  />
+                  <div className={style.betslip}>
+                    <Button
+                      placeholder={`${t('place_bet')} ${betslip.bet?.[active]?.amount} ${auth.account.currency.symbol}`}
+                      onChange={() => setShow(!show)}
+                      styles={{ width: '100%' }}
+                    />
+                  </div>
+                </>
+              )}
               <div className={style.header}>
                 <div className={style.info}>
                   <div className={style.picture}>
@@ -157,7 +163,8 @@ const Game = () => {
                       <h4>
                         {t('jackpot')} - {''}
                         <span>
-                          {auth.account.currency.symbol} {game.jackpots}
+                          {auth.account.currency.symbol}{' '}
+                          {getValueFormatted(game.jackpots)}
                         </span>
                       </h4>
                     )}
@@ -192,21 +199,6 @@ const Game = () => {
                       classes={style.button}
                       icon={`fa-solid ${el.icon}`}
                     />
-
-                    // <button
-                    //   key={idx}
-                    //   type="button"
-                    //   className={classNames(
-                    //     style.button,
-                    //     active === el.value && style.active,
-                    //   )}
-                    //   onClick={() => handleActive(el.value)}
-                    // >
-                    //   <span className={style.icon}>
-                    //     <FontAwesomeIcon icon={`fa-solid ${el.icon}`} />
-                    //   </span>
-                    //   <span>{t(el.text)}</span>
-                    // </button>
                   ))}
                 </div>
                 <div className={style.toggle}>
@@ -214,6 +206,7 @@ const Game = () => {
                     {active === 0 &&
                       getGames(gameId, auth, betslip, game, setGame)}
                     {active === 1 && <Multibet betslip={betslip} game={game} />}
+                    {active === 2 && <Archive betslip={betslip} game={game} />}
                   </div>
 
                   {active !== 2 && (

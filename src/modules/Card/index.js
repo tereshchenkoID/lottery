@@ -2,8 +2,10 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import { getDifferent } from 'helpers/getDifferent'
+import { getValueFormatted } from 'helpers/getValueFormatted'
+
 import style from './index.module.scss'
-import { getDifferent } from '../../helpers/getDifferent'
 
 const Card = ({ data }) => {
   const { t } = useTranslation()
@@ -30,7 +32,7 @@ const Card = ({ data }) => {
         <div className={style.content}>
           <div className={style.title}>{t('prize')}</div>
           <h4 className={style.prize}>
-            {data.jackpots}
+            {getValueFormatted(data.jackpots)}
             {auth.account.currency.symbol}
           </h4>
         </div>

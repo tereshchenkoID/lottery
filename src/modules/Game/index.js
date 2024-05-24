@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
+import { getValueFormatted } from 'helpers/getValueFormatted'
+
 import style from './index.module.scss'
 
 const Game = ({ data }) => {
@@ -27,7 +29,7 @@ const Game = ({ data }) => {
         <div className={style.content}>
           <p className={style.title}>{t('prize')}</p>
           <h6 className={style.prize}>
-            {data.jackpots}
+            {getValueFormatted(data.jackpots)}
             {auth.account.currency.symbol}
           </h6>
         </div>

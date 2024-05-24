@@ -285,17 +285,17 @@ const KENO = ({ auth, betslip, game }) => {
         <div className={style.right}>
           <div className={style.actions}>
             <GameButton
-              placeholder={t('even')}
+              placeholder={t('numbers.101')}
               isActive={selectedType === 1}
               onChange={() => handleTypeClick(1)}
             />
             <GameButton
-              placeholder={t('odd')}
+              placeholder={t('numbers.102')}
               isActive={selectedType === 2}
               onChange={() => handleTypeClick(2)}
             />
             <GameButton
-              placeholder={t('equally')}
+              placeholder={t('numbers.103')}
               isActive={selectedType === 3}
               onChange={() => handleTypeClick(3)}
             />

@@ -112,7 +112,7 @@
   line-height: 1;
 
   @include media-breakpoint-up(lg) {
-    font-size: rem(30px);
+    font-size: rem(26px);
     line-height: 1.5;
   }
 }
@@ -148,9 +148,8 @@
     position: absolute;
     top: 50%;
     left: rem(-8px);
+    background-color: var(--grey-alpha-300);
     transform: translateY(-50%);
-    opacity: 0.2;
-    background-color: var(--color-black);
     content: '';
 
     @include media-breakpoint-up(lg) {

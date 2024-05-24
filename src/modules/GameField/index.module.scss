@@ -1,0 +1,80 @@
+@import 'scss/config';
+
+.block {
+  @include size(100%, rem(48px));
+
+  position: relative;
+}
+
+.label {
+  @include make-spacer(px, 2px);
+  @include transition;
+
+  position: absolute;
+  top: rem(16px);
+  left: rem(16px);
+  transform: translateY(rem(-20px));
+  letter-spacing: rem(0.2px);
+  line-height: 1;
+  font-size: rem(11px);
+  pointer-events: none;
+  background-color: var(--game_button_color);
+  border-radius: rem(2px);
+
+  span {
+    @include make-spacer(ml, 3px);
+
+    color: var(--color-warning);
+  }
+}
+
+.input {
+  @include make-spacer(px, 16px);
+  @include transition(box-shadow);
+  @include size(100%);
+
+  border: 0;
+  border-radius: rem(12px);
+  background-color: var(--game_button_color);
+  color: var(--game_button_font_color);
+  overflow: hidden;
+  box-shadow: inset 0 rem(2px) 0 var(--grey-alpha-300);
+  position: relative;
+
+  &[type='datetime-local'],
+  &[type='date'] {
+
+    &::-webkit-calendar-picker-indicator {
+      @include size(rem(48px));
+
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      z-index: 1;
+    }
+  }
+
+  &:not(:focus) {
+
+    &:hover {
+      box-shadow: inset 0 rem(2px) 0 var(--game_button_color_hover);
+    }
+  }
+
+  &:focus {
+    box-shadow: inset 0 rem(2px) 0 var(--game_button_color_active);
+  }
+}
+
+.icon {
+  @include flex(center, center);
+  @include size(rem(48px));
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  pointer-events: none;
+}
+

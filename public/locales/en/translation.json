@@ -37,9 +37,6 @@
   "random": "Random",
   "reset": "Reset",
   "placebet": "Place bet",
-  "even": "Even",
-  "odd": "Odd",
-  "equally": "Equally",
   "place_bet": "Place your bet",
   "ticket_price": "Ticket price",
   "ticket": "Ticket",
@@ -52,6 +49,19 @@
   "add_bonus": "Add bonuses",
   "add_stake": "Add stake",
   "load_more": "Load more",
+  "date_from": "Date from",
+  "date_to": "Date from",
+  "search": "Search",
+  "jackpot_won": "Jackpot won",
+  "draws_from": "Draws from",
+  "draws_to": "Draws to",
+  "by_date": "By date",
+  "by_draws": "By draws",
+  "broadcast_date": "Broadcast date",
+  "draw": "Draw",
+  "draw_result": "Draw result",
+  "payments": "Payments",
+  "parity": "Parity",
   "tooltip": {
     "1": "Increase your possible winnings by a multiple of the selected multiplier. Does not apply to the “Super Prize” category.",
     "2": "Your tickets will be played in several draws in a row. This significantly increases the chances of winning a Super Prize."
@@ -105,5 +115,10 @@
     "draws": "Draws",
     "numbers": "Numbers",
     "combinations": "Fields numbers"
+  },
+  "numbers": {
+    "101": "Even",
+    "102": "Odd",
+    "103": "Equally"
   }
 }

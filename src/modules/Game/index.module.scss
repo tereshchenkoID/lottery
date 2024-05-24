@@ -8,6 +8,8 @@
   position: relative;
   flex-shrink: 0;
   background-color: var(--grey-200);
+  border-radius: rem(12px);
+  overflow: hidden;
 
   @include media-breakpoint-up(lg) {
     width: rem(184px);
@@ -20,9 +22,14 @@
       }
     }
   }
+}
 
-  border-radius: rem(12px);
-  overflow: hidden;
+.action,
+.price {
+  @include flex(center, center);
+
+  background-color: var(--color-white);
+  font-weight: var(--typography-medium);
 }
 
 .header {
@@ -53,14 +60,6 @@
 
 .prize {
   font-size: rem(16px);
-}
-
-.action,
-.price {
-  @include flex(center, center);
-
-  background-color: var(--color-white);
-  font-weight: var(--typography-medium);
 }
 
 .action {

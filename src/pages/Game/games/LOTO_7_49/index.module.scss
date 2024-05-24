@@ -12,10 +12,6 @@
     border: rem(4px) solid transparent;
     max-width: 100%;
   }
-
-  @include media-breakpoint-up(lg) {
-    @include make-spacer(p, 4px);
-  }
 }
 
 .title {
