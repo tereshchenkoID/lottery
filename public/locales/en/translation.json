@@ -50,7 +50,7 @@
   "add_stake": "Add stake",
   "load_more": "Load more",
   "date_from": "Date from",
-  "date_to": "Date from",
+  "date_to": "Date to",
   "search": "Search",
   "jackpot_won": "Jackpot won",
   "draws_from": "Draws from",
@@ -62,6 +62,7 @@
   "draw_result": "Draw result",
   "payments": "Payments",
   "parity": "Parity",
+  "empty": "The search has not given any results",
   "tooltip": {
     "1": "Increase your possible winnings by a multiple of the selected multiplier. Does not apply to the “Super Prize” category.",
     "2": "Your tickets will be played in several draws in a row. This significantly increases the chances of winning a Super Prize."

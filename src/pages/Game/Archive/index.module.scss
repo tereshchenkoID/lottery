@@ -76,37 +76,20 @@
 }
 
 .row {
-  @include make-spacer(pb, 20px);
   @include make-spacer(mb, 20px);
 
-  display: grid;
+  display: none;
   border-bottom: rem(1px) solid var(--game_background_color);
-  min-height: rem(40px);
+  height: rem(50px);
+  text-transform: uppercase;
+  font-size: rem(12px);
+  letter-spacing: rem(1px);
 
   @include media-breakpoint-up(lg) {
-    @include make-spacer(pb, 0);
     @include make-spacer(mb, 0);
 
+    display: grid;
     grid-template-columns: 1fr 1fr 2fr 1fr;
-  }
-
-  &:last-child {
-    @include make-spacer(pb, 0);
-    @include make-spacer(mb, 0);
-
-    border-bottom: 0;
-  }
-
-  &.head {
-    display: none;
-    height: rem(50px);
-    text-transform: uppercase;
-    font-size: rem(12px);
-    letter-spacing: rem(1px);
-
-    @include media-breakpoint-up(lg) {
-      display: grid;
-    }
   }
 }
 
@@ -123,46 +106,5 @@
       text-align: right;
       justify-content: flex-end;
     }
-  }
-}
-
-.results {
-  @include make-spacer(px, 8px);
-
-  border-radius: rem(12px);
-  background-color: var(--game_background_color);
-}
-
-.numbers {
-  @include make-spacer(py, 8px);
-  @include flex($align-items: center, $wrap: wrap);
-
-  border-bottom: rem(1px) solid var(--game_container_color);
-  gap: rem(8px);
-
-  &:last-child {
-    border-bottom: 0;
-  }
-}
-
-.number {
-  @include size(rem(32px));
-
-  pointer-events: none;
-}
-
-.link {
-  text-decoration: underline;
-  color: var(--game_button_color_active);
-}
-
-.label {
-  @include make-spacer(mr, 8px);
-
-  opacity: 0.7;
-  font-size: rem(12px);
-
-  @include media-breakpoint-up(lg) {
-    display: none;
   }
 }

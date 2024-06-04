@@ -1,20 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
-
-import classNames from 'classnames'
 
 import { getDate } from 'helpers/getDate'
 import { postData } from 'helpers/api'
-import { getValueFormatted } from 'helpers/getValueFormatted'
-
-import { setToastify } from 'store/actions/toastifyAction'
 
 import Loader from 'components/Loader'
 import GameField from 'modules/GameField'
 import GameButton from 'modules/GameButton'
 import GameCheckbox from 'modules/GameCheckbox'
+
+import Row from './Row'
 
 import style from './index.module.scss'
 
@@ -29,6 +25,43 @@ const TABS = [
   },
 ]
 
+const getDateXDaysFrom = (date, days) => {
+  const result = new Date(date)
+  result.setDate(result.getDate() + days)
+  return result.toISOString().split('T')[0]
+}
+
+const today = new Date()
+
+const validateFilter = filter => {
+  let { dateFrom, dateTo } = filter
+
+  if (!dateFrom) {
+    dateFrom = getDateXDaysFrom(dateTo, -30)
+  }
+  // else if (new Date(dateFrom) > new Date(dateTo)) {
+  //   dateFrom = getDateXDaysFrom(dateTo, -30)
+  // }
+
+  if (!dateTo) {
+    dateTo = getDateXDaysFrom(dateFrom, 30)
+  }
+
+  if (new Date(dateFrom) > today) {
+    dateFrom = today
+  }
+
+  if (new Date(dateTo) > today) {
+    dateTo = today
+  }
+
+  // if (new Date(dateTo) - new Date(dateFrom) > 30 * 24 * 60 * 60 * 1000) {
+  //   dateTo = getDateXDaysFrom(dateFrom, 30)
+  // }
+
+  return { ...filter, dateFrom, dateTo }
+}
+
 const Archive = ({ betslip, game }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
@@ -40,26 +73,7 @@ const Archive = ({ betslip, game }) => {
     game.round.id,
   ]
   const [loading, setLoading] = useState(false)
-  const [data, setData] = useState([
-    {
-      time: 1716557858266,
-      draw: 293877,
-      results: {
-        parity: 101,
-        numbers: [1, 2, 3, 4, 5, 6],
-      },
-      prize: 96629478,
-    },
-    {
-      time: 1716557858266,
-      draw: 293877,
-      results: {
-        parity: 101,
-        numbers: [1, 2, 3, 4, 5, 6],
-      },
-      prize: 96629478,
-    },
-  ])
+  const [data, setData] = useState([])
   const [active, setActive] = useState(0)
   const [filter, setFilter] = useState({
     gameId: game.id,
@@ -69,6 +83,11 @@ const Archive = ({ betslip, game }) => {
     numberTo: initialValues[3],
     isPrize: 0,
   })
+
+  const validateDate = dateValue => {
+    const today = new Date().toISOString().split('T')[0]
+    return dateValue > today ? today : dateValue
+  }
 
   const handleLoad = () => {
     setLoading(true)
@@ -84,30 +103,25 @@ const Archive = ({ betslip, game }) => {
       formData.append('numberTo', filter.numberTo)
     }
 
-    postData('settings/jp/', formData).then(json => {
-      if (json.status === 'OK') {
-        setData(json.data)
-        setLoading(false)
-      } else {
-        dispatch(
-          setToastify({
-            type: 'error',
-            text: json.error_message,
-          }),
-        )
-      }
-      setLoading(true)
+    postData('archive/', formData).then(json => {
+      setData(json)
+      setLoading(false)
     })
   }
 
   const handlePropsChange = (fieldName, fieldValue) => {
+    const validatedValue =
+      fieldName === 'dateFrom' || fieldName === 'dateTo'
+        ? validateDate(fieldValue)
+        : fieldValue
+
     setFilter(prevData => ({
       ...prevData,
-      [fieldName]: fieldValue,
+      [fieldName]: validatedValue,
     }))
   }
 
-  const handleCheckboxChange = (checked, fieldValue) => {
+  const handleCheckboxChange = () => {
     setFilter(prevData => ({
       ...prevData,
       isPrize: prevData.isPrize === 1 ? 0 : 1,
@@ -116,11 +130,44 @@ const Archive = ({ betslip, game }) => {
 
   const handleSubmit = event => {
     event && event.preventDefault()
+    let { dateFrom, dateTo } = filter
+
+    if (filter.dateTo === '') {
+      dateTo = getDate(new Date(), 3)
+    }
+
+    if (filter.dateFrom === '') {
+      dateFrom = getDateXDaysFrom(dateTo, -30)
+    }
+
+    if (new Date(dateTo) - new Date(dateFrom) > 30 * 24 * 60 * 60 * 1000) {
+      dateFrom = getDateXDaysFrom(dateTo, -30)
+    }
+
+    if (new Date(dateFrom) > new Date(dateTo)) {
+      dateFrom = dateTo
+    }
+
+    setFilter(prevData => {
+      return {
+        ...prevData,
+        dateTo: dateTo,
+        dateFrom: dateFrom,
+      }
+    })
+
+    // handleLoad()
   }
+
+  useEffect(() => {
+    handleLoad()
+  }, [])
 
   return (
     <div className={style.block}>
       {loading && <Loader />}
+
+      <pre>{JSON.stringify(filter, null, 2)}</pre>
 
       <div className={style.tab}>
         {TABS.map((el, idx) => (
@@ -187,7 +234,7 @@ const Archive = ({ betslip, game }) => {
       </div>
       <div className={style.container}>
         <div className={style.table}>
-          <div className={classNames(style.row, style.head)}>
+          <div className={style.row}>
             <div className={style.cell}>
               <strong>{t('broadcast_date')}</strong>
             </div>
@@ -203,47 +250,11 @@ const Archive = ({ betslip, game }) => {
               </strong>
             </div>
           </div>
-          {data.map((el, idx) => (
-            <div key={idx} className={style.row}>
-              <div className={style.cell}>
-                <span className={style.label}>{t('broadcast_date')}</span>
-                {getDate(el.time)}
-              </div>
-              <div className={style.cell}>
-                <span className={style.label}>{t('draw')}</span>
-                <Link
-                  to={`/archive/${el.draw}`}
-                  rel="noreferrer"
-                  className={style.link}
-                >
-                  {el.draw}
-                </Link>
-              </div>
-              <div className={style.cell}>
-                <div className={style.results}>
-                  {el.results.parity && (
-                    <div className={style.numbers}>
-                      {t('parity')}:{' '}
-                      <strong>{t(`numbers.${el.results.parity}`)}</strong>
-                    </div>
-                  )}
-                  <div className={style.numbers}>
-                    {el.results.numbers.map((el_n, idx_n) => (
-                      <GameButton
-                        key={idx_n}
-                        placeholder={el_n}
-                        classes={style.number}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-              <div className={style.cell}>
-                <span className={style.label}>{t('draw')}</span>
-                <h6 className={style.prize}>{getValueFormatted(el.prize)}</h6>
-              </div>
-            </div>
-          ))}
+          {data.length > 0 ? (
+            data.map((el, idx) => <Row data={el} key={idx} />)
+          ) : (
+            <div className={style.empty}>{t('empty')}</div>
+          )}
         </div>
       </div>
     </div>

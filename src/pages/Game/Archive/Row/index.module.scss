@@ -1,0 +1,130 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(pb, 20px);
+  @include make-spacer(mb, 20px);
+
+  border-bottom: rem(1px) solid var(--game_background_color);
+  min-height: rem(40px);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(pb, 0);
+    @include make-spacer(mb, 0);
+  }
+
+  &:last-child {
+    @include make-spacer(pb, 0);
+    @include make-spacer(mb, 0);
+
+    border-bottom: 0;
+  }
+}
+
+.table,
+.results {
+  @include make-spacer(px, 8px);
+
+  border-radius: rem(12px);
+  background-color: var(--game_background_color);
+}
+
+.row {
+  display: grid;
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+  }
+}
+
+.cell {
+  @include flex($align-items: baseline);
+  @include make-spacer(p, 4px);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 10px);
+  }
+
+  &:last-child {
+    @include media-breakpoint-up(lg) {
+      text-align: right;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.numbers {
+  @include make-spacer(py, 8px);
+  @include flex($align-items: center, $wrap: wrap);
+
+  border-bottom: rem(1px) solid var(--game_container_color);
+  gap: rem(8px);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.number {
+  @include size(rem(32px));
+
+  pointer-events: none;
+}
+
+.link {
+  text-decoration: underline;
+  color: var(--game_button_color_active);
+}
+
+.label {
+  @include make-spacer(mr, 8px);
+
+  opacity: 0.7;
+  font-size: rem(12px);
+
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+}
+
+.dropdown {
+  @include make-spacer(pt, 20px);
+
+  border-top: rem(1px) solid var(--game_background_color);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(pb, 20px);
+  }
+}
+
+.table {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+
+  @include media-breakpoint-up(lg) {
+    width: fit-content;
+    min-width: rem(320px);
+  }
+}
+
+.td {
+  @include flex($align-items: baseline);
+  @include make-spacer(p, 4px);
+
+  border-bottom: rem(1px) solid var(--game_container_color);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 10px);
+  }
+
+  &:nth-child(odd) {
+    border-right: rem(1px) solid var(--game_container_color);
+  }
+
+  &:nth-child(even) {
+    @include media-breakpoint-up(lg) {
+      text-align: right;
+      justify-content: flex-end;
+    }
+  }
+}
