@@ -67,7 +67,7 @@ const Archive = ({ betslip, game }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
   const initialValues = [
-    getDate(new Date().setDate(new Date().getDate() - 30), 3),
+    getDate(new Date(), 3),
     getDate(new Date(), 3),
     game.round.id - 100,
     game.round.id,

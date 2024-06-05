@@ -1,5 +1,102 @@
 @import 'scss/config';
 
 .block {
+  @include make-spacer(pb, 32px);
+}
+
+.link,
+.content {
+  @include make-spacer(p, 16px);
+
+  position: relative;
+  border-radius: rem(24px);
+  gap: rem(4px);
   background-color: var(--color-white);
+  min-height: rem(172px);
+  overflow: hidden;
+}
+
+.wrapper {
+  display: grid;
+  gap: rem(12px);
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  * {
+
+    @include media-breakpoint-up(lg) {
+      &:nth-child(1) { grid-area: 1 / 1 / 2 / 2; }
+
+      &:nth-child(2) { grid-area: 1 / 2 / 2 / 3; }
+
+      &:nth-child(3) { grid-area: 1 / 3 / 2 / 4; }
+
+      &:nth-child(4) { grid-area: 2 / 1 / 3 / 3; }
+
+      &:nth-child(5) { grid-area: 2 / 3 / 5 / 4; }
+
+      &:nth-child(6) { grid-area: 3 / 1 / 4 / 2; }
+
+      &:nth-child(7) { grid-area: 3 / 2 / 4 / 3; }
+
+      &:nth-child(8) { grid-area: 4 / 1 / 5 / 3; }
+    }
+  }
+}
+
+.content {
+  @include flex(center, center, column);
+}
+
+.link {
+  @include flex(flex-end, flex-start, column);
+  @include transition;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: var(--default-box-shadow);
+  }
+
+  &.top,
+  &.right {
+
+    .icon {
+      @include absolute-center-right(rem(-40px));
+      @include flex(center, center);
+      @include size(rem(300px));
+
+      background-color: var(--color-primary);
+      font-size: rem(150px);
+      color: var(--color-white);
+      border-radius: 50%
+    }
+  }
+
+  &.top {
+
+    .icon {
+      @include media-breakpoint-up(lg) {
+        top: rem(-40px);
+        left: 50%;
+        right: unset;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}
+
+.info {
+  position: relative;
+}
+
+.icon {
+  @include make-spacer(mb, auto);
+  @include make-spacer(mt, 0);
+
+  overflow: hidden;
+  font-size: rem(45px);
+  color: var(--color-primary);
 }

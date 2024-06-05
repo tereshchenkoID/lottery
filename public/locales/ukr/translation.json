@@ -22,6 +22,7 @@
   "top_up_account": "Top up your account UA",
   "wallet": "Wallet UA",
   "bonuses": "Bonuses UA",
+  "promocodes": "Promocodes UA",
   "prize": "Prize UA",
   "play": "Play UA",
   "bonus_game": "Bonus games UA",
@@ -63,6 +64,18 @@
   "payments": "Payments UA",
   "parity": "Parity UA",
   "empty": "The search has not given any results UA",
+  "account": {
+    "tickets": "My tickets UA",
+    "tickets_description": "Lorem ipsum dolor UA",
+    "subscriptions": "Subscriptions UA",
+    "subscriptions_description": "Lorem ipsum dolor UA",
+    "profile": "Profile UA",
+    "profile_description": "Lorem ipsum dolor UA",
+    "stocks": "Stocks UA",
+    "stocks_description": "Lorem ipsum dolor UA",
+    "bring_friend": "Bring a friend UA",
+    "bring_friend_description": "Lorem ipsum dolor UA"
+  },
   "tooltip": {
     "1": "Increase your possible winnings by a multiple of the selected multiplier. Does not apply to the “Super Prize” category. UA",
     "2": "Your tickets will be played in several draws in a row. This significantly increases the chances of winning a Super Prize. UA"
