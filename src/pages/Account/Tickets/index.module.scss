@@ -1,0 +1,5 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(pb, 32px);
+}

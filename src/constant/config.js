@@ -1,7 +1,3 @@
-export const hostnames = {
-  PROD: 'https://api.oddsbit.io/lottery',
-}
-
 export const ticketType = {
   single: 0,
   multi: 1,

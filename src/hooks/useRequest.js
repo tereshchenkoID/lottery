@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-import { hostnames } from 'constant/config'
+import { getHostName } from 'helpers/getHostName'
 
 export const useRequest = (link, data, headers) => {
   const server = axios.create({
-    baseURL: `${hostnames.PROD}/${link}`,
+    baseURL: `${getHostName()}/${link}`,
     withCredentials: true,
   })
 

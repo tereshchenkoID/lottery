@@ -78,7 +78,7 @@ const Game = () => {
   const { betslip } = useSelector(state => state.betslip)
   const [game, setGame] = useState({})
   const [loading, setLoading] = useState(true)
-  const [active, setActive] = useState(2)
+  const [active, setActive] = useState(0)
   const [show, setShow] = useState(false)
 
   useEffect(() => {

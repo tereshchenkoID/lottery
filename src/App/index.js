@@ -21,12 +21,21 @@ import Loader from 'components/Loader'
 import Header from 'modules/Header'
 import Footer from 'modules/Footer'
 
-import style from './index.module.scss'
 import { router } from '../router'
+
+import style from './index.module.scss'
 
 const App = () => {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    fetch('/config.json')
+      .then(response => response.json())
+      .then(config => {
+        localStorage.setItem('config', JSON.stringify(config.hostnames))
+      })
+  }, [])
 
   useEffect(() => {
     Promise.all([
@@ -47,13 +56,25 @@ const App = () => {
       <div className={style.content}>
         <Suspense fallback={<Loader />}>
           <Routes>
-            {router.map(item => (
-              <Route
-                key={new Date().getTime()}
-                path={item.path}
-                element={item.element}
-              />
-            ))}
+            {router.map((route, index) => {
+              return (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={route.element}
+                >
+                  {route.children && route.children.map((childRoute, childIndex) => {
+                    return (
+                      <Route
+                        key={childIndex}
+                        path={childRoute.path}
+                        element={childRoute.element}
+                      />
+                    );
+                  })}
+                </Route>
+              );
+            })}
           </Routes>
         </Suspense>
       </div>
