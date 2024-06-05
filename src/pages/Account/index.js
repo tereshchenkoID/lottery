@@ -8,6 +8,8 @@ import { Outlet } from 'react-router-dom';
 import classNames from 'classnames'
 
 import Reference from 'components/Reference'
+import Games from 'modules/Games'
+import Tab from 'modules/Tab'
 
 import style from './index.module.scss'
 
@@ -18,6 +20,54 @@ const Account = () => {
   const { auth } = useSelector(state => state.auth)
   const isAccountRoot = location.pathname === '/account'
 
+  const ROUTES = [
+    {
+      icon: 'fa-solid fa-user',
+      name: t('account.main'),
+      link: '/account'
+    },
+    {
+      icon: 'fa-solid fa-ticket',
+      name: t('account.tickets'),
+      link: '/account/tickets'
+    },
+    {
+      icon: 'fa-solid fa-wallet',
+      name: t('wallet'),
+      link: '/account/wallet'
+    },
+    {
+      icon: 'fa-solid fa-money-bill',
+      name: t('bonuses'),
+      link: '/account/bonuses'
+    },
+    {
+      icon: 'fa-solid fa-barcode',
+      name: t('promocodes'),
+      link: '/account/promocodes'
+    },
+    {
+      icon: 'fa-solid fa-people-group',
+      name: t('account.bring_friend'),
+      link: '/account/friends'
+    },
+    {
+      icon: 'fa-solid fa-user',
+      name: t('account.profile'),
+      link: '/account/profile'
+    },
+    {
+      icon: 'fa-solid fa-bell',
+      name: t('account.subscriptions'),
+      link: '/account/subscriptions'
+    },
+    {
+      icon: 'fa-solid fa-percent',
+      name: t('account.stocks'),
+      link: '/account/stocks'
+    }
+  ]
+
   useEffect(() => {
     if (!auth.id) {
       navigate('/', { replace: true })
@@ -26,8 +76,10 @@ const Account = () => {
 
   return (
     <div className={style.block}>
+      <Games />
+
       {
-        isAccountRoot 
+        isAccountRoot
           ?
             <div className={style.wrapper}>
               <div className={style.content}>
@@ -51,7 +103,7 @@ const Account = () => {
                   placeholder={t('promocodes')}
                 />
               </div>
-              <Link 
+              <Link
                 to={'/account/tickets'}
                 className={classNames(style.link, style.right)}
               >
@@ -63,9 +115,9 @@ const Account = () => {
                   <span className={style.description}>{t('account.tickets_description')}</span>
                 </div>
               </Link>
-              <Link 
+              <Link
                 to={'/account/friends'}
-                className={classNames(style.link, style.right)}
+                className={classNames(style.link, style.top)}
               >
                 <span className={style.icon}>
                   <FontAwesomeIcon icon="fa-solid fa-people-group" />
@@ -75,7 +127,7 @@ const Account = () => {
                   <span className={style.description}>{t('account.bring_friend_description')}</span>
                 </div>
               </Link>
-              <Link 
+              <Link
                 to={'/account/profile'}
                 className={classNames(style.link, style.right)}
               >
@@ -87,7 +139,7 @@ const Account = () => {
                   <span className={style.description}>{t('account.profile_description')}</span>
                 </div>
               </Link>
-              <Link 
+              <Link
                 to={'/account/subscriptions'}
                 className={classNames(style.link, style.right)}
               >
@@ -99,7 +151,7 @@ const Account = () => {
                   <span className={style.description}>{t('account.subscriptions_description')}</span>
                 </div>
               </Link>
-              <Link 
+              <Link
                 to={'/account/stocks'}
                 className={classNames(style.link, style.right)}
               >
@@ -111,9 +163,14 @@ const Account = () => {
                   <span className={style.description}>{t('account.stocks_description')}</span>
                 </div>
               </Link>
-            </div> 
+            </div>
           :
-            <Outlet />
+            <>
+              <Tab data={ROUTES} />
+              <div className={style.wrap}>
+                <Outlet />
+              </div>
+            </>
       }
     </div>
   )

@@ -216,7 +216,7 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
                   </button>
                   <GameButton
                     classes={style.button}
-                    onChange={() => handleDeleteTicket}
+                    onChange={() => handleDeleteTicket()}
                     icon={'fa-solid fa-xmark'}
                   />
                 </div>

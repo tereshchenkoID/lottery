@@ -104,7 +104,7 @@ const Profile = () => {
             </div>
             <div className={style.content}>
               <Link
-                to={'/bonuses'}
+                to={'/account/bonuses'}
                 rel="noreferrer"
                 className={style.subtitle}
                 onClick={() => {
@@ -150,7 +150,7 @@ const Profile = () => {
             <ul className={style.list}>
               <li className={style.item}>
                 <Link
-                  to={'/'}
+                  to={'/account/stocks'}
                   rel="noreferrer"
                   onClick={() => {
                     setActive(!active)
@@ -165,7 +165,7 @@ const Profile = () => {
               </li>
               <li className={style.item}>
                 <Link
-                  to={'/'}
+                  to={'/account/promocodes'}
                   rel="noreferrer"
                   onClick={() => {
                     setActive(!active)

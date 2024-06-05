@@ -3,6 +3,16 @@ export const ticketType = {
   multi: 1,
 }
 
+export const statusType = {
+  0: 'pending',
+  1: 'confirmed',
+  2: 'cancelled',
+  3: 'lose',
+  4: 'win_not_paid',
+  5: 'win_paid',
+  6: 'jackpot_winner'
+}
+
 export const userType = {
   user: 0,
   cashbox: 1,

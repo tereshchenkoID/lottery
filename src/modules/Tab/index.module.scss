@@ -1,0 +1,41 @@
+@import 'scss/config';
+
+.block {
+  @include flex;
+
+  gap: rem(8px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  @include media-breakpoint-up(lg) {
+    flex-wrap: wrap
+  }
+}
+
+.link {
+  @include flex(space-between, center);
+  @include make-spacer(px, 16px);
+
+  position: relative;
+  height: rem(40px);
+  background-color: var(--grey-alpha-100);
+  border-radius: rem(12px);
+  min-width: rem(60px);
+  overflow: hidden;
+  gap: rem(4px);
+  font-weight: var(--typography-medium);
+  flex-shrink: 0;
+
+  &.active {
+    pointer-events: none;
+  }
+
+  &.active,
+  &:hover {
+    background-color: var(--color-primary);
+  }
+}

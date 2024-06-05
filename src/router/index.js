@@ -8,6 +8,7 @@ const Game = lazy(() => import('pages/Game'))
 
 const Account = lazy(() => import('pages/Account'))
 const Tickets = lazy(() => import('pages/Account/Tickets'))
+const Wallet = lazy(() => import('pages/Account/Wallet'))
 const Bonuses = lazy(() => import('pages/Account/Bonuses'))
 
 export const router = [
@@ -34,6 +35,10 @@ export const router = [
       {
         path: 'tickets',
         element: <Tickets />,
+      },
+      {
+        path: 'wallet',
+        element: <Wallet />,
       },
       {
         path: 'bonuses',

@@ -64,7 +64,17 @@
   "payments": "Payments",
   "parity": "Parity",
   "empty": "The search has not given any results",
+  "ticket_status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled",
+    "lose": "Lose",
+    "win_not_paid": "Win not paid",
+    "win_paid": "Win paid",
+    "jackpot_winner": "Jackpot winner"
+  },
   "account": {
+    "main": "Personal page",
     "tickets": "My tickets",
     "tickets_description": "Lorem ipsum dolor",
     "subscriptions": "Subscriptions",

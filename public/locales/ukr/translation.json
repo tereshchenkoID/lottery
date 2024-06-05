@@ -64,7 +64,17 @@
   "payments": "Payments UA",
   "parity": "Parity UA",
   "empty": "The search has not given any results UA",
+  "ticket_status": {
+    "pending": "Pending UA",
+    "confirmed": "Confirmed UA",
+    "cancelled": "Cancelled UA",
+    "lose": "Lose UA",
+    "win_not_paid": "Win not paid UA",
+    "win_paid": "Win paid UA",
+    "jackpot_winner": "Jackpot winner UA"
+  },
   "account": {
+    "main": "Personal page UA",
     "tickets": "My tickets UA",
     "tickets_description": "Lorem ipsum dolor UA",
     "subscriptions": "Subscriptions UA",

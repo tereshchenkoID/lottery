@@ -129,13 +129,13 @@ const Menu = ({ setShow, show, buttonRef }) => {
     {
       submenu: [
         {
-          link: '/wallet',
+          link: '/account/wallet',
           icon: 'fa-wallet',
           text: 'wallet',
           value: auth.account.balance,
         },
         {
-          link: '/bonuses',
+          link: '/account/bonuses',
           icon: 'fa-money-bill',
           text: 'bonuses',
           value: auth.account.bonus,

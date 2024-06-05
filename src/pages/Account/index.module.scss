@@ -1,7 +1,10 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(pb, 32px);
+  @include flex($direction: column);
+
+  gap: rem(32px);
+  flex-grow: 1;
 }
 
 .link,
@@ -12,11 +15,27 @@
   border-radius: rem(24px);
   gap: rem(4px);
   background-color: var(--color-white);
-  min-height: rem(172px);
   overflow: hidden;
+  min-height: rem(172px);
+}
+
+.wrap {
+  @include make-spacer(pt, 16px);
+  @include make-spacer(px, 24px);
+
+  flex-grow: 1;
+  border-radius: rem(32px) rem(32px) 0 0;
+  background-color: var(--color-white);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(pt, 30px);
+    @include make-spacer(px, 30px);
+  }
 }
 
 .wrapper {
+  @include make-spacer(pb, 32px);
+
   display: grid;
   gap: rem(12px);
 
@@ -64,12 +83,19 @@
   &.right {
 
     .icon {
-      @include absolute-center-right(rem(-40px));
+      @include absolute-center-right(rem(-20px));
       @include flex(center, center);
-      @include size(rem(300px));
+      @include size(rem(150px));
 
+      @include media-breakpoint-up(lg) {
+        @include size(rem(300px));
+
+        right: rem(-40px);
+        font-size: rem(150px);
+      }
+
+      font-size: rem(80px);
       background-color: var(--color-primary);
-      font-size: rem(150px);
       color: var(--color-white);
       border-radius: 50%
     }
@@ -97,6 +123,6 @@
   @include make-spacer(mt, 0);
 
   overflow: hidden;
-  font-size: rem(45px);
+  font-size: rem(5px);
   color: var(--color-primary);
 }
