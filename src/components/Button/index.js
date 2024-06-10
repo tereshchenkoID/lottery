@@ -1,5 +1,7 @@
 import classNames from 'classnames'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import style from './index.module.scss'
 
 const Button = ({
@@ -7,6 +9,7 @@ const Button = ({
   type = 'button',
   styles = null,
   classes,
+  icon,
   onChange,
   disabled,
 }) => {
@@ -18,6 +21,7 @@ const Button = ({
       style={styles}
       disabled={disabled}
     >
+      {icon && <FontAwesomeIcon icon={icon} />}
       {placeholder}
     </button>
   )

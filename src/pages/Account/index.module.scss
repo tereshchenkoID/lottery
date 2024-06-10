@@ -20,17 +20,17 @@
 }
 
 .wrap {
-  @include make-spacer(pt, 16px);
-  @include make-spacer(px, 24px);
+  // @include make-spacer(pt, 16px);
+  // @include make-spacer(px, 24px);
 
   flex-grow: 1;
   border-radius: rem(32px) rem(32px) 0 0;
   background-color: var(--color-white);
 
-  @include media-breakpoint-up(lg) {
-    @include make-spacer(pt, 30px);
-    @include make-spacer(px, 30px);
-  }
+  // @include media-breakpoint-up(lg) {
+  //   @include make-spacer(pt, 30px);
+  //   @include make-spacer(px, 30px);
+  // }
 }
 
 .wrapper {
@@ -88,10 +88,10 @@
       @include size(rem(150px));
 
       @include media-breakpoint-up(lg) {
-        @include size(rem(300px));
+        @include size(rem(240px));
 
         right: rem(-40px);
-        font-size: rem(150px);
+        font-size: rem(120px);
       }
 
       font-size: rem(80px);

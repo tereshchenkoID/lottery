@@ -1,0 +1,30 @@
+@import 'scss/config';
+
+.header {
+    @include make-spacer(pb, 24px);
+
+    display: grid;
+    grid-template-columns: 1fr rem(40px);
+    align-items: center;
+    column-gap: rem(16px);
+    border-bottom: rem(1px) solid var(--grey-alpha-200);
+}
+
+.button {
+    @include make-spacer(p, 0);
+    @include size(rem(36px));
+
+    min-width: 0;
+}
+
+.body {
+    @include make-spacer(pt, 24px);
+}
+
+.win {
+    text-align: right;
+}
+
+.ticket {
+    @include make-spacer(pt, 20px);
+}

@@ -1,0 +1,52 @@
+@import 'scss/config';
+
+.block {
+    display: grid;
+    gap: rem(20px);
+}
+
+.numbers {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: rem(4px);
+}
+
+.number {
+    @include flex(center, center);
+
+    aspect-ratio: 1 / 1;
+    border: rem(1px) solid #000;
+    border-radius: rem(6px);
+    border: rem(1px) dashed var(--grey-alpha-400);
+    font-size: rem(12px);
+    font-weight: var(--typography-bold);
+
+    &.active {
+        position: relative;
+        background-color: var(--color-black);
+        color: var(--color-white);
+
+        &::before {
+            position: absolute;
+            inset: rem(1px);
+            border: rem(1px) solid var(--color-white);
+            border-radius: rem(4px);
+            content: '';
+        }
+    }
+}
+
+.results {
+    @include flex($align-items: center, $wrap: wrap);
+
+    gap: rem(4px);
+}
+
+.result {
+    font-weight: var(--typography-bold);
+}
+
+.label {
+    opacity: 0.6;
+    font-size: rem(12px);
+}

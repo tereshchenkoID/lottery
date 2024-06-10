@@ -1,0 +1,13 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(pt, 8px);
+  @include flex(center, center);
+  
+  gap: rem(16px);
+}
+
+.button {
+  width: rem(48px);
+  min-width: 0;
+}

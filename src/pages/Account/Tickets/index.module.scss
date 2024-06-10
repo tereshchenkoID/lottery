@@ -1,5 +1,29 @@
 @import 'scss/config';
 
-.block {
-  @include make-spacer(pb, 32px);
+.wrapper {
+  display: grid;
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: 1fr rem(322px);
+  }
+}
+
+.left,
+.right {
+  @include make-spacer(p, 24px);
+}
+
+.list {
+  @include make-spacer(mb, 24px);
+  
+  display: grid;
+  gap: rem(8px);
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.right {
+  border-left: rem(1px) solid var(--grey-alpha-200);
 }

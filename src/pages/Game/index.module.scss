@@ -45,7 +45,7 @@
   @include make-spacer(px, 8px);
 
   flex-grow: 1;
-  border-radius: rem(32px) rem(32px) 0 0;
+  border-radius: rem(24px) rem(24px) 0 0;
   background-color: var(--game_color);
   color: var(--font_color);
 
@@ -53,6 +53,8 @@
     @include make-spacer(px, 24px);
     @include make-spacer(pt, 16px);
     @include make-spacer(pb, 24px);
+
+    border-radius: rem(32px) rem(32px) 0 0;
   }
 }
 

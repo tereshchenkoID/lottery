@@ -38,6 +38,7 @@
   "random": "Random UA",
   "reset": "Reset UA",
   "placebet": "Place bet UA",
+  "win": "Win UA",
   "place_bet": "Place your bet UA",
   "ticket_price": "Ticket price UA",
   "ticket": "Ticket UA",
@@ -64,6 +65,7 @@
   "payments": "Payments UA",
   "parity": "Parity UA",
   "empty": "The search has not given any results UA",
+  "drawn_numbers": "Drawn numbers UA",
   "ticket_status": {
     "pending": "Pending UA",
     "confirmed": "Confirmed UA",

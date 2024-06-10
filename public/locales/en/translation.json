@@ -38,6 +38,7 @@
   "random": "Random",
   "reset": "Reset",
   "placebet": "Place bet",
+  "win": "Win",
   "place_bet": "Place your bet",
   "ticket_price": "Ticket price",
   "ticket": "Ticket",
@@ -64,6 +65,7 @@
   "payments": "Payments",
   "parity": "Parity",
   "empty": "The search has not given any results",
+  "drawn_numbers": "Drawn numbers",
   "ticket_status": {
     "pending": "Pending",
     "confirmed": "Confirmed",

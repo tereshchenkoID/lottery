@@ -39,7 +39,7 @@ const Games = () => {
           <p className={style.picture}>
             <img src={el.image} alt={el.alt} loading={'lazy'} />
           </p>
-          <p className={style.name}> {t(`games.${el.id}.title`)}</p>
+          <p className={style.name}>{t(`games.${el.id}.title`)}</p>
         </Link>
       ))}
     </div>

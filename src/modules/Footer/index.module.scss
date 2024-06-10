@@ -5,7 +5,7 @@
   @include make-spacer(py, 16px);
   @include make-spacer(px, 10px);
 
-  border-top: rem(1px) solid var(--grey-alpha-300);
+  border-top: rem(1px) solid var(--grey-alpha-200);
 
   @include media-breakpoint-up(lg) {
     @include make-spacer(py, 24px);

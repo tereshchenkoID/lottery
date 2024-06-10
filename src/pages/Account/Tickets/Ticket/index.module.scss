@@ -1,0 +1,84 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 1px);
+  @include transition;
+
+  border-radius: rem(16px);
+  height: rem(120px);
+  cursor: pointer;
+  color: var(--grey-alpha-200);
+  background: no-repeat 
+    radial-gradient(circle 16px at -4px 50%, transparent 99.9%, currentColor) 0 100% / calc(50% + 2px) 100%, 
+    no-repeat radial-gradient(circle 16px at calc(100% + 4px) 50%, 
+    transparent 99.9%, currentColor) 100% 100% / calc(50% + 2px) 100%;
+  
+  &.active,
+  &:hover {
+    color: var(--color-primary);
+  }
+
+  &.active {
+    pointer-events: none;
+  }
+
+  &.disabled {
+
+    .logo {
+      opacity: 0.4;
+    }
+  }
+}
+
+.count,
+.date,
+.status {
+  font-size: rem(12px);
+  opacity: 0.5;
+}
+
+.loader {
+  left: rem(12px);
+  right: rem(12px);
+}
+
+.wrapper {
+  @include make-spacer(py, 12px);
+  @include make-spacer(px, 22px);
+  @include flex(center);
+
+  position: relative;
+  border-radius: rem(15px);
+  height: 100%;
+  background: no-repeat 
+    radial-gradient(circle 17px at -4px 50%, transparent 99.9%, var(--color-white)) top left -1px / calc(50% + 2px) 100%, 
+    no-repeat radial-gradient(circle 17px at calc(100% + 4px) 50%, 
+    transparent 99.9%, var(--color-white)) top right -1px / calc(50% + 2px) 100%;
+  gap: rem(24px);
+  z-index: 2;
+  color: var(--color-text);
+}
+
+.info {
+  @include flex($direction: column);
+
+  flex-grow: 1;
+  line-height: 1;
+  row-gap: rem(6px)
+}
+
+.logo {
+  @include size(rem(96px));
+}
+
+.status {
+  color: var(--color-secondary)
+}
+
+.count {
+  text-transform: lowercase;
+}
+
+.meta {
+  @include make-spacer(mt, auto);
+}

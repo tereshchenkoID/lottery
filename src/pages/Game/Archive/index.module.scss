@@ -13,7 +13,10 @@
 
 .container {
   @include make-spacer(p, 4px);
-
+  
+  position: relative;
+  overflow: hidden;
+  min-height: rem(150px);
   width: 100%;
   background-color: var(--game_container_color);
   border-radius: rem(20px);
@@ -107,4 +110,10 @@
       justify-content: flex-end;
     }
   }
+}
+
+.empty {
+  @include make-spacer(p, 10px);
+
+  text-align: center;
 }

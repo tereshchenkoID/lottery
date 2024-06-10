@@ -6,6 +6,7 @@ import { getDate } from 'helpers/getDate'
 import { postData } from 'helpers/api'
 
 import Loader from 'components/Loader'
+import GamePagination from 'modules/GamePagination'
 import GameField from 'modules/GameField'
 import GameButton from 'modules/GameButton'
 import GameCheckbox from 'modules/GameCheckbox'
@@ -25,42 +26,41 @@ const TABS = [
   },
 ]
 
-const getDateXDaysFrom = (date, days) => {
-  const result = new Date(date)
-  result.setDate(result.getDate() + days)
-  return result.toISOString().split('T')[0]
-}
 
-const today = new Date()
+// const getDateXDaysFrom = (date, days) => {
+//   const result = new Date(date)
+//   result.setDate(result.getDate() + days)
+//   return result.toISOString().split('T')[0]
+// }
 
-const validateFilter = filter => {
-  let { dateFrom, dateTo } = filter
 
-  if (!dateFrom) {
-    dateFrom = getDateXDaysFrom(dateTo, -30)
-  }
-  // else if (new Date(dateFrom) > new Date(dateTo)) {
-  //   dateFrom = getDateXDaysFrom(dateTo, -30)
-  // }
+// const today = new Date()
 
-  if (!dateTo) {
-    dateTo = getDateXDaysFrom(dateFrom, 30)
-  }
+// const validateFilter = filter => {
+//   let { dateFrom, dateTo } = filter
 
-  if (new Date(dateFrom) > today) {
-    dateFrom = today
-  }
+//   // if (!dateFrom) {
+//   //   dateFrom = getDateXDaysFrom(dateTo, -30)
+//   // }
 
-  if (new Date(dateTo) > today) {
-    dateTo = today
-  }
+//   // if (!dateTo) {
+//   //   dateTo = getDateXDaysFrom(dateFrom, 30)
+//   // }
 
-  // if (new Date(dateTo) - new Date(dateFrom) > 30 * 24 * 60 * 60 * 1000) {
-  //   dateTo = getDateXDaysFrom(dateFrom, 30)
-  // }
+//   if (new Date(dateFrom) > dateTo) {
+//     dateFrom = dateTo
+//   }
 
-  return { ...filter, dateFrom, dateTo }
-}
+//   // if (new Date(dateTo) < dateFrom) {
+//   //   dateTo = dateFrom
+//   // }
+
+//   // if (new Date(dateTo) - new Date(dateFrom) > 30 * 24 * 60 * 60 * 1000) {
+//   //   dateTo = getDateXDaysFrom(dateFrom, 30)
+//   // }
+
+//   return { ...filter, dateFrom, dateTo }
+// }
 
 const Archive = ({ betslip, game }) => {
   const dispatch = useDispatch()
@@ -84,10 +84,17 @@ const Archive = ({ betslip, game }) => {
     isPrize: 0,
   })
 
-  const validateDate = dateValue => {
-    const today = new Date().toISOString().split('T')[0]
-    return dateValue > today ? today : dateValue
-  }
+  const [pagination, setPagination] = useState({
+    page: 0,
+    pages: 0,
+    quantity: 0,
+    results: 0,
+  })
+
+  // const validateDate = dateValue => {
+  //   const today = new Date().toISOString().split('T')[0]
+  //   return dateValue > today ? today : dateValue
+  // }
 
   const handleLoad = () => {
     setLoading(true)
@@ -109,15 +116,37 @@ const Archive = ({ betslip, game }) => {
     })
   }
 
+  const handlePagination = (fieldName, fieldValue) => {
+    setPagination(prevPagination => ({
+      ...prevPagination,
+      [fieldName]: fieldValue,
+    }))
+    handleLoad(fieldValue)
+  }
+  
+  const handlePrev = () => {
+    const prev = pagination.page > 0 ? pagination.page - 1 : 0
+    handlePagination('page', prev)
+  }
+  
+  const handleNext = () => {
+    const next =
+      pagination.page < pagination.pages
+        ? pagination.page + 1
+        : pagination.pages
+    handlePagination('page', next)
+  }
+
   const handlePropsChange = (fieldName, fieldValue) => {
-    const validatedValue =
-      fieldName === 'dateFrom' || fieldName === 'dateTo'
-        ? validateDate(fieldValue)
-        : fieldValue
+    // const validatedValue =
+    //   fieldName === 'dateFrom' || fieldName === 'dateTo'
+    //     ? validateDate(fieldValue)
+    //     : fieldValue
 
     setFilter(prevData => ({
       ...prevData,
-      [fieldName]: validatedValue,
+      // [fieldName]: validatedValue,
+      [fieldName]: fieldValue,
     }))
   }
 
@@ -132,21 +161,21 @@ const Archive = ({ betslip, game }) => {
     event && event.preventDefault()
     let { dateFrom, dateTo } = filter
 
-    if (filter.dateTo === '') {
-      dateTo = getDate(new Date(), 3)
-    }
+    // if (filter.dateTo === '') {
+    //   dateTo = getDate(new Date(), 3)
+    // }
 
-    if (filter.dateFrom === '') {
-      dateFrom = getDateXDaysFrom(dateTo, -30)
-    }
+    // if (filter.dateFrom === '') {
+    //   dateFrom = getDateXDaysFrom(dateTo, -30)
+    // }
 
-    if (new Date(dateTo) - new Date(dateFrom) > 30 * 24 * 60 * 60 * 1000) {
-      dateFrom = getDateXDaysFrom(dateTo, -30)
-    }
+    // if (new Date(dateTo) - new Date(dateFrom) > 30 * 24 * 60 * 60 * 1000) {
+    //   dateFrom = getDateXDaysFrom(dateTo, -30)
+    // }
 
-    if (new Date(dateFrom) > new Date(dateTo)) {
-      dateFrom = dateTo
-    }
+    // if (new Date(dateFrom) > new Date(dateTo)) {
+    //   dateFrom = dateTo
+    // }
 
     setFilter(prevData => {
       return {
@@ -156,7 +185,7 @@ const Archive = ({ betslip, game }) => {
       }
     })
 
-    // handleLoad()
+    handleLoad()
   }
 
   useEffect(() => {
@@ -165,10 +194,6 @@ const Archive = ({ betslip, game }) => {
 
   return (
     <div className={style.block}>
-      {loading && <Loader />}
-
-      <pre>{JSON.stringify(filter, null, 2)}</pre>
-
       <div className={style.tab}>
         {TABS.map((el, idx) => (
           <GameButton
@@ -233,29 +258,47 @@ const Archive = ({ betslip, game }) => {
         </form>
       </div>
       <div className={style.container}>
-        <div className={style.table}>
-          <div className={style.row}>
-            <div className={style.cell}>
-              <strong>{t('broadcast_date')}</strong>
+        {
+          loading
+            ?
+            <Loader
+              type={'inline'}
+              theme={{
+                backgroundColor: 'var(--game_container_color)',
+              }}
+            />
+            :
+            <div className={style.table}>
+              <div className={style.row}>
+                <div className={style.cell}>
+                  <strong>{t('broadcast_date')}</strong>
+                </div>
+                <div className={style.cell}>
+                  <strong>{t('draw')}</strong>
+                </div>
+                <div className={style.cell}>
+                  <strong>{t('draw_result')}</strong>
+                </div>
+                <div className={style.cell}>
+                  <strong>
+                    {t('payments')}, {auth.account.currency.symbol}
+                  </strong>
+                </div>
+              </div>
+              {data?.length > 0 ? (
+                <>
+                  {data.map((el, idx) => <Row data={el} key={idx} />)}
+                  <GamePagination
+                    pagination={pagination}
+                    handlePrev={() => handlePrev()}
+                    handleNext={() => handleNext()}
+                  />
+                </>
+              ) : (
+                <div className={style.empty}>{t('empty')}</div>
+              )}
             </div>
-            <div className={style.cell}>
-              <strong>{t('draw')}</strong>
-            </div>
-            <div className={style.cell}>
-              <strong>{t('draw_result')}</strong>
-            </div>
-            <div className={style.cell}>
-              <strong>
-                {t('payments')}, {auth.account.currency.symbol}
-              </strong>
-            </div>
-          </div>
-          {data.length > 0 ? (
-            data.map((el, idx) => <Row data={el} key={idx} />)
-          ) : (
-            <div className={style.empty}>{t('empty')}</div>
-          )}
-        </div>
+        }
       </div>
     </div>
   )

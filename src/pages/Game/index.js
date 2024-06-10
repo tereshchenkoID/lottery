@@ -19,9 +19,9 @@ import Loader from 'components/Loader'
 import Button from 'components/Button'
 import Multibet from './Multibet'
 import Betslip from './Betslip'
+import Archive from './Archive'
 
 import style from './index.module.scss'
-import Archive from './Archive'
 
 const BINGO = lazy(() => import('./games/BINGO'))
 const KENO = lazy(() => import('./games/KENO'))
