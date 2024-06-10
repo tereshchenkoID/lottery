@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 
 import { getDate } from 'helpers/getDate'
 import { getValueFormatted } from 'helpers/getValueFormatted'
@@ -55,15 +55,21 @@ const Row = ({ data }) => {
           <h6 className={style.prize}>{getValueFormatted(data.prize)}</h6>
         </div>
       </div>
-      {active && (
+      {(active && Object.keys(data?.stats).length !== 0) && (
         <div className={style.dropdown}>
           <div className={style.table}>
-            <div className={style.td}>Title 1</div>
-            <div className={style.td}>1702 {auth.account.currency.symbol}</div>
-            <div className={style.td}>Title 1</div>
-            <div className={style.td}>1900 {auth.account.currency.symbol}</div>
-            <div className={style.td}>Title 3</div>
-            <div className={style.td}>1900 {auth.account.currency.symbol}</div>
+            {
+              Object.entries(data?.stats).map(([key, value]) => (
+                <Fragment key={key}>
+                  <div className={style.td}>
+                    {key}
+                  </div>
+                  <div className={style.td}>
+                    {value} {auth.account.currency.symbol}
+                  </div>
+                </Fragment>
+              ))
+            }
           </div>
         </div>
       )}

@@ -6,8 +6,6 @@ const Pagination = ({
   pagination,
   handlePrev,
   handleNext,
-  theme,
-
 }) => {
   return (
     <div className={style.block}>

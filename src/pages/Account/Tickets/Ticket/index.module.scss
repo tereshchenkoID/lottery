@@ -30,7 +30,6 @@
   }
 }
 
-.count,
 .date,
 .status {
   font-size: rem(12px);
@@ -72,11 +71,16 @@
 }
 
 .status {
-  color: var(--color-secondary)
-}
 
-.count {
-  text-transform: lowercase;
+  &.type-2,
+  &.type-3 {
+    color: var(--color-warning);
+  }
+
+  &.type-4,
+  &.type-5 {
+    color: var(--color-secondary);
+  }
 }
 
 .meta {

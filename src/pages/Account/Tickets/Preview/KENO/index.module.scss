@@ -7,7 +7,7 @@
 
 .numbers {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(10, rem(24px));
     gap: rem(4px);
 }
 
@@ -15,7 +15,6 @@
     @include flex(center, center);
 
     aspect-ratio: 1 / 1;
-    border: rem(1px) solid #000;
     border-radius: rem(6px);
     border: rem(1px) dashed var(--grey-alpha-400);
     font-size: rem(12px);
@@ -33,6 +32,10 @@
             border-radius: rem(4px);
             content: '';
         }
+
+        &.checked {
+            background-color: var(--color-primary);
+        }
     }
 }
 
@@ -44,6 +47,22 @@
 
 .result {
     font-weight: var(--typography-bold);
+
+    &.active {
+        color: var(--color-primary);
+    }
+
+    &::after {
+        color: var(--color-text);
+        content: ','
+    }
+
+    &:last-child {
+
+        &::after {
+            display: none;
+        }
+    }
 }
 
 .label {

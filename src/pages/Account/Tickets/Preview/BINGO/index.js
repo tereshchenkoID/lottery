@@ -5,22 +5,21 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const KENO = ({ data }) => {
+const BINGO = ({ data }) => {
   const { t } = useTranslation()
   const [numbers, setNumbers] = useState(
-    Array.from({ length: 80 }, (_, idx) => ({
+    Array.from({ length: 54 }, (_, idx) => ({
       number: idx + 1,
       active: false,
       checked: false,
     })),
   );
-  
+
   useEffect(() => {
     setNumbers(prevNumbers =>
-      prevNumbers.map(num => ({
-        ...num,
-        active: data.numbers.includes(num.number),
-        checked: data.results.includes(num.number)
+      prevNumbers.map((_, idx) => ({
+        number: data.numbers[idx],
+        checked: data.results.includes(data.numbers[idx])
       }))
     );
   }, [data.numbers])
@@ -34,35 +33,31 @@ const KENO = ({ data }) => {
               key={idx}
               className={
                 classNames(
-                  style.number, 
-                  el.active && style.active,
-                  el.checked && style.checked,
+                  style.number,
+                  (el.number > 0 && !el.checked) && style.checked,
                 )
               }
             >
-              {el.number}
+              <span>{el.number !== 0 && el.number}</span>
             </div>
           )
         }
       </div>
 
       <div>
-        <p className={style.label}>{t('drawn_numbers')}</p>
+        <p className={style.label}>{t('missed_numbers')}</p>
         <div className={style.results}>
           {
-            data.numbers.map((el, idx) =>
-              <span
-                key={idx}
-                className={
-                  classNames(
-                    style.result, 
-                    data.results.includes(el) && style.active
-                  )
-                }
-              >
-                {el}
-              </span>
-            )
+            numbers.map((el, idx) => (
+              el.number !== 0 && !el.checked && (
+                <p
+                  key={idx}
+                  className={classNames(style.result, style.active)}
+                >
+                  {el.number}
+                </p>
+              )
+            ))
           }
         </div>
       </div>
@@ -70,4 +65,4 @@ const KENO = ({ data }) => {
   )
 }
 
-export default KENO
+export default BINGO

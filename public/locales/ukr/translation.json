@@ -66,6 +66,7 @@
   "parity": "Parity UA",
   "empty": "The search has not given any results UA",
   "drawn_numbers": "Drawn numbers UA",
+  "missed_numbers": "Missed numbers UA",
   "ticket_status": {
     "pending": "Pending UA",
     "confirmed": "Confirmed UA",

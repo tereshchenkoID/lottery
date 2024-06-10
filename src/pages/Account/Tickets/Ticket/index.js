@@ -45,17 +45,9 @@ const Ticket = ({ data, active, setActive }) => {
             <>
               <div className={style.info}>
                 <h6 className={style.title}>{t(`games.${ticket.gameId}.title`)}</h6>
-                {
-                  (ticket.win > 0)
-                    ?
-                    <strong className={style.status}>
-                      {t(`ticket_status.${statusType[ticket.status]}`)}
-                    </strong>
-                    :
-                    <p className={style.count}>
-                      <strong>{ticket.count}</strong> {t('tickets')}
-                    </p>
-                }
+                <strong className={classNames(style.status, style[`type-${ticket.status}`])}>
+                  {t(`ticket_status.${statusType[ticket.status]}`)}
+                </strong>
                 <div className={style.meta}>
                   {
                     ( ticket.win > 0)

@@ -36,7 +36,7 @@ const Tickets = () => {
     formData.append('status', filter.status)
 
     postData('tickets/', formData).then(json => {
-      setData(json)
+      setData(json.data)
 
       setPagination({
         page: json.page,
@@ -82,23 +82,31 @@ const Tickets = () => {
         ) : (
           <div className={style.wrapper}>
             <div className={style.left}>
-              <div className={style.list}>
-                {
-                  data.data.map((el, idx) =>
-                    <Ticket
-                      key={idx}
-                      data={el}
-                      active={active}
-                      setActive={setActive}
+              {
+                data?.length > 0 ? (
+                  <>
+                    <div className={style.list}>
+                      {
+                        data.map((el, idx) =>
+                          <Ticket
+                            key={idx}
+                            data={el}
+                            active={active}
+                            setActive={setActive}
+                          />
+                        )
+                      }
+                    </div>
+                    <Pagination
+                      pagination={pagination}
+                      handlePrev={() => handlePrev()}
+                      handleNext={() => handleNext()}
                     />
-                  )
-                }
-              </div>
-              <Pagination
-                pagination={pagination}
-                handlePrev={() => handlePrev()}
-                handleNext={() => handleNext()}
-              />
+                  </>
+                ) : (
+                  <div className={style.empty}>{t('empty')}</div>
+                )
+              }
             </div>
             <div className={style.right}>
               {active && <Preview active={active} setActive={setActive} />}

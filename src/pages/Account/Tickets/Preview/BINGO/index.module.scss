@@ -1,0 +1,99 @@
+@import 'scss/config';
+
+.block {
+    display: grid;
+    gap: rem(20px);
+}
+
+.numbers {
+    display: grid;
+    grid-template-columns: repeat(9, rem(31px));
+}
+
+.number {
+    @include flex(center, center);
+
+    aspect-ratio: 1 / 1;
+    font-size: rem(12px);
+    font-weight: var(--typography-bold);
+    border-right: rem(1px) solid var(--grey-alpha-400);
+    border-bottom: rem(1px) solid var(--grey-alpha-400);
+
+    &:nth-child(1) {
+        border-radius: rem(8px) 0 0;
+    }
+
+    &:nth-child(9) {
+        border-radius: 0 rem(8px) 0 0;
+    }
+
+    &:nth-child(46) {
+        border-radius: 0 0 0 rem(8px);
+    }
+
+    &:nth-child(54) {
+        border-radius: 0 0 rem(8px) 0;
+    }
+
+    &:nth-child(-n + 9) {
+        border-top: rem(1px) solid var(--grey-alpha-400);
+    }
+
+    &:nth-child(9n + 1) {
+        border-left: rem(1px) solid var(--grey-alpha-400);
+    }
+
+    &:nth-child(n+28):nth-child(-n+36) {
+        @include make-spacer(mt, 12px);
+
+        border-top: rem(1px) solid var(--grey-alpha-400);
+    }
+
+    &.checked {
+        position: relative;
+        color: var(--color-white);
+
+        &::before {
+            position: absolute;
+            inset: rem(2px);
+            background-color: var(--color-primary);
+            border-radius: rem(4px);
+            content: '';
+        }
+
+        span {
+            position: relative;
+        }
+    }
+}
+
+.results {
+    @include flex($align-items: center, $wrap: wrap);
+
+    gap: rem(4px);
+}
+
+.result {
+    font-weight: var(--typography-bold);
+
+    &.active {
+        color: var(--color-primary);
+    }
+
+    &::after {
+        color: var(--color-text);
+        content: ','
+    }
+
+    &:last-child {
+
+        &::after {
+            display: none;
+        }
+    }
+}
+
+.label {
+    opacity: 0.6;
+    font-size: rem(12px);
+}

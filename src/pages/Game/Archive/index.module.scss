@@ -13,10 +13,9 @@
 
 .container {
   @include make-spacer(p, 4px);
-  
+
   position: relative;
   overflow: hidden;
-  min-height: rem(150px);
   width: 100%;
   background-color: var(--game_container_color);
   border-radius: rem(20px);
@@ -24,6 +23,10 @@
   @include media-breakpoint-up(lg) {
     border: rem(4px) solid transparent;
     max-width: 100%;
+  }
+
+  &.lg {
+    min-height: rem(150px);
   }
 }
 
@@ -61,7 +64,7 @@
     column-gap: rem(8px);
   }
 
-  > * {
+  >* {
     flex: 1;
 
     &:nth-child(3) {

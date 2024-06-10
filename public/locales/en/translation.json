@@ -66,6 +66,7 @@
   "parity": "Parity",
   "empty": "The search has not given any results",
   "drawn_numbers": "Drawn numbers",
+  "missed_numbers": "Missed numbers",
   "ticket_status": {
     "pending": "Pending",
     "confirmed": "Confirmed",

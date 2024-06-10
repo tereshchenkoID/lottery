@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from './index.module.scss'
 
 const GameButton = ({
+  type = 'button',
   placeholder,
   classes = null,
   onChange,
@@ -15,7 +16,7 @@ const GameButton = ({
 }) => {
   return (
     <button
-      type={'button'}
+      type={type}
       className={classNames(style.block, isActive && style.active, classes)}
       onClick={onChange}
       style={styles}

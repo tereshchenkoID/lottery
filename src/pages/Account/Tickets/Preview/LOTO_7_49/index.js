@@ -11,6 +11,7 @@ const LOTO_7_49 = ({ data }) => {
     Array.from({ length: 49 }, (_, idx) => ({
       number: idx + 1,
       active: false,
+      checked: false,
     })),
   );
 
@@ -18,7 +19,8 @@ const LOTO_7_49 = ({ data }) => {
     setNumbers(prevNumbers =>
       prevNumbers.map(num => ({
         ...num,
-        active: data.numbers.includes(num.number)
+        active: data.numbers.includes(num.number),
+        checked: data.results.includes(num.number)
       }))
     );
   }, [data.numbers])
@@ -30,7 +32,13 @@ const LOTO_7_49 = ({ data }) => {
           numbers.map((el, idx) =>
             <div
               key={idx}
-              className={classNames(style.number, el.active && style.active)}
+              className={
+                classNames(
+                  style.number, 
+                  el.active && style.active,
+                  el.checked && style.checked,
+                )
+              }
             >
               {el.number}
             </div>
@@ -45,10 +53,14 @@ const LOTO_7_49 = ({ data }) => {
             data.numbers.map((el, idx) =>
               <span
                 key={idx}
-                className={style.result}
+                className={
+                  classNames(
+                    style.result, 
+                    data.results.includes(el) && style.active
+                  )
+                }
               >
                 {el}
-                {idx !== data.numbers.length - 1 && ','}
               </span>
             )
           }

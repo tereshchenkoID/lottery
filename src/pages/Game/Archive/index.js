@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
+import classNames from 'classnames'
+
 import { getDate } from 'helpers/getDate'
 import { postData } from 'helpers/api'
 
@@ -10,7 +12,6 @@ import GamePagination from 'modules/GamePagination'
 import GameField from 'modules/GameField'
 import GameButton from 'modules/GameButton'
 import GameCheckbox from 'modules/GameCheckbox'
-
 import Row from './Row'
 
 import style from './index.module.scss'
@@ -27,47 +28,18 @@ const TABS = [
 ]
 
 
-// const getDateXDaysFrom = (date, days) => {
-//   const result = new Date(date)
-//   result.setDate(result.getDate() + days)
-//   return result.toISOString().split('T')[0]
-// }
-
-
-// const today = new Date()
-
-// const validateFilter = filter => {
-//   let { dateFrom, dateTo } = filter
-
-//   // if (!dateFrom) {
-//   //   dateFrom = getDateXDaysFrom(dateTo, -30)
-//   // }
-
-//   // if (!dateTo) {
-//   //   dateTo = getDateXDaysFrom(dateFrom, 30)
-//   // }
-
-//   if (new Date(dateFrom) > dateTo) {
-//     dateFrom = dateTo
-//   }
-
-//   // if (new Date(dateTo) < dateFrom) {
-//   //   dateTo = dateFrom
-//   // }
-
-//   // if (new Date(dateTo) - new Date(dateFrom) > 30 * 24 * 60 * 60 * 1000) {
-//   //   dateTo = getDateXDaysFrom(dateFrom, 30)
-//   // }
-
-//   return { ...filter, dateFrom, dateTo }
-// }
+const getDateXDaysFrom = (date, days) => {
+  const result = new Date(date)
+  result.setDate(result.getDate() + days)
+  return result.toISOString().split('T')[0]
+}
 
 const Archive = ({ betslip, game }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
   const initialValues = [
-    getDate(new Date(), 3),
+    getDateXDaysFrom(new Date(), -30),
     getDate(new Date(), 3),
     game.round.id - 100,
     game.round.id,
@@ -91,27 +63,40 @@ const Archive = ({ betslip, game }) => {
     results: 0,
   })
 
-  // const validateDate = dateValue => {
-  //   const today = new Date().toISOString().split('T')[0]
-  //   return dateValue > today ? today : dateValue
-  // }
-
-  const handleLoad = () => {
+  const handleLoad = (page) => {
     setLoading(true)
+
     const formData = new FormData()
+    formData.append('page', page)
     formData.append('gameId', filter.gameId)
     formData.append('isPrize', filter.isPrize)
 
     if (active === 0) {
       formData.append('dateFrom', filter.dateFrom)
-      formData.append('dateTo', filter.dateTo)
+      formData.append('dateTo', filter.dateTo || initialValues[1])
+
+      if(!filter.dateTo) {
+        handlePropsChange('dateTo', initialValues[1])
+      }
     } else {
       formData.append('numberFrom', filter.numberFrom)
-      formData.append('numberTo', filter.numberTo)
+      formData.append('numberTo', filter.numberTo || initialValues[3])
+
+      if(!filter.numberTo) {
+        handlePropsChange('numberTo', initialValues[3])
+      }
     }
 
     postData('archive/', formData).then(json => {
-      setData(json)
+      setData(json.data)
+
+      setPagination({
+        page: json.page,
+        pages: json.pages,
+        quantity: json.quantity,
+        results: json.results,
+      })
+
       setLoading(false)
     })
   }
@@ -138,14 +123,8 @@ const Archive = ({ betslip, game }) => {
   }
 
   const handlePropsChange = (fieldName, fieldValue) => {
-    // const validatedValue =
-    //   fieldName === 'dateFrom' || fieldName === 'dateTo'
-    //     ? validateDate(fieldValue)
-    //     : fieldValue
-
     setFilter(prevData => ({
       ...prevData,
-      // [fieldName]: validatedValue,
       [fieldName]: fieldValue,
     }))
   }
@@ -159,37 +138,11 @@ const Archive = ({ betslip, game }) => {
 
   const handleSubmit = event => {
     event && event.preventDefault()
-    let { dateFrom, dateTo } = filter
-
-    // if (filter.dateTo === '') {
-    //   dateTo = getDate(new Date(), 3)
-    // }
-
-    // if (filter.dateFrom === '') {
-    //   dateFrom = getDateXDaysFrom(dateTo, -30)
-    // }
-
-    // if (new Date(dateTo) - new Date(dateFrom) > 30 * 24 * 60 * 60 * 1000) {
-    //   dateFrom = getDateXDaysFrom(dateTo, -30)
-    // }
-
-    // if (new Date(dateFrom) > new Date(dateTo)) {
-    //   dateFrom = dateTo
-    // }
-
-    setFilter(prevData => {
-      return {
-        ...prevData,
-        dateTo: dateTo,
-        dateFrom: dateFrom,
-      }
-    })
-
-    handleLoad()
+    handleLoad(0)
   }
 
   useEffect(() => {
-    handleLoad()
+    handleLoad(0)
   }, [])
 
   return (
@@ -252,12 +205,11 @@ const Archive = ({ betslip, game }) => {
           <GameButton
             type={'submit'}
             placeholder={t('search')}
-            onChange={() => handleSubmit()}
             classes={style.search}
           />
         </form>
       </div>
-      <div className={style.container}>
+      <div className={classNames(style.container, style.lg)}>
         {
           loading
             ?
