@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { postData } from 'helpers/api'
 
+import classNames from 'classnames'
+
 import Loader from 'components/Loader'
 import Pagination from 'modules/Pagination'
 import Ticket from './Ticket'
@@ -81,6 +83,12 @@ const Tickets = () => {
           <Loader />
         ) : (
           <div className={style.wrapper}>
+            <div
+              className={classNames(style.shadow, active && style.active)}
+              onClick={() => {
+                setActive()
+              }}
+            />
             <div className={style.left}>
               {
                 data?.length > 0 ? (
@@ -109,7 +117,7 @@ const Tickets = () => {
               }
             </div>
             <div className={style.right}>
-              {active && <Preview active={active} setActive={setActive} />}
+              <Preview active={active} setActive={setActive} />
             </div>
           </div>
         )

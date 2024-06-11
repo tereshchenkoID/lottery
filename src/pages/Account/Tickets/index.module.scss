@@ -3,7 +3,7 @@
 .wrapper {
   display: grid;
 
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(xl) {
     grid-template-columns: 1fr rem(322px);
   }
 }
@@ -26,4 +26,21 @@
 
 .right {
   border-left: rem(1px) solid var(--grey-alpha-200);
+}
+
+.shadow {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: $z-index-11;
+  background-color: var(--grey-alpha-700);
+
+  @include media-breakpoint-up(xl) {
+    display: none!important;
+  }
+
+  &.active {
+    display: block;
+    animation: opacity 0.3s linear forwards;
+  }
 }

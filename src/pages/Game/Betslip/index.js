@@ -116,8 +116,6 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
       />
 
       <div className={style.wrapper}>
-        {/*<pre>{JSON.stringify(betslip, null, 2)}</pre>*/}
-
         {isSingle && (
           <>
             {isNotEmpty ? (

@@ -1,5 +1,33 @@
 @import 'scss/config';
 
+.block {
+    @include make-spacer(p, 24px);
+    @include transition(all);
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 100%;
+    z-index: $z-index-11;
+    border-radius: rem(24px) rem(24px) 0 0;
+    background-color: var(--color-white);
+    transform: translateY(100%);
+
+    @include media-breakpoint-up(xl) {
+        @include make-spacer(p, 0);
+
+        position: static;
+        transform: translateY(0) !important;
+        border-radius: 0;
+    }
+
+    &.active {
+        transform: translateY(0);
+        overflow-y: auto;
+    }
+}
+
 .header {
     @include make-spacer(pb, 24px);
 
@@ -22,9 +50,40 @@
 }
 
 .win {
-    text-align: right;
+    @include make-spacer(pb, 20px);
+
+    text-align: center;
+
+    @include media-breakpoint-up(xl) {
+        text-align: right;
+    }
 }
 
 .ticket {
-    @include make-spacer(pt, 20px);
+    @include flex($align-items: center, $direction: column);
+
+    position: relative;
+    min-height: rem(150px);
+}
+
+.toggle {
+    @include size(rem(100%), rem(24px));
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    &::before {
+        @include absolute-center;
+        @include size(rem(40px), rem(4px));
+
+        border-radius: rem(2px);
+        background-color: var(--color-primary);
+        content: '';
+    }
+
+    @include media-breakpoint-up(xl) {
+        display: none;
+    }
 }
