@@ -68,6 +68,7 @@
   "drawn_numbers": "Drawn numbers",
   "missed_numbers": "Missed numbers",
   "ticket_status": {
+    "all": "All tickets",
     "pending": "Pending",
     "confirmed": "Confirmed",
     "cancelled": "Cancelled",

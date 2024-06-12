@@ -1,6 +1,6 @@
-import { Link, useLocation } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import classNames from 'classnames';
+import { useLocation } from 'react-router-dom'
+
+import Reference from 'components/Reference'
 
 import style from './index.module.scss'
 
@@ -12,14 +12,15 @@ const Tab = ({ data }) => {
     <div className={style.block}>
       {
         data.map((el, idx) =>
-          <Link
+          <Reference 
             key={idx}
-            to={el.link}
-            className={classNames(style.link, page === el.link && style.active)}
-          >
-            <FontAwesomeIcon icon={el.icon} />
-            {el.name}
-          </Link>
+            view='alt'
+            link={el.link} 
+            icon={el.icon}
+            isActive={page === el.link}
+            placeholder={el.name} 
+            classes={style.link}
+          />
         )
       }
     </div>

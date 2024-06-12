@@ -6,6 +6,8 @@
 }
 
 .numbers {
+    @include make-spacer(mx, auto);
+    
     display: grid;
     grid-template-columns: repeat(10, rem(23px));
     gap: rem(4px);

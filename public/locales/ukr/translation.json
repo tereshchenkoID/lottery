@@ -68,6 +68,7 @@
   "drawn_numbers": "Drawn numbers UA",
   "missed_numbers": "Missed numbers UA",
   "ticket_status": {
+    "all": "All tickets UA",
     "pending": "Pending UA",
     "confirmed": "Confirmed UA",
     "cancelled": "Cancelled UA",

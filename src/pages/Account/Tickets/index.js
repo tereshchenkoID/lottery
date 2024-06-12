@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-import { postData } from 'helpers/api'
+import { getData, postData } from 'helpers/api'
 
 import classNames from 'classnames'
 
@@ -9,19 +10,35 @@ import Loader from 'components/Loader'
 import Pagination from 'modules/Pagination'
 import Ticket from './Ticket'
 import Preview from './Preview'
+import FilterGames from './FilterGames'
+import FilterStatus from './FilterStatus'
 
 import style from './index.module.scss'
 
 const Tickets = () => {
   const { t } = useTranslation()
+  const { games } = useSelector(state => state.games)
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
   const [active, setActive] = useState(null)
+  const [myGames, setMyGames] = useState([])
   const [filter, setFilter] = useState({
-    dateFrom: "2024-05-01",
-    dateTo: "2024-05-31",
+    gameId: -1,
     status: -1,
   })
+
+  const filterGames = useMemo(() => {
+    return myGames?.map(el => {
+      return games.find(game => game.id === el)
+    });
+  }, [myGames, games])
+
+  const handlePropsChange = (fieldName, fieldValue) => {
+    setFilter(prevData => ({
+      ...prevData,
+      [fieldName]: fieldValue,
+    }))
+  }
 
   const [pagination, setPagination] = useState({
     page: 0,
@@ -36,6 +53,7 @@ const Tickets = () => {
     const formData = new FormData()
     formData.append('page', page)
     formData.append('status', filter.status)
+    formData.append('gameId', filter.gameId)
 
     postData('tickets/', formData).then(json => {
       setData(json.data)
@@ -73,8 +91,14 @@ const Tickets = () => {
   }
 
   useEffect(() => {
-    handleLoad(0)
+    getData('mygames/').then(json => {
+      setMyGames(json)
+    })
   }, [])
+
+  useEffect(() => {
+    handleLoad(0)
+  }, [filter])
 
   return (
     <div className={style.block}>
@@ -90,6 +114,15 @@ const Tickets = () => {
               }}
             />
             <div className={style.left}>
+              <FilterStatus 
+                active={filter.status} 
+                onChange={handlePropsChange} 
+              />
+              <FilterGames 
+                data={filterGames} 
+                active={filter.gameId} 
+                onChange={handlePropsChange} 
+              />
               {
                 data?.length > 0 ? (
                   <>

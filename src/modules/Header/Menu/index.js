@@ -111,7 +111,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
     {
       submenu: [
         {
-          link: '/games',
+          link: '/',
           icon: 'fa-dice',
           text: 'all_games',
         },

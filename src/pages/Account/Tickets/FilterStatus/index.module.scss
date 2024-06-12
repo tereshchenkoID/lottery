@@ -1,25 +1,20 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(px, 20px);
   @include flex;
+  @include make-spacer(mb, 24px);
 
-  gap: rem(8px);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  gap: rem(8px);
 
   &::-webkit-scrollbar {
     display: none;
   }
-  
-  @include media-breakpoint-up(lg) {
-    flex-wrap: wrap
-  }
 }
 
-.link {
-  @include make-spacer(px, 16px);
-
-  height: rem(40px);
+.button {
+  border-radius: rem(20px);
+  height: rem(32px);
   flex-shrink: 0;
 }

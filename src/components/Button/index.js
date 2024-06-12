@@ -5,21 +5,30 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import style from './index.module.scss'
 
 const Button = ({
-  placeholder,
   type = 'button',
-  styles = null,
+  view = 'primary',
+  placeholder,
   classes,
-  icon,
   onChange,
-  disabled,
+  styles = null,
+  icon = false,
+  isDisabled = false,
+  isActive = false
 }) => {
   return (
     <button
       type={type}
-      className={classNames(style.block, classes)}
+      className={
+        classNames(
+          style.block,
+          style[view],
+          isActive && style.active,
+          classes
+        )
+      }
+      disabled={isDisabled}
       onClick={onChange}
       style={styles}
-      disabled={disabled}
     >
       {icon && <FontAwesomeIcon icon={icon} />}
       {placeholder}

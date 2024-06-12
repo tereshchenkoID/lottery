@@ -52,7 +52,7 @@ const Account = () => {
       link: '/account/friends'
     },
     {
-      icon: 'fa-solid fa-user',
+      icon: 'fa-solid fa-gear',
       name: t('account.profile'),
       link: '/account/profile'
     },
@@ -77,7 +77,6 @@ const Account = () => {
   return (
     <div className={style.block}>
       <Games />
-
       {
         isAccountRoot
           ?

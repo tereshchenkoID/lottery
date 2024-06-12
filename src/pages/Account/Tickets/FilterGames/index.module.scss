@@ -1,0 +1,38 @@
+@import 'scss/config';
+
+.block {
+  @include flex;
+  @include make-spacer(mb, 24px);
+
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  gap: rem(8px);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.game {
+  @include make-spacer(px, 12px);
+  @include flex($align-items: center);
+
+  gap: rem(8px);
+  border-radius: rem(12px);
+  height: rem(40px);
+  border: rem(1px) solid var(--grey-alpha-200);
+  flex-shrink: 0;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+
+  &.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+}
+
+.logo {
+  @include size(rem(32px));
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
@@ -35,7 +35,6 @@ const getDateXDaysFrom = (date, days) => {
 }
 
 const Archive = ({ betslip, game }) => {
-  const dispatch = useDispatch()
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
   const initialValues = [

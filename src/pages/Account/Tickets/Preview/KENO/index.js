@@ -15,7 +15,7 @@ const KENO = ({ data }) => {
       checked: false,
     })),
   );
-  
+
   useEffect(() => {
     setNumbers(prevNumbers =>
       prevNumbers.map(num => ({
@@ -35,7 +35,7 @@ const KENO = ({ data }) => {
               key={idx}
               className={
                 classNames(
-                  style.number, 
+                  style.number,
                   el.active && style.active,
                   el.checked && style.checked,
                 )
@@ -50,25 +50,25 @@ const KENO = ({ data }) => {
         <p className={style.label}>{t('drawn_numbers')}</p>
         <div className={style.results}>
           {
-            data.numbers.map((el, idx) =>
-              <span
-                key={idx}
-                className={
-                  classNames(
-                    style.result, 
-                    data.results.includes(el) && style.active
-                  )
-                }
-              >
-                {
-                  (el === betType['1'] || el === betType['2'] || el === betType['3'])
-                  ?
-                    t(`numbers.${el}`)
-                  :
-                    el
-                }
+            (data.numbers[0] === betType['1'] || data.numbers[0] === betType['2'] || data.numbers[0] === betType['3'])
+              ?
+              <span className={style.result}>
+                {t(`numbers.${data.numbers[0]}`)}
               </span>
-            )
+              :
+              data.results.map((el, idx) =>
+                <span
+                  key={idx}
+                  className={
+                    classNames(
+                      style.result,
+                      data.numbers.includes(el) && style.active
+                    )
+                  }
+                >
+                  {el}
+                </span>
+              )
           }
         </div>
       </div>

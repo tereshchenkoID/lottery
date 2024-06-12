@@ -1,7 +1,12 @@
 @import 'scss/config';
 
+.block {
+  flex-grow: 1;
+}
+
 .wrapper {
   display: grid;
+  height: 100%;
 
   @include media-breakpoint-up(xl) {
     grid-template-columns: 1fr rem(322px);
@@ -22,6 +27,10 @@
   @include media-breakpoint-up(md) {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.left {
+  overflow: hidden;
 }
 
 .right {

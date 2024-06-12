@@ -5,12 +5,31 @@
   @include flex(center, center);
 
   border-radius: rem(12px);
-  background-color: var(--color-primary);
   font-weight: var(--typography-medium);
   color: var(--color-text);
   height: rem(48px);
+  min-width: rem(60px);
+  gap: rem(8px);
 
-  &:hover {
-    background-color: var(--color-primary-hover);
+  &.active {
+    pointer-events: none;
+  }
+
+  &.primary {
+    background-color: var(--color-primary);
+
+    &.active,
+    &:hover {
+      background-color: var(--color-primary-hover);
+    }
+  }
+
+  &.alt {
+    background-color: var(--grey-alpha-100);
+
+    &.active,
+    &:hover {
+      background-color: var(--color-primary);
+    }
   }
 }

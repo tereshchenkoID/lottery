@@ -10,17 +10,19 @@ const Pagination = ({
   return (
     <div className={style.block}>
       <Button
+        view='alt'
         classes={style.button}
         onChange={handlePrev}
         icon={'fa-solid fa-angle-left'}
-        disabled={pagination.page === 1}
+        isDisabled={pagination.page === 1}
       />
       <p className={style.count}>{pagination.page}</p>
       <Button
+        view='alt'
         classes={style.button}
         onChange={handleNext}
         icon={'fa-solid fa-angle-right'}
-        disabled={pagination.page === pagination.pages}
+        isDisabled={pagination.page === pagination.pages}
       />
     </div>
   )

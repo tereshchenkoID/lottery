@@ -142,7 +142,7 @@ const BINGO = ({ auth, betslip, game, setGame }) => {
           placeholder={t('load_more')}
           styles={{ width: '100%' }}
           onChange={() => handleLoad()}
-          disabled={betslip.tickets?.length >= 10}
+          isDisabled={betslip.tickets?.length >= 10}
         />
       </div>
     </div>
