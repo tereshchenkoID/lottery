@@ -1,6 +1,5 @@
 import { useEffect, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
 
 import { getData, postData } from 'helpers/api'
 
@@ -8,6 +7,7 @@ import classNames from 'classnames'
 
 import Loader from 'components/Loader'
 import Pagination from 'modules/Pagination'
+import Empty from 'modules/Empty'
 import Ticket from './Ticket'
 import Preview from './Preview'
 import FilterGames from './FilterGames'
@@ -16,7 +16,6 @@ import FilterStatus from './FilterStatus'
 import style from './index.module.scss'
 
 const Tickets = () => {
-  const { t } = useTranslation()
   const { games } = useSelector(state => state.games)
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
@@ -145,7 +144,7 @@ const Tickets = () => {
                     />
                   </>
                 ) : (
-                  <div className={style.empty}>{t('empty')}</div>
+                  <Empty />
                 )
               }
             </div>

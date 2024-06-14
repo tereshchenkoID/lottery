@@ -140,6 +140,7 @@
     @include make-spacer(mr, 8px);
 
     font-size: rem(16px);
+    width: rem(20px);
   }
 }
 
@@ -155,6 +156,12 @@
   @include flex($align-items: baseline);
 
   gap: rem(4px);
+
+  &.alt {
+    @include make-spacer(mb, 0);
+
+    pointer-events: none;
+  }
 }
 
 .icon {

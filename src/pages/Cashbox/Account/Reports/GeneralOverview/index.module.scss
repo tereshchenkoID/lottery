@@ -1,0 +1,48 @@
+@import 'scss/config';
+
+.form {
+  display: grid;
+  gap: rem(4px);
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.container {
+  @include make-spacer(py, 24px);
+}
+
+.table {
+
+  @include media-breakpoint-up(md) {
+    max-width: rem(66.6%);
+  }
+
+  @include media-breakpoint-up(lg) {
+    max-width: rem(50%);
+  }
+}
+
+.row {
+  @include make-spacer(mb, 4px);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: rem(4px);
+}
+
+.cell {
+  @include make-spacer(p, 10px);
+
+  background-color: var(--grey-alpha-200);
+  border-radius: rem(8px);
+
+  &:last-child {
+    text-align: right;
+  }
+}

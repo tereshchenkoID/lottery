@@ -22,7 +22,6 @@ import Section from 'components/Section'
 import Title from 'components/Title'
 import Loader from 'components/Loader'
 import Banner from 'modules/Banner'
-import Games from 'modules/Games'
 import Game from 'modules/Game'
 import Card from 'modules/Card'
 import Qr from 'modules/Qr'
@@ -63,8 +62,6 @@ const Home = () => {
         <Loader />
       ) : (
         <>
-          <Games />
-
           <Section>
             <div className={style.promo}>
               <div className={style.banners}>

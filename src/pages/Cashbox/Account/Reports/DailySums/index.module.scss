@@ -1,0 +1,99 @@
+@import 'scss/config';
+
+.form {
+  display: grid;
+  gap: rem(4px);
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.container {
+  @include make-spacer(py, 24px);
+}
+
+.table {
+
+  @include media-breakpoint-up(md) {
+    max-width: rem(66.6%);
+  }
+
+  @include media-breakpoint-up(lg) {
+    max-width: rem(50%);
+  }
+}
+
+.row {
+  @include make-spacer(mb, 4px);
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: rem(4px);
+
+  &:first-child,
+  &:last-child {
+
+    .cell {
+      background-color: var(--grey-alpha-300);
+    }
+  }
+}
+
+.cell {
+  @include make-spacer(p, 10px);
+
+  position: relative;
+  overflow: hidden;
+  background-color: var(--grey-alpha-200);
+  border-radius: rem(8px);
+
+  &:nth-child(2),
+  &:nth-child(3) {
+    text-align: right;
+  }
+}
+
+.scale {
+  @include size(100%);
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  div {
+    height: 100%;
+  }
+
+  &.default {
+    right: 0;
+    left: 0;
+
+    div {
+      background-color: rgba(#0362b3, 0.5);
+    }
+  }
+
+  &.down {
+    left: 0;
+
+    div {
+      @include make-spacer(mr, 0);
+      @include make-spacer(ml, auto);
+
+      background-color: rgba(#f00, 0.5);
+    }
+  }
+
+  &.up {
+    right: 0;
+
+    div {
+      background-color: rgba(#157b15, 0.5);
+    }
+  }
+}

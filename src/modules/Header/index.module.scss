@@ -17,25 +17,29 @@
 }
 
 .icon,
+.line,
 .text {
   @include transition;
 }
 
 .logo {
-  @include make-spacer(mr, 0);
+  @include make-spacer(mr, auto);
   @include size(rem(140px), auto);
 
   flex-shrink: 0;
+  order: 1;
 
   @include media-breakpoint-up(lg) {
+    @include make-spacer(mr, 0);
+
     width: rem(130px);
+    order: 0
   }
 }
 
 .button {
-  @include make-spacer(mr, auto);
-
   cursor: pointer;
+  order: 0;
 
   * {
     pointer-events: none;
@@ -46,6 +50,12 @@
     .text {
       background-color: var(--grey-alpha-100);
     }
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(mr, auto);
+
+    order: 1
   }
 }
 
@@ -115,7 +125,6 @@
 }
 
 .line {
-  @include transition;
   @include make-spacer(my, 2px);
   @include size(50%, rem(2px));
 

@@ -29,6 +29,7 @@ const Button = ({
       disabled={isDisabled}
       onClick={onChange}
       style={styles}
+      aria-label={placeholder}
     >
       {icon && <FontAwesomeIcon icon={icon} />}
       {placeholder}

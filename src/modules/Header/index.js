@@ -1,22 +1,20 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSelector } from 'react-redux'
-
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
 
 import Menu from './Menu'
 import Account from './Account'
-import Language from './Language'
 
 import style from './index.module.scss'
 
 const Header = () => {
   const { t } = useTranslation()
-  const [show, setShow] = useState(false)
   const { settings } = useSelector(state => state.settings)
+  const [show, setShow] = useState(false)
   const buttonRef = useRef(null)
 
   return (
@@ -30,7 +28,7 @@ const Header = () => {
           setShow(false)
         }}
       >
-        <img src={settings.logo} alt="logo" />
+        <img src={settings.logo} alt="logo" loading="lazy"/>
       </Link>
       <div
         className={style.button}
@@ -38,17 +36,22 @@ const Header = () => {
         onClick={() => setShow(!show)}
       >
         <button
-          type={'button'}
           className={classNames(style.toggle, show && style.active)}
+          type={'button'}
+          aria-label="Toggle"
         >
           <span className={style.line} />
           <span className={style.line} />
           <span className={style.line} />
         </button>
 
-        <button className={classNames(style.link, show && style.active)}>
+        <button 
+          className={classNames(style.link, show && style.active)}
+          type={'button'}
+          aria-label="Toggle"
+        >
           <span className={style.text}>
-            {t('menu_1')}{' '}
+            {t('navigation.menu')}{' '}
             <FontAwesomeIcon
               icon="fa-solid fa-angle-down"
               className={style.icon}
@@ -58,7 +61,6 @@ const Header = () => {
       </div>
       <Menu setShow={setShow} show={show} buttonRef={buttonRef} />
       <Account />
-      <Language />
     </header>
   )
 }

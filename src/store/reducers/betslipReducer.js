@@ -3,7 +3,6 @@ import { types } from 'store/actionTypes'
 const initialState = {
   betslip: {
     userId: null,
-    userType: null,
     gameId: null,
     type: null,
     activeTicket: null,

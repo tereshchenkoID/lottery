@@ -21,6 +21,7 @@ const GameButton = ({
       onClick={onChange}
       style={styles}
       disabled={isDisabled}
+      aria-label={placeholder}
     >
       {icon && <FontAwesomeIcon icon={icon} />}
       {placeholder}

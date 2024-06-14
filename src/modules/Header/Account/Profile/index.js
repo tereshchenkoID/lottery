@@ -5,12 +5,14 @@ import { useOutsideClick } from 'hooks/useOutsideClick'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
 
-import classNames from 'classnames'
+import { USER_TYPE, ROUTES_USER, ROUTES_CASHBOX, NAVIGATION } from 'constant/config'
 
-import style from './index.module.scss'
+import classNames from 'classnames'
 
 import Reference from 'components/Reference'
 import Logout from 'modules/Logout'
+
+import style from './index.module.scss'
 
 const Profile = () => {
   const { t } = useTranslation()
@@ -19,6 +21,7 @@ const Profile = () => {
   const [active, setActive] = useState(false)
   const blockRef = useRef(null)
   const buttonRef = useRef(null)
+  const isCashbox = auth?.userType === USER_TYPE.cashbox
 
   useOutsideClick(
     blockRef,
@@ -31,6 +34,22 @@ const Profile = () => {
   )
 
   const bonuses = useMemo(() => games.filter(el => el.bonus), [games])
+
+  const submenu = isCashbox
+    ?
+      [
+        ROUTES_CASHBOX.tickets,
+        ROUTES_CASHBOX.players,
+        NAVIGATION.check_ticket,
+        ROUTES_CASHBOX.reports
+      ]
+    :
+      [
+        NAVIGATION.check_ticket,
+        ROUTES_USER.stocks,
+        ROUTES_USER.promocodes,
+      ]
+
 
   return (
     <div className={style.block}>
@@ -60,7 +79,7 @@ const Profile = () => {
             </div>
             <div>
               <Link
-                to={'/account'}
+                to={isCashbox ? ROUTES_CASHBOX.account?.link : ROUTES_USER.account?.link}
                 rel="noreferrer"
                 className={style.title}
                 onClick={() => {
@@ -78,106 +97,113 @@ const Profile = () => {
           </div>
           <div className={style.body}>
             <div className={style.content}>
-              <Link
-                to={'/wallet'}
-                rel="noreferrer"
-                className={style.subtitle}
-                onClick={() => {
-                  setActive(!active)
-                }}
-              >
-                <span>{t('wallet')}:</span>
-                <h6>{auth.account.balance}</h6>
-                <span>{auth.account.currency.symbol}</span>
-                <FontAwesomeIcon
-                  icon="fa-solid fa-angle-right"
-                  className={style.icon}
-                />
-              </Link>
-              <Reference
-                link={'/'}
-                placeholder={t('top_up_account')}
-                onClick={() => {
-                  setActive(!active)
-                }}
-              />
+              {
+                isCashbox
+                  ?
+                    <p className={classNames(style.subtitle, style.alt)}>
+                      <h6>{auth.account.balance}</h6>
+                      <span>{auth.account.currency.symbol}</span>
+                    </p>
+                  :
+                    <>
+                      <Link
+                        to={ROUTES_USER.wallet.link}
+                        rel="noreferrer"
+                        className={style.subtitle}
+                        onClick={() => {
+                          setActive(!active)
+                        }}
+                      >
+                        <span>{t(ROUTES_USER.wallet.text)}:</span>
+                        <h6>{auth.account.balance}</h6>
+                        <span>{auth.account.currency.symbol}</span>
+                        <FontAwesomeIcon
+                          icon="fa-solid fa-angle-right"
+                          className={style.icon}
+                        />
+                      </Link>
+                      <Reference
+                        link={'/'}
+                        placeholder={t('top_up_account')}
+                        onClick={() => {
+                          setActive(!active)
+                        }}
+                      />
+                    </>
+              }
             </div>
-            <div className={style.content}>
-              <Link
-                to={'/account/bonuses'}
-                rel="noreferrer"
-                className={style.subtitle}
-                onClick={() => {
-                  setActive(!active)
-                }}
-              >
-                <span>{t('bonuses')}:</span>
-                <h6>{auth.account.bonus}</h6>
-                <span>{auth.account.currency.symbol}</span>
-                <FontAwesomeIcon
-                  icon="fa-solid fa-angle-right"
-                  className={style.icon}
-                />
-              </Link>
-              <Link
-                to={'/'}
-                rel="noreferrer"
-                className={style.all}
-                onClick={() => {
-                  setActive(!active)
-                }}
-              >
-                {t('bonus_game')}
-              </Link>
-              {bonuses.length > 0 && (
-                <div className={style.games}>
-                  {bonuses.map((el, idx) => (
+
+            {
+              !isCashbox &&
+                <div className={style.content}>
+                  <Link
+                    to={ROUTES_USER.bonuses.link}
+                    rel="noreferrer"
+                    className={style.subtitle}
+                    onClick={() => {
+                      setActive(!active)
+                    }}
+                  >
+                    <span>{t(ROUTES_USER.bonuses.text)}:</span>
+                    <h6>{auth.account.bonus}</h6>
+                    <FontAwesomeIcon
+                      icon="fa-solid fa-angle-right"
+                      className={style.icon}
+                    />
+                  </Link>
+                  <Link
+                    to={'/'}
+                    rel="noreferrer"
+                    className={style.all}
+                    onClick={() => {
+                      setActive(!active)
+                    }}
+                  >
+                    {t('bonus_game')}
+                  </Link>
+                  {bonuses.length > 0 && (
+                    <div className={style.games}>
+                      {bonuses.map((el, idx) => (
+                        <Link
+                          key={idx}
+                          to={`/game/${el.id}`}
+                          rel="noreferrer"
+                          className={style.game}
+                          onClick={() => {
+                            setActive(!active)
+                          }}
+                        >
+                          <img src={el.image} alt={el.alt} className={style.img} />
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+            }
+
+            <ul className={style.list}>
+              {
+                submenu.map((el, idx) =>
+                  <li
+                    key={idx}
+                    className={style.item}
+                  >
                     <Link
-                      key={idx}
-                      to={`/game/${el.id}`}
+                      to={el.link}
                       rel="noreferrer"
-                      className={style.game}
                       onClick={() => {
                         setActive(!active)
                       }}
                     >
-                      <img src={el.image} alt={el.alt} className={style.img} />
+                      <FontAwesomeIcon
+                        icon={el.icon}
+                        className={style.icon}
+                      />
+                      {t(el.text)}
                     </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-            <ul className={style.list}>
-              <li className={style.item}>
-                <Link
-                  to={'/account/stocks'}
-                  rel="noreferrer"
-                  onClick={() => {
-                    setActive(!active)
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon="fa-solid fa-percent"
-                    className={style.icon}
-                  />
-                  {t('menu_12')}
-                </Link>
-              </li>
-              <li className={style.item}>
-                <Link
-                  to={'/account/promocodes'}
-                  rel="noreferrer"
-                  onClick={() => {
-                    setActive(!active)
-                  }}
-                >
-                  <FontAwesomeIcon
-                    icon="fa-solid fa-receipt"
-                    className={style.icon}
-                  />
-                  {t('menu_13')}
-                </Link>
-              </li>
+                  </li>
+                )
+              }
             </ul>
           </div>
           <div className={style.bottom}>

@@ -1,9 +1,10 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { Suspense, useEffect, useState } from 'react'
+import { Tooltip } from 'react-tooltip'
+
 import i18n from 'i18next'
 
-import { Tooltip } from 'react-tooltip'
 import 'react-tooltip/dist/react-tooltip.css'
 import 'rc-slider/assets/index.css'
 
@@ -20,13 +21,16 @@ import Toastify from 'components/Toastify'
 import Loader from 'components/Loader'
 import Header from 'modules/Header'
 import Footer from 'modules/Footer'
+import Games from 'modules/Games'
 
-import { router } from '../router'
+import { generateRoutes } from '../router'
 
 import style from './index.module.scss'
 
 const App = () => {
+  const { auth } = useSelector(state => state.auth)
   const [loading, setLoading] = useState(true)
+  const routes = generateRoutes(auth)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -48,15 +52,17 @@ const App = () => {
     })
   }, [dispatch])
 
+
   if (loading) return <Loader />
 
   return (
     <main className={style.main}>
+      <Games />
       <Header />
       <div className={style.content}>
         <Suspense fallback={<Loader />}>
           <Routes>
-            {router.map((route, index) => {
+            {routes.map((route, index) => {
               return (
                 <Route
                   key={index}

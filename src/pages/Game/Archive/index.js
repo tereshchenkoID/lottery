@@ -34,7 +34,7 @@ const getDateXDaysFrom = (date, days) => {
   return result.toISOString().split('T')[0]
 }
 
-const Archive = ({ betslip, game }) => {
+const Archive = ({ game }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
   const initialValues = [

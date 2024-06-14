@@ -6,14 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
 
-import { userType } from 'constant/config'
-
 import { getData } from 'helpers/api'
 import { getDate } from 'helpers/getDate'
 import { getValueFormatted } from 'helpers/getValueFormatted'
 import { setBetslip } from 'store/actions/betslipAction'
 
-import Games from 'modules/Games'
 import GameButton from 'modules/GameButton'
 import Loader from 'components/Loader'
 import Button from 'components/Button'
@@ -90,7 +87,6 @@ const Game = () => {
           setBetslip({
             ...betslip,
             userId: auth.id,
-            userType: userType.user,
             gameId: json?.id,
             bonusAmount: json?.bonusAmount,
             type: active,
@@ -125,8 +121,6 @@ const Game = () => {
 
   return (
     <div className={style.block} style={{ ...game.skin }}>
-      <Games />
-
       {loading ? (
         <Loader />
       ) : (

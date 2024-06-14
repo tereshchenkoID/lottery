@@ -2,6 +2,7 @@
 
 .block {
   display: none;
+  order: 3;
 
   @include media-breakpoint-up(lg) {
     @include flex($align-items: center);

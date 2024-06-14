@@ -1,0 +1,11 @@
+@import 'scss/config';
+
+.block {
+  @include flex(center, center, column);
+
+  gap: rem(24px);
+}
+
+.decor {
+  @include size(rem(124px), auto);
+}
