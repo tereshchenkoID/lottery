@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getDate } from 'helpers/getDate'
+import { getDateXDaysFrom } from 'helpers/getDateXDaysFrom'
 
 import Button from 'components/Button'
 import GeneralOverview from './GeneralOverview'
@@ -14,12 +15,6 @@ const TABS = [
   'daily_sums',
   'settlement',
 ]
-
-const getDateXDaysFrom = (date, days) => {
-  const result = new Date(date)
-  result.setDate(result.getDate() + days)
-  return result.toISOString().split('T')[0]
-}
 
 const Reports = () => {
   const { t } = useTranslation()

@@ -13,11 +13,13 @@
   position: absolute;
   top: rem(16px);
   left: rem(16px);
-  transform: translateY(rem(-23px));
+  transform: translateY(rem(-20px));
   background-color: var(--color-white);
   letter-spacing: rem(0.2px);
   font-size: rem(12px);
   pointer-events: none;
+  display: inline;
+  line-height: 1;
 
   span {
     @include make-spacer(ml, 3px);

@@ -6,6 +6,7 @@ import classNames from 'classnames'
 
 import { getDate } from 'helpers/getDate'
 import { postData } from 'helpers/api'
+import { getDateXDaysFrom } from 'helpers/getDateXDaysFrom'
 
 import Loader from 'components/Loader'
 import GamePagination from 'modules/GamePagination'
@@ -26,13 +27,6 @@ const TABS = [
     text: 'by_draws',
   },
 ]
-
-
-const getDateXDaysFrom = (date, days) => {
-  const result = new Date(date)
-  result.setDate(result.getDate() + days)
-  return result.toISOString().split('T')[0]
-}
 
 const Archive = ({ game }) => {
   const { t } = useTranslation()
