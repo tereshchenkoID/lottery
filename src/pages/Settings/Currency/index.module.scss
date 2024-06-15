@@ -1,0 +1,28 @@
+@import 'scss/config';
+
+.block {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: rem(8px);
+}
+
+.link {
+  @include flex($align-items: center);
+  @include make-spacer(px, 16px);
+  @include transition;
+
+  position: relative;
+  height: rem(40px);
+  text-transform: uppercase;
+  overflow: hidden;
+
+  &:hover {
+    background-color: var(--grey-alpha-100);
+  }
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(px, 8px);
+
+    border-radius: rem(8px);
+  }
+}

@@ -1,9 +1,9 @@
 import React, { useMemo, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useOutsideClick } from 'hooks/useOutsideClick'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Link } from 'react-router-dom'
 
 import { USER_TYPE, ROUTES_USER, ROUTES_CASHBOX, NAVIGATION } from 'constant/config'
 
@@ -18,6 +18,7 @@ const Profile = () => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
   const { games } = useSelector(state => state.games)
+  const { pathname } = useLocation()
   const [active, setActive] = useState(false)
   const blockRef = useRef(null)
   const buttonRef = useRef(null)
@@ -184,13 +185,17 @@ const Profile = () => {
             <ul className={style.list}>
               {
                 submenu.map((el, idx) =>
-                  <li
+                  <li 
                     key={idx}
                     className={style.item}
                   >
                     <Link
                       to={el.link}
                       rel="noreferrer"
+                      className={classNames(
+                        style.link,
+                        pathname === el.link && style.active,
+                      )}
                       onClick={() => {
                         setActive(!active)
                       }}

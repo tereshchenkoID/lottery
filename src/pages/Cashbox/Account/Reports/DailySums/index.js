@@ -5,6 +5,7 @@ import classNames from 'classnames'
 
 import { postData } from 'helpers/api'
 import { getDate } from 'helpers/getDate'
+import { getDateXDaysFrom } from 'helpers/getDateXDaysFrom'
 
 import Button from 'components/Button'
 import Field from 'components/Field'
@@ -40,15 +41,24 @@ const profitPercent = (el, data) => {
   return Math.abs(a)
 }
 
-const DailySums = ({ filter, handlePropsChange }) => {
+const DailySums = () => {
   const { t } = useTranslation()
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
+  const [filter, setFilter] = useState({
+    dateFrom: getDateXDaysFrom(new Date(), -30),
+    dateTo: getDate(new Date(), 3)
+  })
+
+  const handlePropsChange = (fieldName, fieldValue) => {
+    setFilter(prevData => ({
+      ...prevData,
+      [fieldName]: fieldValue,
+    }))
+  }
 
   const tickets = useMemo(() => findMinMax(data, 'tickets'), [data])
   const profit = useMemo(() => findMinMax(data, 'profit'), [data])
-
-  console.log(tickets, profit)
 
   const handleLoad = () => {
     setLoading(true)

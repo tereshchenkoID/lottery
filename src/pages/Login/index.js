@@ -8,6 +8,7 @@ import { setToastify } from 'store/actions/toastifyAction'
 
 import { postData } from 'helpers/api'
 
+import Container from 'components/Container'
 import Field from 'components/Field'
 import Button from 'components/Button'
 import Password from 'components/Password'
@@ -56,7 +57,7 @@ const Login = () => {
   }
 
   return (
-    <div className={style.block}>
+    <Container classes={style.block}>
       <form onSubmit={handleSubmit} className={style.form}>
         <Field
           type={'text'}
@@ -73,7 +74,7 @@ const Login = () => {
         />
         <Button type={'submit'} placeholder={t('login')} />
       </form>
-    </div>
+    </Container>
   )
 }
 

@@ -36,7 +36,7 @@
         }
 
         &.checked {
-            background-color: var(--color-primary);
+            background-color: var(--color-primary-hover);
         }
     }
 }
@@ -51,7 +51,7 @@
     font-weight: var(--typography-bold);
 
     &.active {
-        color: var(--color-primary);
+        color: var(--color-primary-hover);
     }
 
     &::after {

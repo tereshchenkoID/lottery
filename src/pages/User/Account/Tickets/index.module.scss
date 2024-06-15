@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  flex-grow: 1;
+  @include make-spacer(p, 0);
 }
 
 .wrapper {

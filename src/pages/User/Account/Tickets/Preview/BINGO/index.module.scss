@@ -58,7 +58,7 @@
         &::before {
             position: absolute;
             inset: rem(2px);
-            background-color: var(--color-primary);
+            background-color: var(--color-primary-hover);
             border-radius: rem(4px);
             content: '';
         }
@@ -79,7 +79,7 @@
     font-weight: var(--typography-bold);
 
     &.active {
-        color: var(--color-primary);
+        color: var(--color-primary-hover);
     }
 
     &::after {

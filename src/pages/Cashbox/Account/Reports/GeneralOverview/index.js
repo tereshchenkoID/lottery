@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 
 import { postData } from 'helpers/api'
 import { convertFixed } from 'helpers/convertFixed'
+import { getDate } from 'helpers/getDate'
+import { getDateXDaysFrom } from 'helpers/getDateXDaysFrom'
 
 import Button from 'components/Button'
 import Field from 'components/Field'
@@ -10,10 +12,21 @@ import Loader from 'components/Loader'
 
 import style from './index.module.scss'
 
-const GeneralOverview = ({ filter, handlePropsChange }) => {
+const GeneralOverview = () => {
   const { t } = useTranslation()
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(false)
+  const [filter, setFilter] = useState({
+    dateFrom: getDateXDaysFrom(new Date(), -30),
+    dateTo: getDate(new Date(), 3)
+  })
+
+  const handlePropsChange = (fieldName, fieldValue) => {
+    setFilter(prevData => ({
+      ...prevData,
+      [fieldName]: fieldValue,
+    }))
+  }
 
   const handleLoad = () => {
     setLoading(true)

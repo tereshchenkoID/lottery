@@ -41,19 +41,8 @@ const Menu = ({ setShow, show, buttonRef }) => {
 
   const MENU = [
     {
-      hide: isLogin,
       submenu: [
-        NAVIGATION.login,
-      ],
-    },
-    {
-      hide: isLogin,
-      submenu: [
-        NAVIGATION.all_games,
-      ],
-    },
-    {
-      submenu: [
+        !isLogin && NAVIGATION.all_games,
         NAVIGATION.check_ticket,
         NAVIGATION.settings,
         NAVIGATION.translation,
@@ -66,6 +55,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
         NAVIGATION.contacts,
         NAVIGATION.faq,
         NAVIGATION.support,
+        !isLogin && NAVIGATION.login,
       ],
     },
   ]
@@ -74,10 +64,6 @@ const Menu = ({ setShow, show, buttonRef }) => {
     {
       submenu: [
         NAVIGATION.all_games,
-      ],
-    },
-    {
-      submenu: [
         ...Object.values(auth?.userType === USER_TYPE.user ? ROUTES_USER : ROUTES_CASHBOX).map(route => ({
           link: route.link,
           icon: route.icon,
@@ -90,17 +76,64 @@ const Menu = ({ setShow, show, buttonRef }) => {
   return (
     <div
       ref={blockRef}
-      className={classNames(
-        style.block,
-        show && style.active,
-        isLogin && style.auth,
-      )}
+      className={
+        classNames(
+          style.block,
+          show && style.active,
+          isLogin && style.auth,
+        )
+      }
     >
       <menu className={style.menu}>
         {
           isLogin &&
           SUBMENU.map((el, idx) =>
-            !el.hide && (
+            <div key={idx} className={style.column}>
+              {el.submenu.map((s_el, s_idx) => (
+                <Link
+                  to={s_el.link}
+                  rel="noreferrer"
+                  key={s_idx}
+                  onClick={() => setShow(false)}
+                  className={classNames(
+                    style.link,
+                    pathname === s_el.link && style.active,
+                  )}
+                >
+                  <span className={style.text}>
+                    <FontAwesomeIcon
+                      icon={s_el.icon}
+                      className={style.icon}
+                    />
+                    {
+                      s_el.text.indexOf('main') !== -1
+                        ?
+                        auth.username
+                        :
+                        t(s_el.text)
+                    }
+                    {
+                      s_el.text.indexOf('wallet') !== -1 &&
+                      <span className={style.value}>
+                        {auth.account.balance} <strong>{auth.account.currency.symbol}</strong>
+                      </span>
+                    }
+                    {
+                      s_el.text.indexOf('bonus') !== -1 &&
+                      <span className={style.value}>
+                        <strong>{auth.account.bonus}</strong>
+                      </span>
+                    }
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )
+        }
+
+        {
+          MENU.map(
+            (el, idx) =>
               <div key={idx} className={style.column}>
                 {el.submenu.map((s_el, s_idx) => (
                   <Link
@@ -118,58 +151,11 @@ const Menu = ({ setShow, show, buttonRef }) => {
                         icon={s_el.icon}
                         className={style.icon}
                       />
-                      {
-                        s_el.text.indexOf('main') !== -1
-                          ?
-                            auth.username
-                          :
-                            t(s_el.text)
-                      }
-                      {
-                        s_el.text.indexOf('wallet') !== -1 &&
-                        <span className={style.value}>
-                          {auth.account.balance} <strong>{auth.account.currency.symbol}</strong>
-                        </span>
-                      }
-                      {
-                        s_el.text.indexOf('bonus') !== -1 &&
-                        <span className={style.value}>
-                          <strong>{auth.account.bonus}</strong>
-                        </span>
-                      }
+                      {t(s_el.text)}
                     </span>
                   </Link>
                 ))}
               </div>
-            ))}
-
-        {
-          MENU.map(
-            (el, idx) =>
-              !el.hide && (
-                <div key={idx} className={style.column}>
-                  {el.submenu.map((s_el, s_idx) => (
-                    <Link
-                      to={s_el.link}
-                      rel="noreferrer"
-                      key={s_idx}
-                      onClick={() => setShow(false)}
-                      className={classNames(
-                        style.link,
-                        pathname === s_el.link && style.active,
-                      )}
-                    >
-                      <span className={style.text}>
-                        <FontAwesomeIcon
-                          icon={s_el.icon}
-                          className={style.icon}
-                        />
-                        {t(s_el.text)}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              ),
           )}
         {
           isLogin && (

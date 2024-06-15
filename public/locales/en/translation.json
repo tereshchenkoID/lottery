@@ -47,6 +47,9 @@
     "commission": "Commission",
     "profit": "Profit"
   },
+  "currency": "Currency",
+  "language": "Language",
+  "settings": "Settings",
   "general_overview": "General Overview",
   "daily_sums": "Daily Sums",
   "settlement": "Settlement",

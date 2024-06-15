@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getDate } from 'helpers/getDate'
-import { getDateXDaysFrom } from 'helpers/getDateXDaysFrom'
-
 import Button from 'components/Button'
 import GeneralOverview from './GeneralOverview'
 import DailySums from './DailySums'
@@ -16,20 +13,15 @@ const TABS = [
   'settlement',
 ]
 
+const components = {
+  0: GeneralOverview,
+  1: DailySums,
+};
+
 const Reports = () => {
   const { t } = useTranslation()
   const [active, setActive] = useState(0)
-  const [filter, setFilter] = useState({
-    dateFrom: getDateXDaysFrom(new Date(), -30),
-    dateTo: getDate(new Date(), 3)
-  })
-
-  const handlePropsChange = (fieldName, fieldValue) => {
-    setFilter(prevData => ({
-      ...prevData,
-      [fieldName]: fieldValue,
-    }))
-  }
+  const ActiveTab = components[active] || null;
 
   return (
     <div className={style.block}>
@@ -49,20 +41,7 @@ const Reports = () => {
       </div>
 
       <div className={style.container}>
-        {
-          active === 0 &&
-          <GeneralOverview 
-            filter={filter} 
-            handlePropsChange={handlePropsChange} 
-          />
-        }
-        {
-          active === 1 &&
-          <DailySums 
-            filter={filter} 
-            handlePropsChange={handlePropsChange} 
-          />
-        }
+        <ActiveTab />
       </div>
     </div>
   )

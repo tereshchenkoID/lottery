@@ -70,10 +70,10 @@
 .all {
 
   &:hover {
-    color: var(--color-warning);
+    color: var(--color-primary-hover);
 
     .icon {
-      color: var(--color-warning);
+      color: var(--color-primary-hover);
     }
   }
 }
@@ -118,20 +118,18 @@
   gap: rem(8px);
 }
 
-.item {
+.link {
+  @include flex($align-items: center);
+  @include make-spacer(py, 5px);
 
-  a {
-    @include flex($align-items: center);
-    @include make-spacer(py, 5px);
+  width: 100%;
 
-    width: 100%;
+  &.active,
+  &:hover {
+    color: var(--color-primary-hover);
 
-    &:hover {
-      color: var(--color-warning);
-
-      .icon {
-        color: var(--color-warning);
-      }
+    .icon {
+      color: var(--color-primary-hover);
     }
   }
 

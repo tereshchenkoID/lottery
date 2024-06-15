@@ -1,17 +1,21 @@
 @import 'scss/config';
 
-.block {
-  @include flex($align-items: center);
-  @include make-spacer(pt, 16px);
-  @include make-spacer(px, 24px);
+.grid {
+  display: grid;
+  gap: rem(8px);
 
-  flex-grow: 1;
-  border-radius: rem(32px) rem(32px) 0 0;
-  background-color: var(--color-white);
-  width: 100%;
-
-  @include media-breakpoint-up(lg) {
-    @include make-spacer(pt, 30px);
-    @include make-spacer(px, 76px);
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: rem(8px);
+}
+
+.button {
+  @include size(fit-content, rem(40px));
 }

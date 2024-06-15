@@ -83,7 +83,7 @@
 
       @include media-breakpoint-up(lg) {
         background-color: transparent;
-        color: var(--color-primary);
+        color: var(--color-primary-hover);
       }
     }
   }
@@ -143,15 +143,12 @@
     border-bottom: 0;
   }
 
-  &:nth-child(1),
-  &:nth-child(2) {
+  &.alt {
+    @include make-spacer(p, 10px);
+
     @include media-breakpoint-up(lg) {
       display: none;
     }
-  }
-
-  &.alt {
-    @include make-spacer(p, 10px);
   }
 
   @include media-breakpoint-up(lg) {
