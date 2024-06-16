@@ -9,14 +9,14 @@
     @include make-spacer(mx, auto);
 
     display: grid;
-    grid-template-columns: repeat(9, rem(30px));
+    grid-template-columns: repeat(9, rem(34px));
 }
 
 .number {
     @include flex(center, center);
 
     aspect-ratio: 1 / 1;
-    font-size: rem(12px);
+    font-size: rem(14px);
     font-weight: var(--typography-bold);
     border-right: rem(1px) solid var(--grey-alpha-400);
     border-bottom: rem(1px) solid var(--grey-alpha-400);

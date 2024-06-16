@@ -9,7 +9,7 @@
     @include make-spacer(mx, auto);
     
     display: grid;
-    grid-template-columns: repeat(10, rem(23px));
+    grid-template-columns: repeat(10, rem(28px));
     gap: rem(4px);
 }
 
@@ -19,7 +19,7 @@
     aspect-ratio: 1 / 1;
     border-radius: rem(6px);
     border: rem(1px) dashed var(--grey-alpha-400);
-    font-size: rem(12px);
+    font-size: rem(14px);
     font-weight: var(--typography-bold);
 
     &.active {

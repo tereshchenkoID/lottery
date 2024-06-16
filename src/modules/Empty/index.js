@@ -10,7 +10,7 @@ const Empty = () => {
   return (
     <div className={style.block}>
       <div className={style.decor}>
-        <img src={"/img/eyes.webp"} alt="Empty" />
+        <img src={"/image/eyes.webp"} alt="Empty" />
       </div>
       <p>{t('empty')}</p>
       <Reference link={'/'} placeholder={t('buy_ticket')} />

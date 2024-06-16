@@ -7,6 +7,7 @@ import { NAVIGATION, ROUTES_USER } from 'constant/config'
 
 import classNames from 'classnames'
 
+import Container from 'components/Container'
 import Reference from 'components/Reference'
 import Tab from 'modules/Tab'
 
@@ -35,7 +36,7 @@ const Account = () => {
                 <h4>{auth.account.bonus}</h4>
                 <Reference
                   link={ROUTES_USER.bonuses.link}
-                  placeholder={t(ROUTES_USER.wallet.text)}
+                  placeholder={t(ROUTES_USER.bonuses.text)}
                 />
               </div>
               <div className={style.content}>
@@ -120,9 +121,9 @@ const Account = () => {
           :
             <>
               <Tab data={ROUTES_USER} />
-              <div className={style.wrap}>
+              <Container>
                 <Outlet />
-              </div>
+              </Container>
             </>
       }
     </div>

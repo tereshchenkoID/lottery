@@ -7,6 +7,7 @@ import { NAVIGATION, ROUTES_CASHBOX } from 'constant/config'
 
 import classNames from 'classnames'
 
+import Container from 'components/Container'
 import Tab from 'modules/Tab'
 
 import style from './index.module.scss'
@@ -85,9 +86,9 @@ const Account = () => {
           :
             <>
               <Tab data={ROUTES_CASHBOX} />
-              <div className={style.wrap}>
+              <Container>
                 <Outlet />
-              </div>
+              </Container>
             </>
       }
     </div>

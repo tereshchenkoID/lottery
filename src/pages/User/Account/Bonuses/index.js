@@ -1,14 +1,14 @@
 import { useTranslation } from 'react-i18next'
 
-import Container from 'components/Container'
+import style from './index.module.scss'
 
 const Bonuses = () => {
   const { t } = useTranslation()
 
   return (
-    <Container>
+    <div className={style.block}>
       Bonuses 
-    </Container>
+    </div>
   )
 }
 

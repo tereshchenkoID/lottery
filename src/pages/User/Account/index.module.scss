@@ -19,14 +19,6 @@
   min-height: rem(172px);
 }
 
-.wrap {
-  @include flex;
-  
-  flex-grow: 1;
-  border-radius: rem(32px) rem(32px) 0 0;
-  background-color: var(--color-white);
-}
-
 .wrapper {
   @include make-spacer(pb, 32px);
 

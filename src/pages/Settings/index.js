@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
+import { NAVIGATION } from 'constant/config'
+
 import { setToastify } from 'store/actions/toastifyAction'
 import { setAuth } from 'store/actions/authAction'
 import { postData } from 'helpers/api'
@@ -70,7 +72,7 @@ const Settings = () => {
   return (
     <Container>
       <>
-        <Title text={t('settings')} />
+        <Title text={t(NAVIGATION.settings.text)} />
         <div className={style.grid}>
           <div className={style.row}>
             <p>{t('currency')}:</p>

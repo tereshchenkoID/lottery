@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import style from './index.module.scss'
 
@@ -11,8 +10,8 @@ const Password = ({
   data,
   onChange,
   classes = null,
-  required = false,
   password = false,
+  isRequired = false,
 }) => {
   const [show, setShow] = useState(password)
   const inputRef = useRef(null)
@@ -40,11 +39,11 @@ const Password = ({
         onChange={e => {
           onChange(e.currentTarget.value)
         }}
-        required={required}
+        required={isRequired}
       />
       <label className={style.label} onClick={onFocus}>
         {placeholder}
-        {required && <span>*</span>}
+        {isRequired && <span>*</span>}
       </label>
 
       <button
@@ -52,11 +51,7 @@ const Password = ({
         className={style.eye}
         type={'button'}
       >
-        {show ? (
-          <FontAwesomeIcon icon="fa-solid fa-eye" />
-        ) : (
-          <FontAwesomeIcon icon="fa-solid fa-eye-slash" />
-        )}
+        <FontAwesomeIcon icon={`fa-solid ${show ? 'fa-eye' : 'fa-eye-slash'}`} />
       </button>
     </div>
   )

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 
 import { setAuth } from 'store/actions/authAction'
 import { setToastify } from 'store/actions/toastifyAction'
-
 import { postData } from 'helpers/api'
 
 import Container from 'components/Container'
@@ -64,13 +63,13 @@ const Login = () => {
           placeholder={t('username')}
           data={filter.username}
           onChange={value => handlePropsChange('username', value)}
-          required={true}
+          isRequired={true}
         />
         <Password
           placeholder={t('password')}
           data={filter.password}
           onChange={value => handlePropsChange('password', value)}
-          required={true}
+          isRequired={true}
         />
         <Button type={'submit'} placeholder={t('login')} />
       </form>

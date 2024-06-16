@@ -1,8 +1,7 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(pt, 16px);
-  @include make-spacer(px, 16px);
+  @include make-spacer(p, 16px);
 
   flex-grow: 1;
   border-radius: rem(32px) rem(32px) 0 0;
@@ -10,6 +9,6 @@
   width: 100%;
 
   @include media-breakpoint-up(md) {
-    @include make-spacer(px, 24px);
+    @include make-spacer(p, 24px);
   }
 }

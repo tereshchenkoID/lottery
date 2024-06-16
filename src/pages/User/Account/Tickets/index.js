@@ -5,7 +5,6 @@ import { getData, postData } from 'helpers/api'
 
 import classNames from 'classnames'
 
-import Container from 'components/Container'
 import Loader from 'components/Loader'
 import Pagination from 'modules/Pagination'
 import Empty from 'modules/Empty'
@@ -101,7 +100,7 @@ const Tickets = () => {
   }, [filter])
 
   return (
-    <Container classes={style.block}>
+    <div classes={style.block}>
       {
         loading ? (
           <Loader />
@@ -155,7 +154,7 @@ const Tickets = () => {
           </div>
         )
       }
-    </Container>
+    </div>
   )
 }
 
