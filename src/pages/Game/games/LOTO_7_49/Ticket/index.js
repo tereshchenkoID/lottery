@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { sports_lotto_factors } from 'constant/config'
+import { SPORTS_LOTTO_FACTORS } from 'constant/config'
 
 import { setBetslip } from 'store/actions/betslipAction'
 
@@ -140,7 +140,7 @@ const Ticket = ({ betslip, game }) => {
   }
 
   const activeFactor = useMemo(
-    () => sports_lotto_factors.find(el => el.count === selectedCount),
+    () => SPORTS_LOTTO_FACTORS.find(el => el.count === selectedCount),
     [game.id, selectedCount],
   )
 

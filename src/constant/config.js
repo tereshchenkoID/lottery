@@ -1,9 +1,9 @@
-export const ticketType = {
+export const TICKET_TYPE = {
   single: 0,
   multi: 1,
 }
 
-export const statusType = {
+export const STATUS_TYPE = {
   0: 'pending',
   1: 'confirmed',
   2: 'cancelled',
@@ -13,7 +13,7 @@ export const statusType = {
   6: 'jackpot_winner'
 }
 
-export const betType = {
+export const BET_TYPE = {
   1: 101, // even
   2: 102, // odd
   3: 103, // equally
@@ -158,7 +158,7 @@ export const ROUTES_USER = {
   }
 }
 
-export const sports_lotto_factors = [
+export const SPORTS_LOTTO_FACTORS = [
   { count: 7, factor: 1 },
   { count: 8, factor: 8 },
   { count: 9, factor: 36 },

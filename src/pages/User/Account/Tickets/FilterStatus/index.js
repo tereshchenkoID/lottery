@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import { statusType } from 'constant/config'
+import { STATUS_TYPE } from 'constant/config'
 
 import Button from 'components/Button'
 
@@ -19,7 +19,7 @@ const FilterStatus = ({ active, onChange }) => {
         onChange={() => onChange('status', -1)}
       />
       {
-        Object.entries(statusType).map(([key, value]) => (
+        Object.entries(STATUS_TYPE).map(([key, value]) => (
           <Button
             key={key}
             view='alt'

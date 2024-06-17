@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { statusType } from 'constant/config'
+import { STATUS_TYPE } from 'constant/config'
 
 import classNames from 'classnames'
 
@@ -46,7 +46,7 @@ const Ticket = ({ data, active, setActive }) => {
               <div className={style.info}>
                 <h6 className={style.title}>{t(`games.${ticket.gameId}.title`)}</h6>
                 <strong className={classNames(style.status, style[`type-${ticket.status}`])}>
-                  {t(`ticket_status.${statusType[ticket.status]}`)}
+                  {t(`ticket_status.${STATUS_TYPE[ticket.status]}`)}
                 </strong>
                 <div className={style.meta}>
                   {

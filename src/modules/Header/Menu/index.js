@@ -55,7 +55,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
         NAVIGATION.contacts,
         NAVIGATION.faq,
         NAVIGATION.support,
-        !isLogin && NAVIGATION.login,
+        // !isLogin && NAVIGATION.login,
       ],
     },
   ]
@@ -101,16 +101,15 @@ const Menu = ({ setShow, show, buttonRef }) => {
                   )}
                 >
                   <span className={style.text}>
-                    <FontAwesomeIcon
-                      icon={s_el.icon}
-                      className={style.icon}
-                    />
                     {
-                      s_el.text.indexOf('main') !== -1
-                        ?
-                        auth.username
-                        :
-                        t(s_el.text)
+                      s_el.icon &&
+                      <FontAwesomeIcon
+                        icon={s_el.icon}
+                        className={style.icon}
+                      />
+                    }
+                    {
+                      s_el.text.indexOf('main') !== -1 ? auth.username : t(s_el.text)
                     }
                     {
                       s_el.text.indexOf('wallet') !== -1 &&
@@ -147,10 +146,13 @@ const Menu = ({ setShow, show, buttonRef }) => {
                     )}
                   >
                     <span className={style.text}>
-                      <FontAwesomeIcon
-                        icon={s_el.icon}
-                        className={style.icon}
-                      />
+                      {
+                        s_el.icon &&
+                        <FontAwesomeIcon
+                          icon={s_el.icon}
+                          className={style.icon}
+                        />
+                      }
                       {t(s_el.text)}
                     </span>
                   </Link>

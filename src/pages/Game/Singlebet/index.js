@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-import { ticketType } from 'constant/config'
+import { TICKET_TYPE } from 'constant/config'
 
 import { setBetslip } from 'store/actions/betslipAction'
 import { calculateMultiplier } from 'helpers/calculateMultiplier'
@@ -28,7 +28,7 @@ const RULES = {
 const Singlebet = ({ betslip, game, isCombination }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const bet = betslip?.bet?.[ticketType.single]
+  const bet = betslip?.bet?.[TICKET_TYPE.single]
 
   const handleStakeChange = (index, newValue) => {
     bet.options[index].value = newValue
@@ -51,7 +51,7 @@ const Singlebet = ({ betslip, game, isCombination }) => {
         ...betslip,
         bet: {
           ...betslip.bet,
-          [ticketType.single]: bet,
+          [TICKET_TYPE.single]: bet,
         },
       }),
     )
@@ -60,7 +60,7 @@ const Singlebet = ({ betslip, game, isCombination }) => {
   return (
     <div className={style.block}>
       <div className={style.ticket}>
-        {betslip.bet?.[ticketType.single]?.options?.map((el, idx) => (
+        {betslip.bet?.[TICKET_TYPE.single]?.options?.map((el, idx) => (
           <div key={idx} className={style.row}>
             <Tooltip
               text={t(RULES[el.name]?.text)}

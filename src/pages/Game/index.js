@@ -19,6 +19,7 @@ import Betslip from './Betslip'
 import Archive from './Archive'
 
 import style from './index.module.scss'
+import Empty from 'modules/Empty'
 
 const BINGO = lazy(() => import('./games/BINGO'))
 const KENO = lazy(() => import('./games/KENO'))
@@ -219,7 +220,7 @@ const Game = () => {
               </div>
             </>
           ) : (
-            <div className={style.empty}>Game not found</div>
+            <Empty />
           )}
         </div>
       )}

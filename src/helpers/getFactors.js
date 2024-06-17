@@ -1,6 +1,6 @@
-import { sports_lotto_factors } from 'constant/config'
+import { SPORTS_LOTTO_FACTORS } from 'constant/config'
 
 export const getFactors = id => {
-  if (id === 2) return sports_lotto_factors
+  if (id === 2) return SPORTS_LOTTO_FACTORS
   return null
 }

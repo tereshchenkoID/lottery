@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 
-import { betType } from 'constant/config'
+import { BET_TYPE } from 'constant/config'
 
 import { setBetslip } from 'store/actions/betslipAction'
 
@@ -91,7 +91,7 @@ const KENO = ({ auth, betslip, game }) => {
     setNumbers(numbers.map(num => ({ ...num, active: false })))
     setSelectedCount(0)
     setSelectedType(t)
-    updateBetslip(t === 0 ? [] : [betType[id]])
+    updateBetslip(t === 0 ? [] : [BET_TYPE[id]])
   }
 
   const handleResetClick = () => {
@@ -143,7 +143,7 @@ const KENO = ({ auth, betslip, game }) => {
     const n = betslip?.tickets[idx]?.numbers || 0
 
     if (n.length === 1 && n[0] > NUMBERS) {
-      const s = Object.keys(betType).find(key => betType[key] === n[0])
+      const s = Object.keys(BET_TYPE).find(key => BET_TYPE[key] === n[0])
       resetState()
       setSelectedType(Number(s))
     } else {

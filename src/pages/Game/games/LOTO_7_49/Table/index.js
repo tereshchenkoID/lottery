@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import { sports_lotto_factors } from 'constant/config'
+import { SPORTS_LOTTO_FACTORS } from 'constant/config'
 
 import style from './index.module.scss'
 
@@ -16,7 +16,7 @@ const Table = ({ game, auth }) => {
           {t(`games.${game.id}.rules.4`)}, {auth.account.currency.symbol}
         </p>
       </div>
-      {sports_lotto_factors.map((el, idx) => (
+      {SPORTS_LOTTO_FACTORS.map((el, idx) => (
         <div key={idx} className={style.row}>
           <p className={style.cell}>{el.count}</p>
           <p className={style.cell}>x {el.factor}</p>

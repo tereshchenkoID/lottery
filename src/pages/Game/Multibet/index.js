@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 
-import { ticketType } from 'constant/config'
+import { TICKET_TYPE } from 'constant/config'
 
 import { setBetslip } from 'store/actions/betslipAction'
 import { getFactors } from 'helpers/getFactors'
@@ -14,7 +14,7 @@ import style from './index.module.scss'
 
 const Multibet = ({ betslip, game }) => {
   const dispatch = useDispatch()
-  const bet = betslip?.bet?.[ticketType.multi]
+  const bet = betslip?.bet?.[TICKET_TYPE.multi]
   const isCombination = bet.options.find(el => el.name === 'combinations')
 
   const handleStakeChange = (index, newValue) => {
@@ -40,7 +40,7 @@ const Multibet = ({ betslip, game }) => {
         ...betslip,
         bet: {
           ...betslip.bet,
-          [ticketType.multi]: bet,
+          [TICKET_TYPE.multi]: bet,
         },
       }),
     )
@@ -49,7 +49,7 @@ const Multibet = ({ betslip, game }) => {
   return (
     <div className={style.block}>
       <div className={style.container}>
-        {betslip?.bet?.[ticketType.multi]?.options?.map((el, idx) => (
+        {betslip?.bet?.[TICKET_TYPE.multi]?.options?.map((el, idx) => (
           <Stake
             key={idx}
             data={el}

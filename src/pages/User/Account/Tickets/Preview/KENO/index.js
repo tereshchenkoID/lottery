@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
+import { BET_TYPE } from 'constant/config'
+
 import style from './index.module.scss'
-import { betType } from 'constant/config'
 
 const KENO = ({ data }) => {
   const { t } = useTranslation()
@@ -50,7 +51,7 @@ const KENO = ({ data }) => {
         <p className={style.label}>{t('drawn_numbers')}</p>
         <div className={style.results}>
           {
-            (data.numbers[0] === betType['1'] || data.numbers[0] === betType['2'] || data.numbers[0] === betType['3'])
+            (data.numbers[0] === BET_TYPE['1'] || data.numbers[0] === BET_TYPE['2'] || data.numbers[0] === BET_TYPE['3'])
               ?
               <span className={style.result}>
                 {t(`numbers.${data.numbers[0]}`)}

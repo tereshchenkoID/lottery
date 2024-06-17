@@ -2,7 +2,10 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ticketType } from 'constant/config'
+
+import { TICKET_TYPE } from 'constant/config'
+
+import classNames from 'classnames'
 
 import { calculateTotalFactorFromNumber } from 'helpers/calculateTotalFactorFromNumber'
 import { calculateTotalFactor } from 'helpers/calculateTotalFactor'
@@ -10,8 +13,6 @@ import { calculateMultiplier } from 'helpers/calculateMultiplier'
 import { calculatePercent } from 'helpers/calculatePercent'
 import { setBetslip } from 'store/actions/betslipAction'
 import { getFactors } from 'helpers/getFactors'
-
-import classNames from 'classnames'
 
 import GameButton from 'modules/GameButton'
 import Reference from 'components/Reference'
@@ -25,9 +26,9 @@ const EXCEPTION = [1]
 const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const isSingle = active === ticketType.single
+  const isSingle = active === TICKET_TYPE.single
   const isNotEmpty = betslip.odds?.length > 0 || betslip.tickets?.length > 0
-  const isCombination = betslip.bet[ticketType.multi].options.find(
+  const isCombination = betslip.bet[TICKET_TYPE.multi].options.find(
     el => el.name === 'combinations',
   )
 
@@ -70,11 +71,11 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
     const amounts = [
       game.betCost *
         (isCombination ? 1 : betslip.tickets.length) *
-        calculateMultiplier(betslip.bet[ticketType.single].options) *
+        calculateMultiplier(betslip.bet[TICKET_TYPE.single].options) *
         combinations[0],
       game.betCost *
-        betslip.bet?.[ticketType.multi]?.options[0].value *
-        calculateMultiplier(betslip.bet[ticketType.multi].options) *
+        betslip.bet?.[TICKET_TYPE.multi]?.options[0].value *
+        calculateMultiplier(betslip.bet[TICKET_TYPE.multi].options) *
         combinations[1],
     ]
 
@@ -82,14 +83,14 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
       setBetslip({
         ...betslip,
         bet: {
-          [ticketType.single]: {
-            ...betslip.bet[ticketType.single],
+          [TICKET_TYPE.single]: {
+            ...betslip.bet[TICKET_TYPE.single],
             amount: amounts[0],
             combinations: combinations[0],
             bonuses: calculatePercent(betslip.bonusAmount, amounts[0]),
           },
-          [ticketType.multi]: {
-            ...betslip.bet[ticketType.multi],
+          [TICKET_TYPE.multi]: {
+            ...betslip.bet[TICKET_TYPE.multi],
             amount: amounts[1],
             combinations: combinations[1],
             bonuses: calculatePercent(betslip.bonusAmount, amounts[1]),
@@ -120,7 +121,7 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
           <>
             {isNotEmpty ? (
               <>
-                {betslip.bet?.[ticketType.single]?.options.length > 0 && (
+                {betslip.bet?.[TICKET_TYPE.single]?.options.length > 0 && (
                   <Singlebet
                     betslip={betslip}
                     game={game}
@@ -139,7 +140,7 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
           </>
         )}
 
-        {(isNotEmpty || active === ticketType.multi) && (
+        {(isNotEmpty || active === TICKET_TYPE.multi) && (
           <div className={style.container}>
             <div className={style.ticket}>
               <div className={style.row}>
@@ -154,7 +155,7 @@ const Betslip = ({ auth, betslip, game, active, show, setShow }) => {
                 <span className={style.dots} />
                 <p>
                   <strong>
-                    {active === ticketType.single
+                    {active === TICKET_TYPE.single
                       ? betslip.tickets.length
                       : betslip.bet?.[active]?.options[0].value}
                   </strong>
