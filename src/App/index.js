@@ -16,6 +16,7 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { setSettings } from 'store/actions/settingsAction'
 import { setGames } from 'store/actions/gamesAction'
 import { setAuth } from 'store/actions/authAction'
+import { getData } from 'helpers/api'
 
 import Toastify from 'components/Toastify'
 import Loader from 'components/Loader'
@@ -47,10 +48,26 @@ const App = () => {
       dispatch(setSettings()),
       dispatch(setGames()),
     ]).then(json => {
-      i18n.changeLanguage(json[0].account.language.code)
+      i18n.changeLanguage(JSON.parse(localStorage.getItem('language')).code || json[0].account.language.code)
       setLoading(false)
     })
   }, [dispatch])
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if(auth?.id) {
+        let a = auth
+        getData('balance/').then(json => {
+          a.account.balance = json.account.balance
+          a.account.bonus = json.account.bonus
+
+          dispatch(setAuth(a))
+        })
+      }
+    }, 30000)
+
+    return () => clearInterval(intervalId);
+  }, [auth?.id])
 
 
   if (loading) return <Loader />

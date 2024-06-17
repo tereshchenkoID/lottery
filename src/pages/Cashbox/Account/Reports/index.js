@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Button from 'components/Button'
 import GeneralOverview from './GeneralOverview'
 import DailySums from './DailySums'
+import Settlement from './Settlement'
 
 import style from './index.module.scss'
 
@@ -16,6 +17,7 @@ const TABS = [
 const components = {
   0: GeneralOverview,
   1: DailySums,
+  2: Settlement,
 };
 
 const Reports = () => {

@@ -16,6 +16,7 @@ const Language = ({ handleChange, settings, auth }) => {
                 onClick={() => {
                   handleChange('language', el)
                   i18n.changeLanguage(el.code)
+                  localStorage.setItem('language', JSON.stringify(el))
                 }}
               >
                 {el.text}

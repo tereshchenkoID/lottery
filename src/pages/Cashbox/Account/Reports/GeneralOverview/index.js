@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { postData } from 'helpers/api'
-import { convertFixed } from 'helpers/convertFixed'
 import { getDate } from 'helpers/getDate'
 import { getDateXDaysFrom } from 'helpers/getDateXDaysFrom'
 
@@ -85,15 +84,7 @@ const GeneralOverview = () => {
               >
                 <div className={style.cell}>{t(`reports.${key}`)}</div>
                 <div className={style.cell}>
-                  <strong>
-                    {
-                      typeof value === 'number' 
-                        ?
-                          convertFixed(value)
-                        :
-                          value  
-                    }
-                  </strong>
+                  <strong>{value}</strong>
                 </div>
               </div>
             ))

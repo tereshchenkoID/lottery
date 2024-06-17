@@ -101,10 +101,10 @@ const Profile = () => {
               {
                 isCashbox
                   ?
-                    <p className={classNames(style.subtitle, style.alt)}>
+                    <div className={classNames(style.subtitle, style.alt)}>
                       <h6>{auth.account.balance}</h6>
                       <span>{auth.account.currency.symbol}</span>
-                    </p>
+                    </div>
                   :
                     <>
                       <Link

@@ -15,6 +15,11 @@ export const setAuth = value => async dispatch => {
 
     try {
       const data = await get()
+      const language = JSON.parse(localStorage.getItem('language'))
+
+      if(language) {
+        data.account.language = language
+      }
 
       dispatch({
         type: types.SET_AUTH,

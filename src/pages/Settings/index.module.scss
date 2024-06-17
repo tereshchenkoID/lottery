@@ -3,17 +3,18 @@
 .grid {
   display: grid;
   gap: rem(8px);
-
-  @include media-breakpoint-up(md) {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .row {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: minmax(rem(100px), rem(200px)) 1fr;
   align-items: center;
   gap: rem(8px);
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
 }
 
 .button {
