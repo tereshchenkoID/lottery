@@ -2,9 +2,7 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-import { NAVIGATION } from 'constant/config'
-
-import classNames from 'classnames'
+import { NAVIGATION, USER_TYPE } from 'constant/config'
 
 import { setToastify } from 'store/actions/toastifyAction'
 import { setAuth } from 'store/actions/authAction'
@@ -27,12 +25,13 @@ const Settings = () => {
   const { auth } = useSelector(state => state.auth)
   const [active, setActive] = useState(false)
   const [modalContentType, setModalContentType] = useState(null)
+  const isAuth = auth.id
 
   const handleChange = (field, data) => {
     let a = auth
     a.account[field] = data
 
-    if (a.id) {
+    if (isAuth) {
       const formData = new FormData()
       formData.append('auth', JSON.stringify(a))
 
@@ -91,46 +90,40 @@ const Settings = () => {
               placeholder={auth.account.language.text}
             />
           </div>
-          <div 
-            className={
-              classNames(
-                style.row,
-                !auth.id && style.disabled
-              )
-            }
-          >
-            <p>{t('currency')}:</p>
-            <Button
-              view={'alt'}
-              type={'button'}
-              classes={style.button}
-              onChange={() => {
-                setModalContentType('Currency')
-                setActive(true)
-              }}
-              placeholder={`${auth.account.currency.code} - ${auth.account.currency.symbol}`}
-            />
-          </div>
-          <div
-            className={
-              classNames(
-                style.row,
-                !auth.id && style.disabled
-              )
-            }
-          >
-            <p>{t('timezone')}:</p>
-            <Button
-              view={'alt'}
-              type={'button'}
-              classes={style.button}
-              onChange={() => {
-                setModalContentType('Timezone')
-                setActive(true)
-              }}
-              placeholder={auth.account.timezone.text}
-            />
-          </div>
+          {
+            isAuth &&
+            <>
+              {
+                auth.userType !== USER_TYPE.cashbox &&
+                  <div className={style.row}>
+                    <p>{t('currency')}:</p>
+                    <Button
+                      view={'alt'}
+                      type={'button'}
+                      classes={style.button}
+                      onChange={() => {
+                        setModalContentType('Currency')
+                        setActive(true)
+                      }}
+                      placeholder={`${auth.account.currency.code} - ${auth.account.currency.symbol}`}
+                    />
+                  </div>
+              }
+              <div className={style.row}>
+                <p>{t('timezone')}:</p>
+                <Button
+                  view={'alt'}
+                  type={'button'}
+                  classes={style.button}
+                  onChange={() => {
+                    setModalContentType('Timezone')
+                    setActive(true)
+                  }}
+                  placeholder={auth.account.timezone.text}
+                />
+              </div>
+            </>
+          }    
         </div>
         <Modal
           active={active}

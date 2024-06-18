@@ -18,5 +18,5 @@
 }
 
 .button {
-  @include size(fit-content, rem(40px));
+  @include size(rem(150px), rem(40px));
 }

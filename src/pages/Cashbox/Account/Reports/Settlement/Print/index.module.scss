@@ -3,7 +3,7 @@
 $color: #000;
 
 .block {
-  @include make-spacer(p, 4);
+  @include make-spacer(p, 20px);
 
   max-width: 450px;
   font-family: Open Sans, sans-serif;
@@ -12,7 +12,7 @@ $color: #000;
 }
 
 .title {
-  @include make-spacer(mb, 2);
+  @include make-spacer(mb, 16px);
 
   text-align: center;
   text-transform: uppercase;

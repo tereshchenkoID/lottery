@@ -54,17 +54,17 @@ const TABS = [
   {
     value: 0,
     text: 'tickets',
-    icon: 'fa-ticket',
+    icon: 'fa-solid fa-ticket',
   },
   {
     value: 1,
     text: 'multi',
-    icon: 'fa-sliders',
+    icon: 'fa-solid fa-sliders',
   },
   {
     value: 2,
     text: 'archive',
-    icon: 'fa-folder',
+    icon: 'fa-solid fa-folder',
   },
 ]
 
@@ -192,7 +192,7 @@ const Game = () => {
                       isActive={active === el.value}
                       onChange={() => handleActive(el.value)}
                       classes={style.button}
-                      icon={`fa-solid ${el.icon}`}
+                      icon={el.icon}
                     />
                   ))}
                 </div>

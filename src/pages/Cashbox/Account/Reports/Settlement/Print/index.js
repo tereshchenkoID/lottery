@@ -23,7 +23,7 @@ export const Print = React.forwardRef((data, ref) => {
   return (
     <div className={style.block} ref={ref}>
       <div className={style.title}>
-        {/* {t('interface.settlement')} #{data.number} */}
+        {t('settlement')} #{data.data.number}
       </div>
       {
         Object.entries(data.data).map(([key, value]) => (

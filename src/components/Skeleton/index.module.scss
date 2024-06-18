@@ -12,3 +12,14 @@
   animation: skeleton 2s linear infinite;
   min-width: rem(144px);
 }
+
+@keyframes skeleton {
+
+  0% {
+    background-position: 100%;
+  }
+
+  100% {
+    background-position: -100%;
+  }
+}

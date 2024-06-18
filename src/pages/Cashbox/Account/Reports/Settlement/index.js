@@ -150,6 +150,9 @@ const Settlement = () => {
               <Loader type={'inline'} />
             :
               <>
+                <div className={style.print}>
+                  <Print data={data} ref={componentRef} />
+                </div>
                 <div className={style.table}>
                   {
                     Object.entries(data).map(([key, value]) => (
@@ -166,9 +169,6 @@ const Settlement = () => {
                       </div>
                     ))
                   }
-                </div>
-                <div className={style.print}>
-                  <Print data={data} ref={componentRef} />
                 </div>
               </>
         }

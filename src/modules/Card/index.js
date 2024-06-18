@@ -54,7 +54,7 @@ const Card = ({ data }) => {
               {data.time && (
                 <div className={style.time}>
                   <FontAwesomeIcon icon="fa-solid fa-clock" />
-                  <span>{getDifferent(data.time, t)}</span>
+                  <span>{getDifferent(data.time, t, auth?.account?.timezone?.code)}</span>
                 </div>
               )}
               <div className={style.description}>

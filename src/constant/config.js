@@ -1,5 +1,10 @@
 export const LOADING = 1000
 
+export const USER_TYPE = {
+  user: 0,
+  cashbox: 1,
+}
+
 export const TICKET_TYPE = {
   single: 0,
   multi: 1,
@@ -29,11 +34,6 @@ export const BET_TYPE = {
   1: 101, // even
   2: 102, // odd
   3: 103, // equally
-}
-
-export const USER_TYPE = {
-  user: 0,
-  cashbox: 1,
 }
 
 export const NAVIGATION = {
