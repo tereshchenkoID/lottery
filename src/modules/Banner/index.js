@@ -1,16 +1,30 @@
+import { Link } from 'react-router-dom'
+
+import { useImageLoader } from 'hooks/useImageLoader';
+
 import classNames from 'classnames'
+
+import Skeleton from 'components/Skeleton';
 
 import style from './index.module.scss'
 
-const Banner = ({ data, classes = null, link }) => {
+const Banner = ({ data, link, classes = null }) => {
+  const loading = useImageLoader(data.image)
+
   return (
-    <a
-      href={link}
+    <Link
+      to={link}
       rel="noreferrer"
       className={classNames(style.block, classes)}
     >
-      <img src={data.image} alt={data.alt} loading={'lazy'} />
-    </a>
+      {
+        loading
+          ?
+            <Skeleton />
+          :
+            <img src={data.image} alt={data.alt} loading={'lazy'} />
+      }
+    </Link>
   )
 }
 

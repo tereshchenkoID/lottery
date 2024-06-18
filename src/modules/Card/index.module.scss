@@ -2,16 +2,14 @@
 
 .block {
   @include size(rem(162px), rem(216px));
-  @include make-spacer(px, 8px);
-  @include make-spacer(pt, 12px);
-  @include make-spacer(pb, 8px);
-  @include flex($direction: column);
+
+  display: block;
+  position: relative;
+  border-radius: rem(20px);
+  overflow: hidden;
 
   @include media-breakpoint-up(lg) {
     @include size(rem(264px), rem(352px));
-    @include make-spacer(px, 12px);
-    @include make-spacer(pt, 40px);
-    @include make-spacer(pb, 12px);
 
     &:hover {
       transform: scale(1.03);
@@ -28,10 +26,20 @@
       }
     }
   }
+}
 
-  border-radius: rem(20px);
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
+.body {
+  @include size(100%);
+  @include make-spacer(px, 8px);
+  @include make-spacer(pt, 12px);
+  @include make-spacer(pb, 8px);
+  @include flex($direction: column);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(px, 12px);
+    @include make-spacer(pt, 40px);
+    @include make-spacer(pb, 12px);
+  }
 }
 
 .picture,

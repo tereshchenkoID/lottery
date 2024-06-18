@@ -2,12 +2,9 @@
 
 .block {
   @include size(rem(168px), rem(195px));
-  @include make-spacer(p, 12px);
-  @include flex($direction: column);
 
   position: relative;
   flex-shrink: 0;
-  background-color: var(--grey-200);
   border-radius: rem(12px);
   overflow: hidden;
 
@@ -22,6 +19,14 @@
       }
     }
   }
+}
+
+.body {
+  @include size(100%);
+  @include make-spacer(p, 12px);
+  @include flex($direction: column);
+
+  background-color: var(--grey-200);
 }
 
 .action,

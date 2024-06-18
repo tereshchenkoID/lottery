@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
+import { useReactToPrint } from 'react-to-print'
 
 import { REPORT_USER_TYPE, REPORT_TYPE } from 'constant/config'
 
@@ -13,10 +14,12 @@ import Password from 'components/Password'
 import Loader from 'components/Loader'
 
 import style from './index.module.scss'
+import { Print } from './Print'
 
 const Settlement = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const componentRef = useRef()
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(false)
   const [filter, setFilter] = useState({
@@ -32,6 +35,10 @@ const Settlement = () => {
     }))
   }
 
+  const a = useReactToPrint({
+    content: () => componentRef.current,
+  })
+
   const handleLoad = () => {
     setLoading(true)
 
@@ -39,7 +46,7 @@ const Settlement = () => {
     formData.append('type', filter.type)
     formData.append('cmd', filter.type === REPORT_USER_TYPE[0] ? REPORT_TYPE[0] : REPORT_TYPE[1])
 
-    if(filter.type === REPORT_USER_TYPE[1]) {
+    if (filter.type === REPORT_USER_TYPE[1]) {
       formData.append('password', filter.password)
       handlePropsChange('password', '')
     }
@@ -59,16 +66,20 @@ const Settlement = () => {
     })
   }
 
+  const handlePrint = () => {
+    a()
+  }
+
   const handleSubmit = event => {
     event && event.preventDefault()
     handleLoad(0)
   }
 
   const convertValue = (key, value) => {
-    if(!value) {
+    if (!value) {
       return '-'
     }
-    else if(key.indexOf('date') !== -1) {
+    else if (key.indexOf('date') !== -1) {
       return getDate(value)
     }
     else {
@@ -104,60 +115,62 @@ const Settlement = () => {
       <form className={style.form} onSubmit={handleSubmit}>
         {
           filter.type === REPORT_USER_TYPE[0]
-          ?
-            <Button
-              type={'submit'}
-              placeholder={t('reports.preview')}
-            />
-          :
-            <>
-              {
-                (filter.type === REPORT_USER_TYPE[1] && Object.keys(data).length == 0) 
-                  ?
-                    <>
-                       <Password
-                        placeholder={t('password')}
-                        data={filter.password}
-                        onChange={value => handlePropsChange('password', value)}
-                        isRequired={true}
-                      />
-                      <Button
-                        type={'submit'}
-                        placeholder={t('reports.preview')}
-                      />
-                    </>
-                  :
-                     <Button
-                      placeholder={t('settlement')}
-                    />
-              }
-            </>
+            ?
+              <Button
+                type={'submit'}
+                placeholder={t('reports.preview')}
+              />
+            :
+              (filter.type === REPORT_USER_TYPE[1] && Object.keys(data).length === 0)
+                ?
+                <>
+                  <Password
+                    placeholder={t('password')}
+                    data={filter.password}
+                    onChange={value => handlePropsChange('password', value)}
+                    isRequired={true}
+                  />
+                  <Button
+                    type={'submit'}
+                    placeholder={t('reports.preview')}
+                  />
+                </>
+                :
+                <Button
+                  placeholder={t('settlement')}
+                  onChange={() => handlePrint()}
+                />
         }
       </form>
 
       <div className={style.container}>
         {
           loading
-          ?
-            <Loader type={'inline'} />
-          :
-            <div className={style.table}>
-              {
-                Object.entries(data).map(([key, value]) => (
-                  <div
-                    key={key}
-                    className={style.row}
-                  >
-                    <div className={style.cell}>{t(`reports.${key}`)}</div>
-                    <div className={style.cell}>
-                      <strong>
-                        {convertValue(key, value)}
-                      </strong>
-                    </div>
-                  </div>
-                ))
-              }
-            </div>
+            ?
+              <Loader type={'inline'} />
+            :
+              <>
+                <div className={style.table}>
+                  {
+                    Object.entries(data).map(([key, value]) => (
+                      <div
+                        key={key}
+                        className={style.row}
+                      >
+                        <div className={style.cell}>{t(`reports.${key}`)}</div>
+                        <div className={style.cell}>
+                          <strong>
+                            {convertValue(key, value)}
+                          </strong>
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+                <div className={style.print}>
+                  <Print data={data} ref={componentRef} />
+                </div>
+              </>
         }
       </div>
     </div>

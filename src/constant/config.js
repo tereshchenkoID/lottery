@@ -1,3 +1,5 @@
+export const LOADING = 1000
+
 export const TICKET_TYPE = {
   single: 0,
   multi: 1,

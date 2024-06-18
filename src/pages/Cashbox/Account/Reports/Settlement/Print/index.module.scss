@@ -1,0 +1,38 @@
+@import 'scss/config';
+
+$color: #000;
+
+.block {
+  @include make-spacer(p, 4);
+
+  max-width: 450px;
+  font-family: Open Sans, sans-serif;
+  font-size: rem(14px);
+  color: $color;
+}
+
+.title {
+  @include make-spacer(mb, 2);
+
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.row {
+  @include make-spacer(mb, 4px);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: rem(4px);
+}
+
+.cell {
+  @include make-spacer(p, 10px);
+
+  background-color: var(--grey-alpha-200);
+  border-radius: rem(8px);
+
+  &:last-child {
+    text-align: right;
+  }
+}
