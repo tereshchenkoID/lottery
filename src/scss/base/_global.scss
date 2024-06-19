@@ -5,3 +5,40 @@
 ::before {
   box-sizing: border-box;
 }
+
+:root {
+  --animation-slide-bottom: slide_bottom;
+  --animation-slide-right: slide_right;
+  --animation-slide-opacity: slide_opacity;
+}
+
+@keyframes slide_bottom {
+  from {
+    transform: translateY(-20px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide_right {
+
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide_opacity {
+
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

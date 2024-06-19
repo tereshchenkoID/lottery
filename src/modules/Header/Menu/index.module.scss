@@ -15,14 +15,14 @@
 
   &.active {
     display: block;
-    animation: slide_mobile 0.2s linear forwards;
+    animation: var(--animation-slide-opacity) 0.2s linear forwards;
 
     @include media-breakpoint-up(lg) {
-      animation: slide_bottom 0.2s linear forwards;
+      animation: var(--animation-slide-bottom) 0.2s linear forwards;
     }
 
     .menu {
-      animation: menu_mobile 0.2s 0.2s linear forwards;
+      animation: var(--animation-slide-right) 0.2s linear forwards;
     }
   }
 
@@ -161,26 +161,4 @@
 
 .logout {
   width: 100%;
-}
-
-@keyframes slide_mobile {
-
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes menu_mobile {
-
-  0% {
-    transform: translateX(-100%);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
 }

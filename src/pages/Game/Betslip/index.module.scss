@@ -140,6 +140,13 @@
   @include flex(space-between, baseline);
 
   gap: rem(4px);
+
+  &.column {
+    flex-direction: column;
+    align-items: stretch;
+    gap: rem(8px);
+    text-align: center;
+  }
 }
 
 .dots {

@@ -11,7 +11,7 @@
   &.active {
     @include flex(center, center);
 
-    animation: opacity 0.2s linear forwards;
+    animation: var(--animation-slide-opacity) 0.2s linear forwards;
   }
 }
 

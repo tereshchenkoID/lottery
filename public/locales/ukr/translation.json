@@ -54,6 +54,12 @@
     "staff": "Staff UA",
     "master": "Master UA"
   },
+  "stake": {
+    "pending_title": "You are almost there UA",
+    "pending_description": "Completion of ticket registration, a few more seconds UA"
+  },
+  "pay_wallet": "Pay for wallet UA",
+  "pay_bonus": "Pay for bonus UA",
   "currency": "Currency UA",
   "language": "Language UA",
   "settings": "Settings UA",

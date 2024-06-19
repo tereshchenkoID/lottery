@@ -7,6 +7,7 @@ body {
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
+  overflow-x: hidden;
 
   @include media-breakpoint-up(lg) {
     overflow-y: auto!important;
@@ -81,7 +82,8 @@ hr {
 .main {
   @include flex($direction: column);
   @include make-spacer(mx, auto);
-
+  @include make-spacer(px, 10px);
+  
   position: relative;
   width: 100%;
   min-width: var(--min-width);

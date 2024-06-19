@@ -5,19 +5,14 @@ export const USER_TYPE = {
   cashbox: 1,
 }
 
+export const PAYEMENT_TYPE = {
+  money: 0, 
+  bonus: 1
+}
+
 export const TICKET_TYPE = {
   single: 0,
   multi: 1,
-}
-
-export const REPORT_USER_TYPE = {
-  0: 'staff',
-  1: 'master'
-}
-
-export const REPORT_TYPE = {
-  0: 'preview',
-  1: 'print'
 }
 
 export const STATUS_TYPE = {

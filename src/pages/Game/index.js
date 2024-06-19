@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
@@ -8,18 +8,19 @@ import classNames from 'classnames'
 
 import { getData } from 'helpers/api'
 import { getDate } from 'helpers/getDate'
+import { deepClone } from 'helpers/deepClone'
 import { getValueFormatted } from 'helpers/getValueFormatted'
 import { setBetslip } from 'store/actions/betslipAction'
 
 import GameButton from 'modules/GameButton'
 import Loader from 'components/Loader'
 import Button from 'components/Button'
+import Empty from 'modules/Empty'
 import Multibet from './Multibet'
 import Betslip from './Betslip'
 import Archive from './Archive'
 
 import style from './index.module.scss'
-import Empty from 'modules/Empty'
 
 const BINGO = lazy(() => import('./games/BINGO'))
 const KENO = lazy(() => import('./games/KENO'))
@@ -39,14 +40,12 @@ const getGames = (id, auth, betslip, game, setGame) => {
   }
 
   return (
-    <Suspense fallback={<Loader />}>
-      <GameComponent
-        auth={auth}
-        betslip={betslip}
-        game={game}
-        setGame={setGame}
-      />
-    </Suspense>
+    <GameComponent
+      auth={auth}
+      betslip={betslip}
+      game={game}
+      setGame={setGame}
+    />
   )
 }
 
@@ -75,6 +74,7 @@ const Game = () => {
   const { auth } = useSelector(state => state.auth)
   const { betslip } = useSelector(state => state.betslip)
   const [game, setGame] = useState({})
+  const [initialValue, setInitialValue] = useState({})
   const [loading, setLoading] = useState(true)
   const [active, setActive] = useState(0)
   const [show, setShow] = useState(false)
@@ -84,13 +84,14 @@ const Game = () => {
     Promise.all([
       getData(`game/${gameId}`).then(json => {
         setGame(json)
+        setInitialValue(deepClone(json))
         dispatch(
           setBetslip({
             ...betslip,
+            type: active,
             userId: auth.id,
             gameId: json?.id,
             bonusAmount: json?.bonusAmount,
-            type: active,
             bet: json?.bet,
             tickets: [],
             odds: [],
@@ -213,6 +214,7 @@ const Game = () => {
                         active={active}
                         show={show}
                         setShow={setShow}
+                        initialValue={initialValue}
                       />
                     </div>
                   )}

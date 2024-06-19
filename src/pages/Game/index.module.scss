@@ -19,7 +19,7 @@
 
   &.active {
     display: block;
-    animation: opacity 0.3s linear forwards;
+    animation: var(--animation-slide-opacity) 0.3s linear forwards;
   }
 }
 
@@ -40,9 +40,9 @@
 }
 
 .content {
-  @include size(100%);
   @include make-spacer(pt, 16px);
   @include make-spacer(px, 8px);
+  @include make-spacer(mx, -10px);
 
   flex-grow: 1;
   border-radius: rem(24px) rem(24px) 0 0;

@@ -5,7 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { useOutsideClick } from 'hooks/useOutsideClick'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { USER_TYPE, ROUTES_USER, ROUTES_CASHBOX, NAVIGATION } from 'constant/config'
+import { 
+  USER_TYPE, 
+  ROUTES_USER, 
+  ROUTES_CASHBOX, 
+  NAVIGATION 
+} from 'constant/config'
 
 import classNames from 'classnames'
 

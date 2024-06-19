@@ -27,7 +27,13 @@
   }
 
   .swiper-wide {
+    border-radius: rem(16px);
+    overflow: hidden;
     height: 100%;
+
+    @include media-breakpoint-up(lg) {
+      border-radius: rem(20px);
+    }
 
     .swiper-button-prev,
     .swiper-button-next {

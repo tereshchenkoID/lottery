@@ -2,7 +2,6 @@
 
 .block {
   @include flex($align-items: center);
-  @include make-spacer(px, 10px);
 
   position: sticky;
   top: 0;

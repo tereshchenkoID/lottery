@@ -7,8 +7,8 @@ import { NAVIGATION, ROUTES_USER } from 'constant/config'
 
 import classNames from 'classnames'
 
-import Container from 'components/Container'
 import Reference from 'components/Reference'
+import Container from 'components/Container'
 import Tab from 'modules/Tab'
 
 import style from './index.module.scss'

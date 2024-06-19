@@ -3,7 +3,6 @@
 .block {
   @include flex(space-between, center);
   @include make-spacer(py, 16px);
-  @include make-spacer(px, 10px);
 
   border-top: rem(1px) solid var(--grey-alpha-200);
 

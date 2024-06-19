@@ -54,6 +54,12 @@
     "staff": "Staff",
     "master": "Master"
   },
+  "stake": {
+    "pending_title": "You are almost there",
+    "pending_description": "Completion of ticket registration, a few more seconds"
+  },
+  "pay_wallet": "Pay for wallet",
+  "pay_bonus": "Pay for bonus",
   "currency": "Currency",
   "language": "Language",
   "settings": "Settings",

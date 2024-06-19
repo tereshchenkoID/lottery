@@ -12,7 +12,7 @@
 
     .dropdown {
       display: grid;
-      animation: slide_bottom 0.2s linear forwards;
+      animation: var(--animation-slide-bottom) 0.2s linear forwards;
     }
 
     .arrow {

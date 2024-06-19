@@ -1,6 +1,5 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(px, 10px);
   @include make-spacer(mb, 20px);
 }

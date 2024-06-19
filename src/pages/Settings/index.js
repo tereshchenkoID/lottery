@@ -66,7 +66,7 @@ const Settings = () => {
       case 'Language':
         return <Language settings={settings} auth={auth} handleChange={handleChange} />
       case 'Timezone':
-        return <Timezone settings={settings} auth={auth} handleChange={handleChange} />  
+        return <Timezone settings={settings} auth={auth} handleChange={handleChange} />
       default:
         return null
     }
@@ -74,63 +74,61 @@ const Settings = () => {
 
   return (
     <Container>
-      <>
-        <Title text={t(NAVIGATION.settings.text)} />
-        <div className={style.grid}>
-          <div className={style.row}>
-            <p>{t('language')}:</p>
-            <Button
-              view={'alt'}
-              type={'button'}
-              classes={style.button}
-              onChange={() => {
-                setModalContentType('Language')
-                setActive(true)
-              }}
-              placeholder={auth.account.language.text}
-            />
-          </div>
-          {
-            isAuth &&
-            <>
-              {
-                auth.userType !== USER_TYPE.cashbox &&
-                  <div className={style.row}>
-                    <p>{t('currency')}:</p>
-                    <Button
-                      view={'alt'}
-                      type={'button'}
-                      classes={style.button}
-                      onChange={() => {
-                        setModalContentType('Currency')
-                        setActive(true)
-                      }}
-                      placeholder={`${auth.account.currency.code} - ${auth.account.currency.symbol}`}
-                    />
-                  </div>
-              }
+      <Title text={t(NAVIGATION.settings.text)} />
+      <div className={style.grid}>
+        <div className={style.row}>
+          <p>{t('language')}:</p>
+          <Button
+            view={'alt'}
+            type={'button'}
+            classes={style.button}
+            onChange={() => {
+              setModalContentType('Language')
+              setActive(true)
+            }}
+            placeholder={auth.account.language.text}
+          />
+        </div>
+        {
+          isAuth &&
+          <>
+            {
+              auth.userType !== USER_TYPE.cashbox &&
               <div className={style.row}>
-                <p>{t('timezone')}:</p>
+                <p>{t('currency')}:</p>
                 <Button
                   view={'alt'}
                   type={'button'}
                   classes={style.button}
                   onChange={() => {
-                    setModalContentType('Timezone')
+                    setModalContentType('Currency')
                     setActive(true)
                   }}
-                  placeholder={auth.account.timezone.text}
+                  placeholder={`${auth.account.currency.code} - ${auth.account.currency.symbol}`}
                 />
               </div>
-            </>
-          }    
-        </div>
-        <Modal
-          active={active}
-          setActive={setActive}
-          child={renderModalContent()}
-        />
-      </>
+            }
+            <div className={style.row}>
+              <p>{t('timezone')}:</p>
+              <Button
+                view={'alt'}
+                type={'button'}
+                classes={style.button}
+                onChange={() => {
+                  setModalContentType('Timezone')
+                  setActive(true)
+                }}
+                placeholder={auth.account.timezone.text}
+              />
+            </div>
+          </>
+        }
+      </div>
+      <Modal
+        active={active}
+        setActive={setActive}
+        child={renderModalContent()}
+      />
     </Container>
   )
 }

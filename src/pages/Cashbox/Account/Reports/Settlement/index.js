@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useReactToPrint } from 'react-to-print'
 
-import { REPORT_USER_TYPE, REPORT_TYPE } from 'constant/config'
-
 import { postData } from 'helpers/api'
 import { getDate } from 'helpers/getDate'
 import { setToastify } from 'store/actions/toastifyAction'
@@ -12,9 +10,19 @@ import { setToastify } from 'store/actions/toastifyAction'
 import Button from 'components/Button'
 import Password from 'components/Password'
 import Loader from 'components/Loader'
+import { Print } from './Print'
 
 import style from './index.module.scss'
-import { Print } from './Print'
+
+const REPORT_USER_TYPE = {
+  0: 'staff',
+  1: 'master'
+}
+
+const REPORT_TYPE = {
+  0: 'preview',
+  1: 'print'
+}
 
 const Settlement = () => {
   const { t } = useTranslation()
@@ -90,39 +98,34 @@ const Settlement = () => {
   return (
     <div className={style.block}>
       <div className={style.filter}>
-        <Button
-          view={'alt'}
-          type={'button'}
-          placeholder={t('reports.staff')}
-          isActive={filter.type === REPORT_USER_TYPE[0]}
-          onChange={() => {
-            handlePropsChange('type', REPORT_USER_TYPE[0])
-            setData({})
-          }}
-        />
-        <Button
-          view={'alt'}
-          type={'button'}
-          placeholder={t('reports.master')}
-          isActive={filter.type === REPORT_USER_TYPE[1]}
-          onChange={() => {
-            handlePropsChange('type', REPORT_USER_TYPE[1])
-            setData({})
-          }}
-        />
+        {
+          Object.entries(REPORT_USER_TYPE).map(([key, value]) => (
+            <Button
+              key={key}
+              view={'alt'}
+              type={'button'}
+              placeholder={t(`reports.${value}`)}
+              isActive={filter.type === REPORT_USER_TYPE[key]}
+              onChange={() => {
+                handlePropsChange('type', REPORT_USER_TYPE[key])
+                setData({})
+              }}
+            />
+          ))
+        }
       </div>
 
       <form className={style.form} onSubmit={handleSubmit}>
         {
-          filter.type === REPORT_USER_TYPE[0]
+          Object.keys(data).length === 0
             ?
-              <Button
-                type={'submit'}
-                placeholder={t('reports.preview')}
-              />
-            :
-              (filter.type === REPORT_USER_TYPE[1] && Object.keys(data).length === 0)
-                ?
+            filter.type === REPORT_USER_TYPE[0]
+              ?
+                <Button
+                  type={'submit'}
+                  placeholder={t('reports.preview')}
+                />
+              :
                 <>
                   <Password
                     placeholder={t('password')}
@@ -135,14 +138,13 @@ const Settlement = () => {
                     placeholder={t('reports.preview')}
                   />
                 </>
-                :
-                <Button
-                  placeholder={t('settlement')}
-                  onChange={() => handlePrint()}
-                />
+            :
+              <Button
+                placeholder={t('settlement')}
+                onChange={() => handlePrint()}
+              />
         }
       </form>
-
       <div className={style.container}>
         {
           loading

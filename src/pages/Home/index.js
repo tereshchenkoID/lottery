@@ -16,15 +16,14 @@ import 'swiper/css/pagination'
 
 import { getData } from 'helpers/api'
 
-import style from './index.module.scss'
-
 import Section from 'components/Section'
 import Title from 'components/Title'
-import Loader from 'components/Loader'
 import Banner from 'modules/Banner'
 import Game from 'modules/Game'
 import Card from 'modules/Card'
 import Qr from 'modules/Qr'
+
+import style from './index.module.scss'
 
 const Home = () => {
   const { t } = useTranslation()
@@ -56,118 +55,113 @@ const Home = () => {
     }, {})
   }, [games])
 
+  if (loading)
+    return false
+
   return (
     <div className={style.block}>
-      {
-        loading 
-        ?
-          <Loader />
-        :
-          <>
-            <Section>
-              <div className={style.promo}>
-                <div className={style.banners}>
-                  <Swiper
-                    slidesPerView={1}
-                    spaceBetween={16}
-                    navigation={true}
-                    keyboard={true}
-                    pagination={{
-                      clickable: true,
-                    }}
-                    autoplay={{
-                      delay: 5000,
-                      disableOnInteraction: false,
-                    }}
-                    modules={[
-                      Autoplay,
-                      Navigation,
-                      Pagination,
-                      Mousewheel,
-                      Keyboard,
-                    ]}
-                    className="swiper-wide"
-                  >
-                    {banners?.map((el, idx) => (
-                      <SwiperSlide key={idx}>
-                        <Banner data={el} classes={style.banner} link={'/sdf'} />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
-                <div className={style.hidden}>
-                  <Qr />
-                </div>
-              </div>
-            </Section>
+      <Section>
+        <div className={style.promo}>
+          <div className={style.banners}>
+            <Swiper
+              slidesPerView={1}
+              spaceBetween={16}
+              navigation={true}
+              keyboard={true}
+              pagination={{
+                clickable: true,
+              }}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              modules={[
+                Autoplay,
+                Navigation,
+                Pagination,
+                Mousewheel,
+                Keyboard,
+              ]}
+              className="swiper-wide"
+            >
+              {banners?.map((el, idx) => (
+                <SwiperSlide key={idx}>
+                  <Banner data={el} classes={style.banner} link={'/sdf'} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+          <div className={style.hidden}>
+            <Qr />
+          </div>
+        </div>
+      </Section>
 
-            <Section>
-              <Title text={t('stock')} isLoading={true} />
-              <Swiper
-                slidesPerView={'auto'}
-                spaceBetween={16}
-                navigation={true}
-                keyboard={true}
-                grabCursor={true}
-                modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-                className="swiper-multiply"
-              >
-                {promo?.map((el, idx) => (
-                  <SwiperSlide key={idx}>
-                    <Banner data={el} classes={style.stock} link={`/game/${el.gameId}`} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </Section>
+      <Section>
+        <Title text={t('stock')} isLoading={true} />
+        <Swiper
+          slidesPerView={'auto'}
+          spaceBetween={16}
+          navigation={true}
+          keyboard={true}
+          grabCursor={true}
+          modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+          className="swiper-multiply"
+        >
+          {promo?.map((el, idx) => (
+            <SwiperSlide key={idx}>
+              <Banner data={el} classes={style.stock} link={`/game/${el.gameId}`} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Section>
 
-            <Section>
-              <Title text={t('drawing_games')} isLoading={true} />
-              <Swiper
-                slidesPerView={'auto'}
-                spaceBetween={16}
-                navigation={true}
-                keyboard={true}
-                grabCursor={true}
-                modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-                className="swiper-multiply"
-              >
-                {sortedGames[0]?.map((el, idx) => (
-                  <SwiperSlide key={idx}>
-                    <Card data={el} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </Section>
+      <Section>
+        <Title text={t('drawing_games')} isLoading={true} />
+        <Swiper
+          slidesPerView={'auto'}
+          spaceBetween={16}
+          navigation={true}
+          keyboard={true}
+          grabCursor={true}
+          modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+          className="swiper-multiply"
+        >
+          {sortedGames[0]?.map((el, idx) => (
+            <SwiperSlide key={idx}>
+              <Card data={el} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Section>
 
-            <Section>
-              <Title text={t('quick_games_15')} isLoading={true} />
-              <Swiper
-                slidesPerView={'auto'}
-                spaceBetween={16}
-                navigation={true}
-                keyboard={true}
-                grabCursor={true}
-                modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-                className="swiper-multiply"
-              >
-                {sortedGames[1]?.map((el, idx) => (
-                  <SwiperSlide key={idx}>
-                    <Card data={el} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </Section>
+      <Section>
+        <Title text={t('quick_games_15')} isLoading={true} />
+        <Swiper
+          slidesPerView={'auto'}
+          spaceBetween={16}
+          navigation={true}
+          keyboard={true}
+          grabCursor={true}
+          modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+          className="swiper-multiply"
+        >
+          {sortedGames[1]?.map((el, idx) => (
+            <SwiperSlide key={idx}>
+              <Card data={el} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </Section>
 
-            <Section>
-              <Title text={t('instant_games')} isLoading={true} />
-              <div className={style.games}>
-                {sortedGames[2]?.map((el, idx) => (
-                  <Game key={idx} data={el} />
-                ))}
-              </div>
-            </Section>
-          </>
-      }
+      <Section>
+        <Title text={t('instant_games')} isLoading={true} />
+        <div className={style.games}>
+          {sortedGames[2]?.map((el, idx) => (
+            <Game key={idx} data={el} />
+          ))}
+        </div>
+      </Section>
     </div>
   )
 }

@@ -48,7 +48,10 @@ const App = () => {
       dispatch(setSettings()),
       dispatch(setGames()),
     ]).then(json => {
-      i18n.changeLanguage(JSON.parse(localStorage.getItem('language')).code || json[0].account.language.code)
+      const storedLanguage = JSON.parse(localStorage.getItem('language'))?.code
+      const defaultLanguage = json[0]?.account?.language?.code
+
+      i18n.changeLanguage(storedLanguage || defaultLanguage)
       setLoading(false)
     })
   }, [dispatch])
