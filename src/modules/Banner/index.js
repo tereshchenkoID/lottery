@@ -22,7 +22,7 @@ const Banner = ({ data, link, classes = null }) => {
           ?
             <Skeleton />
           :
-            <img src={data.image} alt={data.alt} loading={'lazy'} />
+            <img src={data.image} alt={data.alt} loading={'lazy'} className={style.img} />
       }
     </Link>
   )

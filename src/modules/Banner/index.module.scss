@@ -1,9 +1,10 @@
 @import 'scss/config';
 
 .block {
-  display: block;
+  display: grid;
   border-radius: rem(16px);
   overflow: hidden;
+  min-height: rem(100px);
 
   @include media-breakpoint-up(lg) {
     border-radius: rem(20px);

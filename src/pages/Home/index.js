@@ -92,7 +92,7 @@ const Home = () => {
             </Swiper>
           </div>
           <div className={style.hidden}>
-            <Qr />
+            <Qr isLoading={true} />
           </div>
         </div>
       </Section>

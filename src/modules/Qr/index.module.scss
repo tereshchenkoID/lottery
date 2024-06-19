@@ -2,6 +2,14 @@
 
 .block {
   @include size(100%);
+  
+  border-radius: rem(12px);
+  overflow: hidden;
+  aspect-ratio: 1.2 / 1;
+}
+
+.content {
+  @include size(100%);
   @include make-spacer(p, 8px);
   @include flex($justify-content: center, $direction: column);
 
@@ -12,9 +20,6 @@
   }
 
   background-color: var(--color-primary);
-  border-radius: rem(12px);
-  aspect-ratio: 1.2 / 1;
-  overflow: hidden;
   gap: rem(12px);
   text-align: center;
   font-size: rem(11px);
