@@ -1,6 +1,8 @@
 @import 'scss/config';
 
 .block {
+  @include make-spacer(mx, var(--outer-gap-decrement));
+  @include make-spacer(px, var(--outer-gap));
   @include flex($align-items: center);
 
   position: sticky;

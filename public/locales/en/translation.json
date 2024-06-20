@@ -56,7 +56,8 @@
   },
   "stake": {
     "pending_title": "You are almost there",
-    "pending_description": "Completion of ticket registration, a few more seconds"
+    "pending_description": "Completion of ticket registration, a few more seconds",
+    "message": "Stake successful"
   },
   "pay_wallet": "Pay for wallet",
   "pay_bonus": "Pay for bonus",
@@ -102,6 +103,7 @@
   "reset": "Reset",
   "placebet": "Place bet",
   "win": "Win",
+  "no_win": "No winnings",
   "place_bet": "Place your bet",
   "ticket_price": "Ticket price",
   "ticket": "Ticket",

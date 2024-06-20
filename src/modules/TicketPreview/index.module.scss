@@ -49,13 +49,14 @@
     @include make-spacer(pt, 24px);
 }
 
-.win {
+.meta {
     @include make-spacer(pb, 20px);
+    @include flex(space-between, center, null, wrap);
 
-    text-align: center;
+    gap: rem(16px);
 
-    @include media-breakpoint-up(xl) {
-        text-align: right;
+    p {
+        flex-shrink: 0;
     }
 }
 
@@ -67,12 +68,11 @@
 }
 
 .toggle {
-    @include size(rem(100%), rem(24px));
-
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
+    height: rem(24px);
 
     &::before {
         @include absolute-center;

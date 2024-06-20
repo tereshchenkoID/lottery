@@ -79,28 +79,29 @@ const Game = () => {
   const [active, setActive] = useState(0)
   const [show, setShow] = useState(false)
 
-  useEffect(() => {
-    setLoading(true)
-    Promise.all([
-      getData(`game/${gameId}`).then(json => {
-        setGame(json)
-        setInitialValue(deepClone(json))
-        dispatch(
-          setBetslip({
-            ...betslip,
-            type: active,
-            userId: auth.id,
-            gameId: json?.id,
-            bonusAmount: json?.bonusAmount,
-            bet: json?.bet,
-            tickets: [],
-            odds: [],
-          }),
-        )
-      }),
-    ]).then(() => {
+  const handleLoad = () => {
+    getData(`game/${gameId}`).then(json => {
+      setGame(json)
+      setInitialValue(deepClone(json))
+      dispatch(
+        setBetslip({
+          ...betslip,
+          type: active,
+          userId: auth.id,
+          gameId: json?.id,
+          bonusAmount: json?.bonusAmount,
+          bet: json?.bet,
+          tickets: [],
+          odds: [],
+        }),
+      )
       setLoading(false)
     })
+  }
+
+  useEffect(() => {
+    setLoading(true)
+    handleLoad()
   }, [gameId])
 
   const handleActive = idx => {
@@ -199,8 +200,7 @@ const Game = () => {
                 </div>
                 <div className={style.toggle}>
                   <div className={style.column}>
-                    {active === 0 &&
-                      getGames(gameId, auth, betslip, game, setGame)}
+                    {active === 0 && getGames(gameId, auth, betslip, game, setGame)}
                     {active === 1 && <Multibet betslip={betslip} game={game} />}
                     {active === 2 && <Archive betslip={betslip} game={game} />}
                   </div>
@@ -215,6 +215,7 @@ const Game = () => {
                         show={show}
                         setShow={setShow}
                         initialValue={initialValue}
+                        handleLoad={handleLoad}
                       />
                     </div>
                   )}

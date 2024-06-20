@@ -11,7 +11,7 @@ import { getDate } from 'helpers/getDate'
 
 import style from './index.module.scss'
 
-const Ticket = ({ data, active, setActive }) => {
+const TicketBlock = ({ data, active, setActive }) => {
   const { t } = useTranslation()
   const { games } = useSelector(state => state.games)
   const { auth } = useSelector(state => state.auth)
@@ -69,4 +69,4 @@ const Ticket = ({ data, active, setActive }) => {
   )
 }
 
-export default Ticket
+export default TicketBlock

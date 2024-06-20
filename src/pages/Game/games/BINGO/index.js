@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -17,8 +17,12 @@ import style from './index.module.scss'
 const BINGO = ({ auth, betslip, game, setGame }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const [tickets, setTickets] = useState(game.odds?.tickets || {})
+  const [tickets, setTickets] = useState({})
   const [update, setUpdate] = useState(false)
+
+  useEffect(() => {
+    setTickets(game.odds?.tickets || {})
+  }, [game])
 
   const isTicketExist = id => {
     return betslip.tickets.findIndex(ticket => ticket.id === id)

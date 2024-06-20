@@ -7,6 +7,8 @@
 }
 
 :root {
+  --outer-gap: 10px;
+  --outer-gap-decrement: -10px;
   --animation-slide-bottom: slide_bottom;
   --animation-slide-right: slide_right;
   --animation-slide-opacity: slide_opacity;

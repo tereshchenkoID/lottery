@@ -56,7 +56,8 @@
   },
   "stake": {
     "pending_title": "You are almost there UA",
-    "pending_description": "Completion of ticket registration, a few more seconds UA"
+    "pending_description": "Completion of ticket registration, a few more seconds UA",
+    "message": "Stake successful UA"
   },
   "pay_wallet": "Pay for wallet UA",
   "pay_bonus": "Pay for bonus UA",
@@ -102,6 +103,7 @@
   "reset": "Reset UA",
   "placebet": "Place bet UA",
   "win": "Win UA",
+  "no_win": "No winnings UA",
   "place_bet": "Place your bet UA",
   "ticket_price": "Ticket price UA",
   "ticket": "Ticket UA",

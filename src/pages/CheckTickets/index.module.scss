@@ -1,7 +1,50 @@
 @import 'scss/config';
 
+.block {
+  display: grid;
+}
+
+.grid {
+  display: grid;
+  position: relative;
+  height: 100%;
+
+  @include media-breakpoint-up(xl) {
+    grid-template-columns: 1fr rem(322px);
+    align-items: flex-start;
+    gap: rem(48px);
+
+    &::after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: rem(346px);
+      background-color: var(--grey-alpha-200);
+      width: rem(1px);
+      content: '';
+    }
+  }
+}
+
 .form {
   display: grid;
   max-width: rem(512px);
   gap: rem(24px);
+}
+
+.shadow {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: $z-index-11;
+  background-color: var(--grey-alpha-700);
+
+  @include media-breakpoint-up(xl) {
+    display: none!important;
+  }
+
+  &.active {
+    display: block;
+    animation: var(--animation-slide-bottom) 0.3s linear forwards;
+  }
 }

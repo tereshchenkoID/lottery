@@ -8,8 +8,8 @@ import classNames from 'classnames'
 import Loader from 'components/Loader'
 import Pagination from 'modules/Pagination'
 import Empty from 'modules/Empty'
-import Ticket from './Ticket'
-import Preview from './Preview'
+import TicketBlock from 'modules/TicketBlock'
+import TicketPreview from 'modules/TicketPreview'
 import FilterGames from './FilterGames'
 import FilterStatus from './FilterStatus'
 
@@ -109,7 +109,7 @@ const Tickets = () => {
             <div
               className={classNames(style.shadow, active && style.active)}
               onClick={() => {
-                setActive()
+                setActive(null)
               }}
             />
             <div className={style.left}>
@@ -128,7 +128,7 @@ const Tickets = () => {
                     <div className={style.list}>
                       {
                         data.map((el, idx) =>
-                          <Ticket
+                          <TicketBlock
                             key={idx}
                             data={el}
                             active={active}
@@ -149,7 +149,7 @@ const Tickets = () => {
               }
             </div>
             <div className={style.right}>
-              <Preview active={active} setActive={setActive} />
+              <TicketPreview data={active} active={active} setActive={setActive} />
             </div>
           </div>
         )

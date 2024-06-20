@@ -15,15 +15,13 @@ import Password from 'components/Password'
 import style from './index.module.scss'
 
 const Login = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { t } = useTranslation()
-  const initialValue = {
+  const [filter, setFilter] = useState({
     username: 'tester',
     password: 'qwe123',
-  }
-
-  const [filter, setFilter] = useState(initialValue)
+  })
 
   const handlePropsChange = (fieldName, fieldValue) => {
     setFilter(prevData => ({

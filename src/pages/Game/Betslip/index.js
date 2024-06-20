@@ -14,8 +14,10 @@ import {
 
 import classNames from 'classnames'
 
+import { getData } from 'helpers/api'
 import { setBetslip } from 'store/actions/betslipAction'
 import { setToastify } from 'store/actions/toastifyAction'
+import { setAuth } from 'store/actions/authAction'
 import { calculateTotalFactorFromNumber } from 'helpers/calculateTotalFactorFromNumber'
 import { calculateTotalFactor } from 'helpers/calculateTotalFactor'
 import { calculateMultiplier } from 'helpers/calculateMultiplier'
@@ -33,7 +35,7 @@ import style from './index.module.scss'
 
 const EXCEPTION = [1]
 
-const Betslip = ({ auth, betslip, game, active, show, setShow, initialValue }) => {
+const Betslip = ({ auth, betslip, game, active, show, setShow, initialValue, handleLoad }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [pending, setPending] = useState(false)
@@ -131,39 +133,50 @@ const Betslip = ({ auth, betslip, game, active, show, setShow, initialValue }) =
     }
 
     const b = betslip
+    const c = auth
 
     const formData = new FormData()
       formData.append('data', JSON.stringify(a))
 
       postData('placebet/', formData).then(json => {
         if (json.code === "0") {
+          c.account.balance = json.account.balance
+          c.account.bonus = json.account.bonus
+
           b.bet[active] = initialValue.bet[active]
           b.activeTicket = null
       
           if(active === 0) {
             b.tickets = []
           }
-      
+
           dispatch(setBetslip(b))
+          dispatch(setAuth(c))
 
           setTimeout(() => {
             setPending(false)
+            setShow(!show)
+
+            dispatch(
+              setToastify({
+                type: 'success',
+                text: t('stake.message'),
+              })
+            ).then(() => {
+              if (game.id === 1) {
+                handleLoad()
+              }
+            })
           }, 1000)
-
-
-          // dispatch(
-          //   setToastify({
-          //     type: 'success',
-          //     text: json.message,
-          //   }),
-          // )
-        } else {
+        } 
+        else {
           dispatch(
             setToastify({
               type: 'error',
               text: json.error_message,
             }),
           )
+          setPending(false)
         }
       })
   }
@@ -175,8 +188,7 @@ const Betslip = ({ auth, betslip, game, active, show, setShow, initialValue }) =
   return (
     <>
       {
-        pending &&
-        <Modal />
+        pending && <Modal />
       }
       <div className={classNames(style.block, show && style.active)}>
         <button

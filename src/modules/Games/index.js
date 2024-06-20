@@ -26,7 +26,7 @@ const Games = () => {
           className={style.icon}
         />
       </button>
-      {games.map((el, idx) => (
+      {games?.map((el, idx) => (
         <Link
           key={idx}
           to={`/game/${el.id}`}

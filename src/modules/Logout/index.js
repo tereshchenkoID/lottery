@@ -17,6 +17,7 @@ const Logout = ({ onChange = () => {}, classes }) => {
       dispatch(setAuth(json))
       onChange()
       navigate('/')
+      window.location.reload()
     })
   }
 

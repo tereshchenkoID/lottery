@@ -5,7 +5,6 @@ import { Tooltip } from 'react-tooltip'
 
 import i18n from 'i18next'
 
-import 'react-tooltip/dist/react-tooltip.css'
 import 'rc-slider/assets/index.css'
 
 import { library } from '@fortawesome/fontawesome-svg-core'

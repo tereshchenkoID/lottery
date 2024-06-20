@@ -82,10 +82,9 @@ hr {
 .main {
   @include flex($direction: column);
   @include make-spacer(mx, auto);
-  @include make-spacer(px, 10px);
+  @include make-spacer(px, var(--outer-gap));
   
   position: relative;
-  width: 100%;
   min-width: var(--min-width);
   max-width: var(--max-width);
   min-height: 100dvh;
