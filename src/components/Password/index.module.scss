@@ -1,33 +1,10 @@
 @import 'scss/config';
 
 .block {
-  @include size(100%, rem(48px));
-
   position: relative;
 
   &.disabled {
-    opacity: 0.5;
     pointer-events: none;
-  }
-}
-
-.label {
-  @include make-spacer(px, 4px);
-  @include transition;
-
-  position: absolute;
-  top: rem(16px);
-  left: rem(16px);
-  transform: translateY(rem(-23px));
-  background-color: var(--color-white);
-  letter-spacing: rem(0.2px);
-  font-size: rem(12px);
-  pointer-events: none;
-
-  span {
-    @include make-spacer(ml, 3px);
-
-    color: var(--color-warning);
   }
 }
 
@@ -36,23 +13,10 @@
   @include size(rem(56px), 100%);
 
   opacity: 0.5;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
-  }
-}
-
-.input {
-  @include make-spacer(px, 16px);
-  @include transition(border-color);
-  @include size(100%);
-
-  border: rem(1px) solid var(--grey-alpha-300);
-  border-radius: rem(12px);
+  border-radius: 0 rem(12px) rem(12px) 0;
   overflow: hidden;
 
-  &:focus {
-    outline: 0;
-    border-color: var(--color-primary);
+  &:hover {
+    background-color: var(--grey-alpha-100);
   }
 }

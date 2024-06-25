@@ -58,13 +58,16 @@ const CheckTickets = () => {
           <Title text={t(NAVIGATION.check_ticket.text)} />
           <form onSubmit={handleSubmit} className={style.form}>
             <Field
-              type={'text'}
+              type={'number'}
               placeholder={t('ticket')}
               data={filter}
               onChange={value => setFilter(value)}
               isRequired={true}
             />
-            <Button type={'submit'} placeholder={t('search')} />
+            <Button 
+              type={'submit'} 
+              placeholder={t('search')} 
+            />
           </form>
         </div>
         <div className={style.right}>

@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux'
+import { useAuth } from 'context/AuthContext'
 
-import { USER_TYPE, ROUTES_USER } from 'constant/config'
-
-import classNames from 'classnames'
+import { ROUTES_USER } from 'constant/config'
 
 import Reference from 'components/Reference'
 
@@ -10,15 +9,14 @@ import style from './index.module.scss'
 
 const Currency = () => {
   const { auth } = useSelector(state => state.auth)
-  const isCashbox = auth?.userType === USER_TYPE.cashbox
+  const { isCashbox } = useAuth()
 
   return (
     <div className={style.block}>
       <Reference 
-        view="alt"
         link={ROUTES_USER.wallet.link} 
         icon={ROUTES_USER.wallet.icon}
-        classes={classNames(style.item, isCashbox && style.alt)}
+        classes={['alt',  isCashbox && style.alt, style.item]}
         placeholder={`${auth.account.balance} ${auth.account.currency.symbol}`} 
       />
       {
@@ -26,10 +24,9 @@ const Currency = () => {
         <>
           <hr className={style.hr} />
           <Reference 
-            view="alt"
             link={ROUTES_USER.bonuses.link}
             icon={ROUTES_USER.bonuses.icon}
-            classes={style.item}
+            classes={['alt', style.item]}
             placeholder={`${auth.account.bonus}`} 
           />
         </>

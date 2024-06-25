@@ -5,8 +5,16 @@ export const USER_TYPE = {
   cashbox: 1,
 }
 
+export const BREAKPOINTS = {
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200
+}
+
 export const PAYEMENT_TYPE = {
-  money: 0, 
+  money: 0,
   bonus: 1
 }
 
@@ -44,8 +52,18 @@ export const NAVIGATION = {
   },
   login: {
     link: '/login',
-    icon: 'fa-solid fa-user', 
+    icon: 'fa-solid fa-user',
     text: 'navigation.login',
+  },
+  registration: {
+    link: '/registration',
+    icon: 'fa-solid fa-user-plus',
+    text: 'navigation.registration',
+  },
+  password_recovery: {
+    link: '/password-recovery',
+    icon: 'fa-solid fa-user-lock',
+    text: 'navigation.password_recovery',
   },
   check_ticket: {
     link: '/check-ticket',

@@ -2,7 +2,7 @@ import Slider from 'rc-slider'
 
 import style from './index.module.scss'
 
-const GameRange = ({ data, onChange }) => {
+const Range = ({ data, onChange }) => {
   return (
     <div className={style.block}>
       <div className={style.slider}>
@@ -25,4 +25,4 @@ const GameRange = ({ data, onChange }) => {
   )
 }
 
-export default GameRange
+export default Range

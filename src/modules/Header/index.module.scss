@@ -3,7 +3,7 @@
 .block {
   @include make-spacer(mx, var(--outer-gap-decrement));
   @include make-spacer(px, var(--outer-gap));
-  @include flex($align-items: center);
+  @include flex($justify-content: space-between, $align-items: center);
 
   position: sticky;
   top: 0;
@@ -21,21 +21,6 @@
 .line,
 .text {
   @include transition;
-}
-
-.logo {
-  @include make-spacer(mr, auto);
-  @include size(rem(140px), auto);
-
-  flex-shrink: 0;
-  order: 1;
-
-  @include media-breakpoint-up(lg) {
-    @include make-spacer(mr, 0);
-
-    width: rem(130px);
-    order: 0
-  }
 }
 
 .button {
@@ -61,13 +46,9 @@
 }
 
 .link {
-  display: none;
+  @include flex(center, center);
 
-  @include media-breakpoint-up(lg) {
-    @include flex(center, center);
-
-    font-weight: var(--typography-medium);
-  }
+  font-weight: var(--typography-medium);
 
   &.active {
 
@@ -120,8 +101,9 @@
     }
   }
 
-  @include media-breakpoint-up(lg) {
-    display: none;
+  img,
+  picture {
+    @include size(rem(25px));
   }
 }
 
@@ -130,4 +112,15 @@
   @include size(50%, rem(2px));
 
   background-color: var(--color-black);
+}
+
+.scan {
+  @include flex($align-items: center);
+  @include size(rem(48px));
+  @include make-spacer(p, 0);
+
+  flex-shrink: 0;
+  order: 4;
+  min-width: 0;
+  font-size: rem(20px);
 }

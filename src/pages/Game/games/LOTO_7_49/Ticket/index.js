@@ -7,7 +7,7 @@ import { SPORTS_LOTTO_FACTORS } from 'constant/config'
 
 import { setBetslip } from 'store/actions/betslipAction'
 
-import GameButton from 'modules/GameButton'
+import Button from 'components/Button'
 
 import classNames from 'classnames'
 
@@ -162,7 +162,8 @@ const Ticket = ({ betslip, game }) => {
           )}
         </div>
         {betslip.activeTicket !== null && (
-          <GameButton
+          <Button
+            classes={['game', 'wide', 'tiny']}
             onChange={() => handleCloseTicket()}
             icon={'fa-solid fa-xmark'}
           />
@@ -195,7 +196,8 @@ const Ticket = ({ betslip, game }) => {
       <div className={style.numbers}>
         {numbers.map((el, idx) => (
           <div key={idx} className={style.cell}>
-            <GameButton
+            <Button
+              classes={['game', 'wide', 'tiny']}
               placeholder={el.number}
               onChange={() => handleNumberClick(idx)}
               isActive={el.active}
@@ -204,17 +206,20 @@ const Ticket = ({ betslip, game }) => {
           </div>
         ))}
       </div>
-      <GameButton
+      <Button
+        classes={['game', 'wide', 'tiny']}
         placeholder={t('random')}
         onChange={() => handleRandomClick()}
         icon={'fa-solid fa-cube'}
       />
       <div className={style.actions}>
-        <GameButton
+        <Button
+          classes={['game', 'wide', 'tiny']}
           placeholder={t('reset')}
           onChange={() => handleResetClick()}
         />
-        <GameButton
+        <Button
+          classes={['game', 'wide', 'tiny']}
           placeholder={
             betslip.activeTicket !== null ? t('save') : t('add_stake')
           }

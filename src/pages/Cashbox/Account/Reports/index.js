@@ -32,10 +32,9 @@ const Reports = () => {
           TABS.map((el, idx) =>
             <Button
               key={idx}
-              view='alt'
               isActive={active === idx}
               placeholder={t(el)}
-              classes={style.link}
+              classes={['alt', style.link]}
               onChange={() => setActive(idx)}
             />
           )

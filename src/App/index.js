@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { Suspense, useEffect, useState } from 'react'
 import { Tooltip } from 'react-tooltip'
+import { AppProviders } from 'context/AppProviders'
 
 import i18n from 'i18next'
 
@@ -60,10 +61,12 @@ const App = () => {
       if(auth?.id) {
         let a = auth
         getData('balance/').then(json => {
-          a.account.balance = json.account.balance
-          a.account.bonus = json.account.bonus
+          if(json.code === "0") {
+            a.account.balance = json.account.balance
+            a.account.bonus = json.account.bonus
 
-          dispatch(setAuth(a))
+            dispatch(setAuth(a))
+          }
         })
       }
     }, 30000)
@@ -75,38 +78,40 @@ const App = () => {
   if (loading) return <Loader />
 
   return (
-    <main className={style.main}>
-      <Games />
-      <Header />
-      <div className={style.content}>
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            {routes.map((route, index) => {
-              return (
-                <Route
-                  key={index}
-                  path={route.path}
-                  element={route.element}
-                >
-                  {route.children && route.children.map((childRoute, childIndex) => {
-                    return (
-                      <Route
-                        key={childIndex}
-                        path={childRoute.path}
-                        element={childRoute.element}
-                      />
-                    );
-                  })}
-                </Route>
-              );
-            })}
-          </Routes>
-        </Suspense>
-      </div>
-      <Footer />
-      <Toastify />
-      <Tooltip id="tooltip" place={'bottom-start'} />
-    </main>
+    <AppProviders>
+      <main className={style.main}>
+        <Games />
+        <Header />
+        <div className={style.content}>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              {routes.map((route, index) => {
+                return (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    element={route.element}
+                  >
+                    {route.children && route.children.map((childRoute, childIndex) => {
+                      return (
+                        <Route
+                          key={childIndex}
+                          path={childRoute.path}
+                          element={childRoute.element}
+                        />
+                      );
+                    })}
+                  </Route>
+                );
+              })}
+            </Routes>
+          </Suspense>
+        </div>
+        <Footer />
+        <Toastify />
+        <Tooltip id={'tooltip'} place={'bottom-start'} />
+      </main>
+    </AppProviders>
   )
 }
 

@@ -1,12 +1,8 @@
 @import 'scss/config';
 
 .block {
-  display: none;
+  @include flex($align-items: center);
+
   order: 3;
-
-  @include media-breakpoint-up(lg) {
-    @include flex($align-items: center);
-
-    gap: rem(8px);
-  }
+  gap: rem(8px);
 }

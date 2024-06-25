@@ -102,8 +102,7 @@ const Settlement = () => {
           Object.entries(REPORT_USER_TYPE).map(([key, value]) => (
             <Button
               key={key}
-              view={'alt'}
-              type={'button'}
+              classes={['alt']}
               placeholder={t(`reports.${value}`)}
               isActive={filter.type === REPORT_USER_TYPE[key]}
               onChange={() => {

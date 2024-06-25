@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(pt, 16px);
+  @include make-spacer(pt, 14px);
   @include make-spacer(px, 10px);
   @include make-spacer(pb, 22px);
 
@@ -16,7 +16,7 @@
   white-space: nowrap;
   box-shadow: var(--default-box-shadow);
 
-  @include media-breakpoint-up(xxl) {
+  @include media-breakpoint-up(xl) {
     @include flex($direction: column);
   }
 
@@ -26,37 +26,40 @@
       width: rem(220px);
     }
 
-    .icon {
-      transform: rotateZ(180deg);
+    .toggle {
+
+      svg {
+        transform: rotateZ(180deg);
+      }
     }
   }
 }
 
-.toggle,
-.item {
-  @include make-spacer(p, 4px);
-
-  gap: rem(6px);
-  border-radius: rem(6px);
-  width: rem(44px);
-  overflow: hidden;
-}
-
 .toggle {
-  @include flex(center, center);
+  @include size(rem(44px));
 
   background-color: var(--grey-alpha-100);
-  height: rem(44px);
-
+  min-width: 0;
+  
   &:hover {
     background-color: var(--grey-alpha-200);
+  }
+
+  svg {
+    @include transition;
   }
 }
 
 .item {
+  @include make-spacer(p, 4px);
+
   display: grid;
-  grid-template-columns: rem(36px) 1fr;
+  grid-template-columns: rem(44px) 1fr;
   align-items: center;
+  gap: rem(6px);
+  border-radius: rem(6px);
+  width: rem(48px);
+  overflow: hidden;
   font-size: rem(14px);
   line-height: rem(20px);
   letter-spacing: rem(0.2px);
@@ -67,12 +70,8 @@
   }
 }
 
-.icon {
-  @include transition;
-}
-
 .picture {
-  @include size(rem(36px));
+  @include size(rem(40px));
 
   aspect-ratio: 1 / 1;
 }

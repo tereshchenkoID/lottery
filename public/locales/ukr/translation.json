@@ -4,6 +4,8 @@
     "home": "Home UA",
     "all_games": "All games UA",
     "login": "Login / Registration UA",
+    "registration": "Registration UA",
+    "password_recovery": "Password recovery UA",
     "check_ticket": "Check ticket UA",
     "settings": "Settings UA",
     "translation": "Translation UA",
@@ -78,6 +80,13 @@
   "last_hour": "Last Hours UA",
   "username": "Username UA",
   "password": "Password UA",
+  "password_repeat": "Password repeat UA",
+  "email": "Email UA",
+  "phone": "Phone UA",
+  "birth_day": "Date of Birth UA",
+  "validation": {
+    "password_length": "Make sure the password is at least 6 characters long. UA"
+  },
   "login": "Login UA",
   "logout": "Logout UA",
   "registration": "Registration UA",

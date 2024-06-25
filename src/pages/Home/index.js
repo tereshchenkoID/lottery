@@ -9,6 +9,7 @@ import {
   Mousewheel,
   Keyboard,
 } from 'swiper/modules'
+import { useAuth } from 'context/AuthContext';
 
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -27,7 +28,9 @@ import style from './index.module.scss'
 
 const Home = () => {
   const { t } = useTranslation()
+  const { auth } = useSelector(state => state.auth)
   const { games } = useSelector(state => state.games)
+  const { isCashbox } = useAuth()
   const [promo, setPromo] = useState([])
   const [banners, setBanners] = useState([])
   const [loading, setLoading] = useState(true)
@@ -60,64 +63,69 @@ const Home = () => {
 
   return (
     <div className={style.block}>
-      <Section>
-        <div className={style.promo}>
-          <div className={style.banners}>
+      {
+        !isCashbox &&
+        <>
+          <Section>
+            <div className={style.promo}>
+              <div className={style.banners}>
+                <Swiper
+                  slidesPerView={1}
+                  spaceBetween={16}
+                  navigation={true}
+                  keyboard={true}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
+                  }}
+                  modules={[
+                    Autoplay,
+                    Navigation,
+                    Pagination,
+                    Mousewheel,
+                    Keyboard,
+                  ]}
+                  className="swiper-wide"
+                >
+                  {banners?.map((el, idx) => (
+                    <SwiperSlide key={idx}>
+                      <Banner data={el} classes={style.banner} link={'/sdf'} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+              <div className={style.hidden}>
+                <Qr isLoading={true} />
+              </div>
+            </div>
+          </Section>
+
+          <Section>
+            <Title text={t('stock')} isLoading={true} isNavigation={true} />
             <Swiper
-              slidesPerView={1}
+              slidesPerView={'auto'}
               spaceBetween={16}
               navigation={true}
               keyboard={true}
-              pagination={{
-                clickable: true,
-              }}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-              modules={[
-                Autoplay,
-                Navigation,
-                Pagination,
-                Mousewheel,
-                Keyboard,
-              ]}
-              className="swiper-wide"
+              grabCursor={true}
+              modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+              className="swiper-multiply"
             >
-              {banners?.map((el, idx) => (
+              {promo?.map((el, idx) => (
                 <SwiperSlide key={idx}>
-                  <Banner data={el} classes={style.banner} link={'/sdf'} />
+                  <Banner data={el} classes={style.stock} link={`/game/${el.gameId}`} />
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
-          <div className={style.hidden}>
-            <Qr isLoading={true} />
-          </div>
-        </div>
-      </Section>
+          </Section>
+        </>
+      }
 
       <Section>
-        <Title text={t('stock')} isLoading={true} />
-        <Swiper
-          slidesPerView={'auto'}
-          spaceBetween={16}
-          navigation={true}
-          keyboard={true}
-          grabCursor={true}
-          modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-          className="swiper-multiply"
-        >
-          {promo?.map((el, idx) => (
-            <SwiperSlide key={idx}>
-              <Banner data={el} classes={style.stock} link={`/game/${el.gameId}`} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </Section>
-
-      <Section>
-        <Title text={t('drawing_games')} isLoading={true} />
+        <Title text={t('drawing_games')} isLoading={true} isNavigation={true} />
         <Swiper
           slidesPerView={'auto'}
           spaceBetween={16}
@@ -136,7 +144,7 @@ const Home = () => {
       </Section>
 
       <Section>
-        <Title text={t('quick_games_15')} isLoading={true} />
+        <Title text={t('quick_games_15')} isLoading={true} isNavigation={true} />
         <Swiper
           slidesPerView={'auto'}
           spaceBetween={16}
@@ -155,7 +163,7 @@ const Home = () => {
       </Section>
 
       <Section>
-        <Title text={t('instant_games')} isLoading={true} />
+        <Title text={t('instant_games')} isLoading={true} isNavigation={true} />
         <div className={style.games}>
           {sortedGames[2]?.map((el, idx) => (
             <Game key={idx} data={el} />

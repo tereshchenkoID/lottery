@@ -12,7 +12,6 @@ import { deepClone } from 'helpers/deepClone'
 import { getValueFormatted } from 'helpers/getValueFormatted'
 import { setBetslip } from 'store/actions/betslipAction'
 
-import GameButton from 'modules/GameButton'
 import Loader from 'components/Loader'
 import Button from 'components/Button'
 import Empty from 'modules/Empty'
@@ -140,7 +139,7 @@ const Game = () => {
                     <Button
                       placeholder={`${t('place_bet')} ${betslip.bet?.[active]?.amount} ${auth.account.currency.symbol}`}
                       onChange={() => setShow(!show)}
-                      styles={{ width: '100%' }}
+                      classes={['primary', 'wide']}
                     />
                   </div>
                 </>
@@ -188,13 +187,13 @@ const Game = () => {
               <div className={style.body}>
                 <div className={style.tab}>
                   {TABS.map((el, idx) => (
-                    <GameButton
+                    <Button
                       key={idx}
                       placeholder={t(el.text)}
+                      icon={el.icon}
                       isActive={active === el.value}
                       onChange={() => handleActive(el.value)}
-                      classes={style.button}
-                      icon={el.icon}
+                      classes={['game', style.button]}
                     />
                   ))}
                 </div>

@@ -8,6 +8,10 @@
   @include media-breakpoint-up(lg) {
     grid-template-columns: rem(48px) rem(68px) rem(48px);
   }
+
+  .button {
+    font-size: rem(18px);
+  }
 }
 
 .field {
@@ -19,11 +23,8 @@
   text-align: center;
   color: var(--font_color);
 
+  &:focus,
   &:hover {
     border-color: var(--game_button_color);
-  }
-
-  &:focus {
-    border-color: var(--font_color);
   }
 }

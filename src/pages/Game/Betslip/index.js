@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { useAuth } from 'context/AuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { 
@@ -14,7 +15,6 @@ import {
 
 import classNames from 'classnames'
 
-import { getData } from 'helpers/api'
 import { setBetslip } from 'store/actions/betslipAction'
 import { setToastify } from 'store/actions/toastifyAction'
 import { setAuth } from 'store/actions/authAction'
@@ -25,7 +25,6 @@ import { calculatePercent } from 'helpers/calculatePercent'
 import { getFactors } from 'helpers/getFactors'
 import { postData } from 'helpers/api'
 
-import GameButton from 'modules/GameButton'
 import Reference from 'components/Reference'
 import Button from 'components/Button'
 import Singlebet from '../Singlebet'
@@ -39,7 +38,8 @@ const Betslip = ({ auth, betslip, game, active, show, setShow, initialValue, han
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [pending, setPending] = useState(false)
-  const typeNavigation = auth.userType === USER_TYPE.user ? ROUTES_USER : ROUTES_CASHBOX
+  const { isCashbox } = useAuth()
+  const typeNavigation = isCashbox ? ROUTES_CASHBOX : ROUTES_USER
   const isAuth = auth.id
   const isSingle = active === TICKET_TYPE.single
   const isNotEmpty = betslip.odds?.length > 0 || betslip.tickets?.length > 0
@@ -280,7 +280,7 @@ const Betslip = ({ auth, betslip, game, active, show, setShow, initialValue, han
                         (
                           game.bonus && 
                           auth.account.bonus > betslip.bet[active].amount &&
-                          auth.userType !== USER_TYPE.cashbox
+                          !isCashbox
                         ) &&
                         <Button
                           placeholder={t('pay_bonus')}
@@ -305,27 +305,31 @@ const Betslip = ({ auth, betslip, game, active, show, setShow, initialValue, han
             isSingle &&
             betslip.tickets?.length > 0 && (
               <div className={style.tickets}>
-                {betslip.tickets.map((el, idx) => (
-                  <div
-                    key={idx}
-                    className={classNames(
-                      style.stake,
-                      betslip.activeTicket === idx && style.active,
-                    )}
-                  >
-                    <button
-                      className={style.preview}
-                      onClick={() => handleLoadTicket(idx)}
+                {
+                  betslip.tickets.map((el, idx) => (
+                    <div
+                      key={idx}
+                      className={
+                        classNames(
+                          style.stake,
+                          betslip.activeTicket === idx && style.active,
+                        )
+                      }
                     >
-                      {t('ticket')} #{el.id}
-                    </button>
-                    <GameButton
-                      classes={style.button}
-                      onChange={() => handleDeleteTicket()}
-                      icon={'fa-solid fa-xmark'}
-                    />
-                  </div>
-                ))}
+                      <button
+                        className={style.preview}
+                        onClick={() => handleLoadTicket(idx)}
+                      >
+                        {t('ticket')} #{el.id}
+                      </button>
+                      <Button
+                        classes={['game', style.button]}
+                        onChange={() => handleDeleteTicket()}
+                        icon={'fa-solid fa-xmark'}
+                      />
+                    </div>
+                  ))
+                }
               </div>
             )}
         </div>

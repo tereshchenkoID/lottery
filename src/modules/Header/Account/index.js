@@ -1,7 +1,8 @@
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useWindowWidth } from 'context/WindowWidthContext'
 
-import { NAVIGATION } from 'constant/config'
+import { NAVIGATION, BREAKPOINTS } from 'constant/config'
 
 import style from './index.module.scss'
 
@@ -12,6 +13,10 @@ import Currency from './Currency'
 const Account = () => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
+  const { windowWidth } = useWindowWidth()
+
+  if (windowWidth <= BREAKPOINTS.lg)
+    return false
 
   return (
     <div className={style.block}>

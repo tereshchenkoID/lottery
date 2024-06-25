@@ -8,7 +8,6 @@ import classNames from 'classnames'
 import { setBetslip } from 'store/actions/betslipAction'
 import { getData } from 'helpers/api'
 
-import GameButton from 'modules/GameButton'
 import Button from 'components/Button'
 import Loader from 'components/Loader'
 
@@ -132,7 +131,10 @@ const BINGO = ({ auth, betslip, game, setGame }) => {
                 {tickets[el].map((el_c, idx_c) => (
                   <div key={idx_c} className={style.cell}>
                     {el_c !== 0 && (
-                      <GameButton classes={style.button} placeholder={el_c} />
+                      <Button 
+                        classes={['game', 'wide', style.button]} 
+                        placeholder={el_c} 
+                      />
                     )}
                   </div>
                 ))}
@@ -144,7 +146,7 @@ const BINGO = ({ auth, betslip, game, setGame }) => {
       <div className={style.container}>
         <Button
           placeholder={t('load_more')}
-          styles={{ width: '100%' }}
+          classes={['primary', 'wide']}
           onChange={() => handleLoad()}
           isDisabled={betslip.tickets?.length >= 10}
         />

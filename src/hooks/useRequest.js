@@ -8,6 +8,14 @@ export const useRequest = (link, data, headers) => {
     withCredentials: true,
   })
 
+  const handleSessionExpiry = (response) => {
+    if (response && response.data && response.data.code === "2") {
+      sessionStorage.clear()
+      
+      window.location.href = '/';
+    }
+  };
+
   const get = async url => {
     try {
       const req = await server({
@@ -15,6 +23,7 @@ export const useRequest = (link, data, headers) => {
         url,
         headers,
       })
+      handleSessionExpiry(req)
       return await req.data
     } catch (e) {
       return e.response
@@ -29,6 +38,7 @@ export const useRequest = (link, data, headers) => {
         data,
         headers,
       })
+      handleSessionExpiry(req)
       return await req.data
     } catch (e) {
       return e.response

@@ -70,7 +70,6 @@ const GeneralOverview = () => {
         <Button
           type={'submit'}
           placeholder={t('search')}
-          classes={style.search}
         />
       </form>
 

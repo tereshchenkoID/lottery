@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+
+import { NAVIGATION } from 'constant/config'
 
 import { setAuth } from 'store/actions/authAction'
 import { setToastify } from 'store/actions/toastifyAction'
@@ -11,6 +13,7 @@ import Container from 'components/Container'
 import Field from 'components/Field'
 import Button from 'components/Button'
 import Password from 'components/Password'
+import Title from 'components/Title'
 
 import style from './index.module.scss'
 
@@ -53,8 +56,17 @@ const Login = () => {
     })
   }
 
+  const isFormValid = () => {
+    const { ...requiredFields } = filter
+
+    return (
+      Object.values(requiredFields).every(field => field.trim() !== '')
+    )
+  }
+
   return (
     <Container classes={style.block}>
+      <Title text={t(NAVIGATION.login.text)} />
       <form onSubmit={handleSubmit} className={style.form}>
         <Field
           type={'text'}
@@ -69,7 +81,30 @@ const Login = () => {
           onChange={value => handlePropsChange('password', value)}
           isRequired={true}
         />
-        <Button type={'submit'} placeholder={t('login')} />
+        <p className={style.links}>
+          <Link
+            to={NAVIGATION.registration.link}
+            rel="noreferrer"
+            className={style.link}
+          >
+            {t(NAVIGATION.registration.text)}
+          </Link>
+          <span>|</span>
+          <Link
+            to={NAVIGATION.password_recovery.link}
+            rel="noreferrer"
+            className={style.link}
+          >
+            {t(NAVIGATION.password_recovery.text)}
+          </Link>
+        </p>
+        {
+          isFormValid() &&
+          <Button 
+            type={'submit'} 
+            placeholder={t('login')} 
+          />
+        }
       </form>
     </Container>
   )

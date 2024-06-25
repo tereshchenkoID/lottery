@@ -3,8 +3,10 @@
 .block {
   @include make-spacer(mb, 20px);
 
-  @include media-breakpoint-up(lg) {
-    @include make-spacer(pr, 140px);
+  &.alt {
+    @include media-breakpoint-up(lg) {
+      @include make-spacer(pr, 140px);
+    }
   }
 }
 

@@ -1,8 +1,13 @@
-import GameButton from 'modules/GameButton'
+import Button from 'components/Button'
 
 import style from './index.module.scss'
 
-const GameControl = ({ data, index, onChange }) => {
+const Control = ({ 
+  type = 'alt',
+  data, 
+  index, 
+  onChange 
+}) => {
   const handleInputChange = value => {
     const newValue = parseInt(value, 10)
     if (!isNaN(newValue)) {
@@ -12,8 +17,9 @@ const GameControl = ({ data, index, onChange }) => {
 
   return (
     <div className={style.block}>
-      <GameButton
+      <Button
         placeholder={'-'}
+        classes={[type, 'tiny', style.button]}
         isDisabled={data.value === data.min}
         onChange={() => onChange(index, Math.max(data.min, data.value - 1))}
       />
@@ -25,8 +31,9 @@ const GameControl = ({ data, index, onChange }) => {
         max={data.max}
         onChange={e => handleInputChange(e.currentTarget.value)}
       />
-      <GameButton
+      <Button
         placeholder={'+'}
+        classes={[type, 'tiny', style.button]}
         isDisabled={data.value === data.max}
         onChange={() => onChange(index, Math.min(data.max, data.value + 1))}
       />
@@ -34,4 +41,4 @@ const GameControl = ({ data, index, onChange }) => {
   )
 }
 
-export default GameControl
+export default Control

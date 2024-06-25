@@ -2,14 +2,12 @@
 
 .block {
   @include make-spacer(pb, 20px);
-  @include make-spacer(mb, 20px);
 
   border-bottom: rem(1px) solid var(--game_background_color);
   min-height: rem(40px);
 
   @include media-breakpoint-up(lg) {
     @include make-spacer(pb, 0);
-    @include make-spacer(mb, 0);
   }
 }
 

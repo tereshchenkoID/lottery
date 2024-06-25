@@ -18,12 +18,11 @@ const Tab = ({ data }) => {
           return (
             <Reference
               key={idx}
-              view='alt'
+              classes={['alt', style.link]}
               link={el.link} 
               icon={el.icon}
               isActive={page === el.link}
               placeholder={t(el.text)}
-              classes={style.link}
             />
           );
         })

@@ -1,0 +1,160 @@
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useDispatch } from 'react-redux'
+import { useNavigate, Link } from 'react-router-dom'
+
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
+import { NAVIGATION } from 'constant/config'
+
+import { setAuth } from 'store/actions/authAction'
+import { setToastify } from 'store/actions/toastifyAction'
+import { postData } from 'helpers/api'
+import { getDate } from 'helpers/getDate'
+
+import Container from 'components/Container'
+import Field from 'components/Field'
+import Button from 'components/Button'
+import Password from 'components/Password'
+import Title from 'components/Title'
+
+import style from './index.module.scss'
+
+const Registration = () => {
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [filter, setFilter] = useState({
+    username: '',
+    email: '',
+    date: '',
+    phone: '',
+    password: '',
+    password_repeat: '',
+  })
+
+  const handlePropsChange = (fieldName, fieldValue) => {
+    setFilter(prevData => ({
+      ...prevData,
+      [fieldName]: fieldValue,
+    }))
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+
+    const formData = new FormData()
+    formData.append('username', filter.username)
+    formData.append('email', filter.email)
+    formData.append('date', filter.date)
+    formData.append('phone', filter.phone)
+    formData.append('password', filter.password)
+
+    postData('register/', formData).then(json => {
+      console.log(json)
+      if (json.id) {
+        dispatch(setAuth(json)).then(() => {
+          navigate('/')
+        })
+      } else {
+        dispatch(
+          setToastify({
+            type: 'error',
+            text: json.error_message,
+          }),
+        )
+      }
+    })
+  }
+
+  const isFormValid = () => {
+    const { email, password, password_repeat, ...requiredFields } = filter
+    const isEmailValid = email.trim() !== '' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+    const isPasswordValid = password.trim() !== '' && password.length >= 6 && password === password_repeat
+
+    return (
+      Object.values(requiredFields).every(field => field.trim() !== '') && isPasswordValid && isEmailValid
+    )
+  }
+
+  return (
+    <Container classes={style.block}>
+      <Title text={t(NAVIGATION.registration.text)} />
+      <form onSubmit={handleSubmit} className={style.form}>
+        <Field
+          type={'text'}
+          placeholder={t('username')}
+          data={filter.username}
+          onChange={value => handlePropsChange('username', value)}
+          isRequired={true}
+        />
+        <PhoneInput
+          inputProps={{
+            name: 'phone',
+            required: true,
+          }}
+          country={'us'}
+          value={filter.phone}
+          onChange={value => handlePropsChange('phone', value)}
+        />
+        <Field
+          type={'date'}
+          placeholder={t('birth_day')}
+          data={filter.date}
+          onChange={value => handlePropsChange('date', value)}
+          isRequired={true}
+          max={getDate(new Date(), 3)}
+        />
+        <Field
+          type={'email'}
+          placeholder={t('email')}
+          data={filter.email}
+          onChange={value => handlePropsChange('email', value)}
+          isRequired={true}
+        />
+        <div>
+          <Password
+            placeholder={t('password')}
+            data={filter.password}
+            onChange={value => handlePropsChange('password', value)}
+            isRequired={true}
+          />
+          <p className={style.label}>{t('validation.password_length')}</p>
+        </div>
+        <Password
+          placeholder={t('password_repeat')}
+          data={filter.password_repeat}
+          onChange={value => handlePropsChange('password_repeat', value)}
+          isRequired={true}
+        />
+        <p className={style.links}>
+          <Link
+            to={NAVIGATION.login.link}
+            rel="noreferrer"
+            className={style.link}
+          >
+            {t('login')}
+          </Link>
+          <span>|</span>
+          <Link
+            to={NAVIGATION.password_recovery.link}
+            rel="noreferrer"
+            className={style.link}
+          >
+            {t(NAVIGATION.password_recovery.text)}
+          </Link>
+        </p>
+        {
+          isFormValid() &&
+          <Button 
+            type={'submit'} 
+            placeholder={t(NAVIGATION.registration.text)} 
+          />
+        }
+      </form>
+    </Container>
+  )
+}
+
+export default Registration

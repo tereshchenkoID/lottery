@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from 'context/AuthContext'
 
 import { NAVIGATION, USER_TYPE } from 'constant/config'
 
@@ -23,6 +24,7 @@ const Settings = () => {
   const dispatch = useDispatch()
   const { settings } = useSelector(state => state.settings)
   const { auth } = useSelector(state => state.auth)
+  const { isCashbox } = useAuth()
   const [active, setActive] = useState(false)
   const [modalContentType, setModalContentType] = useState(null)
   const isAuth = auth.id
@@ -79,9 +81,7 @@ const Settings = () => {
         <div className={style.row}>
           <p>{t('language')}:</p>
           <Button
-            view={'alt'}
-            type={'button'}
-            classes={style.button}
+            classes={['alt', 'wide', 'tiny']}
             onChange={() => {
               setModalContentType('Language')
               setActive(true)
@@ -93,13 +93,11 @@ const Settings = () => {
           isAuth &&
           <>
             {
-              auth.userType !== USER_TYPE.cashbox &&
+              !isCashbox &&
               <div className={style.row}>
                 <p>{t('currency')}:</p>
                 <Button
-                  view={'alt'}
-                  type={'button'}
-                  classes={style.button}
+                  classes={['alt', 'wide', 'tiny']}
                   onChange={() => {
                     setModalContentType('Currency')
                     setActive(true)
@@ -111,9 +109,7 @@ const Settings = () => {
             <div className={style.row}>
               <p>{t('timezone')}:</p>
               <Button
-                view={'alt'}
-                type={'button'}
-                classes={style.button}
+                classes={['alt', 'wide', 'tiny']}
                 onChange={() => {
                   setModalContentType('Timezone')
                   setActive(true)

@@ -1,0 +1,15 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(mr, auto);
+
+  max-width: rem(120px);
+  flex-shrink: 0;
+  order: 1;
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(mr, 0);
+
+    order: 0
+  }
+}

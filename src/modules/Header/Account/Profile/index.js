@@ -4,9 +4,9 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useOutsideClick } from 'hooks/useOutsideClick'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useAuth } from 'context/AuthContext'
 
 import { 
-  USER_TYPE, 
   ROUTES_USER, 
   ROUTES_CASHBOX, 
   NAVIGATION 
@@ -24,10 +24,10 @@ const Profile = () => {
   const { auth } = useSelector(state => state.auth)
   const { games } = useSelector(state => state.games)
   const { pathname } = useLocation()
+  const { isCashbox } = useAuth()
   const [active, setActive] = useState(false)
   const blockRef = useRef(null)
   const buttonRef = useRef(null)
-  const isCashbox = auth?.userType === USER_TYPE.cashbox
 
   useOutsideClick(
     blockRef,

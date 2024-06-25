@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
+
+import Field from 'components/Field'
 
 import style from './index.module.scss'
 
@@ -10,46 +12,34 @@ const Password = ({
   data,
   onChange,
   classes = null,
-  password = false,
   isRequired = false,
+  isDisabled = false,
 }) => {
-  const [show, setShow] = useState(password)
-  const inputRef = useRef(null)
-
-  const onFocus = () => {
-    inputRef.current.focus()
-  }
-
-  useEffect(() => {
-    setShow(password)
-  }, [password])
+  const [show, setShow] = useState(false)
 
   return (
     <div
-      className={classNames(
-        style.block,
-        classes && classes.map(el => style[el]),
-      )}
+      className={
+        classNames(
+          style.block,
+          isDisabled && style.disabled,
+        )
+      }
     >
-      <input
-        ref={inputRef}
-        className={style.input}
+      <Field
         type={show ? 'text' : 'password'}
-        value={data}
-        onChange={e => {
-          onChange(e.currentTarget.value)
-        }}
-        required={isRequired}
+        placeholder={placeholder}
+        data={data}
+        classes={classes}
+        onChange={onChange}
+        isRequired={isRequired}
+        isDisabled={isDisabled}
       />
-      <label className={style.label} onClick={onFocus}>
-        {placeholder}
-        {isRequired && <span>*</span>}
-      </label>
-
       <button
-        onClick={() => setShow(!show)}
-        className={style.eye}
         type={'button'}
+        className={style.eye}
+        onClick={() => setShow(!show)}
+        aria-label={'Show password'}
       >
         <FontAwesomeIcon icon={`fa-solid ${show ? 'fa-eye' : 'fa-eye-slash'}`} />
       </button>

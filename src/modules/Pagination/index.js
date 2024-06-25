@@ -3,6 +3,7 @@ import Button from 'components/Button'
 import style from './index.module.scss'
 
 const Pagination = ({
+  type = 'alt',
   pagination,
   handlePrev,
   handleNext,
@@ -10,16 +11,14 @@ const Pagination = ({
   return (
     <div className={style.block}>
       <Button
-        view='alt'
-        classes={style.button}
+        classes={[type, style.button]}
         onChange={handlePrev}
         icon={'fa-solid fa-angle-left'}
         isDisabled={pagination.page === 1}
       />
       <p className={style.count}>{pagination.page}</p>
       <Button
-        view='alt'
-        classes={style.button}
+        classes={[type, style.button]}
         onChange={handleNext}
         icon={'fa-solid fa-angle-right'}
         isDisabled={pagination.page === pagination.pages}

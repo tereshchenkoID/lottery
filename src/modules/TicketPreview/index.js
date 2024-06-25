@@ -52,7 +52,7 @@ const TicketPreview = ({ data, active, setActive }) => {
             <div className={style.header}>
               <h6>{t('ticket')} #{data.id}</h6>
               <Button
-                classes={style.button}
+                classes={['primary', style.button]}
                 onChange={() => setActive(null)}
                 icon={'fa-solid fa-xmark'}
               />

@@ -9,10 +9,10 @@ import { postData } from 'helpers/api'
 import { getDateXDaysFrom } from 'helpers/getDateXDaysFrom'
 
 import Loader from 'components/Loader'
-import GamePagination from 'modules/GamePagination'
-import GameField from 'modules/GameField'
-import GameButton from 'modules/GameButton'
-import GameCheckbox from 'modules/GameCheckbox'
+import Checkbox from 'components/Checkbox'
+import Button from 'components/Button'
+import Field from 'components/Field'
+import Pagination from 'modules/Pagination'
 import Row from './Row'
 
 import style from './index.module.scss'
@@ -142,12 +142,12 @@ const Archive = ({ game }) => {
     <div className={style.block}>
       <div className={style.tab}>
         {TABS.map((el, idx) => (
-          <GameButton
+          <Button
             key={idx}
             placeholder={t(el.text)}
             isActive={active === el.value}
             onChange={() => setActive(idx)}
-            classes={style.button}
+            classes={['game', style.button]}
           />
         ))}
       </div>
@@ -155,15 +155,17 @@ const Archive = ({ game }) => {
         <form className={style.form} onSubmit={handleSubmit}>
           {active === 0 ? (
             <>
-              <GameField
+              <Field
                 type={'date'}
+                classes={['game']}
                 placeholder={t('date_from')}
                 data={filter.dateFrom}
                 onChange={value => handlePropsChange('dateFrom', value)}
                 max={initialValues[1]}
               />
-              <GameField
+              <Field
                 type={'date'}
+                classes={['game']}
                 placeholder={t('date_to')}
                 data={filter.dateTo}
                 onChange={value => handlePropsChange('dateTo', value)}
@@ -172,15 +174,17 @@ const Archive = ({ game }) => {
             </>
           ) : (
             <>
-              <GameField
+              <Field
                 type={'number'}
+                classes={['game']}
                 placeholder={t('draws_from')}
                 data={filter.numberFrom}
                 onChange={value => handlePropsChange('numberFrom', value)}
                 min={0}
               />
-              <GameField
+              <Field
                 type={'number'}
+                classes={['game']}
                 placeholder={t('draws_to')}
                 data={filter.numberTo}
                 onChange={value => handlePropsChange('numberTo', value)}
@@ -189,16 +193,17 @@ const Archive = ({ game }) => {
             </>
           )}
           <div>
-            <GameCheckbox
+            <Checkbox
+              classes={['game']}
               data={filter.isPrize}
               placeholder={t('jackpot_won')}
               onChange={value => handleCheckboxChange(value)}
             />
           </div>
-          <GameButton
+          <Button
             type={'submit'}
             placeholder={t('search')}
-            classes={style.search}
+            classes={['game', style.button]}
           />
         </form>
       </div>
@@ -233,7 +238,8 @@ const Archive = ({ game }) => {
                 {data?.length > 0 ? (
                   <>
                     {data.map((el, idx) => <Row data={el} key={idx} />)}
-                    <GamePagination
+                    <Pagination
+                      type={'game'}
                       pagination={pagination}
                       handlePrev={() => handlePrev()}
                       handleNext={() => handleNext()}

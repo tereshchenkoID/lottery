@@ -122,14 +122,14 @@
   &::-webkit-scrollbar {
     display: none;
   }
-}
 
-.button {
-  @include size(fit-content, 100%);
-  @include make-spacer(pl, 10px);
-  @include make-spacer(pr, 20px);
-
-  gap: rem(10px);
+  .button {
+    @include size(fit-content, 100%);
+    @include make-spacer(pl, 10px);
+    @include make-spacer(pr, 20px);
+  
+    gap: rem(10px);
+  }
 }
 
 .toggle {

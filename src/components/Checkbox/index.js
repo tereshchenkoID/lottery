@@ -2,9 +2,23 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const GameCheckbox = ({ data, placeholder, onChange }) => {
+const Checkbox = ({ 
+  data, 
+  placeholder, 
+  classes = null,
+  isDisabled = false,
+  onChange,
+}) => {
   return (
-    <label className={classNames(style.block)}>
+    <label 
+      className={
+        classNames(
+          style.block,
+          isDisabled && style.disabled,
+          classes && classes.map(el => style[el]),
+        )
+      }
+    >
       <input
         type={'checkbox'}
         className={style.input}
@@ -19,4 +33,4 @@ const GameCheckbox = ({ data, placeholder, onChange }) => {
   )
 }
 
-export default GameCheckbox
+export default Checkbox

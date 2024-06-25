@@ -9,10 +9,16 @@
   background-color: var(--game_background_color);
   border-radius: rem(20px);
   gap: rem(4px);
+
+  .button {
+    @include make-spacer(px, 20px);
+
+    width: fit-content;
+  }
 }
 
 .container {
-  @include make-spacer(p, 4px);
+  @include make-spacer(p, 8px);
 
   position: relative;
   overflow: hidden;
@@ -26,6 +32,8 @@
   }
 
   &.lg {
+    @include make-spacer(p, 4px);
+
     min-height: rem(150px);
   }
 }
@@ -42,15 +50,10 @@
   &::-webkit-scrollbar {
     display: none;
   }
-}
 
-.button {
-  @include size(fit-content, 100%);
-  @include make-spacer(px, 20px);
-}
-
-.search {
-  @include size(fit-content, rem(48px));
+  .button {
+    height: 100%;
+  }
 }
 
 .form {
@@ -79,11 +82,12 @@
 
 .table {
   @include make-spacer(pt, 8px);
+  
+  display: grid;
+  row-gap: rem(20px);
 }
 
 .row {
-  @include make-spacer(mb, 20px);
-
   display: none;
   border-bottom: rem(1px) solid var(--game_background_color);
   height: rem(50px);
@@ -92,8 +96,6 @@
   letter-spacing: rem(1px);
 
   @include media-breakpoint-up(lg) {
-    @include make-spacer(mb, 0);
-
     display: grid;
     grid-template-columns: 1fr 1fr 2fr 1fr;
   }

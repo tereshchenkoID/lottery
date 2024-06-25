@@ -6,32 +6,29 @@ import style from './index.module.scss'
 
 const Button = ({
   type = 'button',
-  view = 'primary',
   placeholder,
-  classes,
-  onChange,
-  styles = null,
+  onChange = () => {},
+  classes = ['primary'],
   icon = false,
   isDisabled = false,
   isActive = false
 }) => {
+
   return (
     <button
       type={type}
       className={
         classNames(
           style.block,
-          style[view],
           isActive && style.active,
-          classes
+          classes && classes.map(el => style[el] || el),
         )
       }
       disabled={isDisabled}
       onClick={onChange}
-      style={styles}
       aria-label={placeholder || 'Button'}
     >
-      {icon && <FontAwesomeIcon icon={icon} />}
+      {icon && <FontAwesomeIcon icon={icon} className={style.icon} />}
       {placeholder}
     </button>
   )

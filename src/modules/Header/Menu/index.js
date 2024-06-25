@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useOutsideClick } from 'hooks/useOutsideClick'
+import { useAuth } from 'context/AuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { NAVIGATION, ROUTES_CASHBOX, ROUTES_USER, USER_TYPE } from 'constant/config'
@@ -17,6 +18,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
   const { t } = useTranslation()
   const { pathname } = useLocation()
   const { auth } = useSelector(state => state.auth)
+  const { isCashbox } = useAuth()
   const isLogin = auth.id
 
   const blockRef = useRef(null)
@@ -55,7 +57,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
         NAVIGATION.contacts,
         NAVIGATION.faq,
         NAVIGATION.support,
-        // !isLogin && NAVIGATION.login,
+        !isLogin && NAVIGATION.login,
       ],
     },
   ]
@@ -64,7 +66,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
     {
       submenu: [
         NAVIGATION.all_games,
-        ...Object.values(auth?.userType === USER_TYPE.user ? ROUTES_USER : ROUTES_CASHBOX).map(route => ({
+        ...Object.values(isCashbox ? ROUTES_CASHBOX : ROUTES_USER).map(route => ({
           link: route.link,
           icon: route.icon,
           text: route.text
@@ -109,12 +111,24 @@ const Menu = ({ setShow, show, buttonRef }) => {
                       />
                     }
                     {
-                      s_el.text.indexOf('main') !== -1 ? auth.username : t(s_el.text)
+                      s_el.text.indexOf('main') !== -1 
+                      ? 
+                        <>
+                          { auth.username }
+                          {
+                            isCashbox &&
+                            <span className={style.value}>
+                              <strong>{auth.account.balance}</strong> {auth.account.currency.symbol}
+                            </span>
+                          }
+                        </>
+                      : 
+                        t(s_el.text)
                     }
                     {
                       s_el.text.indexOf('wallet') !== -1 &&
                       <span className={style.value}>
-                        {auth.account.balance} <strong>{auth.account.currency.symbol}</strong>
+                        <strong>{auth.account.balance}</strong> {auth.account.currency.symbol}
                       </span>
                     }
                     {
@@ -162,7 +176,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
         {
           isLogin && (
             <div className={classNames(style.column, style.alt)}>
-              <Logout onChange={() => setShow(false)} classes={style.logout} />
+              <Logout onChange={() => setShow(false)} classes={[style.logout]} />
             </div>
           )}
       </menu>

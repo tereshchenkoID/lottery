@@ -88,6 +88,10 @@ hr {
   min-width: var(--min-width);
   max-width: var(--max-width);
   min-height: 100dvh;
+
+  @include media-breakpoint-up(xl) {
+    @include make-spacer(pl, rem(78px));
+  }
 }
 
 .content {

@@ -2,7 +2,8 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import Button from 'components/Button'
 
 import classNames from 'classnames'
 
@@ -16,16 +17,11 @@ const Games = () => {
 
   return (
     <div className={classNames(style.block, active && style.active)}>
-      <button
-        className={style.toggle}
-        aria-label="Toggle"
-        onClick={() => setActive(!active)}
-      >
-        <FontAwesomeIcon
-          icon="fa-solid fa-angles-right"
-          className={style.icon}
-        />
-      </button>
+      <Button
+        classes={['alt', style.toggle]}
+        onChange={() => setActive(!active)}
+        icon={'fa-solid fa-angles-right'}
+      />
       {games?.map((el, idx) => (
         <Link
           key={idx}

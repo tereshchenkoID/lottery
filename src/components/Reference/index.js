@@ -7,14 +7,13 @@ import classNames from 'classnames'
 import style from './index.module.scss'
 
 const Reference = ({
-  view = 'primary',
-  placeholder,
   link,
-  classes,
-  icon = false,
-  styles = null,
-  isActive = false,
+  placeholder,
+  classes = ['primary'],
   onChange = () => {},
+  icon = false,
+  isActive = false,
+  isDisabled = false,
 }) => {
   return (
     <Link
@@ -23,12 +22,11 @@ const Reference = ({
       className={
         classNames(
           style.block, 
-          style[view], 
           isActive && style.active,
-          classes
+          classes && classes.map(el => style[el] || el),
         )
       }
-      style={styles}
+      disabled={isDisabled}
       onClick={onChange}
     >
       {icon && <FontAwesomeIcon icon={icon} />}

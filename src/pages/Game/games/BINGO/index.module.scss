@@ -150,6 +150,9 @@
 
 .button {
   pointer-events: none;
-  border-radius: rem(8px);
   height: rem(30px);
+
+  @include media-breakpoint-up(lg) {
+    height: rem(40px);
+  }
 }

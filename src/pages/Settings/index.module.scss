@@ -7,16 +7,7 @@
 
 .row {
   display: grid;
-  grid-template-columns: minmax(rem(100px), rem(200px)) 1fr;
+  grid-template-columns: minmax(rem(100px), rem(200px)) rem(150px);
   align-items: center;
   gap: rem(8px);
-
-  &.disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-}
-
-.button {
-  @include size(rem(150px), rem(40px));
 }

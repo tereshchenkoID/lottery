@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
 
@@ -11,6 +12,9 @@ const Field = ({
   onChange,
   classes = null,
   isRequired = false,
+  isDisabled = false,
+  min = null,
+  max = null,
 }) => {
   const inputRef = useRef(null)
 
@@ -20,10 +24,13 @@ const Field = ({
 
   return (
     <div
-      className={classNames(
-        style.block,
-        classes && classes.map(el => style[el]),
-      )}
+      className={
+        classNames(
+          style.block,
+          isDisabled && style.disabled,
+          classes && classes.map(el => style[el]),
+        )
+      }
     >
       <input
         ref={inputRef}
@@ -34,7 +41,17 @@ const Field = ({
           onChange(e.currentTarget.value)
         }}
         required={isRequired}
+        min={min}
+        max={max}
       />
+      {(type === 'datetime-local' || type === 'date') && (
+        <button 
+          type={'button'}
+          className={style.icon}
+        >
+          <FontAwesomeIcon icon="fa-solid fa-calendar-days" />
+        </button>
+      )}
       <label className={style.label} onClick={onFocus}>
         {placeholder}
         {isRequired && <span>*</span>}

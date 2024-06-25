@@ -97,6 +97,7 @@ const Tickets = () => {
 
   useEffect(() => {
     handleLoad(0)
+    setActive(null)
   }, [filter])
 
   return (

@@ -4,6 +4,8 @@
     "home": "Home",
     "all_games": "All games",
     "login": "Login / Registration",
+    "registration": "Registration",
+    "password_recovery": "Password recovery",
     "check_ticket": "Check ticket",
     "settings": "Settings",
     "translation": "Translation",
@@ -78,6 +80,13 @@
   "last_hour": "Last Hours",
   "username": "Username",
   "password": "Password",
+  "password_repeat": "Password repeat",
+  "email": "Email",
+  "phone": "Phone",
+  "birth_day": "Date of Birth",
+  "validation": {
+    "password_length": "Make sure the password is at least 6 characters long."
+  },
   "login": "Login",
   "logout": "Logout",
   "registration": "Registration",

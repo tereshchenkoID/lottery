@@ -19,9 +19,9 @@ const BINGO = ({ data }) => {
     setNumbers(prevNumbers =>
       prevNumbers.map((_, idx) => ({
         number: data.numbers[idx],
-        checked: data.results.includes(data.numbers[idx])
+        checked: data.status >= 3 ? data.results.includes(data.numbers[idx]) : true
       }))
-    );
+    )
   }, [data.numbers])
 
   return (

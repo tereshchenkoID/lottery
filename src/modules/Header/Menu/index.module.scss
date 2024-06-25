@@ -41,6 +41,7 @@
   @include media-breakpoint-up(lg) {
     position: absolute;
     top: 100%;
+    left: 0;
     height: auto;
     background-color: transparent;
   }
@@ -76,7 +77,6 @@
   display: block;
 
   &.active {
-    pointer-events: none;
 
     .text {
       background-color: var(--grey-alpha-100);
@@ -157,8 +157,4 @@
     gap: rem(8px);
     border-bottom: 0;
   }
-}
-
-.logout {
-  width: 100%;
 }

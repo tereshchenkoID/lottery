@@ -7,7 +7,7 @@ import { getData } from 'helpers/api'
 
 import Button from 'components/Button'
 
-const Logout = ({ onChange = () => {}, classes }) => {
+const Logout = ({ onChange = () => {} }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ const Logout = ({ onChange = () => {}, classes }) => {
     <Button
       placeholder={t('logout')}
       onChange={handleLogout}
-      classes={classes}
+      classes={['primary', 'wide']}
     />
   )
 }

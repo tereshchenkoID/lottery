@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { useImageLoader } from 'hooks/useImageLoader';
+import { useImageLoader } from 'hooks/useImageLoader'
 import { getDifferent } from 'helpers/getDifferent'
+import { convertFixed } from 'helpers/convertFixed'
 import { getValueFormatted } from 'helpers/getValueFormatted'
 
 import Skeleton from 'components/Skeleton'
@@ -15,7 +16,7 @@ const Card = ({ data }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
   const loading = useImageLoader(data.image)
-
+  
   return (
     <Link 
       to={`/game/${data.id}`} 
@@ -63,7 +64,7 @@ const Card = ({ data }) => {
               <div className={style.action}>
                 <span>{t('play')}</span>
                 <span className={style.price}>
-                  {data.betCost} {auth.account.currency.symbol}
+                  {convertFixed(data.betCost, 0)} {auth.account.currency.symbol}
                 </span>
               </div>
             </div>

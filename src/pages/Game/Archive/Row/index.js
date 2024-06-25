@@ -5,7 +5,7 @@ import { Fragment, useState } from 'react'
 import { getDate } from 'helpers/getDate'
 import { getValueFormatted } from 'helpers/getValueFormatted'
 
-import GameButton from 'modules/GameButton'
+import Button from 'components/Button'
 
 import style from './index.module.scss'
 
@@ -41,10 +41,10 @@ const Row = ({ data }) => {
             )}
             <div className={style.numbers}>
               {data.results.numbers.map((el_n, idx_n) => (
-                <GameButton
+                <Button
                   key={idx_n}
                   placeholder={el_n}
-                  classes={style.number}
+                  classes={['game', style.number]}
                 />
               ))}
             </div>
