@@ -4,8 +4,8 @@
   @include make-spacer(pt, 14px);
   @include make-spacer(px, 10px);
   @include make-spacer(pb, 22px);
+  @include flex($direction: column);
 
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,10 +15,6 @@
   background-color: var(--color-background);
   white-space: nowrap;
   box-shadow: var(--default-box-shadow);
-
-  @include media-breakpoint-up(xl) {
-    @include flex($direction: column);
-  }
 
   &.active {
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { NAVIGATION } from 'constant/config'
 
@@ -29,7 +30,7 @@ const Profile = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState(1)
   const [filter, setFilter] = useState()
   const [countries, setCountries] = useState([])
   const [uploadedPhotos, setUploadedPhotos] = useState([])
@@ -175,9 +176,19 @@ const Profile = () => {
                       onChange={value => handlePropsChange('profile.email', value)}
                       isRequired={true}
                     />
-                    <Button
-                      placeholder={t('verify.verify')}
-                    />
+                    {
+                      filter.profile.isVerifyEmail <= 2
+                      ?
+                        <Button
+                          placeholder={filter.profile.isVerifyEmail === 0 ? t('verify.verify') : t('pending')}
+                          isDisabled={filter.profile.isVerifyEmail === 1}
+                        />
+                      :
+                        <div className={style.verify}>
+                          <FontAwesomeIcon icon="fa-solid fa-check" />
+                          {t('verify.verify')}
+                        </div>
+                    }
                   </div>
                   <Button
                     type={'submit'}
@@ -198,6 +209,7 @@ const Profile = () => {
                       label: item.name,
                     }))}
                     data={filter.identify.country}
+                    isRequired={true}
                     onChange={value => handlePropsChange('identify.country', value)}
                   />
                   <Field

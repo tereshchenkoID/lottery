@@ -33,7 +33,15 @@
 }
 
 .row {
-    display: grid;
-    grid-template-columns: 1fr auto;
+    @include flex($align-items: center);
+
     column-gap: rem(8px);
+}
+
+.verify {
+    @include flex($align-items: center);
+
+    column-gap: rem(8px);
+    color: var(--color-secondary);
+    flex-shrink: 0;
 }

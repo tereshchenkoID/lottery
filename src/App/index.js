@@ -32,6 +32,7 @@ import style from './index.module.scss'
 const App = () => {
   const { auth } = useSelector(state => state.auth)
   const [loading, setLoading] = useState(true)
+  const [configLoaded, setConfigLoaded] = useState(false)
   const routes = generateRoutes(auth)
   const dispatch = useDispatch()
 
@@ -40,22 +41,25 @@ const App = () => {
       .then(response => response.json())
       .then(config => {
         localStorage.setItem('config', JSON.stringify(config.hostnames))
+        setConfigLoaded(true)
       })
   }, [])
 
   useEffect(() => {
-    Promise.all([
-      dispatch(setAuth()),
-      dispatch(setSettings()),
-      dispatch(setGames()),
-    ]).then(json => {
-      const storedLanguage = JSON.parse(localStorage.getItem('language'))?.code
-      const defaultLanguage = json[0]?.account?.language?.code
+    if (configLoaded) {
+      Promise.all([
+        dispatch(setAuth()),
+        dispatch(setSettings()),
+        dispatch(setGames()),
+      ]).then(json => {
+        const storedLanguage = JSON.parse(localStorage.getItem('language'))?.code
+        const defaultLanguage = json[0]?.account?.language?.code
 
-      i18n.changeLanguage(storedLanguage || defaultLanguage)
-      setLoading(false)
-    })
-  }, [dispatch])
+        i18n.changeLanguage(storedLanguage || defaultLanguage)
+        setLoading(false)
+      })
+    }
+  }, [configLoaded, dispatch])
 
   useEffect(() => {
     const intervalId = setInterval(() => {

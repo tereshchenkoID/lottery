@@ -1,11 +1,11 @@
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useRef, useState } from 'react'
 
-import { Select2 } from 'select2-react-component'
+import Select from 'react-select'
 
 import style from './index.module.scss'
 
-const Select = ({ 
+const CustomSelect = ({ 
   placeholder, 
   options, 
   data, 
@@ -15,40 +15,44 @@ const Select = ({
   const { t } = useTranslation()
   const [search, setSearch] = useState([...options])
   const selectRef = useRef()
+  const selectedOption = options.find(option => option.value === data)
 
-  const handleSelectChange = newValue => {
-    onChange(newValue)
+  const handleSelectChange = selectedOption => {
+    onChange(selectedOption?.value)
   }
 
-  const handleSearch = text => {
+  const handleSearch = inputValue => {
     setSearch(
       options.filter(
-        option => option.label.toLowerCase().indexOf(text.toLowerCase()) !== -1,
+        option => option.label.toLowerCase().includes(inputValue.toLowerCase())
       ),
     )
   }
 
   const onFocus = () => {
-    selectRef.current.focus()
+    if (selectRef.current) {
+      selectRef.current.focus()
+    }
   }
 
   useEffect(() => {
     if (data === '') {
-      selectRef.current.option = null
+      selectRef.current.clearValue()
     }
   }, [data])
 
   return (
     <div className={style.block}>
-      <Select2
+      <Select
         ref={selectRef}
         placeholder={t('select_values')}
-        data={search}
-        value={data}
-        update={handleSelectChange}
-        search={handleSearch}
-        customSearchEnabled={true}
-        keepSearchText={true}
+        options={search}
+        value={selectedOption}
+        onChange={handleSelectChange}
+        onInputChange={handleSearch}
+        className="react-select-container"
+        classNamePrefix="react-select"
+        isClearable
       />
       <label className={style.label} onClick={onFocus}>
         {placeholder}
@@ -58,4 +62,4 @@ const Select = ({
   )
 }
 
-export default Select
+export default CustomSelect

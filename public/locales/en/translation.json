@@ -97,6 +97,7 @@
     "rejected": "Verification rejected",
     "verified": "Verified"
   },
+  "pending": "Pending",
   "select_values": "Select values",
   "upload_file": "Upload file",
   "country": "Country",

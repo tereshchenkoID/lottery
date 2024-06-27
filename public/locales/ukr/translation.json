@@ -97,6 +97,7 @@
     "rejected": "Verification rejected UA",
     "verified": "Verified UA"
   },
+  "pending": "Pending UA",
   "select_values": "Select values UA",
   "upload_file": "Upload file UA",
   "country": "Country UA",

@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import classNames from 'classnames'
 
 import { getData } from 'helpers/api'
-import { getDate } from 'helpers/getDate'
+import { getDifferent } from 'helpers/getDifferent'
 import { deepClone } from 'helpers/deepClone'
 import { getValueFormatted } from 'helpers/getValueFormatted'
 import { setBetslip } from 'store/actions/betslipAction'
@@ -180,7 +180,7 @@ const Game = () => {
                       icon="fa-solid fa-clock"
                       className={style.icon}
                     />
-                    <span>{getDate(game?.time, 1)}</span>
+                    <span>{getDifferent(game?.time, t, auth?.account?.timezone?.code)}</span>
                   </div>
                 </div>
               </div>
