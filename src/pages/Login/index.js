@@ -98,13 +98,11 @@ const Login = () => {
             {t(NAVIGATION.password_recovery.text)}
           </Link>
         </p>
-        {
-          isFormValid() &&
-          <Button 
-            type={'submit'} 
-            placeholder={t('login')} 
-          />
-        }
+        <Button
+          type={'submit'}
+          placeholder={t('login')}
+          isDisabled={!isFormValid()}
+        />
       </form>
     </Container>
   )

@@ -7,6 +7,7 @@ import { AppProviders } from 'context/AppProviders'
 import i18n from 'i18next'
 
 import 'rc-slider/assets/index.css'
+import 'react-phone-input-2/lib/style.css'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'

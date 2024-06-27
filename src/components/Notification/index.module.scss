@@ -1,0 +1,31 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(py, 4px);
+  @include make-spacer(px, 8px);
+  
+  position: relative;
+  border-radius: rem(8px);
+  border: rem(1px) solid currentColor;
+  font-size: rem(14px);
+
+  &::before {
+    @include absolute-filled;
+    
+    background-color: currentColor;
+    opacity: 0.1;
+    content: ''
+  }
+
+  &.error {
+    color: #be6464;
+  }
+
+  &.info {
+    color: #337ab7;
+  }
+
+  &.success {
+    color: #8dc572;
+  }
+}

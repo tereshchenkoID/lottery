@@ -3,9 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
-
 import { NAVIGATION } from 'constant/config'
 
 import { setAuth } from 'store/actions/authAction'
@@ -14,10 +11,12 @@ import { postData } from 'helpers/api'
 import { getDate } from 'helpers/getDate'
 
 import Container from 'components/Container'
+import Phone from 'components/Phone'
 import Field from 'components/Field'
 import Button from 'components/Button'
 import Password from 'components/Password'
 import Title from 'components/Title'
+import Notification from 'components/Notification'
 
 import style from './index.module.scss'
 
@@ -89,14 +88,10 @@ const Registration = () => {
           onChange={value => handlePropsChange('username', value)}
           isRequired={true}
         />
-        <PhoneInput
-          inputProps={{
-            name: 'phone',
-            required: true,
-          }}
-          country={'us'}
-          value={filter.phone}
+        <Phone 
+          data={filter.phone}
           onChange={value => handlePropsChange('phone', value)}
+          isRequired={true}
         />
         <Field
           type={'date'}
@@ -113,6 +108,13 @@ const Registration = () => {
           onChange={value => handlePropsChange('email', value)}
           isRequired={true}
         />
+        {
+          filter.password !== filter.password_repeat && 
+            <Notification 
+              text={t('validation.password_mismatch')}
+              type={'error'}
+            />
+        }
         <div>
           <Password
             placeholder={t('password')}
@@ -145,13 +147,11 @@ const Registration = () => {
             {t(NAVIGATION.password_recovery.text)}
           </Link>
         </p>
-        {
-          isFormValid() &&
-          <Button 
-            type={'submit'} 
-            placeholder={t(NAVIGATION.registration.text)} 
-          />
-        }
+        <Button
+          type={'submit'}
+          placeholder={t(NAVIGATION.registration.text)}
+          isDisabled={!isFormValid()}
+        />
       </form>
     </Container>
   )

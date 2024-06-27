@@ -5,6 +5,13 @@ export const USER_TYPE = {
   cashbox: 1,
 }
 
+export const USER_VERIFY = {
+  0: 'not',
+  1: 'verification',
+  2: 'rejected',
+  3: 'verified',
+}
+
 export const BREAKPOINTS = {
   xs: 0,
   sm: 576,
