@@ -121,7 +121,7 @@ const Account = () => {
           :
             <>
               <Tab data={ROUTES_USER} />
-              <Container>
+              <Container classes={style.container}>
                 <Outlet />
               </Container>
             </>

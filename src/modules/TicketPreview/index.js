@@ -1,8 +1,10 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
 import classNames from 'classnames'
+
+import { getDate } from 'helpers/getDate'
 
 import Button from 'components/Button'
 import Loader from 'components/Loader'
@@ -36,8 +38,11 @@ const getGames = (active) => {
 const TicketPreview = ({ data, active, setActive }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
+  const { games } = useSelector(state => state.games)
   const currentDate = new Date().getTime()
   const isActive = data?.win > 0 && active?.time < currentDate
+
+  const game = useMemo(() => games.find(game => game.id === data?.gameId), [games, data])
 
   return (
     <div className={classNames(style.block, active && style.active)}>
@@ -69,6 +74,10 @@ const TicketPreview = ({ data, active, setActive }) => {
                         t('no_win')
                   }
                 </p>
+              </div>
+              <div className={style.date}>{getDate(data?.time)}</div>
+              <div className={style.logo}>
+                <img src={game.image} alt={t(`games.${game.id}.title`)} loading="lazy"/>
               </div>
               <div className={style.ticket}>
                 {getGames(data)}

@@ -32,7 +32,13 @@
   }
 }
 
+.pagination {
+  @include make-spacer(mt, auto);
+}
+
 .left {
+  @include flex($direction: column);
+  
   overflow: hidden;
 }
 

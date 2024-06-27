@@ -26,6 +26,7 @@ const UserStocks = lazy(() => import('pages/User/Account/Stocks'))
 
 const CashboxAccount = lazy(() => import('pages/Cashbox/Account'))
 const CashboxReports = lazy(() => import('pages/Cashbox/Account/Reports'))
+const CashboxTickets = lazy(() => import('pages/Cashbox/Account/Tickets'))
 
 export const generateRoutes = (auth) => {
   const userType = auth?.userType;
@@ -78,6 +79,10 @@ export const generateRoutes = (auth) => {
       {
         path: ROUTES_CASHBOX.reports.link,
         element: <CashboxReports />,
+      },
+      {
+        path: ROUTES_CASHBOX.tickets.link,
+        element: <CashboxTickets />,
       },
     ]
 

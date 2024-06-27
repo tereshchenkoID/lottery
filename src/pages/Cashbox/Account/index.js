@@ -86,7 +86,7 @@ const Account = () => {
           :
             <>
               <Tab data={ROUTES_CASHBOX} />
-              <Container>
+              <Container classes={style.container}>
                 <Outlet />
               </Container>
             </>

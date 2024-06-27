@@ -19,6 +19,10 @@
   min-height: rem(172px);
 }
 
+.container {
+  display: grid;
+}
+
 .wrapper {
   @include make-spacer(pb, 32px);
 
