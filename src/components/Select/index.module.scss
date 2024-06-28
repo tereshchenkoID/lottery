@@ -18,10 +18,8 @@
   position: absolute;
   top: rem(16px);
   left: rem(16px);
-  transform: translateY(rem(-20px));
-  background-color: var(--color-white);
+  transform: translateY(rem(-21px));
   letter-spacing: rem(0.2px);
-  border-radius: rem(2px);
   font-size: rem(12px);
   pointer-events: none;
   display: inline;
@@ -31,6 +29,17 @@
     @include make-spacer(ml, 3px);
 
     color: var(--color-warning);
+  }
+
+  &::before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: rem(5px);
+    height: rem(1px);
+    background-color: var(--color-white);
+    z-index: -1;
+    content: '';
   }
 }
 
