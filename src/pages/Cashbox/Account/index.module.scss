@@ -16,7 +16,11 @@
   gap: rem(4px);
   background-color: var(--color-white);
   overflow: hidden;
-  min-height: rem(172px);
+  min-height: rem(132px);
+
+  @include media-breakpoint-up(lg) {
+    min-height: rem(172px);
+  }
 }
 
 .container {
