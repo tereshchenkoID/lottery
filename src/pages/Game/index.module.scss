@@ -129,6 +129,7 @@
     @include make-spacer(pr, 20px);
   
     gap: rem(10px);
+    flex-shrink: 0;
   }
 }
 

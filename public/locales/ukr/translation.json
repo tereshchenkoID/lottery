@@ -115,6 +115,8 @@
   "logout": "Logout UA",
   "registration": "Registration UA",
   "cancel": "Cancel UA",
+  "payout": "Payout UA",
+  "reprint": "Reprint UA",
   "personal_area": "Personal area UA",
   "top_up_account": "Top up your account UA",
   "wallet": "Wallet UA",

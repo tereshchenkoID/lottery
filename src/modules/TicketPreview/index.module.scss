@@ -68,14 +68,14 @@
 }
 
 .date {
-    @include make-spacer(mb, 10px);
+    @include make-spacer(mb, 12px);
 
     font-size: rem(14px);
     opacity: 0.6;
 }
 
 .logo {
-    @include make-spacer(mb, 10px);
+    @include make-spacer(mb, 12px);
     @include size(rem(60px));
 }
 
@@ -98,4 +98,15 @@
     @include media-breakpoint-up(xl) {
         display: none;
     }
+}
+
+.actions {
+    @include make-spacer(mt, 12px);
+    @include flex(center, center);
+
+    gap: rem(16px);
+}
+
+.action {
+    height: rem(40px);
 }

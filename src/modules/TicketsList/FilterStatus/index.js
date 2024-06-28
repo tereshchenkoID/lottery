@@ -15,10 +15,14 @@ const FilterStatus = ({ active, onChange }) => {
   const { isCashbox } = useAuth()
 
   const filteredStatusTypes = useMemo(() => 
-    Object.entries(STATUS_TYPE).filter(([key]) => 
-      (!isCashbox && EXCEPTION.indexOf(key) === -1)
-    ), [isCashbox]
-  );
+      isCashbox 
+      ? 
+        Object.entries(STATUS_TYPE) 
+      : 
+        Object.entries(STATUS_TYPE).filter(([key]) => EXCEPTION.indexOf(key) === -1
+    ), 
+    [isCashbox]
+  )
 
   return (
     <div className={style.block}>

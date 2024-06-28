@@ -30,7 +30,7 @@ const CheckTickets = () => {
     const formData = new FormData()
     formData.append('q', filter)
 
-    postData('check/', formData).then(json => {
+    postData('tickets/check/', formData).then(json => {
       if (json.code === '0') {
         setData(json)
         setActive(true)
@@ -71,7 +71,13 @@ const CheckTickets = () => {
           </form>
         </div>
         <div className={style.right}>
-          <TicketPreview data={data} active={active} setActive={setActive} />
+          <TicketPreview 
+            data={data} 
+            setData={setData}
+            active={active} 
+            setActive={setActive} 
+            filter={filter}
+          />
         </div>
       </div>
     </Container>

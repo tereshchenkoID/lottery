@@ -115,6 +115,8 @@
   "logout": "Logout",
   "registration": "Registration",
   "cancel": "Cancel",
+  "payout": "Payout",
+  "reprint": "Reprint",
   "personal_area": "Personal area",
   "top_up_account": "Top up your account",
   "wallet": "Wallet",

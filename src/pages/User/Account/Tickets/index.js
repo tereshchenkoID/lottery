@@ -1,4 +1,4 @@
-import TicketList from 'modules/TicketList'
+import TicketList from 'modules/TicketsList'
 
 const Tickets = () => {
   return <TicketList />

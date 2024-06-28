@@ -1,10 +1,13 @@
 import { lazy, Suspense, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import classNames from 'classnames'
 
 import { getDate } from 'helpers/getDate'
+import { postData } from 'helpers/api'
+import { setToastify } from 'store/actions/toastifyAction'
 
 import Button from 'components/Button'
 import Loader from 'components/Loader'
@@ -35,14 +38,41 @@ const getGames = (active) => {
   )
 }
 
-const TicketPreview = ({ data, active, setActive }) => {
+const TicketPreview = ({ 
+  data, 
+  setData, 
+  active, 
+  setActive,
+  filter
+}) => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   const { auth } = useSelector(state => state.auth)
   const { games } = useSelector(state => state.games)
   const currentDate = new Date().getTime()
-  const isActive = data?.win > 0 && active?.time < currentDate
+  const isActive = data?.win !== "0" && active?.time < currentDate
 
   const game = useMemo(() => games.find(game => game.id === data?.gameId), [games, data])
+
+  const handleSubmit = (e, type) => {
+    e.preventDefault()
+
+    const formData = new FormData()
+    formData.append('q', filter)
+
+    postData(`tickets/${type}/`, formData).then(json => {
+      if (json.code === '0') {
+        setData(json)
+      } else {
+        dispatch(
+          setToastify({
+            type: 'error',
+            text: json.error_message,
+          }),
+        )
+      }
+    })
+  }
 
   return (
     <div className={classNames(style.block, active && style.active)}>
@@ -82,6 +112,25 @@ const TicketPreview = ({ data, active, setActive }) => {
               <div className={style.ticket}>
                 {getGames(data)}
               </div>
+              {
+                data.info &&
+                <div>{data.info}</div>
+              }
+              {
+                data?.actions &&
+                <div className={style.actions}>
+                  {
+                    data.actions?.map((el, idx) => 
+                      <Button
+                        key={idx}
+                        classes={['primary', style.action]}
+                        onChange={(e) => handleSubmit(e, el)}
+                        placeholder={t(el)}
+                      />
+                    )
+                  }
+                </div>
+              }
             </div>
           </>
       }
