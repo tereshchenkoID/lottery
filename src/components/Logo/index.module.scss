@@ -3,7 +3,7 @@
 .block {
   @include make-spacer(mr, auto);
 
-  max-width: rem(120px);
+  height: rem(32px);
   flex-shrink: 0;
   order: 1;
 

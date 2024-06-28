@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
 import classNames from 'classnames'
 
@@ -20,15 +21,15 @@ import style from './index.module.scss'
 const CheckTickets = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const { scan } = useSelector(state => state.scan)
   const [filter, setFilter] = useState('')
   const [data, setData] = useState(null)
   const [active, setActive] = useState(null)
 
-  const handleSubmit = e => {
-    e.preventDefault()
-
+  const load = (q, type) => {
     const formData = new FormData()
-    formData.append('q', filter)
+    formData.append('q', q || filter)
+    formData.append('scan', type || 0)
 
     postData('tickets/check/', formData).then(json => {
       if (json.code === '0') {
@@ -44,6 +45,19 @@ const CheckTickets = () => {
       }
     })
   }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    load()
+  }
+
+  useEffect(() => {
+    if(scan) {
+      const q = scan?.scans?.[0]?.value
+      load(q, 1)
+      setFilter('')
+    }
+  }, [scan])
 
   return (
     <Container classes={style.block}>

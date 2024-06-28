@@ -6,7 +6,11 @@ import { useOutsideClick } from 'hooks/useOutsideClick'
 import { useAuth } from 'context/AuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { NAVIGATION, ROUTES_CASHBOX, ROUTES_USER, USER_TYPE } from 'constant/config'
+import { 
+  NAVIGATION, 
+  ROUTES_CASHBOX, 
+  ROUTES_USER 
+} from 'constant/config'
 
 import classNames from 'classnames'
 
@@ -44,6 +48,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
   const MENU = [
     {
       submenu: [
+        !isLogin && NAVIGATION.login,
         !isLogin && NAVIGATION.all_games,
         NAVIGATION.check_ticket,
         NAVIGATION.settings,
@@ -56,8 +61,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
         NAVIGATION.about,
         NAVIGATION.contacts,
         NAVIGATION.faq,
-        NAVIGATION.support,
-        !isLogin && NAVIGATION.login,
+        NAVIGATION.support
       ],
     },
   ]

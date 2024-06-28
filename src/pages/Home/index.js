@@ -28,7 +28,6 @@ import style from './index.module.scss'
 
 const Home = () => {
   const { t } = useTranslation()
-  const { auth } = useSelector(state => state.auth)
   const { games } = useSelector(state => state.games)
   const { isCashbox } = useAuth()
   const [promo, setPromo] = useState([])
@@ -92,7 +91,7 @@ const Home = () => {
                 >
                   {banners?.map((el, idx) => (
                     <SwiperSlide key={idx}>
-                      <Banner data={el} classes={style.banner} link={'/sdf'} />
+                      <Banner data={el} classes={style.banner} link={el.link} />
                     </SwiperSlide>
                   ))}
                 </Swiper>

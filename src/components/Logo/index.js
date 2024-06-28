@@ -10,7 +10,7 @@ const Logo = ({ setShow }) => {
 
   return (
     <Link
-      to={`/`}
+      to={'/'}
       rel="noreferrer"
       className={style.block}
       aria-label="Logo"

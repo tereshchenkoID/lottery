@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from 'context/AuthContext'
 
-import { NAVIGATION, USER_TYPE } from 'constant/config'
+import { NAVIGATION } from 'constant/config'
 
 import { setToastify } from 'store/actions/toastifyAction'
 import { setAuth } from 'store/actions/authAction'

@@ -8,7 +8,7 @@
     "password_recovery": "Password recovery UA",
     "check_ticket": "Check ticket UA",
     "settings": "Settings UA",
-    "translation": "Translation UA",
+    "translation": "Broadcast UA",
     "news": "News UA",
     "about": "About UA",
     "contacts": "Contacts UA",
@@ -223,6 +223,11 @@
         "5": "Which numbers will come up more? UA",
         "6": "Where will the most numbers appear? UA"
       }
+    },
+    "4": {
+      "title": "Blackjack UA",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
     }
   },
   "multibet": {

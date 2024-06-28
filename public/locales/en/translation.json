@@ -8,7 +8,7 @@
     "password_recovery": "Password recovery",
     "check_ticket": "Check ticket",
     "settings": "Settings",
-    "translation": "Translation",
+    "translation": "Broadcast",
     "news": "News",
     "about": "About",
     "contacts": "Contacts",
@@ -223,6 +223,11 @@
         "5": "Which numbers will come up more?",
         "6": "Where will the most numbers appear?"
       }
+    },
+    "4": {
+      "title": "Blackjack",
+      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
+      "alt": "Lorem ipsum dolor"
     }
   },
   "multibet": {

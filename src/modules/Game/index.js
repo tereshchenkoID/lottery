@@ -1,8 +1,9 @@
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-import { useImageLoader } from 'hooks/useImageLoader';
+import { useImageLoader } from 'hooks/useImageLoader'
+import { convertFixed } from 'helpers/convertFixed'
 import { getValueFormatted } from 'helpers/getValueFormatted'
 
 import Skeleton from 'components/Skeleton'
@@ -36,7 +37,7 @@ const Game = ({ data }) => {
                   />
                 </div>
                 <p className={style.price}>
-                  {data.betCost} {auth.account.currency.symbol}
+                  {convertFixed(data.betCost, 0)} {auth.account.currency.symbol}
                 </p>
               </div>
               {data.jackpots && (

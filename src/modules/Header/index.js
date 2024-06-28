@@ -1,11 +1,14 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAuth } from 'context/AuthContext'
 import { useWindowWidth } from 'context/WindowWidthContext'
+import { useNavigate } from 'react-router-dom'
 
-import { BREAKPOINTS } from 'constant/config'
+import { NAVIGATION, BREAKPOINTS } from 'constant/config'
+
+import { setScan } from 'store/actions/scanAction'
 
 import classNames from 'classnames'
 
@@ -20,22 +23,65 @@ import style from './index.module.scss'
 
 const Header = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const { settings } = useSelector(state => state.settings)
   const { isCashbox } = useAuth()
   const { windowWidth } = useWindowWidth()
-
   const [show, setShow] = useState(false)
   const buttonRef = useRef(null)
   const isMobile = windowWidth <= BREAKPOINTS.lg
+
+  // const scanBarcode = async () => {
+  //   try {
+  //     return {
+  //       scans: [
+  //         {
+  //           type: "CODE-128",
+  //           value: "1234567890"
+  //         }
+  //       ]
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+  const handleScan = () => {
+    // scanBarcode()
+    //   .then(result => {
+    //     if(result.hasOwnProperty('scans')) {
+    //       dispatch(setScan(result))
+    //       navigate(NAVIGATION.check_ticket.link)
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.error('Error scanning barcode:', error)
+    //   })
+
+
+    // eslint-disable-next-line no-undef
+    window.scanBarcode()
+      .then(result => {
+        const a = JSON.parse(result)
+        if(a.hasOwnProperty('scans')) {
+          dispatch(setScan(a))
+          navigate(NAVIGATION.check_ticket.link)
+        }
+      })
+      .catch(error => {
+        console.error('Error scanning barcode:', error)
+      })
+  }
 
   return (
     <header className={style.block}>
       {
         (isCashbox && !isMobile)
           ?
-          <Logo setShow={setShow} />
+            <Logo setShow={setShow} />
           :
-          (!isCashbox && <Logo setShow={setShow} />)
+            (!isCashbox && <Logo setShow={setShow} />)
       }
 
       <div
@@ -91,6 +137,7 @@ const Header = () => {
           <Button
             classes={['alt', style.scan]}
             icon={'fa-solid fa-barcode'}
+            onChange={() => handleScan()}
           />
         </>
       }

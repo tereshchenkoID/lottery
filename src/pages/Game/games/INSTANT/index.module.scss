@@ -99,58 +99,11 @@
 }
 
 .table {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  align-items: stretch;
+  @include flex(center, center, column);
+
   flex-grow: 1;
 }
 
-.cell {
-  @include make-spacer(p, 4px);
-  @include flex(center, center);
-
-  text-align: center;
-  flex: 1;
-  border-right: rem(1px) solid var(--game_background_color);
-  border-bottom: rem(1px) solid var(--game_background_color);
-  background-color: var(--game_container_color);
-
-  &:nth-child(1) {
-    border-radius: rem(12px) 0 0;
-  }
-
-  &:nth-child(9) {
-    border-radius: 0 rem(12px) 0 0;
-  }
-
-  &:nth-child(46) {
-    border-radius: 0 0 0 rem(12px);
-  }
-
-  &:nth-child(54) {
-    border-radius: 0 0 rem(12px) 0;
-  }
-
-  &:nth-child(-n + 9) {
-    border-top: rem(1px) solid var(--game_background_color);
-  }
-
-  &:nth-child(9n + 1) {
-    border-left: rem(1px) solid var(--game_background_color);
-  }
-
-  &:nth-child(n+28):nth-child(-n+36) {
-    @include make-spacer(mt, 12px);
-
-    border-top: rem(1px) solid var(--game_background_color);
-  }
-}
-
-.button {
-  pointer-events: none;
-  height: rem(30px);
-
-  @include media-breakpoint-up(lg) {
-    height: rem(40px);
-  }
+.logo {
+  @include size(rem(100px));
 }

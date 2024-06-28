@@ -10,4 +10,6 @@ export const types = {
   GET_AUTH: 'GET_AUTH',
   GET_BETSLIP: 'GET_BETSLIP',
   SET_BETSLIP: 'SET_BETSLIP',
+  GET_SCAN: 'GET_SCAN',
+  SET_SCAN: 'SET_SCAN',
 }
