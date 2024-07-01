@@ -1,5 +1,11 @@
 @import 'scss/config';
 
+.block {
+  display: grid;
+  grid-template-rows: rem(40px) auto;
+  gap: rem(24px);
+}
+
 .tab {
   @include flex;
 
@@ -10,10 +16,6 @@
   &::-webkit-scrollbar {
     display: none;
   }
-  
-  @include media-breakpoint-up(lg) {
-    flex-wrap: wrap
-  }
 }
 
 .link {
@@ -22,8 +24,6 @@
 }
 
 .container {
-  @include make-spacer(py, 24px);
-
   position: relative;
   min-height: rem(200px);
 }
