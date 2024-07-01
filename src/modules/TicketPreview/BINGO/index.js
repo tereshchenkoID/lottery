@@ -44,23 +44,31 @@ const BINGO = ({ data }) => {
         }
       </div>
 
-      <div>
-        <p className={style.label}>{t('missed_numbers')}</p>
-        <div className={style.results}>
-          {
-            numbers.map((el, idx) => (
-              el.number !== 0 && !el.checked && (
-                <p
-                  key={idx}
-                  className={classNames(style.result, style.active)}
-                >
-                  {el.number}
-                </p>
-              )
-            ))
-          }
+      {
+        data.status >= 3 &&
+        <div>
+          <p className={style.label}>{t('missed_numbers')}</p>
+          <div className={style.results}>
+            {
+              numbers.map((el, idx) => (
+                el.number !== 0 && !el.checked && (
+                  <p
+                    key={idx}
+                    className={
+                      classNames(
+                        style.result, 
+                        style.active
+                      )
+                    }
+                  >
+                    {el.number}
+                  </p>
+                )
+              ))
+            }
+          </div>
         </div>
-      </div>
+      }
     </div>
   )
 }

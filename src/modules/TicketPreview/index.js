@@ -2,6 +2,9 @@ import { lazy, Suspense, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
+import { useAuth } from 'context/AuthContext'
+
+import { STATUS_TYPE } from 'constant/config'
 
 import classNames from 'classnames'
 
@@ -43,14 +46,16 @@ const TicketPreview = ({
   setData, 
   active, 
   setActive,
-  filter
+  filter,
+  setFilter = () => {}
 }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { auth } = useSelector(state => state.auth)
   const { games } = useSelector(state => state.games)
+  const { isCashbox } = useAuth()
   const currentDate = new Date().getTime()
-  const isActive = data?.win !== "0" && active?.time < currentDate
+  const isActive = data?.status >= 4 && active?.time < currentDate
 
   const game = useMemo(() => games.find(game => game.id === data?.gameId), [games, data])
 
@@ -63,6 +68,11 @@ const TicketPreview = ({
     postData(`tickets/${type}/`, formData).then(json => {
       if (json.code === '0') {
         setData(json)
+
+        if(isCashbox) {
+          // eslint-disable-next-line no-undef
+          window.printAction(JSON.stringify(json), type)
+        }
       } else {
         dispatch(
           setToastify({
@@ -85,10 +95,16 @@ const TicketPreview = ({
               onClick={() => setActive(null)}
             />
             <div className={style.header}>
-              <h6>{t('ticket')} #{data.id}</h6>
+              <div>
+                <h6>{t('ticket')} #{data.id}</h6>
+                <div className={style.date}>{getDate(data?.time)}</div>
+              </div>
               <Button
                 classes={['primary', style.button]}
-                onChange={() => setActive(null)}
+                onChange={() => {
+                  setActive(null)
+                  setFilter('')
+                }}
                 icon={'fa-solid fa-xmark'}
               />
             </div>
@@ -101,11 +117,14 @@ const TicketPreview = ({
                       ?
                         <>{t('win')}: <strong>{data.win} {auth.account.currency.symbol}</strong></>
                       :
-                        t('no_win')
+                        t(`ticket_status.${STATUS_TYPE[data.status]}`)
                   }
                 </p>
               </div>
-              <div className={style.date}>{getDate(data?.time)}</div>
+              {
+                data?.round.date &&
+                <div className={style.date}>{getDate(data?.round.date)}</div>
+              }
               <div className={style.logo}>
                 <img src={game.image} alt={t(`games.${game.id}.title`)} loading="lazy"/>
               </div>

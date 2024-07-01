@@ -8,7 +8,7 @@
     "password_recovery": "Password recovery",
     "check_ticket": "Check ticket",
     "settings": "Settings",
-    "translation": "Broadcast",
+    "broadcast": "Broadcast",
     "news": "News",
     "about": "About",
     "contacts": "Contacts",
@@ -129,8 +129,8 @@
   "all_games": "All games",
   "drawing_games": "Drawing games",
   "quick_games_15": "Quick games, every 15 min",
-  "instant_games": "Instant games",
-  "stock": "Stock",
+  "instant_games": "Scratch cards",
+  "stock": "Promo",
   "days": "days",
   "guessed": "Guessed",
   "winning": "Winning",
@@ -168,6 +168,7 @@
   "drawn_numbers": "Drawn numbers",
   "missed_numbers": "Missed numbers",
   "buy_ticket": "Buy ticket",
+  "no_money": "No money",
   "ticket_status": {
     "all": "All tickets",
     "pending": "Pending",
@@ -188,14 +189,14 @@
   },
   "games": {
     "1": {
-      "title": "Lotto",
-      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
-      "alt": "Lorem ipsum dolor"
+      "title": "BINGO",
+      "description": "BINGO game, every 3rd ticket wins",
+      "alt": "Classic BINGO game"
     },
     "2": {
-      "title": "Sportsloto “7 out of 49”",
-      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
-      "alt": "Lorem ipsum dolor",
+      "title": "Megalot",
+      "description": "Your chance to win millions",
+      "alt": "7 out of 49",
       "tooltip": {
         "1": "Choose more numbers to increase your chance of winning"
       },
@@ -207,9 +208,9 @@
       }
     },
     "3": {
-      "title": "Keno",
-      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
-      "alt": "Lorem ipsum dolor",
+      "title": "KENO",
+      "description": "New KENO, new rules, win more!",
+      "alt": "New KENO",
       "tooltip": {
         "1": "If the selected column contains more numbers from the winning combination than the other columns, you win.",
         "2": "Your winnings depend on the number of selected and guessed numbers.",
@@ -226,8 +227,8 @@
     },
     "4": {
       "title": "Blackjack",
-      "description": "Consectetur adipisicing elit. Amet aspernatur consectetur consequuntur, debitis distinctio, ea eaque eos est",
-      "alt": "Lorem ipsum dolor"
+      "description": "Blackjack scratch card",
+      "alt": "scratch card"
     }
   },
   "multibet": {

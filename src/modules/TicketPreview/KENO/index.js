@@ -47,32 +47,35 @@ const KENO = ({ data }) => {
           )
         }
       </div>
-      <div>
-        <p className={style.label}>{t('drawn_numbers')}</p>
-        <div className={style.results}>
-          {
-            (data.numbers[0] === BET_TYPE['1'] || data.numbers[0] === BET_TYPE['2'] || data.numbers[0] === BET_TYPE['3'])
-              ?
-              <span className={style.result}>
-                {t(`numbers.${data.numbers[0]}`)}
-              </span>
-              :
-              data.results.map((el, idx) =>
-                <span
-                  key={idx}
-                  className={
-                    classNames(
-                      style.result,
-                      data.numbers.includes(el) && style.active
-                    )
-                  }
-                >
-                  {el}
+      {
+        data.status >= 3 &&
+        <div>
+          <p className={style.label}>{t('drawn_numbers')}</p>
+          <div className={style.results}>
+            {
+              (data.numbers[0] === BET_TYPE['1'] || data.numbers[0] === BET_TYPE['2'] || data.numbers[0] === BET_TYPE['3'])
+                ?
+                <span className={style.result}>
+                  {t(`numbers.${data.numbers[0]}`)}
                 </span>
-              )
-          }
+                :
+                data.results.map((el, idx) =>
+                  <span
+                    key={idx}
+                    className={
+                      classNames(
+                        style.result,
+                        data.numbers.includes(el) && style.active
+                      )
+                    }
+                  >
+                    {el}
+                  </span>
+                )
+            }
+          </div>
         </div>
-      </div>
+      }
     </div>
   )
 }

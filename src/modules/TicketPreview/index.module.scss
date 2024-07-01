@@ -68,14 +68,12 @@
 }
 
 .date {
-    @include make-spacer(mb, 12px);
-
     font-size: rem(14px);
     opacity: 0.6;
 }
 
 .logo {
-    @include make-spacer(mb, 12px);
+    @include make-spacer(my, 12px);
     @include size(rem(60px));
 }
 

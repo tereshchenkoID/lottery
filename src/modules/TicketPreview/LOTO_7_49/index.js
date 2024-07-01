@@ -46,26 +46,29 @@ const LOTO_7_49 = ({ data }) => {
         }
       </div>
 
-      <div>
-        <p className={style.label}>{t('drawn_numbers')}</p>
-        <div className={style.results}>
-          {
-            data.numbers.map((el, idx) =>
-              <span
-                key={idx}
-                className={
-                  classNames(
-                    style.result, 
-                    data.results.includes(el) && style.active
-                  )
-                }
-              >
-                {el}
-              </span>
-            )
-          }
+      {
+        data.status >= 3 &&
+        <div>
+          <p className={style.label}>{t('drawn_numbers')}</p>
+          <div className={style.results}>
+            {
+              data.results.map((el, idx) =>
+                <span
+                  key={idx}
+                  className={
+                    classNames(
+                      style.result, 
+                      data.results.includes(el) && style.active
+                    )
+                  }
+                >
+                  {el}
+                </span>
+              )
+            }
+          </div>
         </div>
-      </div>
+      }
     </div>
   )
 }

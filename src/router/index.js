@@ -10,6 +10,13 @@ const Game = lazy(() => import('pages/Game'))
 const Settings = lazy(() => import('pages/Settings'))
 const CheckTickets = lazy(() => import('pages/CheckTickets'))
 
+const Broadcast = lazy(() => import('pages/Broadcast'))
+const News = lazy(() => import('pages/News'))
+const About = lazy(() => import('pages/About'))
+const Contacts = lazy(() => import('pages/Contacts'))
+const Faq = lazy(() => import('pages/Faq'))
+const Support = lazy(() => import('pages/Support'))
+
 const Login = lazy(() => import('pages/Login'))
 const Registration = lazy(() => import('pages/Registration'))
 const PasswordRecovery = lazy(() => import('pages/PasswordRecovery'))
@@ -27,6 +34,8 @@ const UserStocks = lazy(() => import('pages/User/Account/Stocks'))
 const CashboxAccount = lazy(() => import('pages/Cashbox/Account'))
 const CashboxReports = lazy(() => import('pages/Cashbox/Account/Reports'))
 const CashboxTickets = lazy(() => import('pages/Cashbox/Account/Tickets'))
+const CashboxProfile = lazy(() => import('pages/Cashbox/Account/Profile'))
+const CashboxPlayers = lazy(() => import('pages/Cashbox/Account/Players'))
 
 export const generateRoutes = (auth) => {
   const userType = auth?.userType;
@@ -84,6 +93,14 @@ export const generateRoutes = (auth) => {
         path: ROUTES_CASHBOX.tickets.link,
         element: <CashboxTickets />,
       },
+      {
+        path: ROUTES_CASHBOX.profile.link,
+        element: <CashboxProfile />,
+      },
+      {
+        path: ROUTES_CASHBOX.players.link,
+        element: <CashboxPlayers />,
+      },
     ]
 
     accountElement = <CashboxAccount />
@@ -104,6 +121,30 @@ export const generateRoutes = (auth) => {
     {
       path: NAVIGATION.check_ticket.link,
       element: <CheckTickets />,
+    },
+    {
+      path: NAVIGATION.news.link,
+      element: <News />,
+    },
+    {
+      path: NAVIGATION.broadcast.link,
+      element: <Broadcast />,
+    },
+    {
+      path: NAVIGATION.about.link,
+      element: <About />,
+    },
+    {
+      path: NAVIGATION.contacts.link,
+      element: <Contacts />,
+    },
+    {
+      path: NAVIGATION.faq.link,
+      element: <Faq />,
+    },
+    {
+      path: NAVIGATION.support.link,
+      element: <Support />,
     },
     {
       path: '/game/:gameId',

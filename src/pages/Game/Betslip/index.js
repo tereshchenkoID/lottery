@@ -189,6 +189,10 @@ const Betslip = ({
       })
   }
 
+  const getDraw = () => {
+    return betslip.bet[0].options.reduce((acc, el) => (el.name === 'draw' ? el.value : acc), 1)
+  }
+
   useEffect(() => {
     handleAmount()
   }, [active, betslip.tickets]) 
@@ -248,27 +252,32 @@ const Betslip = ({
                     <p>
                       <strong>
                         {active === TICKET_TYPE.single
-                          ? betslip.tickets.length
+                          ? betslip.tickets.length * getDraw()
                           : betslip.bet?.[active]?.options[0].value}
                       </strong>
                     </p>
                   </div>
-                  {isCombination && (
+                  {
+                    isCombination && (
+                      <div className={style.row}>
+                        <p>{t('combinations')}</p>
+                        <span className={style.dots} />
+                        <p>
+                          <strong>{betslip.bet?.[active]?.combinations}</strong>
+                        </p>
+                      </div>
+                    )
+                  }
+                  {
+                    game.bonusAmount !== 0 &&
                     <div className={style.row}>
-                      <p>{t('combinations')}</p>
+                      <p>{t('add_bonus')}</p>
                       <span className={style.dots} />
                       <p>
-                        <strong>{betslip.bet?.[active]?.combinations}</strong>
+                        <strong>{betslip.bet?.[active]?.bonuses}</strong>
                       </p>
                     </div>
-                  )}
-                  <div className={style.row}>
-                    <p>{t('add_bonus')}</p>
-                    <span className={style.dots} />
-                    <p>
-                      <strong>{betslip.bet?.[active]?.bonuses}</strong>
-                    </p>
-                  </div>
+                  }
                   <div className={classNames(style.row, style.column)}>
                     {
                       (isAuth && betslip.bet[active].amount > 0) &&
@@ -281,11 +290,16 @@ const Betslip = ({
                               onChange={() => handleBet(PAYEMENT_TYPE.money)}
                             />
                           :
-                            <Reference
-                              icon={typeNavigation.wallet.icon}
-                              link={typeNavigation.wallet.link}
-                              placeholder={t(typeNavigation.wallet.text)}
-                            />
+                            isCashbox 
+                            ?
+                              <div>{t('no_money')}</div>
+                            :
+                              <Reference
+                                icon={typeNavigation.wallet.icon}
+                                link={typeNavigation.wallet.link}
+                                placeholder={t(typeNavigation.wallet.text)}
+                              />
+                              
                         }
                         {
                           (

@@ -82,10 +82,10 @@ export const NAVIGATION = {
     icon: 'fa-solid fa-gear',
     text: 'navigation.settings',
   },
-  translation: {
-    link: '/translation',
+  broadcast: {
+    link: '/broadcast',
     icon: 'fa-solid fa-tv',
-    text: 'navigation.translation',
+    text: 'navigation.broadcast',
   },
   news: {
     link: '/news',

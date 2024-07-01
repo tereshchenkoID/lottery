@@ -60,15 +60,17 @@ const Singlebet = ({ betslip, game, isCombination }) => {
   return (
     <div className={style.block}>
       <div className={style.ticket}>
-        {betslip.bet?.[TICKET_TYPE.single]?.options?.map((el, idx) => (
-          <div key={idx} className={style.row}>
-            <Tooltip
-              text={t(RULES[el.name]?.text)}
-              placeholder={t(RULES[el.name]?.placeholder)}
-            />
-            <Control type={'game'} data={el} index={idx} onChange={handleStakeChange} />
-          </div>
-        ))}
+        {
+          betslip.bet?.[TICKET_TYPE.single]?.options?.map((el, idx) => (
+            <div key={idx} className={style.row}>
+              <Tooltip
+                text={t(RULES[el.name]?.text)}
+                placeholder={t(RULES[el.name]?.placeholder)}
+              />
+              <Control type={'game'} data={el} index={idx} onChange={handleStakeChange} />
+            </div>
+          ))
+        }
       </div>
     </div>
   )

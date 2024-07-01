@@ -30,7 +30,7 @@ const Header = () => {
   const { windowWidth } = useWindowWidth()
   const [show, setShow] = useState(false)
   const buttonRef = useRef(null)
-  const isMobile = windowWidth <= BREAKPOINTS.lg
+  const isMobile = windowWidth < BREAKPOINTS.lg
 
   // const scanBarcode = async () => {
   //   try {
@@ -92,40 +92,40 @@ const Header = () => {
         {
           isMobile
             ?
-            <button
-              type={'button'}
-              className={classNames(style.toggle, show && style.active)}
-              aria-label="Toggle"
-            >
-              {
-                (isCashbox && isMobile)
-                  ?
-                  <Picture
-                    src={settings.assets.logo_icon}
-                    alt={"Logo"}
-                  />
-                  :
-                  <>
-                    <span className={style.line} />
-                    <span className={style.line} />
-                    <span className={style.line} />
-                  </>
-              }
-            </button>
+              <button
+                type={'button'}
+                className={classNames(style.toggle, show && style.active)}
+                aria-label="Toggle"
+              >
+                {
+                  (isCashbox && isMobile)
+                    ?
+                    <Picture
+                      src={settings.assets.logo_icon}
+                      alt={"Logo"}
+                    />
+                    :
+                    <>
+                      <span className={style.line} />
+                      <span className={style.line} />
+                      <span className={style.line} />
+                    </>
+                }
+              </button>
             :
-            <button
-              className={classNames(style.link, show && style.active)}
-              type={'button'}
-              aria-label="Toggle"
-            >
-              <span className={style.text}>
-                {t('navigation.menu')}{' '}
-                <FontAwesomeIcon
-                  icon="fa-solid fa-angle-down"
-                  className={style.icon}
-                />
-              </span>
-            </button>
+              <button
+                className={classNames(style.link, show && style.active)}
+                type={'button'}
+                aria-label="Toggle"
+              >
+                <span className={style.text}>
+                  {t('navigation.menu')}{' '}
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-angle-down"
+                    className={style.icon}
+                  />
+                </span>
+              </button>
         }
       </div>
       <Menu setShow={setShow} show={show} buttonRef={buttonRef} />

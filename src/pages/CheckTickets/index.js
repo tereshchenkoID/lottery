@@ -55,7 +55,6 @@ const CheckTickets = () => {
     if(scan) {
       const q = scan?.scans?.[0]?.value
       load(q, 1)
-      setFilter('')
     }
   }, [scan])
 
@@ -91,6 +90,7 @@ const CheckTickets = () => {
             active={active} 
             setActive={setActive} 
             filter={filter}
+            setFilter={setFilter}
           />
         </div>
       </div>

@@ -52,7 +52,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
         !isLogin && NAVIGATION.all_games,
         NAVIGATION.check_ticket,
         NAVIGATION.settings,
-        NAVIGATION.translation,
+        NAVIGATION.broadcast,
         NAVIGATION.news,
       ],
     },

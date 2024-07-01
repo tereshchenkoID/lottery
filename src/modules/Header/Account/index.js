@@ -15,7 +15,7 @@ const Account = () => {
   const { auth } = useSelector(state => state.auth)
   const { windowWidth } = useWindowWidth()
 
-  if (windowWidth <= BREAKPOINTS.lg)
+  if (windowWidth < BREAKPOINTS.lg)
     return false
 
   return (
