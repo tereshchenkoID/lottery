@@ -23,8 +23,11 @@
   border: rem(1px) solid var(--grey-alpha-200);
   flex-shrink: 0;
 
-  &:hover {
-    border-color: var(--color-primary);
+  @include hover {
+
+    &:hover {
+      border-color: var(--color-primary);
+    }
   }
 
   &.active {

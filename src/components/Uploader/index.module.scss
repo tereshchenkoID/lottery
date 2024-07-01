@@ -7,13 +7,11 @@
 }
 
 .label {
+  @include flex(center, center);
   @include transition;
   @include make-spacer(px, 24px);
 
-  display: inline-flex;
   position: relative;
-  align-items: center;
-  justify-content: center;
   border-radius: rem(12px);
   min-width: rem(100px);
   height: rem(48px);
@@ -23,10 +21,17 @@
   font-weight: var(--typography-medium);
   background-color: var(--color-primary);
   cursor: pointer;
-
-  &.active,
-  &:hover {
+  
+  &:active,
+  &.active {
     background-color: var(--color-primary-hover);
+  }
+
+  @include hover {
+
+    &:hover {
+      background-color: var(--color-primary-hover);
+    }
   }
 }
 

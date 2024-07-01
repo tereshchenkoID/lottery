@@ -16,7 +16,10 @@
   border-radius: 0 rem(12px) rem(12px) 0;
   overflow: hidden;
 
-  &:hover {
-    background-color: var(--grey-alpha-100);
+  @include hover {
+
+    &:hover {
+      background-color: var(--grey-alpha-100);
+    }
   }
 }

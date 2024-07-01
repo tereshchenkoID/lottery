@@ -23,8 +23,14 @@
   text-align: center;
   color: var(--font_color);
 
-  &:focus,
-  &:hover {
+  &:focus {
     border-color: var(--game_button_color);
+  }
+
+  @include hover {
+
+    &:hover {
+      border-color: var(--game_button_color);
+    }
   }
 }

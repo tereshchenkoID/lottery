@@ -11,21 +11,29 @@
   @include media-breakpoint-up(lg) {
     @include size(rem(264px), rem(352px));
 
-    &:hover {
-      transform: scale(1.03);
+    @include hover {
 
-      .picture {
-        @include make-spacer(mt, rem(-45px));
+      &:hover {
+        transform: scale(1.03);
 
-        opacity: 0;
-      }
+        .picture {
+          @include make-spacer(mt, rem(-45px));
 
-      .description {
-        max-height: 100%;
-        opacity: 1;
+          opacity: 0;
+        }
+
+        .description {
+          max-height: 100%;
+          opacity: 1;
+        }
       }
     }
   }
+}
+
+.picture,
+.description {
+  @include transition;
 }
 
 .body {
@@ -40,11 +48,6 @@
     @include make-spacer(pt, 40px);
     @include make-spacer(pb, 12px);
   }
-}
-
-.picture,
-.description {
-  @include transition;
 }
 
 .picture {

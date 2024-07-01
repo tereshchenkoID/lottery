@@ -14,7 +14,6 @@
   z-index: $z-index-11;
   background-color: var(--color-background);
   white-space: nowrap;
-  // box-shadow: var(--default-box-shadow);
 
   &.active {
 
@@ -35,11 +34,14 @@
   @include size(rem(44px));
 
   min-width: 0;
-  
-  &:hover {
-    background-color: var(--grey-alpha-200);
-  }
 
+  @include hover {
+
+    &:hover {
+      background-color: var(--grey-alpha-200);
+    }
+  }
+  
   svg {
     @include transition;
   }
@@ -59,9 +61,16 @@
   line-height: rem(20px);
   letter-spacing: rem(0.2px);
 
-  &.active,
-  &:hover {
+  &:active,
+  &.active {
     background-color: var(--grey-alpha-100);
+  }
+
+  @include hover {
+
+    &:hover {
+      background-color: var(--grey-alpha-100);
+    }
   }
 }
 

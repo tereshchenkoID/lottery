@@ -20,8 +20,11 @@
 .link {
   text-decoration: underline;
 
-  &:hover {
-    color: var(--color-primary-hover);
+  @include hover {
+
+    &:hover {
+      color: var(--color-primary-hover);
+    }
   }
 }
 

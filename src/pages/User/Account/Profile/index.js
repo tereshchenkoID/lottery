@@ -107,7 +107,7 @@ const Profile = () => {
   };
 
   return (
-    <div classes={style.block}>
+    <div className={style.block}>
       {
         loading ? (
           <Loader />

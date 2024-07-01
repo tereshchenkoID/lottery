@@ -69,11 +69,14 @@
 .subtitle,
 .all {
 
-  &:hover {
-    color: var(--color-primary-hover);
+  @include hover {
 
-    .icon {
+    &:hover {
       color: var(--color-primary-hover);
+
+      .icon {
+        color: var(--color-primary-hover);
+      }
     }
   }
 }
@@ -124,12 +127,22 @@
 
   width: 100%;
 
-  &.active,
-  &:hover {
+  &.active {
     color: var(--color-primary-hover);
 
     .icon {
       color: var(--color-primary-hover);
+    }
+  }
+
+  @include hover {
+
+    &:hover {
+      color: var(--color-primary-hover);
+
+      .icon {
+        color: var(--color-primary-hover);
+      }
     }
   }
 
@@ -193,10 +206,13 @@
   background: var(--color-white);
   box-shadow: var(--default-box-shadow);
 
-  &:hover {
+  @include hover {
 
-    img {
-      transform: scale(1.1);
+    &:hover {
+
+      img {
+        transform: scale(1.1);
+      }
     }
   }
 }

@@ -16,8 +16,11 @@
   text-transform: uppercase;
   overflow: hidden;
 
-  &:hover {
-    background-color: var(--grey-alpha-100);
+  @include hover {
+
+    &:hover {
+      background-color: var(--grey-alpha-100);
+    }
   }
 
   @include media-breakpoint-up(lg) {

@@ -125,8 +125,11 @@
 .stock {
   @include size(rem(162px), rem(216px));
 
-  &:hover {
-    transform: scale(1.05);
+  @include hover {
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }
 

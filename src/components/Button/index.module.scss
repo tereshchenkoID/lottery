@@ -24,30 +24,44 @@
     pointer-events: none;
   }
 
-  &.primary {
-    background-color: var(--color-primary);
-
-    &.active,
-    &:hover {
-      background-color: var(--color-primary-hover);
-    }
-  }
-
-  &.alt {
-    background-color: var(--grey-alpha-100);
-
-    &.active,
-    &:hover {
-      background-color: var(--color-primary);
-    }
-  }
-
   &.wide {
     width: 100%;
   }
 
   &.tiny {
     height: rem(40px);
+  }
+
+  &.primary {
+    background-color: var(--color-primary);
+
+    &:active,
+    &.active {
+      background-color: var(--color-primary-hover);
+    }
+
+    @include hover {
+
+      &:hover {
+        background-color: var(--color-primary-hover);
+      }
+    }
+  }
+
+  &.alt {
+    background-color: var(--grey-alpha-100);
+
+    &:active,
+    &.active {
+      background-color: var(--color-primary);
+    }
+
+    @include hover {
+
+      &:hover {
+        background-color: var(--color-primary);
+      }
+    }
   }
 
   &.game {
@@ -61,6 +75,7 @@
     color: var(--game_button_font_color);
     font-weight: var(--typography-bold);
 
+    &:active,
     &.active {
       background-color: var(--game_button_color_active);
       color: var(--game_button_font_color_active);
@@ -68,9 +83,12 @@
 
     &:not(.active) {
 
-      &:hover {
-        background-color: var(--game_button_color_hover);
-        color: var(--game_button_font_color_hover);
+      @include hover {
+
+        &:hover {
+          background-color: var(--game_button_color_hover);
+          color: var(--game_button_font_color_hover);
+        }
       }
     }
   }

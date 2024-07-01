@@ -88,10 +88,13 @@
     }
   }
 
-  &:hover {
+  @include hover {
 
-    .text {
-      background-color: var(--grey-alpha-100);
+    &:hover {
+
+      .text {
+        background-color: var(--grey-alpha-100);
+      }
     }
   }
 }

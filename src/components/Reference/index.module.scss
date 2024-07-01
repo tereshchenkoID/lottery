@@ -23,18 +23,32 @@
   &.primary {
     background-color: var(--color-primary);
 
-    &.active,
-    &:hover {
+    &:active,
+    &.active {
       background-color: var(--color-primary-hover);
+    }
+
+    @include hover {
+
+      &:hover {
+        background-color: var(--color-primary-hover);
+      }
     }
   }
 
   &.alt {
     background-color: var(--grey-alpha-100);
 
-    &.active,
-    &:hover {
+    &:active,
+    &.active {
       background-color: var(--color-primary);
+    }
+
+    @include hover {
+
+      &:hover {
+        background-color: var(--color-primary);
+      }
     }
   }
 }

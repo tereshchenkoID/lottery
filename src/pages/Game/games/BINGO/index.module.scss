@@ -66,11 +66,14 @@
 
   &:not(.active) {
 
-    &:hover {
-      border-color: var(--game_button_color_hover);
+    @include hover {
 
-      .check {
-        opacity: 1;
+      &:hover {
+        border-color: var(--game_button_color_hover);
+
+        .check {
+          opacity: 1;
+        }
       }
     }
   }

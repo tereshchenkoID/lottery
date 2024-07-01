@@ -13,13 +13,16 @@
     no-repeat radial-gradient(circle 16px at calc(100% + 4px) 50%, 
     transparent 99.9%, currentColor) 100% 100% / calc(50% + 2px) 100%;
   
-  &.active,
-  &:hover {
+  &.active {
+    pointer-events: none;
     color: var(--color-primary);
   }
 
-  &.active {
-    pointer-events: none;
+  @include hover {
+
+    &:hover {
+      color: var(--color-primary);
+    }
   }
 
   &.disabled {

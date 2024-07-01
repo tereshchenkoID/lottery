@@ -46,9 +46,12 @@
   @include flex(flex-end, flex-start, column);
   @include transition;
 
-  &:hover {
-    transform: scale(1.02);
-    box-shadow: var(--default-box-shadow);
+  @include hover {
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: var(--default-box-shadow);
+    }
   }
 
   &.top,

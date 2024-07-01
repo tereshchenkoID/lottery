@@ -11,8 +11,11 @@
     box-shadow: none;
     cursor: pointer;
 
-    &:hover {
-      border-color: var(--grey-alpha-300);
+    @include hover {
+
+      &:hover {
+        border-color: var(--grey-alpha-300);
+      }
     }
 
     &--is-focused {
@@ -60,8 +63,11 @@
 
     cursor: pointer;
 
-    &:hover {
-      background-color: var(--color-primary);
+    @include hover {
+
+      &:hover {
+        background-color: var(--color-primary);
+      }
     }
 
     &--is-focused {

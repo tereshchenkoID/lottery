@@ -8,10 +8,14 @@
   cursor: pointer;
   height: rem(30px);
 
-  &:hover {
 
-    .item {
-      border-color: var(--color-primary);
+  @include hover {
+
+    &:hover {
+
+      .item {
+        border-color: var(--color-primary);
+      }
     }
   }
 

@@ -13,8 +13,11 @@
   border-radius: rem(16px);
   background-color: var(--grey-alpha-100);
 
-  &:hover {
-    transform: scale(1.15);
+  @include hover {
+
+    &:hover {
+      transform: scale(1.15);
+    }
   }
 }
 
