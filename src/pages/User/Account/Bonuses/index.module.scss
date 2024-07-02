@@ -3,19 +3,21 @@
 .section {
 
     &:not(:last-child) {
-        margin-bottom: rem(42px);
+        @include make-spacer(mb, 42px);
     }
 }
 
 .description {
-    margin-bottom: rem(24px);
+    @include make-spacer(mb, 24px);
 
     @include media-breakpoint-up(lg) {
         @include make-spacer(pr, 140px);
     }
 
     &.alt{
-        margin-bottom: 0;
+        @include media-breakpoint-up(lg) {
+            @include make-spacer(mb, 0);
+        }
     }
 }
 
