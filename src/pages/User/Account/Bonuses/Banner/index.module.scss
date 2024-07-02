@@ -1,0 +1,79 @@
+@import 'scss/config';
+
+.block {
+  @include flex(center, center, column);
+  @include make-spacer(p, 8px);
+
+  border-radius: rem(20px);
+  background-color: var(--color-background);
+  gap: rem(8px);
+
+  &.sm {
+    @include size(rem(110px), rem(116px));
+
+    @include media-breakpoint-up(lg) {
+      @include size(rem(194px), rem(156px));
+    }
+
+    .img {    
+      @include size(rem(50px));
+
+      opacity: 0.4;
+
+      @include media-breakpoint-up(lg) {
+        @include size(rem(108px));
+      }
+    }
+  }
+
+  &.lg {
+    @include size(rem(164px), rem(200px));
+
+    justify-content: space-between;
+
+    @include media-breakpoint-up(lg) {
+      @include size(rem(194px), rem(224px));
+    }
+
+    .img {    
+      @include size(rem(108px));
+    }
+
+    @include hover {
+
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+  }
+}
+
+.progress {
+  @include size(100%, rem(28px));
+
+  position: relative;
+  height: rem(28px);
+  background-color: var(--grey-alpha-300);
+  border-radius: rem(28px);
+  overflow: hidden
+}
+
+.scale {
+  display: block;
+  height: 100%;  
+  background: var(--color-secondary-hover);
+  border-radius: rem(10px);
+}
+
+.value {
+  @include flex(center, center);
+  @include absolute-center;
+
+  gap: rem(4px);
+  font-size: rem(12px);
+  color: var(--color-white);
+}
+
+.button {
+  pointer-events: none;
+}

@@ -1,4 +1,14 @@
 {
+  "pages": {
+    "bonuses": {
+      "title_1": "Bonus program",
+      "description_1": "Pay for lottery tickets in any convenient way and receive 5% of the ticket price as bonuses",
+      "title_2": "Bonus games",
+      "description_2": "Play bonus games and get unique rewards!",
+      "title_3": "What to spend it on",
+      "description_3": "Pay for lottery tickets with bonuses"
+    }
+  },
   "navigation": {
     "menu": "Menu",
     "home": "Home",

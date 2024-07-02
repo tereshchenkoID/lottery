@@ -1,4 +1,14 @@
 {
+  "pages": {
+    "bonuses": {
+      "title_1": "Programa de bônus",
+      "description_1": "Pague pelos bilhetes de loteria da maneira que for conveniente e receba 5% do preço do bilhete como bônus",
+      "title_2": "Jogos bônus",
+      "description_2": "Jogue jogos bônus e ganhe recompensas exclusivas!",
+      "title_3": "Em que gastar",
+      "description_3": "Pague bilhetes de loteria com bônus"
+    }
+  },
   "navigation": {
     "menu": "Menu",
     "home": "Início",

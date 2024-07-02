@@ -1,1 +1,30 @@
 @import 'scss/config';
+
+.section {
+
+    &:not(:last-child) {
+        margin-bottom: rem(42px);
+    }
+}
+
+.description {
+    margin-bottom: rem(24px);
+
+    @include media-breakpoint-up(lg) {
+        @include make-spacer(pr, 140px);
+    }
+
+    &.alt{
+        margin-bottom: 0;
+    }
+}
+
+.banners {
+    @include flex($wrap: wrap);
+
+    gap: rem(8px);
+
+    @include media-breakpoint-up(lg) {
+        gap: rem(18px);
+    }
+}

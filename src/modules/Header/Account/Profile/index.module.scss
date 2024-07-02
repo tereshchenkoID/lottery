@@ -106,6 +106,7 @@
   border-top: rem(1px) solid var(--grey-200);
   border-bottom: rem(1px) solid var(--grey-200);
   gap: rem(16px);
+  overflow: hidden;
 }
 
 .bottom {
@@ -191,20 +192,26 @@
 
 .games {
   @include make-spacer(mt, 10px);
+  @include flex;
 
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: rem(12px);
+  gap: rem(8px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .game {
+  @include size(rem(90px));
   @include make-spacer(p, 10px);
 
+  flex-shrink: 0;
   overflow: hidden;
   border-radius: rem(10px);
   aspect-ratio: 1 / 1;
   background: var(--color-white);
-  box-shadow: var(--default-box-shadow);
 
   @include hover {
 

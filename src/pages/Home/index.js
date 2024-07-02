@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from 'context/AuthContext'
+import { useWindowWidth } from 'context/WindowWidthContext'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import {
   Autoplay,
@@ -9,11 +11,8 @@ import {
   Mousewheel,
   Keyboard,
 } from 'swiper/modules'
-import { useAuth } from 'context/AuthContext';
 
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
+import { BREAKPOINTS } from 'constant/config'
 
 import { getData } from 'helpers/api'
 
@@ -30,9 +29,11 @@ const Home = () => {
   const { t } = useTranslation()
   const { games } = useSelector(state => state.games)
   const { isCashbox } = useAuth()
+  const { windowWidth } = useWindowWidth()
   const [promo, setPromo] = useState([])
   const [banners, setBanners] = useState([])
   const [loading, setLoading] = useState(true)
+  const isMobile = windowWidth < BREAKPOINTS.lg
 
   useEffect(() => {
     Promise.all([
@@ -96,9 +97,10 @@ const Home = () => {
                   ))}
                 </Swiper>
               </div>
-              <div className={style.hidden}>
+              {
+                !isMobile &&
                 <Qr isLoading={true} />
-              </div>
+              }
             </div>
           </Section>
 

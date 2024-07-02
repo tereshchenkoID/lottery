@@ -22,8 +22,8 @@ const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [filter, setFilter] = useState({
-    username: 'tester',
-    password: 'qwe123',
+    username: '',
+    password: '',
   })
 
   const handlePropsChange = (fieldName, fieldValue) => {

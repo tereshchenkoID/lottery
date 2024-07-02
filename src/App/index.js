@@ -8,6 +8,9 @@ import i18n from 'i18next'
 
 import 'rc-slider/assets/index.css'
 import 'react-phone-input-2/lib/style.css'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
@@ -121,4 +124,8 @@ const App = () => {
 }
 
 export default App
-library.add(fab, fas, far)
+library.add(
+  fas,
+  fab, 
+  far
+)

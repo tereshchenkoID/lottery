@@ -2,7 +2,8 @@
 
 .form {
   display: grid;
-  gap: rem(4px);
+  column-gap: rem(4px);
+  row-gap: rem(8px);
 
   @include media-breakpoint-up(md) {
     grid-template-columns: repeat(3, 1fr);
