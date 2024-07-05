@@ -67,6 +67,27 @@
     min-height: rem(150px);
 }
 
+.status {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateZ(-25deg);
+    font-size: rem(50px);
+    text-transform: uppercase;
+    font-weight: var(--typography-bold);
+    font-family: var(--font-family-alt);
+    white-space: nowrap;
+    opacity: 0.3;
+
+    &.type-2 {
+        color: var(--color-warning);
+    }
+
+    &.type-5 {
+        color: var(--color-success);
+    }
+}
+
 .date {
     font-size: rem(14px);
     opacity: 0.6;
@@ -96,6 +117,10 @@
     @include media-breakpoint-up(xl) {
         display: none;
     }
+}
+
+.info {
+    @include make-spacer(mt, 12px);
 }
 
 .actions {

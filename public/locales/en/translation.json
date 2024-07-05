@@ -107,12 +107,14 @@
     "rejected": "Verification rejected",
     "verified": "Verified"
   },
+  "send": "Send",
   "pending": "Pending",
   "select_values": "Select values",
   "upload_file": "Upload file",
   "country": "Country",
   "state": "State",
   "city": "City",
+  "code": "Code",
   "address": "Address",
   "postcode": "Postcode",
   "profile": "Profile",
@@ -179,6 +181,7 @@
   "missed_numbers": "Missed numbers",
   "buy_ticket": "Buy ticket",
   "no_money": "No money",
+  "date_update": "Date update",
   "ticket_status": {
     "all": "All tickets",
     "pending": "Pending",

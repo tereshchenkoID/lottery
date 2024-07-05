@@ -80,9 +80,12 @@
     color: var(--color-warning);
   }
 
-  &.type-4,
+  &.type-4 {
+    color: var(--color-info);
+  }
+
   &.type-5 {
-    color: var(--color-secondary);
+    color: var(--color-success);
   }
 }
 

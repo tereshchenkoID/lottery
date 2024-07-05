@@ -20,8 +20,7 @@ const Banner = ({
 }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
-  const difference = parseFloat(data.betCost) - parseFloat(auth.account.bonus)
-  const percentageDifference = (difference / parseFloat(data.betCost)) * 100
+  const percentageDifference = (parseFloat(auth.account.bonus) / parseFloat(data.betCost)) * 100
 
   const styles = size === 'lg' ? {
     backgroundColor: data.color,

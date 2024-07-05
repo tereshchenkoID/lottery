@@ -32,6 +32,13 @@
     height: rem(40px);
   }
 
+  &.square {
+    @include make-spacer(px, 0);
+
+    aspect-ratio: 1 / 1;
+    min-width: 0;
+  }
+
   &.primary {
     background-color: var(--color-primary);
 

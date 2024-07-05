@@ -107,12 +107,14 @@
     "rejected": "Verificação rejeitada",
     "verified": "Verificado"
   },
+  "send": "Enviar",
   "pending": "Pendente",
   "select_values": "Selecionar valores",
   "upload_file": "Carregar arquivo",
   "country": "País",
   "state": "Estado",
   "city": "Cidade",
+  "code": "Código",
   "address": "Endereço",
   "postcode": "Código postal",
   "profile": "Perfil",
@@ -179,6 +181,7 @@
   "missed_numbers": "Números não sorteados",
   "buy_ticket": "Comprar bilhete",
   "no_money": "Sem dinheiro",
+  "date_update": "Data atualização",
   "ticket_status": {
     "all": "Todos os bilhetes",
     "pending": "Pendente",

@@ -6,6 +6,19 @@
     gap: rem(24px);
 }
 
+.verify,
+.button,
+.action {
+    flex-shrink: 0;
+}
+
+.verify,
+.wrapper {
+    @include flex($align-items: center);
+
+    column-gap: rem(8px);
+}
+
 .tab {
     @include flex;
 
@@ -21,7 +34,6 @@
 .button {
     border-radius: rem(20px);
     height: rem(32px);
-    flex-shrink: 0;
 }
 
 .grid {
@@ -38,15 +50,19 @@
 }
 
 .row {
-    @include flex($align-items: center);
+    display: grid;
+    gap: rem(8px);
 
-    column-gap: rem(8px);
+    &.count-0,
+    &.count-2 {
+        grid-template-columns: 1fr rem(100px);
+    }
+
+    &.count-1 {
+        grid-template-columns: 1fr;
+    }
 }
 
 .verify {
-    @include flex($align-items: center);
-
-    column-gap: rem(8px);
-    color: var(--color-secondary);
-    flex-shrink: 0;
+    color: var(--color-success);
 }

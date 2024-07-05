@@ -1,1 +1,68 @@
 @import 'scss/config';
+
+.block {
+    display: grid;
+    grid-template-rows: rem(32px) auto;
+    gap: rem(24px);
+}
+
+.verify,
+.button,
+.action {
+    flex-shrink: 0;
+}
+
+.verify,
+.wrapper {
+    @include flex($align-items: center);
+
+    column-gap: rem(8px);
+}
+
+.tab {
+    @include flex;
+
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: rem(8px);
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.button {
+    border-radius: rem(20px);
+    height: rem(32px);
+}
+
+.grid {
+    display: grid;
+    gap: rem(24px);
+    max-width: rem(460px);
+}
+
+.label {
+    @include make-spacer(mt, 4px);
+
+    font-size: rem(12px);
+    color: var(--grey-alpha-600);
+}
+
+.row {
+    display: grid;
+    gap: rem(8px);
+
+    &.count-0,
+    &.count-2 {
+        grid-template-columns: 1fr rem(100px);
+    }
+
+    &.count-1 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.verify {
+    color: var(--color-secondary);
+}

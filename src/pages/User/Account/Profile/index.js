@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { NAVIGATION } from 'constant/config'
-
-import classNames from 'classnames'
-
-import { setAuth } from 'store/actions/authAction'
 import { setToastify } from 'store/actions/toastifyAction'
 import { postData, getData } from 'helpers/api'
-import { getDate } from 'helpers/getDate'
 
-import Phone from 'components/Phone'
-import Field from 'components/Field'
 import Button from 'components/Button'
-import Password from 'components/Password'
-import Uploader from 'components/Uploader'
 import Loader from 'components/Loader'
-import Select from 'components/Select'
+import General from './General'
+import Identify from './Identify'
+import Security from './Security'
 
 import style from './index.module.scss'
 
@@ -28,9 +18,8 @@ const TAB = ['profile', 'identify', 'security', 'payement']
 const Profile = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
-  const [active, setActive] = useState(1)
+  const [active, setActive] = useState(0)
   const [filter, setFilter] = useState()
   const [countries, setCountries] = useState([])
   const [uploadedPhotos, setUploadedPhotos] = useState([])
@@ -57,30 +46,47 @@ const Profile = () => {
   }
 
   const handleSubmit = e => {
-    // e.preventDefault()
+    e.preventDefault()
 
-    // const formData = new FormData()
-    // formData.append('username', filter.username)
-    // formData.append('email', filter.email)
-    // formData.append('date', filter.date)
-    // formData.append('phone', filter.phone)
-    // formData.append('password', filter.password)
+    const formData = new FormData()
+    for (const key in filter[TAB[active]]) {
+      if (filter[TAB[active]].hasOwnProperty(key)) {
+        formData.append(key, filter[TAB[active]][key])
+      }
+    }
 
-    // postData('register/', formData).then(json => {
-    //   console.log(json)
-    //   if (json.id) {
-    //     dispatch(setAuth(json)).then(() => {
-    //       navigate('/')
-    //     })
-    //   } else {
-    //     dispatch(
-    //       setToastify({
-    //         type: 'error',
-    //         text: json.error_message,
-    //       }),
-    //     )
-    //   }
-    // })
+    if(uploadedPhotos.length > 0) {
+      uploadedPhotos.forEach((blob, index) => {
+        formData.append(`file-${index + 1}`, blob)
+      })
+    }
+
+    postData(`profile/?tab=${active}`, formData).then(json => {
+      if (json.code === "0") {
+        setFilter({
+          ...json,
+          security: {
+            old_password: '',
+            new_password: ''
+          }
+        })
+        dispatch(
+          setToastify({
+            type: 'success',
+            text: t('date_update'),
+          }),
+        ).then(() => {
+          setUploadedPhotos([])
+        })
+      } else {
+        dispatch(
+          setToastify({
+            type: 'error',
+            text: json.error_message,
+          }),
+        )
+      }
+    })
   }
 
   useEffect(() => {
@@ -89,8 +95,8 @@ const Profile = () => {
         setFilter({
           ...json,
           security: {
-            password_old: '',
-            password_new: ''
+            old_password: '',
+            new_password: ''
           }
         })
       }),
@@ -104,7 +110,7 @@ const Profile = () => {
 
   const handlePhotoUpload = (files) => {
     setUploadedPhotos(files)
-  };
+  }
 
   return (
     <div className={style.block}>
@@ -113,7 +119,6 @@ const Profile = () => {
           <Loader />
         ) : (
           <>
-            {/* <pre>{JSON.stringify(filter, null, 2)}</pre> */}
             <div className={style.tab}>
               {
                 TAB.map((el, idx) => (
@@ -127,149 +132,33 @@ const Profile = () => {
                 ))
               }
             </div>
+            {/* <pre>{JSON.stringify(filter, null, 2)}</pre> */}
             {
               active === 0 &&
-              <form onSubmit={handleSubmit} className={style.form}>
-                <div className={style.grid}>
-                  <Field
-                    type={'text'}
-                    placeholder={t('name')}
-                    data={filter.profile.name}
-                    onChange={value => handlePropsChange('profile.name', value)}
-                    isRequired={true}
-                    isDisabled={filter.profile.isVerify}
-                  />
-                  <Field
-                    type={'text'}
-                    placeholder={t('surname')}
-                    data={filter.profile.surname}
-                    onChange={value => handlePropsChange('profile.surname', value)}
-                    isRequired={true}
-                    isDisabled={filter.profile.isVerify}
-                  />
-                  <Field
-                    type={'text'}
-                    placeholder={t('username')}
-                    data={filter.profile.username}
-                    onChange={value => handlePropsChange('profile.username', value)}
-                    isRequired={true}
-                    isDisabled={true}
-                  />
-                  <Phone
-                    data={filter.phone}
-                    onChange={value => handlePropsChange('profile.phone', value)}
-                    isRequired={true}
-                  />
-                  <Field
-                    type={'date'}
-                    placeholder={t('birth_day')}
-                    data={filter.profile.date}
-                    onChange={value => handlePropsChange('profile.date', value)}
-                    isRequired={true}
-                    max={getDate(new Date(), 3)}
-                  />
-                  <div className={style.row}>
-                    <Field
-                      type={'email'}
-                      placeholder={t('email')}
-                      data={filter.profile.email}
-                      onChange={value => handlePropsChange('profile.email', value)}
-                      isRequired={true}
-                    />
-                    {
-                      filter.profile.isVerifyEmail <= 2
-                      ?
-                        <Button
-                          placeholder={filter.profile.isVerifyEmail === 0 ? t('verify.verify') : t('pending')}
-                          isDisabled={filter.profile.isVerifyEmail === 1}
-                        />
-                      :
-                        <div className={style.verify}>
-                          <FontAwesomeIcon icon="fa-solid fa-check" />
-                          {t('verify.verify')}
-                        </div>
-                    }
-                  </div>
-                  <Button
-                    type={'submit'}
-                    placeholder={t('save')}
-                  />
-                </div>
-              </form>
+              <General
+                filter={filter}
+                handlePropsChange={handlePropsChange}
+                handleSubmit={handleSubmit}
+              />
             }
             {
               active === 1 &&
-              <form onSubmit={handleSubmit} className={style.form}>
-                <div className={style.grid}>
-                  <Uploader onChange={handlePhotoUpload} />
-                  <Select
-                    placeholder={t('country')}
-                    options={countries.map(item => ({
-                      value: item.alpha_2,
-                      label: item.name,
-                    }))}
-                    data={filter.identify.country}
-                    isRequired={true}
-                    onChange={value => handlePropsChange('identify.country', value)}
-                  />
-                  <Field
-                    type={'text'}
-                    placeholder={t('state')}
-                    data={filter.identify.state}
-                    onChange={value => handlePropsChange('identify.state', value)}
-                    isRequired={true}
-                  />
-                  <Field
-                    type={'text'}
-                    placeholder={t('city')}
-                    data={filter.identify.city}
-                    onChange={value => handlePropsChange('identify.city', value)}
-                    isRequired={true}
-                  />
-                  <Field
-                    type={'text'}
-                    placeholder={t('address')}
-                    data={filter.identify.address}
-                    onChange={value => handlePropsChange('identify.address', value)}
-                    isRequired={true}
-                  />
-                  <Field
-                    type={'text'}
-                    placeholder={t('postcode')}
-                    data={filter.identify.postcode}
-                    onChange={value => handlePropsChange('identify.postcode', value)}
-                    isRequired={true}
-                  />
-                  <Button
-                    type={'submit'}
-                    placeholder={t('save')}
-                  />
-                </div>
-              </form>
+              <Identify
+                filter={filter}
+                countries={countries}
+                handlePropsChange={handlePropsChange}
+                handleSubmit={handleSubmit}
+                uploadedPhotos={uploadedPhotos}
+                handlePhotoUpload={handlePhotoUpload}
+              />
             }
             {
               active === 2 &&
-              <form onSubmit={handleSubmit} className={style.form}>
-                <div className={style.grid}>
-                  <Password
-                    placeholder={t('password_old')}
-                    data={filter.security.password_old}
-                    onChange={value => handlePropsChange('security.password_old', value)}
-                  />
-                  <div>
-                    <Password
-                      placeholder={t('password_new')}
-                      data={filter.security.password_new}
-                      onChange={value => handlePropsChange('security.password_new', value)}
-                    />
-                    <p className={style.label}>{t('validation.password_length')}</p>
-                  </div>
-                  <Button
-                    type={'submit'}
-                    placeholder={t('save')}
-                  />
-                </div>
-              </form>
+              <Security 
+                filter={filter}
+                handlePropsChange={handlePropsChange}
+                handleSubmit={handleSubmit}
+              />
             }
             {
               active === 3 &&

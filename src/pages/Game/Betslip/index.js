@@ -166,7 +166,7 @@ const Betslip = ({
                 text: t('stake.message'),
               })
             ).then(() => {
-              if (game.id === 1) {
+              if (game.id === 1 || game.type === 2) {
                 handleLoad()
               }
 

@@ -29,7 +29,7 @@ const TicketBlock = ({ data, active, setActive }) => {
       className={
         classNames(
           style.block,
-          (ticket.time < new Date().getTime() && ticket.win === 0) && style.disabled,
+          (ticket.time < new Date().getTime() && Number(ticket.win) === 0) && style.disabled,
           active?.id === ticket.id && style.active
         )
       }
@@ -50,7 +50,7 @@ const TicketBlock = ({ data, active, setActive }) => {
                 </strong>
                 <div className={style.meta}>
                   {
-                    ( ticket.win > 0)
+                    (ticket.win > 0)
                       ?
                         <h6>{ticket.win} {auth.account.currency.symbol}</h6>
                       :

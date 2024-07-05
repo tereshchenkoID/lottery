@@ -10,6 +10,7 @@ import classNames from 'classnames'
 
 import { getDate } from 'helpers/getDate'
 import { postData } from 'helpers/api'
+import { getHostName } from 'helpers/getHostName'
 import { setToastify } from 'store/actions/toastifyAction'
 
 import Button from 'components/Button'
@@ -31,7 +32,13 @@ const getGames = (active) => {
   const GameComponent = gameComponents[active?.gameId]
 
   if (!GameComponent) {
-    return <div className={style.empty}>Empty</div>
+    return <div className={style.instant}>
+            <img 
+              src={`${getHostName()}/img/render/?id=${active.id}`} 
+              className={style.img}
+              alt="Results" 
+            />
+          </div>
   }
 
   return (
@@ -54,8 +61,7 @@ const TicketPreview = ({
   const { auth } = useSelector(state => state.auth)
   const { games } = useSelector(state => state.games)
   const { isCashbox } = useAuth()
-  const currentDate = new Date().getTime()
-  const isActive = data?.status >= 4 && active?.time < currentDate
+  const isActive = data?.status >= 4
 
   const game = useMemo(() => games.find(game => game.id === data?.gameId), [games, data])
 
@@ -115,7 +121,7 @@ const TicketPreview = ({
                   {
                     isActive
                       ?
-                        <>{t('win')}: <strong>{data.win} {auth.account.currency.symbol}</strong></>
+                        <>{t(`ticket_status.${STATUS_TYPE[data.status]}`)}: <strong>{data.win} {auth.account.currency.symbol}</strong></>
                       :
                         t(`ticket_status.${STATUS_TYPE[data.status]}`)
                   }
@@ -130,10 +136,23 @@ const TicketPreview = ({
               </div>
               <div className={style.ticket}>
                 {getGames(data)}
+                {
+                  (data.status === 2 || data.status === 5) &&
+                    <div 
+                      className={
+                        classNames(
+                          style.status,
+                          style[`type-${data.status}`]
+                        )
+                      }
+                    >
+                      {t(`ticket_status.${STATUS_TYPE[data.status]}`)}
+                    </div>
+                }
               </div>
               {
                 data.info &&
-                <div>{data.info}</div>
+                <div className={style.info}>{data.info}</div>
               }
               {
                 data?.actions &&

@@ -1,1 +1,27 @@
 @import 'scss/config';
+
+.wrapper {
+    display: grid;
+    position: relative;
+    height: 100%;
+
+    @include media-breakpoint-up(xl) {
+        grid-template-columns: 1fr rem(322px);
+        gap: rem(48px);
+
+        &::after {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: rem(346px);
+            background-color: var(--grey-alpha-200);
+            width: rem(1px);
+            content: '';
+        }
+    }
+}
+
+.left,
+.right {
+    border: 1px solid red;
+}

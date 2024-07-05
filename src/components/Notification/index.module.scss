@@ -18,14 +18,14 @@
   }
 
   &.error {
-    color: #be6464;
+    color: var(--color-warning);
   }
 
   &.info {
-    color: #337ab7;
+    color: var(--color-info);
   }
 
   &.success {
-    color: #8dc572;
+    color: var(--color-success);
   }
 }
