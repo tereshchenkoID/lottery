@@ -140,6 +140,7 @@
   "jackpot": "Jackpot",
   "all_games": "Todos os jogos",
   "drawing_games": "Jogos de sorteio",
+  "recent_purchases": "Compras recentes",
   "quick_games_15": "Jogos rápidos, a cada 15 min",
   "instant_games": "Cartões de raspadinha",
   "stock": "Promoção",
@@ -182,6 +183,7 @@
   "buy_ticket": "Comprar bilhete",
   "no_money": "Sem dinheiro",
   "date_update": "Data atualização",
+  "back": "Voltar",
   "ticket_status": {
     "all": "Todos os bilhetes",
     "pending": "Pendente",
@@ -190,6 +192,7 @@
     "lose": "Perdeu",
     "win_not_paid": "Ganho não pago",
     "win_paid": "Ganho pago",
+    "win": "Ganho",
     "jackpot_winner": "Ganhador do jackpot"
   },
   "tooltip": {

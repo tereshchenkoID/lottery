@@ -140,6 +140,7 @@
   "jackpot": "Jackpot",
   "all_games": "All games",
   "drawing_games": "Drawing games",
+  "recent_purchases": "Recent Purchases",
   "quick_games_15": "Quick games, every 15 min",
   "instant_games": "Scratch cards",
   "stock": "Promo",
@@ -182,6 +183,7 @@
   "buy_ticket": "Buy ticket",
   "no_money": "No money",
   "date_update": "Date update",
+  "back": "Go back",
   "ticket_status": {
     "all": "All tickets",
     "pending": "Pending",
@@ -190,6 +192,7 @@
     "lose": "Lose",
     "win_not_paid": "Win not paid",
     "win_paid": "Win paid",
+    "win": "Win",
     "jackpot_winner": "Jackpot winner"
   },
   "tooltip": {

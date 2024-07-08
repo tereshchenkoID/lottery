@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
 
 import classNames from 'classnames'
 
@@ -15,6 +14,7 @@ import Field from 'components/Field'
 import Button from 'components/Button'
 import Title from 'components/Title'
 import TicketPreview from 'modules/TicketPreview'
+import Breadcrumbs from 'modules/Breadcrumbs'
 
 import style from './index.module.scss'
 
@@ -54,6 +54,7 @@ const CheckTickets = () => {
   useEffect(() => {
     if(scan) {
       const q = scan?.scans?.[0]?.value
+      setFilter(q)
       load(q, 1)
     }
   }, [scan])
@@ -70,8 +71,19 @@ const CheckTickets = () => {
         <div className={style.left}>
           <Title text={t(NAVIGATION.check_ticket.text)} />
           <form onSubmit={handleSubmit} className={style.form}>
+            {
+              scan &&
+              <Breadcrumbs 
+                data={[
+                  {
+                    text: 'back',
+                    link: sessionStorage.getItem('p_r') || -1
+                  }
+                ]}
+              />
+            }
             <Field
-              type={'number'}
+              type={'text'}
               placeholder={t('ticket')}
               data={filter}
               onChange={value => setFilter(value)}

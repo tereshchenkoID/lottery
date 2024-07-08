@@ -121,7 +121,16 @@ const TicketPreview = ({
                   {
                     isActive
                       ?
-                        <>{t(`ticket_status.${STATUS_TYPE[data.status]}`)}: <strong>{data.win} {auth.account.currency.symbol}</strong></>
+                        <>
+                          {
+                            data.status === 5 
+                            ?
+                              t('ticket_status.win')
+                            :
+                              t(`ticket_status.${STATUS_TYPE[data.status]}`)  
+                          }
+                          : <strong>{data.win} {auth.account.currency.symbol}</strong>
+                        </>
                       :
                         t(`ticket_status.${STATUS_TYPE[data.status]}`)
                   }

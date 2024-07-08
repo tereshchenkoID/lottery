@@ -1,0 +1,75 @@
+@import 'scss/config';
+
+.block {
+  display: grid;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: rem(16px);
+  overflow: hidden;
+  width: rem(144px);
+  min-height: rem(56px);
+
+  @include media-breakpoint-up(lg) {
+    width: rem(260px);
+
+    @include hover {
+
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+  }
+}
+
+.body {
+  @include size(100%);
+  @include make-spacer(p, 8px);
+  @include flex($direction: column);
+
+  display: grid;
+  gap: rem(8px);
+  align-items: center;
+  background-color: var(--grey-200);
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: rem(40px) 1fr;
+  }
+}
+
+.time {
+  @include flex(center, center);
+  @include make-spacer(p, 4px);
+
+  position: absolute;
+  top: rem(8px);
+  right: rem(8px);
+  gap: rem(4px);
+  background-color: var(--grey-alpha-200);
+  border-radius: rem(16px);
+  width: fit-content;
+  font-size: rem(12px);
+  line-height: 1;
+  font-weight: var(--typography-medium);
+}
+
+.picture {
+  @include size(rem(40px));
+}
+
+.content {
+  @include make-spacer(mt, 4px);
+
+  flex-grow: 1;
+}
+
+.title {
+  font-size: rem(12px);
+
+  @include media-breakpoint-up(lg) {
+    font-size: rem(14px);
+  }
+}
+
+.prize {
+  font-size: rem(16px);
+}

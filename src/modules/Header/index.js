@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAuth } from 'context/AuthContext'
 import { useWindowWidth } from 'context/WindowWidthContext'
-import { useNavigate } from 'react-router-dom'
 
 import { NAVIGATION, BREAKPOINTS } from 'constant/config'
 
@@ -25,6 +25,7 @@ const Header = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const location = useLocation()
   const { settings } = useSelector(state => state.settings)
   const { isCashbox } = useAuth()
   const { windowWidth } = useWindowWidth()
@@ -38,7 +39,7 @@ const Header = () => {
   //       scans: [
   //         {
   //           type: "CODE-128",
-  //           value: "1234567890"
+  //           value: "000000519-1906406024-5"
   //         }
   //       ]
   //     }
@@ -52,6 +53,7 @@ const Header = () => {
     //   .then(result => {
     //     if(result.hasOwnProperty('scans')) {
     //       dispatch(setScan(result))
+    //       sessionStorage.setItem('p_r', location.pathname)
     //       navigate(NAVIGATION.check_ticket.link)
     //     }
     //   })
@@ -66,6 +68,7 @@ const Header = () => {
         const a = JSON.parse(result)
         if(a.hasOwnProperty('scans')) {
           dispatch(setScan(a))
+          sessionStorage.setItem('p_r', location.pathname)
           navigate(NAVIGATION.check_ticket.link)
         }
       })

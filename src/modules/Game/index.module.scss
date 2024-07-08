@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  @include size(rem(168px), rem(195px));
+  @include size(rem(162px), rem(195px));
 
   position: relative;
   flex-shrink: 0;
