@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 
@@ -13,7 +13,7 @@ import Security from './Security'
 
 import style from './index.module.scss'
 
-const TAB = ['profile', 'identify', 'security', 'payement']
+const TAB = ['profile', 'identify', 'security']
 
 const Profile = () => {
   const { t } = useTranslation()
@@ -55,7 +55,7 @@ const Profile = () => {
       }
     }
 
-    if(uploadedPhotos.length > 0) {
+    if (uploadedPhotos.length > 0) {
       uploadedPhotos.forEach((blob, index) => {
         formData.append(`file-${index + 1}`, blob)
       })
@@ -115,59 +115,52 @@ const Profile = () => {
   return (
     <div className={style.block}>
       {
-        loading ? (
-          <Loader />
-        ) : (
-          <>
-            <div className={style.tab}>
+        loading
+          ?
+            <Loader />
+          :
+            <>
+              <div className={style.tab}>
+                {
+                  TAB.map((el, idx) => (
+                    <Button
+                      key={idx}
+                      placeholder={t(el)}
+                      classes={['alt', style.button]}
+                      isActive={active === idx}
+                      onChange={() => setActive(idx)}
+                    />
+                  ))
+                }
+              </div>
               {
-                TAB.map((el, idx) => (
-                  <Button
-                    key={idx}
-                    placeholder={t(el)}
-                    classes={['alt', style.button]}
-                    isActive={active === idx}
-                    onChange={() => setActive(idx)}
-                  />
-                ))
+                active === 0 &&
+                <General
+                  filter={filter}
+                  handlePropsChange={handlePropsChange}
+                  handleSubmit={handleSubmit}
+                />
               }
-            </div>
-            {/* <pre>{JSON.stringify(filter, null, 2)}</pre> */}
-            {
-              active === 0 &&
-              <General
-                filter={filter}
-                handlePropsChange={handlePropsChange}
-                handleSubmit={handleSubmit}
-              />
-            }
-            {
-              active === 1 &&
-              <Identify
-                filter={filter}
-                countries={countries}
-                handlePropsChange={handlePropsChange}
-                handleSubmit={handleSubmit}
-                uploadedPhotos={uploadedPhotos}
-                handlePhotoUpload={handlePhotoUpload}
-              />
-            }
-            {
-              active === 2 &&
-              <Security 
-                filter={filter}
-                handlePropsChange={handlePropsChange}
-                handleSubmit={handleSubmit}
-              />
-            }
-            {
-              active === 3 &&
-              <form onSubmit={handleSubmit} className={style.form}>
-                <p>Payments method</p>
-              </form>
-            }
-          </>
-        )
+              {
+                active === 1 &&
+                <Identify
+                  filter={filter}
+                  countries={countries}
+                  handlePropsChange={handlePropsChange}
+                  handleSubmit={handleSubmit}
+                  uploadedPhotos={uploadedPhotos}
+                  handlePhotoUpload={handlePhotoUpload}
+                />
+              }
+              {
+                active === 2 &&
+                <Security
+                  filter={filter}
+                  handlePropsChange={handlePropsChange}
+                  handleSubmit={handleSubmit}
+                />
+              }
+            </>
       }
     </div>
   )

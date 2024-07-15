@@ -1,5 +1,9 @@
 @import 'scss/config';
 
+.block {
+  position: relative;
+}
+
 .wrapper {
   display: grid;
   position: relative;

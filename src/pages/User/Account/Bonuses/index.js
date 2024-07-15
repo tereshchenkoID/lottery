@@ -46,60 +46,64 @@ const Bonuses = () => {
         <h2>{t('pages.bonuses.title_1')}</h2>
         <p>{t('pages.bonuses.description_1')}</p>
       </div>
-
-      <div className={style.section}>
-        <div 
-          className={
-            classNames(
-              style.description, 
-              style.alt
-            )
-          }
-        >
-          <h2>{t('pages.bonuses.title_2')}</h2>
-          <p>{t('pages.bonuses.description_2')}</p>
+      {
+        data?.top.length > 0 &&
+        <div className={style.section}>
+          <div 
+            className={
+              classNames(
+                style.description, 
+                style.alt
+              )
+            }
+          >
+            <h2>{t('pages.bonuses.title_2')}</h2>
+            <p>{t('pages.bonuses.description_2')}</p>
+          </div>
+          <Swiper
+            slidesPerView={'auto'}
+            spaceBetween={16}
+            navigation={true}
+            keyboard={true}
+            grabCursor={true}
+            modules={[Navigation, Pagination, Mousewheel, Keyboard]}
+            className="swiper-multiply"
+          >
+            {
+              data?.top.map((el, idx) => (
+                <SwiperSlide key={idx}>
+                  <Banner
+                    data={el}
+                    link={`/game/${el.id}`}
+                    size={'lg'}
+                  />
+                </SwiperSlide>
+              ))
+            }
+          </Swiper>
         </div>
-        <Swiper
-          slidesPerView={'auto'}
-          spaceBetween={16}
-          navigation={true}
-          keyboard={true}
-          grabCursor={true}
-          modules={[Navigation, Pagination, Mousewheel, Keyboard]}
-          className="swiper-multiply"
-        >
-          {
-            data?.top.map((el, idx) => (
-              <SwiperSlide key={idx}>
+      }
+      {
+        data?.bottom.length > 0 &&
+        <div className={style.section}>
+          <div className={style.description}>
+            <h2>{t('pages.bonuses.title_3')}</h2>
+            <p>{t('pages.bonuses.description_3')}</p>
+          </div>
+          <div className={style.banners}>
+            {
+              data?.bottom.map((el, idx) => (
                 <Banner
+                  key={idx}
                   data={el}
                   link={`/game/${el.id}`}
-                  size={'lg'}
+                  size={'sm'}
                 />
-              </SwiperSlide>
-            ))
-          }
-        </Swiper>
-      </div>
-
-      <div className={style.section}>
-        <div className={style.description}>
-          <h2>{t('pages.bonuses.title_3')}</h2>
-          <p>{t('pages.bonuses.description_3')}</p>
+              ))
+            }
+          </div>
         </div>
-        <div className={style.banners}>
-          {
-            data?.bottom.map((el, idx) => (
-              <Banner
-                key={idx}
-                data={el}
-                link={`/game/${el.id}`}
-                size={'sm'}
-              />
-            ))
-          }
-        </div>
-      </div>
+      }
     </div>
   )
 }

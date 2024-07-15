@@ -44,7 +44,8 @@
     "profile": "Perfil",
     "settings": "Configurações",
     "reports": "Relatórios",
-    "players": "Jogadores"
+    "players": "Jogadores",
+    "player": "Jogadore"
   },
   "reports": {
     "date": "Data",
@@ -100,14 +101,33 @@
     "password_length": "Certifique-se de que a senha tenha pelo menos 6 caracteres.",
     "password_mismatch": "Senhas não coincidem"
   },
-  "verify": {
+  "verify_status": {
     "verify": "Verificar",
     "not": "Não verificado",
     "verification": "Verificação pendente",
     "rejected": "Verificação rejeitada",
     "verified": "Verificado"
   },
+  "voucher_status": {
+    "paid": "Pago",
+    "new": "Novo",
+    "expired": "Expirado",
+    "cancelled": "Cancelado"
+  },
+  "expired_date": "Data expirada",
+  "voucher_notification": "Voucher gerado com sucesso",
+  "voucher_cancelled": "Voucher cancelado com sucesso",
+  "deposit_notification": "Digite o código de 12 dígitos no campo abaixo",
+  "create": "Criar",
+  "status": "Estado",
+  "type": "Tipo",
+  "date_create": "Data criar",
+  "date_use": "Data de uso",
+  "where_use": "Onde usado",
+  "min": "Mínima",
+  "max": "Máx",
   "send": "Enviar",
+  "transaction_history": "Histórico de transações",
   "pending": "Pendente",
   "select_values": "Selecionar valores",
   "upload_file": "Carregar arquivo",
@@ -118,6 +138,13 @@
   "address": "Endereço",
   "postcode": "Código postal",
   "profile": "Perfil",
+  "billing": "Cobrança",
+  "balance": "Equilíbrio",
+  "deposit": "Depósito",
+  "withdraw": "Retirar",
+  "voucher": "Comprovante",
+  "another_payement": "Outro pagamento",
+  "verification_code": "Código de verificação",
   "security": "Segurança",
   "identify": "Verificação",
   "payement": "Pagamento",

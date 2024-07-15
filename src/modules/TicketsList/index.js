@@ -27,9 +27,9 @@ const TicketsList = () => {
   })
 
   const filterGames = useMemo(() => {
-    return myGames?.map(el => {
-      return games.find(game => game.id === el)
-    });
+    return myGames
+      ?.map(el => games.find(game => game.id === el))
+      .filter(Boolean)
   }, [myGames, games])
 
   const handlePropsChange = (fieldName, fieldValue) => {
@@ -103,9 +103,10 @@ const TicketsList = () => {
   return (
     <div className={style.block}>
       {
-        loading ? (
-          <Loader />
-        ) : (
+        loading 
+        ?
+          <Loader type={'inline'} />
+        :
           <div className={style.wrapper}>
             <div
               className={classNames(style.shadow, active && style.active)}
@@ -124,7 +125,8 @@ const TicketsList = () => {
                 onChange={handlePropsChange} 
               />
               {
-                data?.length > 0 ? (
+                data?.length > 0 
+                ?
                   <>
                     <div className={style.list}>
                       {
@@ -149,16 +151,14 @@ const TicketsList = () => {
                       </div>
                     }
                   </>
-                ) : (
+                :
                   <Empty />
-                )
               }
             </div>
             <div className={style.right}>
               <TicketPreview data={active} active={active} setActive={setActive} />
             </div>
           </div>
-        )
       }
     </div>
   )

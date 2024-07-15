@@ -13,8 +13,8 @@ import Tab from 'modules/Tab'
 import style from './index.module.scss'
 
 const Account = () => {
-  const location = useLocation()
   const { t } = useTranslation()
+  const location = useLocation()
   const { auth } = useSelector(state => state.auth)
   const isAccountRoot = location.pathname === ROUTES_CASHBOX.account.link
 

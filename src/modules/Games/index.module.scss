@@ -1,9 +1,8 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(pt, 14px);
+  @include make-spacer(py, 14px);
   @include make-spacer(px, 10px);
-  @include make-spacer(pb, 22px);
   @include flex($direction: column);
 
   position: fixed;
@@ -14,6 +13,7 @@
   z-index: $z-index-11;
   background-color: var(--color-background);
   white-space: nowrap;
+  overflow-y: auto;
 
   &.active {
 
@@ -34,6 +34,7 @@
   @include size(rem(44px));
 
   min-width: 0;
+  flex-shrink: 0;
 
   @include hover {
 
@@ -56,6 +57,7 @@
   gap: rem(6px);
   border-radius: rem(6px);
   width: rem(48px);
+  flex-shrink: 0;
   overflow: hidden;
   font-size: rem(14px);
   line-height: rem(20px);

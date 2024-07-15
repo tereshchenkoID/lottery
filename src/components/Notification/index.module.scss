@@ -7,7 +7,7 @@
   position: relative;
   border-radius: rem(8px);
   border: rem(1px) solid currentColor;
-  font-size: rem(14px);
+  font-size: rem(12px);
 
   &::before {
     @include absolute-filled;

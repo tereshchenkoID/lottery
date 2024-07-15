@@ -1,0 +1,70 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 1px);
+  @include transition;
+
+  border-radius: rem(16px);
+  max-width: rem(366px);
+  height: rem(120px);
+  color: var(--grey-alpha-200);
+  background: no-repeat 
+    radial-gradient(circle 16px at -4px 50%, transparent 99.9%, currentColor) 0 100% / calc(50% + 2px) 100%, 
+    no-repeat radial-gradient(circle 16px at calc(100% + 4px) 50%, 
+    transparent 99.9%, currentColor) 100% 100% / calc(50% + 2px) 100%;
+}
+
+.wrapper {
+  @include make-spacer(py, 12px);
+  @include make-spacer(px, 20px);
+  @include flex(center);
+
+  position: relative;
+  border-radius: rem(15px);
+  height: 100%;
+  background: no-repeat 
+    radial-gradient(circle 17px at -4px 50%, transparent 99.9%, var(--color-white)) top left -1px / calc(50% + 2px) 100%, 
+    no-repeat radial-gradient(circle 17px at calc(100% + 4px) 50%, 
+    transparent 99.9%, var(--color-white)) top right -1px / calc(50% + 2px) 100%;
+  gap: rem(24px);
+  z-index: 2;
+  color: var(--color-text);
+}
+
+.info {
+  @include flex($direction: column);
+
+  flex-grow: 1;
+  line-height: 1;
+  row-gap: rem(6px)
+}
+
+.date {
+  @include make-spacer(mt, auto);
+
+  font-size: rem(12px);
+}
+
+.label {
+  @include make-spacer(mr, 5px);
+
+  display: inline-flex;
+  font-size: rem(12px);
+  font-weight: var(--typography-regular);
+  font-family: var(--font-family)!important;
+  min-width: rem(100px);
+}
+
+.status {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateZ(-25deg);
+  font-size: rem(50px);
+  text-transform: uppercase;
+  font-weight: var(--typography-bold);
+  font-family: var(--font-family-alt);
+  white-space: nowrap;
+  opacity: 0.3;
+  color: var(--color-success);
+}

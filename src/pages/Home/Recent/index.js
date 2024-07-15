@@ -23,7 +23,10 @@ const Recent = ({ data }) => {
   useEffect(() => {
     getData('topgames/').then(json => {
       setTopgames(json)
-      setLoading(false)
+
+      if (json.length > 0) {
+        setLoading(false)
+      }
     })
   }, [])
 

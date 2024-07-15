@@ -2,14 +2,19 @@ import classNames from 'classnames';
 
 import style from './index.module.scss'
 
-const Notification = ({ text, type }) => {
+const Notification = ({ 
+  text, 
+  type, 
+  classes = null
+}) => {
 
   return (
     <div 
       className={
         classNames(
           style.block,
-          style[type]
+          style[type],
+          classes
         )
       }
     >

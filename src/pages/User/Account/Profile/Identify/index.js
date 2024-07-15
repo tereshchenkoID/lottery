@@ -24,7 +24,7 @@ const Identify = ({
     <form onSubmit={handleSubmit} className={style.form}>
       <div className={style.grid}>
         <Notification
-          text={t(`verify.${USER_VERIFY[filter.profile.isVerify]}`)}
+          text={t(`verify_status.${USER_VERIFY[filter.profile.isVerify]}`)}
           type={filter.profile.isVerify < 3 ? 'error' : 'success'}
         />
         {

@@ -139,7 +139,7 @@ const Betslip = ({
     const c = auth
 
     const formData = new FormData()
-      formData.append('data', JSON.stringify(a))
+    formData.append('data', JSON.stringify(a))
 
       postData('placebet/', formData).then(json => {
         if (json.code === "0") {

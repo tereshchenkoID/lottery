@@ -1,27 +1,52 @@
 @import 'scss/config';
 
-.wrapper {
+.block {
     display: grid;
+    grid-template-rows: auto 1fr;
+    row-gap: rem(24px);
+}
+
+.list,
+.form,
+.action {
+    display: grid;
+    gap: rem(4px);
+}
+
+.wrapper {
+    @include flex($direction: column);
+
     position: relative;
-    height: 100%;
+}
 
-    @include media-breakpoint-up(xl) {
-        grid-template-columns: 1fr rem(322px);
-        gap: rem(48px);
+.list {
+    @include make-spacer(mb, 24px);
+  
+    align-items: flex-start;
 
-        &::after {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: rem(346px);
-            background-color: var(--grey-alpha-200);
-            width: rem(1px);
-            content: '';
-        }
+    @include media-breakpoint-up(sm) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+  
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-.left,
-.right {
-    border: 1px solid red;
+.form {
+    @include media-breakpoint-up(sm) {
+        grid-template-columns: 3fr 1fr;
+    }
+}
+
+.action {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.item {
+    justify-content: flex-start
+}
+
+.pagination {
+    @include make-spacer(mt, auto);
 }

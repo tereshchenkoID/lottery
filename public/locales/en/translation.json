@@ -44,7 +44,8 @@
     "profile": "Profile",
     "settings": "Settings",
     "reports": "Reports",
-    "players": "Players"
+    "players": "Players",
+    "player": "Player"
   },
   "reports": {
     "date": "Date",
@@ -100,14 +101,33 @@
     "password_length": "Make sure the password is at least 6 characters long.",
     "password_mismatch": "Passwords mismatch"
   },
-  "verify": {
+  "verify_status": {
     "verify": "Verify",
     "not": "Not verified",
     "verification": "Pending verification",
     "rejected": "Verification rejected",
     "verified": "Verified"
   },
+  "voucher_status": {
+    "paid": "Paid",
+    "new": "New",
+    "expired": "Expired",
+    "cancelled": "Cancelled"
+  },
+  "expired_date": "Expired date",
+  "voucher_notification": "Voucher generated successful",
+  "voucher_cancelled": "Voucher cancelled successful",
+  "deposit_notification": "Enter the 12-digit code in the field below",
+  "create": "Create",
+  "status": "Status",
+  "type": "Type",
+  "date_create": "Date create",
+  "date_use": "Date use",
+  "where_use": "Where use",
+  "min": "Min",
+  "max": "Max",
   "send": "Send",
+  "transaction_history": "Transaction history",
   "pending": "Pending",
   "select_values": "Select values",
   "upload_file": "Upload file",
@@ -118,6 +138,13 @@
   "address": "Address",
   "postcode": "Postcode",
   "profile": "Profile",
+  "billing": "Billing",
+  "balance": "Balance",
+  "deposit": "Deposit",
+  "withdraw": "Withdraw",
+  "voucher": "Voucher",
+  "another_payement": "Another payement",
+  "verification_code": "Verification code",
   "security": "Security",
   "identify": "Verification",
   "payement": "Payement",

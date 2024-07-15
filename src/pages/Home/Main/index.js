@@ -16,7 +16,7 @@ import Qr from 'modules/Qr'
 
 import style from '../index.module.scss'
 
-const Main = ({data}) => {
+const Main = ({ data }) => {
   const { windowWidth } = useWindowWidth()
   const isMobile = windowWidth < BREAKPOINTS.lg
 

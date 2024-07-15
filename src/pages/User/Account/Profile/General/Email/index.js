@@ -84,13 +84,13 @@ const Email = ({
           filter.profile.isVerifyEmail === 2 &&
           <div className={style.verify}>
             <FontAwesomeIcon icon="fa-solid fa-check" />
-            {t('verify.verify')}
+            {t('verify_status.verify')}
           </div>
         }
         {
           filter.profile.isVerifyEmail < 2 &&
           <Button
-            placeholder={filter.profile.isVerifyEmail === 0 ? t('verify.verify') : t('send')}
+            placeholder={filter.profile.isVerifyEmail === 0 ? t('verify_status.verify') : t('send')}
             onChange={() => handleSubmit(false)}
           />
         }

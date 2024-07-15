@@ -119,7 +119,6 @@ const Profile = () => {
                 ))
               }
             </div>
-            {/* <pre>{JSON.stringify(filter, null, 2)}</pre> */}
             {
               active === 0 &&
               <General

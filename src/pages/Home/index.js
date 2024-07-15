@@ -49,12 +49,12 @@ const Home = () => {
 
   return (
     <div className={style.block}>
-      {!isCashbox && <Main data={banners} />}
+      {(!isCashbox && banners.length > 0) && <Main data={banners} />}
       {isLogin && <Recent />}
-      {!isCashbox && <Promo data={promo} />}
-      <Draw data={sortedGames[0]} title={'drawing_games'} />
-      <Draw data={sortedGames[1]} title={'quick_games_15'} />
-      <Quick data={sortedGames[2]} />
+      {(!isCashbox && promo.length > 0) && <Promo data={promo} />}
+      {sortedGames[0]?.length > 0 && <Draw data={sortedGames[0]} title={'drawing_games'} />}
+      {sortedGames[1]?.length > 0 && <Draw data={sortedGames[1]} title={'quick_games_15'} />}
+      {sortedGames[2]?.length > 0 && <Quick data={sortedGames[2]} />}
     </div>
   )
 }

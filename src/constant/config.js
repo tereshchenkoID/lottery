@@ -12,6 +12,13 @@ export const USER_VERIFY = {
   3: 'verified',
 }
 
+export const VOUCHER_STATUS = {
+  0: 'new',
+  1: 'paid',
+  2: 'expired',
+  3: 'cancelled'
+}
+
 export const BREAKPOINTS = {
   xs: 0,
   sm: 576,
