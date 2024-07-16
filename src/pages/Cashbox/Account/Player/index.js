@@ -41,10 +41,6 @@ const Player = () => {
     })
   }
 
-  const handleSubmit = e => {
-    e.preventDefault()
-  }
-
   useEffect(() => {
     getData(`players/details/${token}/${id}`).then(json => {
       setFilter(json)
@@ -55,9 +51,9 @@ const Player = () => {
   return (
     <div className={style.block}>
       {
-        loading 
+        loading
           ?
-            <Loader />
+            <Loader type={'inline'} />
           :
             <>
               <div className={style.tab}>
@@ -73,22 +69,17 @@ const Player = () => {
                   ))
                 }
               </div>
-              <div>
-                {/* <pre>{JSON.stringify(filter, null, 2)}</pre> */}
-                {/* <p>ID: {id}</p> */}
-                {/* <p>Token: {token}</p> */}
-                {
-                  active === 0 &&
-                  <General filter={filter} />
-                }
-                {
-                  active === 1 &&
-                  <Billing
-                    filter={filter}
-                    handlePropsChange={handlePropsChange}
-                  />
-                }
-              </div>
+              {
+                active === 0 &&
+                <General filter={filter} />
+              }
+              {
+                active === 1 &&
+                <Billing
+                  filter={filter}
+                  handlePropsChange={handlePropsChange}
+                />
+              }
             </>
       }
     </div>

@@ -117,7 +117,7 @@ const Profile = () => {
       {
         loading
           ?
-            <Loader />
+            <Loader type={'inline'} />
           :
             <>
               <div className={style.tab}>

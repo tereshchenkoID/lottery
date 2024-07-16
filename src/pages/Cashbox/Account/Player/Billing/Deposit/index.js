@@ -9,36 +9,39 @@ import { postData } from 'helpers/api'
 import Button from 'components/Button'
 import Field from 'components/Field'
 import Notification from 'components/Notification'
-import VoucherBlock from 'modules/VoucherBlock'
 
 import style from '../index.module.scss'
 
-const Deposit = ({ type }) => {
+const Deposit = ({ type, data, filter, handlePropsChange }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { auth } = useSelector(state => state.auth)
-  const [code, setCode] = useState('')
-  const [voucher, setVoucher] = useState(null)
+  const [amount, setAmount] = useState('')
+  const min = data[type]?.min
+  const max = data[type]?.max
+
+  console.log(filter)
 
   const handleSubmit = e => {
     e.preventDefault()
 
     const formData = new FormData()
-    formData.append('code', code)
+    formData.append('userId', filter.profile.id)
+    formData.append('amount', amount)
 
-    postData('wallet/voucher/redeem/', formData).then(json => {
+    postData('billing/deposit/', formData).then(json => {
       if (json.code === "0") {
         const c = auth
         c.account.balance = json.account.balance
         c.account.bonus = json.account.bonus
 
-        setVoucher(json?.voucher)
-        setCode('')
+        setAmount('')
         dispatch(setAuth(c))
+        handlePropsChange('billing.balance', json.user.balance)
         dispatch(
           setToastify({
             type: 'success',
-            text: t('voucher_notification'),
+            text: t('deposit_successful'),
           }),
         )
       } else {
@@ -54,28 +57,24 @@ const Deposit = ({ type }) => {
 
   return (
     <form onSubmit={handleSubmit} className={style.form}>
-      {
-        voucher &&
-        <VoucherBlock data={voucher} isPaid={true} />
-      }
       <Notification 
-        text={t('deposit_notification')} 
+        text={`${t(type)} ${t('amount')} ${t('min')}:${min}, ${t('max')}:${max}`} 
         type={'info'}
         classes={style.notification}
       />
       <div className={style.grid}>
         <Field
-          type={'text'}
-          placeholder={t('code')}
-          data={code}
-          onChange={value => setCode(value)}
+          type={'number'}
+          placeholder={t('amount')}
+          data={amount}
+          onChange={value => setAmount(value)}
           isRequired={true}
         />
         <div />
         <Button
           type={'submit'}
           placeholder={t(type)}
-          isDisabled={code === '' || code.length < 12}
+          isDisabled={amount === '' || amount < min || amount > max || amount > parseFloat(auth.account.balance)}
         />
       </div>
     </form>

@@ -30,7 +30,7 @@ const Wallet = () => {
       setLoading(false)
     })
   }
-
+  
   useEffect(() => {
     handleLoad()
   }, [])

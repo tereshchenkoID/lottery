@@ -4,6 +4,7 @@
     display: grid;
     grid-template-rows: rem(32px) auto;
     gap: rem(24px);
+    position: relative;
 }
 
 .verify,

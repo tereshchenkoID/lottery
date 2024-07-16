@@ -4,15 +4,9 @@
     display: grid;
     grid-template-rows: rem(32px) auto;
     gap: rem(24px);
+    position: relative;
 }
 
-.verify,
-.button,
-.action {
-    flex-shrink: 0;
-}
-
-.verify,
 .wrapper {
     @include flex($align-items: center);
 
@@ -34,6 +28,7 @@
 .button {
     border-radius: rem(20px);
     height: rem(32px);
+    flex-shrink: 0;
 }
 
 .grid {
@@ -47,22 +42,4 @@
 
     font-size: rem(12px);
     color: var(--grey-alpha-600);
-}
-
-.row {
-    display: grid;
-    gap: rem(8px);
-
-    &.count-0,
-    &.count-2 {
-        grid-template-columns: 1fr rem(100px);
-    }
-
-    &.count-1 {
-        grid-template-columns: 1fr;
-    }
-}
-
-.verify {
-    color: var(--color-secondary);
 }

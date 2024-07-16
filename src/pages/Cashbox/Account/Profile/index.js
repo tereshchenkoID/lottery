@@ -8,12 +8,11 @@ import { postData, getData } from 'helpers/api'
 import Button from 'components/Button'
 import Loader from 'components/Loader'
 import General from './General'
-import Identify from './Identify'
 import Security from './Security'
 
 import style from './index.module.scss'
 
-const TAB = ['profile', 'identify', 'security']
+const TAB = ['profile', 'security']
 
 const Profile = () => {
   const { t } = useTranslation()
@@ -21,7 +20,6 @@ const Profile = () => {
   const [loading, setLoading] = useState(true)
   const [active, setActive] = useState(0)
   const [filter, setFilter] = useState()
-  const [countries, setCountries] = useState([])
 
   const handlePropsChange = (fieldName, fieldValue) => {
     setFilter(prevData => {
@@ -81,20 +79,14 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    Promise.all([
-      getData('profile/').then(json => {
-        setFilter({
-          ...json,
-          security: {
-            old_password: '',
-            new_password: ''
-          }
-        })
-      }),
-      getData('countries/').then(json => {
-        setCountries(json)
-      }),
-    ]).then(() => {
+    getData('profile/').then(json => {
+      setFilter({
+        ...json,
+        security: {
+          old_password: '',
+          new_password: ''
+        }
+      })
       setLoading(false)
     })
   }, [])
@@ -102,50 +94,41 @@ const Profile = () => {
   return (
     <div className={style.block}>
       {
-        loading ? (
-          <Loader />
-        ) : (
-          <>
-            <div className={style.tab}>
+        loading 
+          ?
+            <Loader type={'inline'} />
+          :
+            <>
+              <div className={style.tab}>
+                {
+                  TAB.map((el, idx) => (
+                    <Button
+                      key={idx}
+                      placeholder={t(el)}
+                      classes={['alt', style.button]}
+                      isActive={active === idx}
+                      onChange={() => setActive(idx)}
+                    />
+                  ))
+                }
+              </div>
               {
-                TAB.map((el, idx) => (
-                  <Button
-                    key={idx}
-                    placeholder={t(el)}
-                    classes={['alt', style.button]}
-                    isActive={active === idx}
-                    onChange={() => setActive(idx)}
-                  />
-                ))
+                active === 0 &&
+                <General
+                  filter={filter}
+                  handlePropsChange={handlePropsChange}
+                  handleSubmit={handleSubmit}
+                />
               }
-            </div>
-            {
-              active === 0 &&
-              <General
-                filter={filter}
-                handlePropsChange={handlePropsChange}
-                handleSubmit={handleSubmit}
-              />
-            }
-            {
-              active === 1 &&
-              <Identify
-                filter={filter}
-                countries={countries}
-                handlePropsChange={handlePropsChange}
-                handleSubmit={handleSubmit}
-              />
-            }
-            {
-              active === 2 &&
-              <Security 
-                filter={filter}
-                handlePropsChange={handlePropsChange}
-                handleSubmit={handleSubmit}
-              />
-            }
-          </>
-        )
+              {
+                active === 1 &&
+                <Security 
+                  filter={filter}
+                  handlePropsChange={handlePropsChange}
+                  handleSubmit={handleSubmit}
+                />
+              }
+            </>
       }
     </div>
   )

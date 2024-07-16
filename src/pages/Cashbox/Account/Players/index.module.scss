@@ -34,6 +34,8 @@
 }
 
 .form {
+    max-width: rem(640px);
+
     @include media-breakpoint-up(sm) {
         grid-template-columns: 3fr 1fr;
     }

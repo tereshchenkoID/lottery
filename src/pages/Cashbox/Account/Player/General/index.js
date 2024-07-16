@@ -17,7 +17,7 @@ const General = ({
   const isVerify = filter.profile.isVerify === 3
 
   return (
-    <form className={style.form}>
+    <div>
       <div className={style.grid}>
         <Notification
           text={t(`verify_status.${USER_VERIFY[filter.profile.isVerify]}`)}
@@ -26,40 +26,40 @@ const General = ({
         <Field
           type={'text'}
           placeholder={t('name')}
-          onChange={() => {}}
+          onChange={() => { }}
           data={filter.profile.name}
         />
         <Field
           type={'text'}
           placeholder={t('surname')}
-          onChange={() => {}}
+          onChange={() => { }}
           data={filter.profile.surname}
         />
         <Field
           type={'text'}
           placeholder={t('username')}
-          onChange={() => {}}
+          onChange={() => { }}
           data={filter.profile.username}
         />
         <Field
           type={'text'}
           placeholder={t('email')}
-          onChange={() => {}}
+          onChange={() => { }}
           data={filter.profile.email}
         />
         <Phone
-          data={filter.profile.phone} 
-          onChange={() => {}}
+          data={filter.profile.phone}
+          onChange={() => { }}
         />
         <Field
           type={'date'}
           placeholder={t('birth_day')}
           data={filter.profile.date}
-          onChange={() => {}}
+          onChange={() => { }}
           max={getDate(new Date(), 3)}
         />
       </div>
-    </form>
+    </div>
   )
 }
 

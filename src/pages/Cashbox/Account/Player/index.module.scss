@@ -4,6 +4,13 @@
     display: grid;
     grid-template-rows: rem(32px) auto;
     gap: rem(24px);
+    position: relative;
+}
+
+.grid {
+    display: grid;
+    gap: rem(24px);
+    max-width: rem(460px);
 }
 
 .wrapper {
@@ -28,16 +35,4 @@
     border-radius: rem(20px);
     height: rem(32px);
     flex-shrink: 0;
-}
-
-.grid {
-    display: grid;
-    gap: rem(24px);
-    max-width: rem(460px);
-}
-
-.actions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: rem(8px);
 }

@@ -1,0 +1,178 @@
+@import 'scss/config';
+
+.block {
+    @include flex($direction: column);
+
+    gap: rem(24px);
+    overflow: hidden;
+}
+
+.form,
+.grid,
+.numbers,
+.payments {
+    display: grid;
+}
+
+.grid,
+.numbers {
+    gap: rem(8px);
+}
+
+.form,
+.payments {
+    max-width: rem(740px);
+}
+
+.tab {
+    @include flex;
+
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: rem(8px);
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.button {
+    border-radius: rem(20px);
+    height: rem(32px);
+}
+
+.preview {
+    @include flex($justify-content: space-between, $align-items: center, $wrap: wrap);
+
+    column-gap: rem(24px);
+    row-gap: rem(8px);
+}
+
+.actions {
+    @include flex($wrap: wrap);
+
+    gap: rem(8px);
+}
+
+.form {
+    gap: rem(24px);
+}
+
+.grid {
+    align-items: center;
+
+    @include media-breakpoint-up(lg) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.numbers {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.number {
+    height: rem(36px);
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.payments {
+    grid-template-columns: 1fr;
+    gap: rem(12px);
+
+    @include media-breakpoint-up(sm) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.payment {
+    @include flex($justify-content: space-between, $direction: column);
+    @include make-spacer(p, 12px);
+
+    height: rem(136px);
+    background-color: var(--grey-100);
+    border-radius: rem(12px);
+}
+
+.logo {
+    @include make-spacer(p, 6px);
+    @include size(rem(40px));
+
+    border-radius: 50%;
+    background-color: var(--color-white);
+    overflow: hidden;
+}
+
+.placeholder {
+    font-size: rem(11px);
+    opacity: 0.5;
+}
+
+.table {
+    @include flex($direction: column);
+
+    flex-grow: 1;
+    position: relative;
+}
+
+.list {
+    overflow-x: auto;
+}
+
+.pagination {
+    @include make-spacer(mt, auto);
+}
+
+.notification {
+    width: fit-content;
+}
+
+.row {
+    @include make-spacer(mb, 4px);
+
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: rem(4px);
+    font-size: rem(14px);
+    min-width: rem(960px);
+    
+    &:first-child {
+        
+        .cell {
+            background-color: var(--grey-alpha-300);
+        }
+    }
+
+    &.deposit {
+
+        .cell {
+            background-color: rgba(#07bc0c, 0.2);
+        }
+    }
+
+    &.withdraw {
+
+        .cell {
+            background-color: rgba(#e74c3c, 0.2);
+        }
+    }
+
+    &.expired {
+
+        .cell {
+            opacity: 0.5;
+        }
+    }
+}
+
+.cell {
+    @include flex($align-items: center);
+    @include make-spacer(p, 10px);
+  
+    border-radius: rem(8px);
+    background-color: var(--grey-alpha-200);
+}

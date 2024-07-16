@@ -19,6 +19,19 @@ export const VOUCHER_STATUS = {
   3: 'cancelled'
 }
 
+export const PRINT_STATUS = {
+  'ticket_payout':          1,
+  'ticket_cancellation':    2,
+  'ticket_reprint':         3,
+  'create_voucher':         4,
+  'create_voucher_reprint': 5,
+  'voucher_payout':         6,
+  'reprint_voucher_payout': 7,
+  'successful_deposit':     8,
+  'report_cashier':         9,
+  'master_report':          10,
+}
+
 export const BREAKPOINTS = {
   xs: 0,
   sm: 576,

@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
+import { getDate } from 'helpers/getDate'
+
 import style from './index.module.scss'
 
 const VoucherBlock = ({ data, isPaid }) => {
@@ -20,8 +22,19 @@ const VoucherBlock = ({ data, isPaid }) => {
             {data.amount} {auth.account.currency.symbol}
           </strong>
           <p className={style.date}>
-            <span className={style.label}>{t('expired_date')}:</span> 
-            {data.expire}
+            {
+              data.expire 
+              ?
+                <>
+                  <span className={style.label}>{t('expired_date')}:</span> 
+                  {getDate(data.expire)}
+                </>
+              :
+                <>
+                  <span className={style.label}>{t('username')}:</span> 
+                  {data.username}
+                </>
+            }
           </p>
           {
             isPaid &&
