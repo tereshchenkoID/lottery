@@ -76,7 +76,6 @@ const TicketPreview = ({
         setData(json)
 
         if(isCashbox) {
-          // eslint-disable-next-line no-undef
           window.printAction(JSON.stringify(json), type)
         }
       } else {
@@ -140,9 +139,12 @@ const TicketPreview = ({
                 data?.round.date &&
                 <div className={style.date}>{getDate(data?.round.date)}</div>
               }
-              <div className={style.logo}>
-                <img src={game.image} alt={t(`games.${game.id}.title`)} loading="lazy"/>
-              </div>
+              {
+                game?.image &&
+                <div className={style.logo}>
+                  <img src={game?.image} alt={t(`games.${game.id}.title`)} loading="lazy"/>
+                </div>
+              }
               <div className={style.ticket}>
                 {getGames(data)}
                 {

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
+import { PRINT_STATUS } from 'constant/config'
+
 import { setToastify } from 'store/actions/toastifyAction'
 import { setAuth } from 'store/actions/authAction'
 import { postData } from 'helpers/api'
@@ -68,6 +70,7 @@ const Withdraw = ({ type, data }) => {
             text: t('voucher_status.paid'),
           }),
         )
+        window.printAction(JSON.stringify(json), PRINT_STATUS.voucher_payout)
       } else {
         dispatch(
           setToastify({

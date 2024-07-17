@@ -94,7 +94,6 @@ const History = () => {
                         <Row
                           key={idx}
                           data={el}
-                          setData={setData}
                         />
                       )
                     }
