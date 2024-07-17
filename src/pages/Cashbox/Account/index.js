@@ -72,6 +72,17 @@ const Account = () => {
                 </div>
               </Link>
               <Link
+                to={ROUTES_CASHBOX.voucher.link}
+                className={classNames(style.link, style.right)}
+              >
+                <span className={style.icon}>
+                  <FontAwesomeIcon icon={ROUTES_CASHBOX.voucher.icon} />
+                </span>
+                <div className={style.info}>
+                  <h5 className={style.title}>{t(ROUTES_CASHBOX.voucher.text)}</h5>
+                </div>
+              </Link>
+              <Link
                 to={NAVIGATION.settings.link}
                 className={classNames(style.link, style.right)}
               >

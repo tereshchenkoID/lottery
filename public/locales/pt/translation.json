@@ -45,7 +45,8 @@
     "settings": "Configurações",
     "reports": "Relatórios",
     "players": "Jogadores",
-    "player": "Jogadore"
+    "player": "Jogadore",
+    "voucher": "Voucher"
   },
   "reports": {
     "date": "Data",
@@ -72,6 +73,7 @@
     "pending_description": "Concluindo o registro do bilhete, mais alguns segundos",
     "message": "Aposta bem-sucedida"
   },
+  "history": "História",
   "pay_wallet": "Pagar pela carteira",
   "pay_bonus": "Pagar pelo bônus",
   "currency": "Moeda",

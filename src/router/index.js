@@ -37,6 +37,7 @@ const CashboxTickets = lazy(() => import('pages/Cashbox/Account/Tickets'))
 const CashboxProfile = lazy(() => import('pages/Cashbox/Account/Profile'))
 const CashboxPlayers = lazy(() => import('pages/Cashbox/Account/Players'))
 const CashboxPlayer = lazy(() => import('pages/Cashbox/Account/Player'))
+const CashboxVoucher = lazy(() => import('pages/Cashbox/Account/Voucher'))
 
 export const generateRoutes = (auth) => {
   const userType = auth?.userType;
@@ -105,6 +106,10 @@ export const generateRoutes = (auth) => {
       {
         path: `${ROUTES_CASHBOX.players.link}/:id/:token`,
         element: <CashboxPlayer />,
+      },
+      {
+        path: ROUTES_CASHBOX.voucher.link,
+        element: <CashboxVoucher />,
       },
     ]
 

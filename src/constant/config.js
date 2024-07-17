@@ -159,6 +159,11 @@ export const ROUTES_CASHBOX = {
     icon: 'fa-solid fa-users',
     text: 'cashbox.players',
     link: '/cashbox/players',
+  },
+  voucher: {
+    icon: 'fa-solid fa-barcode',
+    text: 'cashbox.voucher',
+    link: '/cashbox/voucher',
   }
 }
 

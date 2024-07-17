@@ -21,7 +21,7 @@ const Withdraw = ({ type, data }) => {
   const { auth } = useSelector(state => state.auth)
   const [code, setCode] = useState('')
   const [voucher, setVoucher] = useState(null)
-  const [isPaid, setIsPain] = useState(false)
+  const [isPaid, setIsPaid] = useState(false)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -31,7 +31,7 @@ const Withdraw = ({ type, data }) => {
 
     postData('billing/voucher/validate/', formData).then(json => {
       if (json.code === "0") {
-        setIsPain(false)
+        setIsPaid(false)
         setVoucher(json?.voucher)
         dispatch(
           setToastify({
@@ -61,7 +61,7 @@ const Withdraw = ({ type, data }) => {
         c.account.bonus = json.account.bonus
 
         setVoucher(json?.voucher)
-        setIsPain(true)
+        setIsPaid(true)
         setCode('')
         dispatch(setAuth(c))
         dispatch(

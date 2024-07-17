@@ -45,7 +45,8 @@
     "settings": "Settings",
     "reports": "Reports",
     "players": "Players",
-    "player": "Player"
+    "player": "Player",
+    "voucher": "Voucher"
   },
   "reports": {
     "date": "Date",
@@ -72,6 +73,7 @@
     "pending_description": "Completion of ticket registration, a few more seconds",
     "message": "Stake successful"
   },
+  "history": "History",
   "pay_wallet": "Pay for wallet",
   "pay_bonus": "Pay for bonus",
   "currency": "Currency",
