@@ -18,19 +18,19 @@ const Row = ({ data }) => {
   const [isShow, isSetShow] = useState(false)
   const type = data.type === 1 ? 'withdraw' : 'deposit'
 
+  const maskedNumber = data.code ? data.code.toString().replace(/(\d{2})\d+(\d{2})/, '$1*******$2'): ''
+  const paySystem = useMemo(() => auth.wallet.find(el => data.paysystemId === el.id), [auth.wallet, data.paysystemId])
+
   const handleClick = () => {
     isSetShow(!isShow)
   }
-
-  const maskedNumber = data.code ? data.code.toString().replace(/(\d{2})\d+(\d{2})/, '$1*******$2'): ''
-  const paySystem = useMemo(() => auth.wallet.find(el => data.paysystemId === el.id), [auth.wallet, data.paysystemId])
 
   const handlePrint = () => {
     window.printAction(JSON.stringify(data), PRINT_STATUS.reprint_voucher_payout)
   }
 
   return (
-    <div
+    <div 
       className={
         classNames(
           style.row,
@@ -41,7 +41,7 @@ const Row = ({ data }) => {
     >
       <div className={style.cell}>{t(`voucher_status.${VOUCHER_STATUS[data.status]}`)}</div>
       <div className={style.cell}>{paySystem?.name}</div>
-      <div
+      <div 
         className={style.cell}
         style={{ cursor: 'pointer' }}
         onClick={handleClick}

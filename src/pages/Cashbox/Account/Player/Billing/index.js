@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-
-import { getData } from 'helpers/api'
 
 import Button from 'components/Button'
 import Deposit from './Deposit'
@@ -14,24 +13,9 @@ const ACTIONS = ['deposit', 'withdraw', 'transaction_history']
 
 const Billing = ({ filter, handlePropsChange }) => {
   const { t } = useTranslation()
-  const [data, setData] = useState(null)
+  const { auth } = useSelector(state => state.auth)
   const [type, setType] = useState(0)
-  const [loading, setLoading] = useState(true)
   const typeName = type === 1 ? 'withdraw' : 'deposit'
-
-  const handleLoad = () => {
-    getData('billing/').then(json => {
-      setData(json)
-      setLoading(false)
-    })
-  }
-
-  useEffect(() => {
-    handleLoad()
-  }, [])
-
-  if (loading)
-    return false
 
   return (
     <div className={style.block}>
@@ -55,7 +39,7 @@ const Billing = ({ filter, handlePropsChange }) => {
         (type === 0) &&  
         <Deposit 
           type={typeName}
-          data={data.voucher?.[0]}
+          data={auth.wallet[0]}
           filter={filter}
           handlePropsChange={handlePropsChange}
         />
@@ -66,7 +50,7 @@ const Billing = ({ filter, handlePropsChange }) => {
       }
       {
         (type === 2) && 
-        <History />
+        <History filter={filter} />
       }  
     </div>
   )

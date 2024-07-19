@@ -1,35 +1,37 @@
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 
 import style from './index.module.scss'
 
-import Button from 'components/Button'
 import Create from './Create'
+import Payout from './Payout'
+import History from './History'
+import Tab from 'components/Tab'
 
-const TAB = ['create', 'history']
+const TAB = ['create', 'payout', 'history']
 
 const Voucher = () => {
-  const { t } = useTranslation()
+  const { auth } = useSelector(state => state.auth)
   const [active, setActive] = useState(0)
 
   return (
     <div className={style.block}>
-      <div className={style.tab}>
-        {
-          TAB.map((el, idx) => (
-            <Button
-              key={idx}
-              placeholder={t(el)}
-              classes={['alt', style.button]}
-              isActive={active === idx}
-              onChange={() => setActive(idx)}
-            />
-          ))
-        }
-      </div>
+      <Tab 
+        data={TAB} 
+        active={active} 
+        setActive={setActive} 
+      />
       {
         active === 0 &&
-        <Create />
+        <Create data={auth.wallet[0]}/>
+      }
+      {
+        active === 1 &&
+        <Payout />
+      }
+      {
+        active === 2 &&
+        <History />
       }
     </div>
   )

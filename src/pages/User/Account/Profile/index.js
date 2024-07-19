@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { setToastify } from 'store/actions/toastifyAction'
 import { postData, getData } from 'helpers/api'
 
-import Button from 'components/Button'
+import Tab from 'components/Tab'
 import Loader from 'components/Loader'
 import General from './General'
 import Identify from './Identify'
@@ -120,19 +120,11 @@ const Profile = () => {
             <Loader type={'inline'} />
           :
             <>
-              <div className={style.tab}>
-                {
-                  TAB.map((el, idx) => (
-                    <Button
-                      key={idx}
-                      placeholder={t(el)}
-                      classes={['alt', style.button]}
-                      isActive={active === idx}
-                      onChange={() => setActive(idx)}
-                    />
-                  ))
-                }
-              </div>
+              <Tab
+                data={TAB}
+                active={active}
+                setActive={setActive}
+              />
               {
                 active === 0 &&
                 <General

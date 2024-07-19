@@ -2,25 +2,8 @@
 
 .block {
   display: grid;
-  grid-template-rows: rem(40px) auto;
+  grid-template-rows: rem(32px) auto;
   gap: rem(24px);
-}
-
-.tab {
-  @include flex;
-
-  gap: rem(8px);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-.link {
-  height: rem(40px);
-  flex-shrink: 0;
 }
 
 .container {

@@ -131,6 +131,8 @@
   "date_create": "Data criar",
   "date_use": "Data de uso",
   "where_use": "Onde usado",
+  "pay_system": "Sistema de pagamento",
+  "all": "Todos",
   "min": "Mínima",
   "max": "Máx",
   "send": "Enviar",

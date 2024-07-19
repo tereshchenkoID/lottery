@@ -8,7 +8,7 @@ import { NAVIGATION, ROUTES_CASHBOX } from 'constant/config'
 import classNames from 'classnames'
 
 import Container from 'components/Container'
-import Tab from 'modules/Tab'
+import Submenu from 'modules/Submenu'
 
 import style from './index.module.scss'
 
@@ -96,7 +96,7 @@ const Account = () => {
             </div>
           :
             <>
-              <Tab data={ROUTES_CASHBOX} />
+              <Submenu data={ROUTES_CASHBOX} />
               <Container classes={style.container}>
                 <Outlet />
               </Container>

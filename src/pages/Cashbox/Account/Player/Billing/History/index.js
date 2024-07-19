@@ -11,7 +11,7 @@ import Row from './Row'
 
 import style from '../index.module.scss'
 
-const History = () => {
+const History = ({ filter }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
   const [loading, setLoading] = useState(true)
@@ -28,6 +28,7 @@ const History = () => {
 
     const formData = new FormData()
     formData.append('page', page)
+    formData.append('userId', filter.profile.id)
 
     postData('wallet/history/', formData).then(json => {
       setData(json.data)
@@ -81,6 +82,7 @@ const History = () => {
                   <div className={style.list}>
                     <div className={style.row}>
                       <div className={style.cell}><strong>{t('status')}</strong></div>
+                      <div className={style.cell}><strong>{t('pay_system')}</strong></div>
                       <div className={style.cell}><strong>{t('code')}</strong></div>
                       <div className={style.cell}><strong>{t('type')}</strong></div>
                       <div className={style.cell}><strong>{t('amount')}, {auth.account.currency.symbol}</strong></div>

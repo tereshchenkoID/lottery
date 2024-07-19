@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
@@ -22,11 +22,12 @@ const Row = ({ data, setData }) => {
   const [isShow, isSetShow] = useState(false)
   const type = data.type === 1 ? 'withdraw' : 'deposit'
 
+  const maskedNumber = data.code ? data.code.toString().replace(/(\d{2})\d+(\d{2})/, '$1*******$2'): ''
+  const paySystem = useMemo(() => auth.wallet.find(el => data.paysystemId === el.id), [auth.wallet, data.paysystemId])
+
   const handleClick = () => {
     isSetShow(!isShow)
   };
-
-  const maskedNumber = data.code.toString().replace(/(\d{2})\d+(\d{2})/, '$1*******$2')
 
   const handleSubmit = e => {
     const formData = new FormData()
@@ -79,6 +80,7 @@ const Row = ({ data, setData }) => {
       }
     >
       <div className={style.cell}>{t(`voucher_status.${VOUCHER_STATUS[data.status]}`)}</div>
+      <div className={style.cell}>{paySystem?.name}</div>
       <div 
         className={style.cell}
         style={{ cursor: 'pointer' }}

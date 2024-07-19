@@ -10,6 +10,7 @@
 .form,
 .grid,
 .numbers,
+.row,
 .payments {
     display: grid;
 }
@@ -22,18 +23,6 @@
 .form,
 .payments {
     max-width: rem(740px);
-}
-
-.tab {
-    @include flex;
-
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    gap: rem(8px);
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
 }
 
 .button {
@@ -134,8 +123,7 @@
 .row {
     @include make-spacer(mb, 4px);
 
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: rem(100px) 1fr repeat(2, (120px)) repeat(4, 1fr) rem(120px);
     gap: rem(4px);
     font-size: rem(14px);
     min-width: rem(960px);

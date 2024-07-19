@@ -9,7 +9,7 @@ import classNames from 'classnames'
 
 import Reference from 'components/Reference'
 import Container from 'components/Container'
-import Tab from 'modules/Tab'
+import Submenu from 'modules/Submenu'
 
 import style from './index.module.scss'
 
@@ -120,7 +120,7 @@ const Account = () => {
             </div>
           :
             <>
-              <Tab data={ROUTES_USER} />
+              <Submenu data={ROUTES_USER} />
               <Container classes={style.container}>
                 <Outlet />
               </Container>

@@ -15,7 +15,7 @@ const FilterGames = ({ data, active, onChange }) => {
         className={classNames(style.game, active === -1 && style.active)}
         onClick={() => onChange('gameId', -1)}
       >
-        <p className={style.name}>{t(`all_games`)}</p>
+        <p className={style.name}>{t('all')}</p>
       </button>
       {
         data?.map((el, idx) =>

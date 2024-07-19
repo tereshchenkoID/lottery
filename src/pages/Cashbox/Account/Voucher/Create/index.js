@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
+import { PRINT_STATUS } from 'constant/config'
+
 import { setToastify } from 'store/actions/toastifyAction'
 import { setAuth } from 'store/actions/authAction'
 import { postData } from 'helpers/api'
@@ -13,16 +15,14 @@ import VoucherBlock from 'modules/VoucherBlock'
 
 import style from '../index.module.scss'
 
-
-
-const Create = () => {
+const Create = ({ data }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { auth } = useSelector(state => state.auth)
   const [amount, setAmount] = useState('')
   const [voucher, setVoucher] = useState(null)
-  const min = auth.voucher.withdraw.min
-  const max = auth.voucher.withdraw.max
+  const min = data.withdraw.min || 300
+  const max = data.withdraw.max || 1000
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -45,6 +45,7 @@ const Create = () => {
             text: t('voucher_notification'),
           }),
         )
+        window.printAction(JSON.stringify(json), PRINT_STATUS.create_voucher)
       } else {
         dispatch(
           setToastify({
@@ -77,10 +78,10 @@ const Create = () => {
         />
         <div className={style.numbers}>
           {
-            auth.voucher.withdraw.quickAmount.map((el, idx) =>
+            data.withdraw.quickAmount.map((el, idx) =>
               <Button
                 key={idx}
-                placeholder={`+${el} ${auth.voucher.currency}`}
+                placeholder={`+${el} ${data.currency}`}
                 classes={['alt', style.number]}
                 onChange={() => setAmount(el)}
               />

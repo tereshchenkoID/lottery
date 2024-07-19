@@ -9,6 +9,7 @@
 
 .form,
 .grid,
+.row,
 .numbers {
     display: grid;
 }
@@ -18,16 +19,10 @@
     gap: rem(8px);
 }
 
-.tab {
-    @include flex;
+.actions {
+    @include flex($wrap: wrap);
 
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     gap: rem(8px);
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
 }
 
 .button {
@@ -62,3 +57,115 @@
 .notification {
     width: fit-content;
 }
+
+.table {
+    @include flex($direction: column);
+
+    flex-grow: 1;
+    position: relative;
+}
+
+.list {
+    overflow-x: auto;
+}
+
+.pagination {
+    @include make-spacer(mt, auto);
+}
+
+.notification {
+    width: fit-content;
+}
+
+.row {
+    @include make-spacer(mb, 4px);
+
+    grid-template-columns: rem(100px) 1fr repeat(2, (120px)) repeat(4, 1fr) rem(120px);
+    gap: rem(4px);
+    font-size: rem(14px);
+    min-width: rem(960px);
+    
+    &:first-child {
+        
+        .cell {
+            background-color: var(--grey-alpha-300);
+        }
+    }
+
+    &.deposit {
+
+        .cell {
+            background-color: rgba(#07bc0c, 0.2);
+        }
+    }
+
+    &.withdraw {
+
+        .cell {
+            background-color: rgba(#e74c3c, 0.2);
+        }
+    }
+
+    &.expired {
+
+        .cell {
+            opacity: 0.5;
+        }
+    }
+
+    &.new {
+
+        .cell {
+            font-weight: var(--typography-bold);
+        }
+    }
+}
+
+.cell {
+    @include flex($align-items: center);
+    @include make-spacer(p, 10px);
+  
+    border-radius: rem(8px);
+    background-color: var(--grey-alpha-200);
+}
+
+.filter {
+    @include flex;
+    @include make-spacer(mb, 24px);
+  
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: rem(8px);
+  
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  .type {
+    @include make-spacer(px, 12px);
+    @include flex($align-items: center);
+  
+    gap: rem(8px);
+    border-radius: rem(12px);
+    height: rem(40px);
+    border: rem(1px) solid var(--grey-alpha-200);
+    flex-shrink: 0;
+  
+    @include hover {
+  
+      &:hover {
+        border-color: var(--color-primary);
+      }
+    }
+  
+    &.active {
+      pointer-events: none;
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+  }
+  
+  .logo {
+    @include size(rem(32px));
+  }

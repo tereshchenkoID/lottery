@@ -5,7 +5,7 @@ import Reference from 'components/Reference'
 
 import style from './index.module.scss'
 
-const Tab = ({ data }) => {
+const Submenu = ({ data }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const page = location.pathname
@@ -31,4 +31,4 @@ const Tab = ({ data }) => {
   )
 }
 
-export default Tab
+export default Submenu

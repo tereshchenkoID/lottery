@@ -1,0 +1,19 @@
+@import 'scss/config';
+
+.block {
+  @include flex;
+
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  gap: rem(8px);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.button {
+  border-radius: rem(20px);
+  height: rem(32px);
+  flex-shrink: 0;
+}
