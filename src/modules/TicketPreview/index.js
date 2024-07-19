@@ -36,7 +36,7 @@ const getGames = (active) => {
             <img 
               src={`${getHostName()}/img/render/?id=${active.id}`} 
               className={style.img}
-              alt="Results" 
+              alt="Results"
             />
           </div>
   }
