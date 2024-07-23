@@ -81,7 +81,7 @@ const Settings = () => {
         <div className={style.row}>
           <p>{t('language')}:</p>
           <Button
-            classes={['alt', 'wide', 'tiny']}
+            classes={['alt', 'wide', 'md']}
             onChange={() => {
               setModalContentType('Language')
               setActive(true)
@@ -97,7 +97,7 @@ const Settings = () => {
               <div className={style.row}>
                 <p>{t('currency')}:</p>
                 <Button
-                  classes={['alt', 'wide', 'tiny']}
+                  classes={['alt', 'wide', 'md']}
                   onChange={() => {
                     setModalContentType('Currency')
                     setActive(true)
@@ -109,7 +109,7 @@ const Settings = () => {
             <div className={style.row}>
               <p>{t('timezone')}:</p>
               <Button
-                classes={['alt', 'wide', 'tiny']}
+                classes={['alt', 'wide', 'md']}
                 onChange={() => {
                   setModalContentType('Timezone')
                   setActive(true)

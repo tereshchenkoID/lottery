@@ -1,15 +1,25 @@
+import classNames from 'classnames'
+
 import Button from 'components/Button'
 
 import style from './index.module.scss'
 
 const Pagination = ({
   type = 'alt',
+  classes = [],
   pagination,
   handlePrev,
   handleNext,
 }) => {
   return (
-    <div className={style.block}>
+    <div
+      className={
+        classNames(
+          style.block,
+          classes && classes.map(el => style[el] || el),
+        )
+      }
+    >
       <Button
         classes={[type, style.button]}
         onChange={handlePrev}

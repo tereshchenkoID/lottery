@@ -55,7 +55,7 @@ const Row = ({ data }) => {
       <div className={style.cell}>{data.redimId ? data.redimId : ''}</div>
       <div className={style.cell}>
         <Button
-          classes={['primary', style.button]}
+          classes={['primary', 'sm']}
           placeholder={t('print')}
           onChange={() => handlePrint()}
         />

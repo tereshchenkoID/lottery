@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(pt, 8px);
+  @include make-spacer(pt, 24px);
   @include flex(center, center);
   
   gap: rem(16px);

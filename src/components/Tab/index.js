@@ -14,7 +14,7 @@ const Tab = ({ data, active, setActive }) => {
           <Button
             key={idx}
             placeholder={t(el)}
-            classes={['alt', style.button]}
+            classes={['alt', 'sm', style.button]}
             isActive={active === idx}
             onChange={() => setActive(idx)}
           />

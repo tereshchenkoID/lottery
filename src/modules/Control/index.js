@@ -19,7 +19,7 @@ const Control = ({
     <div className={style.block}>
       <Button
         placeholder={'-'}
-        classes={[type, 'tiny', style.button]}
+        classes={[type, 'md', style.button]}
         isDisabled={data.value === data.min}
         onChange={() => onChange(index, Math.max(data.min, data.value - 1))}
       />
@@ -33,7 +33,7 @@ const Control = ({
       />
       <Button
         placeholder={'+'}
-        classes={[type, 'tiny', style.button]}
+        classes={[type, 'md', style.button]}
         isDisabled={data.value === data.max}
         onChange={() => onChange(index, Math.min(data.max, data.value + 1))}
       />

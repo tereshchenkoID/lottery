@@ -184,7 +184,7 @@ const KENO = ({ auth, betslip, game }) => {
             {t('ticket')} #{betslip.tickets[betslip.activeTicket].id}
           </h6>
           <Button
-            classes={['game', 'wide', 'tiny']}
+            classes={['game', 'wide', 'md']}
             onChange={() => handleCloseTicket()}
             icon={'fa-solid fa-xmark'}
           />
@@ -206,7 +206,7 @@ const KENO = ({ auth, betslip, game }) => {
             {Array.from({ length: 10 }).map((el, idx) => (
               <div className={style.column} key={idx}>
                 <Button
-                  classes={['game', 'wide', 'tiny', style.button]}
+                  classes={['game', 'wide', 'md', style.button]}
                   placeholder={++idx}
                   onChange={() => handleColumnClick(idx)}
                 />
@@ -249,7 +249,7 @@ const KENO = ({ auth, betslip, game }) => {
             {numbers.map((el, idx) => (
               <Button
                 key={idx}
-                classes={['game', 'wide', 'tiny', style.button]}
+                classes={['game', 'wide', 'md', style.button]}
                 placeholder={el.number}
                 onChange={() => handleNumberClick(idx)}
                 isActive={el.active}
@@ -258,19 +258,19 @@ const KENO = ({ auth, betslip, game }) => {
             ))}
           </div>
           <Button
-            classes={['game', 'wide', 'tiny']}
+            classes={['game', 'wide', 'md']}
             placeholder={t('random')}
             onChange={() => handleRandomClick()}
             icon={'fa-solid fa-cube'}
           />
           <div className={style.actions}>
             <Button
-              classes={['game', 'wide', 'tiny']}
+              classes={['game', 'wide', 'md']}
               placeholder={t('reset')}
               onChange={() => handleResetClick()}
             />
             <Button
-              classes={['game', 'wide', 'tiny']}
+              classes={['game', 'wide', 'md']}
               placeholder={
                 betslip.activeTicket !== null ? t('save') : t('add_stake')
               }
@@ -291,19 +291,19 @@ const KENO = ({ auth, betslip, game }) => {
         <div className={style.right}>
           <div className={style.actions}>
             <Button
-              classes={['game', 'wide', 'tiny']}
+              classes={['game', 'wide', 'md']}
               placeholder={t('numbers.101')}
               isActive={selectedType === 1}
               onChange={() => handleTypeClick(1)}
             />
             <Button
-              classes={['game', 'wide', 'tiny']}
+              classes={['game', 'wide', 'md']}
               placeholder={t('numbers.102')}
               isActive={selectedType === 2}
               onChange={() => handleTypeClick(2)}
             />
             <Button
-              classes={['game', 'wide', 'tiny']}
+              classes={['game', 'wide', 'md']}
               placeholder={t('numbers.103')}
               isActive={selectedType === 3}
               onChange={() => handleTypeClick(3)}

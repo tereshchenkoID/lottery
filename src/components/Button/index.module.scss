@@ -28,7 +28,13 @@
     width: 100%;
   }
 
-  &.tiny {
+  &.sm {
+    border-radius: rem(20px);
+    height: rem(32px);
+  }
+
+  &.md {
+    border-radius: rem(8px);
     height: rem(40px);
   }
 

@@ -1,8 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-
-import classNames from 'classnames'
 
 import { postData } from 'helpers/api'
 
@@ -18,7 +16,6 @@ const History = () => {
   const { auth } = useSelector(state => state.auth)
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
-  const [type, setType] = useState(-1)
   const [pagination, setPagination] = useState({
     page: 0,
     pages: 0,
@@ -31,7 +28,6 @@ const History = () => {
 
     const formData = new FormData()
     formData.append('page', page)
-    formData.append('type', type)
 
     postData('billing/history/', formData).then(json => {
       setData(json.data)
@@ -69,8 +65,8 @@ const History = () => {
   }
 
   useEffect(() => {
-    handleLoad(0)
-  }, [type])
+    handleLoad()
+  }, [])
 
   return (
     <div className={style.table}>
@@ -82,28 +78,6 @@ const History = () => {
             data?.length > 0
               ?
                 <>
-                  <div className={style.filter}>
-                    <button
-                      className={classNames(style.type, type === -1 && style.active)}
-                      onClick={() => setType(-1)}
-                    >
-                      <p className={style.name}>{t(`all`)}</p>
-                    </button>
-                    {
-                      auth.wallet?.map((el, idx) =>
-                        <button
-                          key={idx}
-                          className={classNames(style.type, type === el.id && style.active)}
-                          onClick={() => setType(el.id)}
-                        >
-                          <span className={style.logo}>
-                            <img src={el.icon} alt={el.name} />
-                          </span>
-                          <p>{el.name}</p>
-                        </button>
-                      )
-                    }
-                  </div>
                   <div className={style.list}>
                     <div className={style.row}>
                       <div className={style.cell}><strong>{t('status')}</strong></div>

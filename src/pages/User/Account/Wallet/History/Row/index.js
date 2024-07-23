@@ -22,7 +22,7 @@ const Row = ({ data, setData }) => {
   const [isShow, isSetShow] = useState(false)
   const type = data.type === 1 ? 'withdraw' : 'deposit'
 
-  const maskedNumber = data.code !== 0 ? data.code.toString().replace(/(\d{2})\d+(\d{2})/, '$1*******$2') : ''
+  const maskedNumber = data.code ? data.code.toString().replace(/(\d{2})\d+(\d{2})/, '$1*******$2'): ''
   const paySystem = useMemo(() => auth.wallet.find(el => data.paysystemId === el.id), [auth.wallet, data.paysystemId])
 
   const handleClick = () => {
@@ -98,7 +98,7 @@ const Row = ({ data, setData }) => {
           ?
             <Button
               onChange={() => handleSubmit()}
-              classes={['primary', style.button]}
+              classes={['primary', 'sm']}
               placeholder={t('voucher_status.cancelled')}
             />
           :

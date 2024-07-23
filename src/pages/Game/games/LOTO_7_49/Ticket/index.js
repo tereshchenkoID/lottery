@@ -163,7 +163,7 @@ const Ticket = ({ betslip, game }) => {
         </div>
         {betslip.activeTicket !== null && (
           <Button
-            classes={['game', 'wide', 'tiny']}
+            classes={['game', 'wide', 'md']}
             onChange={() => handleCloseTicket()}
             icon={'fa-solid fa-xmark'}
           />
@@ -197,7 +197,7 @@ const Ticket = ({ betslip, game }) => {
         {numbers.map((el, idx) => (
           <div key={idx} className={style.cell}>
             <Button
-              classes={['game', 'wide', 'tiny']}
+              classes={['game', 'wide', 'md']}
               placeholder={el.number}
               onChange={() => handleNumberClick(idx)}
               isActive={el.active}
@@ -207,19 +207,19 @@ const Ticket = ({ betslip, game }) => {
         ))}
       </div>
       <Button
-        classes={['game', 'wide', 'tiny']}
+        classes={['game', 'wide', 'md']}
         placeholder={t('random')}
         onChange={() => handleRandomClick()}
         icon={'fa-solid fa-cube'}
       />
       <div className={style.actions}>
         <Button
-          classes={['game', 'wide', 'tiny']}
+          classes={['game', 'wide', 'md']}
           placeholder={t('reset')}
           onChange={() => handleResetClick()}
         />
         <Button
-          classes={['game', 'wide', 'tiny']}
+          classes={['game', 'wide', 'md']}
           placeholder={
             betslip.activeTicket !== null ? t('save') : t('add_stake')
           }

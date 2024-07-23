@@ -25,12 +25,6 @@
     gap: rem(8px);
 }
 
-.button {
-    border-radius: rem(20px);
-    height: rem(32px);
-    flex-shrink: 0;
-}
-
 .form {
     gap: rem(24px);
     max-width: rem(740px);
@@ -78,15 +72,17 @@
 }
 
 .row {
-    @include make-spacer(mb, 4px);
-
     grid-template-columns: rem(100px) 1fr repeat(2, (120px)) repeat(4, 1fr) rem(120px);
     gap: rem(4px);
     font-size: rem(14px);
     min-width: rem(960px);
-    
+
+    &:not(:last-child) {
+        @include make-spacer(mb, 4px);
+    }
+
     &:first-child {
-        
+
         .cell {
             background-color: var(--grey-alpha-300);
         }
@@ -110,48 +106,7 @@
 .cell {
     @include flex($align-items: center);
     @include make-spacer(p, 10px);
-  
+
     border-radius: rem(8px);
     background-color: var(--grey-alpha-200);
 }
-
-.filter {
-    @include flex;
-    @include make-spacer(mb, 24px);
-  
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    gap: rem(8px);
-  
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-  
-  .type {
-    @include make-spacer(px, 12px);
-    @include flex($align-items: center);
-  
-    gap: rem(8px);
-    border-radius: rem(12px);
-    height: rem(40px);
-    border: rem(1px) solid var(--grey-alpha-200);
-    flex-shrink: 0;
-  
-    @include hover {
-  
-      &:hover {
-        border-color: var(--color-primary);
-      }
-    }
-  
-    &.active {
-      pointer-events: none;
-      background-color: var(--color-primary);
-      border-color: var(--color-primary);
-    }
-  }
-  
-  .logo {
-    @include size(rem(32px));
-  }

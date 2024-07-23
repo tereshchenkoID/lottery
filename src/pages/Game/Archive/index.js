@@ -235,19 +235,26 @@ const Archive = ({ game }) => {
                     </strong>
                   </div>
                 </div>
-                {data?.length > 0 ? (
-                  <>
-                    {data.map((el, idx) => <Row data={el} key={idx} />)}
-                    <Pagination
-                      type={'game'}
-                      pagination={pagination}
-                      handlePrev={() => handlePrev()}
-                      handleNext={() => handleNext()}
-                    />
-                  </>
-                ) : (
-                  <div className={style.empty}>{t('empty')}</div>
-                )}
+                {
+                  data?.length > 0 
+                    ?
+                      <>
+                        {
+                          data.map((el, idx) => 
+                            <Row data={el} key={idx} />
+                          )
+                        }
+                        <Pagination
+                          type={'game'}
+                          classes={[style.pagination]}
+                          pagination={pagination}
+                          handlePrev={() => handlePrev()}
+                          handleNext={() => handleNext()}
+                        />
+                      </>
+                    :
+                      <div className={style.empty}>{t('empty')}</div>
+                }
               </div>
         }
       </div>

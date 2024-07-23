@@ -87,6 +87,10 @@
   row-gap: rem(20px);
 }
 
+.pagination {
+  @include make-spacer(pt, 0);
+}
+
 .row {
   display: none;
   border-bottom: rem(1px) solid var(--game_background_color);
