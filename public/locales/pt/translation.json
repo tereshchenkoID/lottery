@@ -220,6 +220,8 @@
   "no_money": "Sem dinheiro",
   "date_update": "Data atualização",
   "back": "Voltar",
+  "players_list": "Lista de jogadores",
+  "add_player": "Adicionar jogador",
   "ticket_status": {
     "all": "Todos os bilhetes",
     "pending": "Pendente",

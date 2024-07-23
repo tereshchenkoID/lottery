@@ -17,6 +17,7 @@ const Contacts = lazy(() => import('pages/Contacts'))
 const Faq = lazy(() => import('pages/Faq'))
 const Support = lazy(() => import('pages/Support'))
 
+const UI = lazy(() => import('pages/UI'))
 const Login = lazy(() => import('pages/Login'))
 const Registration = lazy(() => import('pages/Registration'))
 const PasswordRecovery = lazy(() => import('pages/PasswordRecovery'))
@@ -159,6 +160,10 @@ export const generateRoutes = (auth) => {
     {
       path: '/game/:gameId',
       element: <Game />,
+    },
+    {
+      path: '/ui',
+      element: <UI />,
     },
     {
       path: '*',

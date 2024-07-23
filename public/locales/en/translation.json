@@ -220,6 +220,8 @@
   "no_money": "No money",
   "date_update": "Date update",
   "back": "Go back",
+  "players_list": "Players list",
+  "add_player": "Add player",
   "ticket_status": {
     "all": "All tickets",
     "pending": "Pending",

@@ -86,13 +86,11 @@ const PasswordRecovery = () => {
             {t(NAVIGATION.registration.text)}
           </Link>
         </p>
-        {
-          isFormValid() &&
-          <Button 
-            type={'submit'} 
-            placeholder={t(NAVIGATION.password_recovery.text)} 
-          />
-        }
+        <Button
+          type={'submit'}
+          placeholder={t(NAVIGATION.password_recovery.text)}
+          isDisabled={!isFormValid()}
+        />
       </form>
     </Container>
   )

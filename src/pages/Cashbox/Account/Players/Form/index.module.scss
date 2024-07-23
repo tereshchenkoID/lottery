@@ -1,0 +1,15 @@
+@import 'scss/config';
+
+.form {
+  display: grid;
+  gap: rem(24px);
+  width: 100%;
+  max-width: rem(380px);
+}
+
+.label {
+  @include make-spacer(mt, 4px);
+  
+  font-size: rem(12px);
+  color: var(--grey-alpha-600);
+}

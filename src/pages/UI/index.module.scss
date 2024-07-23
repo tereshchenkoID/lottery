@@ -1,0 +1,22 @@
+@import 'scss/config';
+
+.block {
+  @include flex($direction: column);
+
+  gap: rem(32px);
+  flex-grow: 1;
+
+  table {
+    border-collapse: collapse;
+  }
+
+  td {
+    @include make-spacer(p, 10px);
+
+    border: rem(1px) solid #000;
+  }
+  
+  code {
+    display: block;
+  }
+}

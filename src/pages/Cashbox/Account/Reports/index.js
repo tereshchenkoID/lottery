@@ -13,11 +13,11 @@ const components = {
   0: GeneralOverview,
   1: DailySums,
   2: Settlement,
-};
+}
 
 const Reports = () => {
   const [active, setActive] = useState(0)
-  const ActiveTab = components[active] || null;
+  const ActiveTab = components[active] || null
 
   return (
     <div className={style.block}>

@@ -30,6 +30,7 @@ export const PRINT_STATUS = {
   'successful_deposit':     8,
   'report_cashier':         9,
   'master_report':          10,
+  'user_create':            11,
 }
 
 export const BREAKPOINTS = {

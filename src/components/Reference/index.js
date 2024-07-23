@@ -12,8 +12,8 @@ const Reference = ({
   classes = ['primary'],
   onChange = () => {},
   icon = false,
-  isActive = false,
   isDisabled = false,
+  isActive = false,
 }) => {
   return (
     <Link
@@ -23,10 +23,10 @@ const Reference = ({
         classNames(
           style.block, 
           isActive && style.active,
+          isDisabled && style.disabled,
           classes && classes.map(el => style[el] || el),
         )
       }
-      disabled={isDisabled}
       onClick={onChange}
     >
       {icon && <FontAwesomeIcon icon={icon} />}
