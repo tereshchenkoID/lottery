@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 
 import { getData } from 'helpers/api'
 
@@ -14,7 +13,6 @@ import style from './index.module.scss'
 const TAB = ['profile', 'billing']
 
 const Player = () => {
-  const { t } = useTranslation()
   const { id, token } = useParams()
   const [active, setActive] = useState(0)
   const [filter, setFilter] = useState()

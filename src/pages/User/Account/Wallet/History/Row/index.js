@@ -99,7 +99,7 @@ const Row = ({ data, setData }) => {
             <Button
               onChange={() => handleSubmit()}
               classes={['primary', 'sm']}
-              placeholder={t('voucher_status.cancelled')}
+              placeholder={t('cancel')}
             />
           :
             (data.redimId ? data.redimId : '')

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import Tab from 'components/Tab'
 import List from './List'
@@ -15,7 +14,6 @@ const components = {
 }
 
 const Players = () => {
-  const { t } = useTranslation()
   const [active, setActive] = useState(0)
   const ActiveTab = components[active] || null
   
