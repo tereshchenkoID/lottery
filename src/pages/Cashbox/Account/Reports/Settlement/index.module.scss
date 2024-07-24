@@ -53,13 +53,40 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: rem(4px);
+
+  &:first-child {
+
+    .cell {
+
+      &:first-child {
+        border-radius: rem(8px) 0 0 0;
+      }
+
+      &:last-child {
+        border-radius: 0 rem(8px) 0 0;
+      }
+    }
+  }
+
+  &:last-child {
+
+    .cell {
+
+      &:first-child {
+        border-radius: 0 0 0 rem(8px);
+      }
+
+      &:last-child {
+        border-radius: 0 0 rem(8px) 0;
+      }
+    }
+  }
 }
 
 .cell {
   @include make-spacer(p, 10px);
 
   background-color: var(--grey-alpha-200);
-  border-radius: rem(8px);
 
   &:last-child {
     text-align: right;

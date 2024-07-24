@@ -1,12 +1,29 @@
 @import 'scss/config';
 
 .block {
-  @include flex($direction: column);
-
+  display: grid;
+  grid-template-columns: rem(320px) 1fr;
   gap: rem(32px);
-  flex-grow: 1;
+}
+
+.nav {
+  @include flex($direction: column);
+}
+
+.button {
+  @include make-spacer(px, 20px);
+  @include size(100%, rem(40px));
+
+  text-align: left;
+  background-color: var(--grey-200);
+}
+
+.content {
+  display: grid;
+  gap: rem(32px);
 
   table {
+    width: 100%;
     border-collapse: collapse;
   }
 
@@ -14,9 +31,12 @@
     @include make-spacer(p, 10px);
 
     border: rem(1px) solid #000;
+    width: 50%;
   }
   
-  code {
+  pre {
+    @include make-spacer(my, 0);
+
     display: block;
   }
 }

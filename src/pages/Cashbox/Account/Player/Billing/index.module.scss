@@ -132,6 +132,28 @@
         
         .cell {
             background-color: var(--grey-alpha-300);
+
+            &:first-child {
+                border-radius: rem(8px) 0 0 0;
+            }
+
+            &:last-child {
+                border-radius:  0 rem(8px) 0 0;
+            }
+        }
+    }
+
+    &:last-child {
+        
+        .cell {
+
+            &:first-child {
+                border-radius: 0 0 0 rem(8px);
+            }
+
+            &:last-child {
+                border-radius:  0 0 rem(8px) 0;
+            }
         }
     }
 
@@ -147,7 +169,6 @@
     @include flex($align-items: center);
     @include make-spacer(p, 10px);
   
-    border-radius: rem(8px);
     background-color: var(--grey-alpha-200);
 }
 

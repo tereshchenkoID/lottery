@@ -51,7 +51,6 @@ const Registration = () => {
     formData.append('password', filter.password)
 
     postData('register/', formData).then(json => {
-      console.log(json)
       if (json.id) {
         dispatch(setAuth(json)).then(() => {
           navigate('/')

@@ -20,8 +20,6 @@ const Deposit = ({ type, data, filter, handlePropsChange }) => {
   const min = data[type]?.min
   const max = data[type]?.max
 
-  console.log(filter)
-
   const handleSubmit = e => {
     e.preventDefault()
 
