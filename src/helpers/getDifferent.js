@@ -1,10 +1,10 @@
-export const getDifferent = (data, t, timezone) => {
+export const getDifferent = (data, t, type = 0) => {
   const now = new Date()
   const c = now.getTime()
-  // const o = now.getTimezoneOffset() * 60 * 1000
-  const r = new Date(data - c + Number(timezone))
+  const o = now.getTimezoneOffset() * 60 * 1000
+  const r = new Date(data - c + o)
   const days = r.getDate() - 1
-  let result = '00:00'
+  let result = '00:00:00'
 
   if (data > c) {
     result =
@@ -12,5 +12,6 @@ export const getDifferent = (data, t, timezone) => {
         ? `${days} ${t('days')}`
         : `${('0' + r.getHours()).slice(-2)}:${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
   }
+  
   return result
 }

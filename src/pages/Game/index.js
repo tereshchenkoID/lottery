@@ -209,7 +209,7 @@ const Game = () => {
                                 icon="fa-solid fa-clock"
                                 className={style.icon}
                               />
-                              <span>{getDifferent(game?.time, t, auth?.account?.timezone?.code)}</span>
+                              <span>{getDifferent(game?.time, t)}</span>
                             </div>
                           </>
                       }

@@ -27,6 +27,7 @@ import Loader from 'components/Loader'
 import Header from 'modules/Header'
 import Footer from 'modules/Footer'
 import Games from 'modules/Games'
+import Draws from 'modules/Draws'
 
 import { generateRoutes } from '../router'
 
@@ -82,12 +83,12 @@ const App = () => {
     return () => clearInterval(intervalId);
   }, [auth?.id])
 
-
   if (loading) return <Loader />
-
+  
   return (
     <AppProviders>
       <main className={style.main}>
+        <Draws />
         <Games />
         <Header />
         <div className={style.content}>

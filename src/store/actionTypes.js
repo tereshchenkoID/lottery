@@ -12,4 +12,7 @@ export const types = {
   SET_BETSLIP: 'SET_BETSLIP',
   GET_SCAN: 'GET_SCAN',
   SET_SCAN: 'SET_SCAN',
+  GET_DRAW: 'GET_DRAW',
+  SET_DRAW: 'SET_DRAW',
+  REMOVE_DRAW: 'REMOVE_DRAW',
 }

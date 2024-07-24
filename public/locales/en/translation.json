@@ -116,6 +116,8 @@
     "expired": "Expired",
     "cancelled": "Cancelled"
   },
+  "not_show_notification": "Don't show notification",
+  "see": "See",
   "action": "Action",
   "print": "Print",
   "validate": "Validate",

@@ -12,7 +12,6 @@ import { postData } from 'helpers/api'
 import Container from 'components/Container'
 import Title from 'components/Title'
 import Button from 'components/Button'
-import Timezone from './Timezone'
 import Currency from './Currency'
 import Language from './Language'
 import Modal from './Modal'
@@ -67,8 +66,6 @@ const Settings = () => {
         return <Currency settings={settings} auth={auth} handleChange={handleChange} />
       case 'Language':
         return <Language settings={settings} auth={auth} handleChange={handleChange} />
-      case 'Timezone':
-        return <Timezone settings={settings} auth={auth} handleChange={handleChange} />
       default:
         return null
     }
@@ -106,17 +103,6 @@ const Settings = () => {
                 />
               </div>
             }
-            <div className={style.row}>
-              <p>{t('timezone')}:</p>
-              <Button
-                classes={['alt', 'wide', 'md']}
-                onChange={() => {
-                  setModalContentType('Timezone')
-                  setActive(true)
-                }}
-                placeholder={auth.account.timezone.text}
-              />
-            </div>
           </>
         }
       </div>

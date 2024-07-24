@@ -1,7 +1,10 @@
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { GAME_STATUS } from 'constant/config'
 
 import { useImageLoader } from 'hooks/useImageLoader'
 import { getDifferent } from 'helpers/getDifferent'
@@ -16,6 +19,22 @@ const Card = ({ data }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
   const loading = useImageLoader(data.image)
+  const [time, setTime] = useState(getDifferent(data.time, t))
+
+  useEffect(() => {    
+    if (data.video && (data.time - new Date().getTime()) <= 3600000) {
+      const timer = setInterval(() => {
+        const currentTime = data.time - new Date().getTime()
+        setTime(getDifferent(data.time, t))
+
+        if (currentTime <= 0) {
+          clearInterval(timer)
+        }
+      }, 1000)
+
+      return () => clearInterval(timer)
+    }
+  }, [data])
   
   return (
     <Link 
@@ -52,15 +71,28 @@ const Card = ({ data }) => {
                   </h4>
                 </div>
               )}
-              {data.time && (
-                <div className={style.time}>
-                  <FontAwesomeIcon icon="fa-solid fa-clock" />
-                  <span>{getDifferent(data.time, t, auth?.account?.timezone?.code)}</span>
-                </div>
-              )}
               <div className={style.description}>
                 {t(`games.${data.id}.description`)}
               </div>
+              {data.time && (
+                <div className={style.time}>
+                  {
+                    data.status === GAME_STATUS.ANNOUNCEMENT
+                    ?
+                      <>
+                        <FontAwesomeIcon icon="fa-solid fa-clock" />
+                        <span>{time}</span>
+                      </>
+                    :
+                      <div className={style.game}>
+                        <FontAwesomeIcon icon="fa-solid fa-clock" />
+                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                      </div>
+                  }
+                </div>
+              )}
               <div className={style.action}>
                 <span>{t('play')}</span>
                 <span className={style.price}>

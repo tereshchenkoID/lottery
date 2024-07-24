@@ -12,6 +12,11 @@ export const USER_VERIFY = {
   3: 'verified',
 }
 
+export const GAME_STATUS = {
+  ANNOUNCEMENT: 'ANNOUNCEMENT',
+  PROGRESS: 'PROGRESS'
+}
+
 export const VOUCHER_STATUS = {
   0: 'new',
   1: 'paid',

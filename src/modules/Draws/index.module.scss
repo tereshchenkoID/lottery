@@ -1,0 +1,15 @@
+@import 'scss/config';
+
+.block {
+  @include flex($justify-content: flex-end, $direction: column);
+
+  position: fixed;
+  left: rem(12px);
+  bottom: rem(12px);
+  gap: rem(12px);
+  overflow-y: auto;
+  z-index: $z-index-12;
+  min-width: rem(320px);
+  color: var(--color-white);
+  overflow: hidden;
+}

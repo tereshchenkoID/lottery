@@ -1,0 +1,56 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 4px);
+
+  display: grid;
+  grid-template-columns: rem(44px) 1fr;
+  align-items: center;
+  gap: rem(6px);
+  border-radius: rem(6px);
+  position: relative;
+  width: rem(48px);
+  flex-shrink: 0;
+  overflow: hidden;
+  font-size: rem(14px);
+  line-height: rem(20px);
+  letter-spacing: rem(0.2px);
+
+  &:active,
+  &.active {
+    background-color: var(--grey-alpha-100);
+  }
+
+  &.wide {
+    width: rem(220px);
+  }
+
+  @include hover {
+
+    &:hover {
+      background-color: var(--grey-alpha-100);
+    }
+  }
+}
+
+.picture {
+  @include size(rem(40px));
+
+  aspect-ratio: 1 / 1;
+}
+
+.name {
+  @include ellipsis;
+}
+
+.time {
+  @include make-spacer(px, 4px);
+  @include make-spacer(py, 2px);
+
+  display: inline-flex;
+  border-radius: rem(4px);
+  background-color: var(--grey-alpha-900);
+  color: var(--color-white);
+  font-size: rem(12px);
+  line-height: 1;
+}

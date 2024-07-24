@@ -71,28 +71,18 @@
 
 .time {
   @include flex(center, center);
-  @include make-spacer(mt, 8px);
+  @include make-spacer(mt, auto);
   @include make-spacer(mx, auto);
   @include make-spacer(px, 10px);
   @include make-spacer(py, 4px);
 
   position: relative;
   gap: rem(4px);
-  background-color: var(--grey-alpha-200);
+  background-color: hsla(0, 0%, 100%, .12);
   border-radius: rem(14px);
   width: fit-content;
   font-size: rem(14px);
   font-weight: var(--typography-medium);
-
-  @include media-breakpoint-up(lg) {
-    @include make-spacer(mt, 0);
-    @include make-spacer(ml, 0);
-
-    position: absolute;
-    top: rem(11px);
-    right: rem(11px);
-    left: rem(11px);
-  }
 }
 
 .description {
@@ -129,7 +119,7 @@
 }
 
 .action {
-  @include make-spacer(mt, auto);
+  @include make-spacer(mt, 16px);
   @include flex(center, center);
 
   border-radius: rem(6px);
@@ -167,5 +157,40 @@
       left: rem(-12px);
       height: rem(12px);
     }
+  }
+}
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(4, rem(20px));
+  gap: rem(2px);
+}
+
+.cube {
+  animation: spin 0.5s linear infinite;
+
+  &:nth-child(1) {
+    animation-delay: 0.3s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    animation-timing-function: ease-out;
+  }
+
+  50% {
+    transform: translateY(-6px) rotate(45deg);
+    animation-timing-function: ease-in;
+  }
+
+  100% {
+    transform: translateY(0) rotate(90deg);
+    animation-timing-function: ease-out;
   }
 }

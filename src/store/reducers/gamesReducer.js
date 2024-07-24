@@ -1,7 +1,7 @@
 import { types } from 'store/actionTypes'
 
 const initialState = {
-  games: {},
+  games: [],
 }
 
 const gamesReducer = (state = initialState, action) => {

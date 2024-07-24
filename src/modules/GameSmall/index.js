@@ -79,7 +79,7 @@ const GameSmall = ({ data }) => {
                   data.time && (
                     <div className={style.time}>
                       <FontAwesomeIcon icon="fa-solid fa-clock" />
-                      <span>{getDifferent(data.time, t, auth?.account?.timezone?.code)}</span>
+                      <span>{getDifferent(data.time, t)}</span>
                     </div>
                   )
                 }

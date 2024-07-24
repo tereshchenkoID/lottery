@@ -1,0 +1,29 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 12px);
+
+  position: relative;
+  border-radius: rem(16px);
+  background-color: var(--grey-alpha-900);
+  animation: var(--animation-slide-right) 0.3s linear forwards;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: rem(50px) 1fr rem(30px);
+  align-items: center;
+  gap: rem(12px);
+}
+
+.center {
+  @include make-spacer(my, 8px);
+}
+
+.close {
+  @include size(rem(30px)!important);
+}
+
+.logo {
+  @include size(rem(40px));
+}

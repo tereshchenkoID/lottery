@@ -7,6 +7,7 @@ import authReducer from './reducers/authReducer'
 import gamesReducer from './reducers/gamesReducer'
 import betslipReducer from './reducers/betslipReducer'
 import scanReducer from './reducers/scanReducer'
+import drawReducer from './reducers/drawReducer'
 
 const allReducer = combineReducers({
   settings: settingsReducer,
@@ -14,7 +15,8 @@ const allReducer = combineReducers({
   games: gamesReducer,
   auth: authReducer,
   betslip: betslipReducer,
-  scan: scanReducer
+  scan: scanReducer,
+  draw: drawReducer
 })
 
 const composeEnhancers =

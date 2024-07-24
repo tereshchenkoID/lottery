@@ -8,13 +8,12 @@
   cursor: pointer;
   height: rem(30px);
 
-
   @include hover {
 
     &:hover {
 
       .item {
-        border-color: var(--color-primary);
+        border-color: var(--color-primary)!important;
       }
     }
   }
@@ -22,6 +21,40 @@
   &.disabled {
     opacity: 0.5;
     pointer-events: none;
+  }
+
+  &.sm {
+    @include make-spacer(pl, 30px);
+
+    height: rem(20px);
+    font-size: rem(14px);
+
+    .item {
+      @include size(rem(20px));
+
+      border-radius: rem(4px);
+
+      &::before {
+        @include size(rem(14px));
+
+        top: rem(2px);
+        border-radius: rem(2px);
+      }
+    }
+  }
+
+  &.transparent {
+
+    .item {
+      background-color: transparent;
+    }
+  }
+
+  &.white {
+
+    .item {
+      border-color: var(--color-white);
+    }
   }
 
   &.game {
