@@ -68,7 +68,7 @@ const Draw = ({ data }) => {
           link={`${NAVIGATION.broadcast.link}/${data.id}`}
           classes={['primary', 'wide', 'md']}
           placeholder={t('see')}
-          onChange={() => { }}
+          onChange={handleClose}
         />
       </div>
       <div className={style.bottom}>
