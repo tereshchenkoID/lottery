@@ -10,6 +10,7 @@ import Reference from 'components/Reference'
 import Checkbox from 'components/Checkbox'
 
 import style from './index.module.scss'
+import { NAVIGATION } from 'constant/config'
 
 const Draw = ({ data }) => {
   const { t } = useTranslation()
@@ -64,7 +65,7 @@ const Draw = ({ data }) => {
       </div>
       <div className={style.center}>
         <Reference
-          link={data.video.url}
+          link={`${NAVIGATION.broadcast.link}/${data.id}`}
           classes={['primary', 'wide', 'md']}
           placeholder={t('see')}
           onChange={() => { }}

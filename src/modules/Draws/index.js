@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useWindowWidth } from 'context/WindowWidthContext'
+import { useAuth } from 'context/AuthContext'
 
 import { BREAKPOINTS } from 'constant/config'
 
@@ -11,13 +12,14 @@ import style from './index.module.scss'
 const Draws = () => {
   const { draw } = useSelector(state => state.draw)
   const { windowWidth } = useWindowWidth()
+  const { isCashbox } = useAuth()
   const [active, setActive] = useState(false)
 
   useEffect(() => {
     setActive(windowWidth < BREAKPOINTS.md)
   }, [windowWidth])
 
-  if (active) 
+  if (isCashbox || active) 
     return false
 
   return (

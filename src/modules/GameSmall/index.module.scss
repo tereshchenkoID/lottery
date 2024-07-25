@@ -1,16 +1,18 @@
 @import 'scss/config';
 
 .block {
+  @include size(rem(144px), rem(138px));
+  
   display: grid;
   position: relative;
   flex-shrink: 0;
   border-radius: rem(16px);
   overflow: hidden;
-  width: rem(144px);
   min-height: rem(56px);
 
   @include media-breakpoint-up(lg) {
     width: rem(260px);
+    height: auto;
 
     @include hover {
 
@@ -38,18 +40,22 @@
 
 .time {
   @include flex(center, center);
-  @include make-spacer(p, 4px);
+  @include make-spacer(py, 4px);
+  @include make-spacer(px, 6px);
 
-  position: absolute;
-  top: rem(8px);
-  right: rem(8px);
   gap: rem(4px);
-  background-color: var(--grey-alpha-200);
+  background-color: hsla(0, 0%, 100%, .12);
   border-radius: rem(16px);
   width: fit-content;
   font-size: rem(12px);
   line-height: 1;
   font-weight: var(--typography-medium);
+
+  @include media-breakpoint-up(lg) {
+    position: absolute;
+    top: rem(8px);
+    right: rem(8px);
+  }
 }
 
 .picture {
@@ -57,9 +63,13 @@
 }
 
 .content {
-  @include make-spacer(mt, 4px);
+  @include make-spacer(mt, auto);
 
   flex-grow: 1;
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(mt, 4px);
+  }
 }
 
 .title {
@@ -72,4 +82,38 @@
 
 .prize {
   font-size: rem(16px);
+}
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(4, rem(20px));
+}
+
+.cube {
+  animation: spin 0.5s linear infinite;
+
+  &:nth-child(1) {
+    animation-delay: 0.3s;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    animation-timing-function: ease-out;
+  }
+
+  50% {
+    transform: translateY(-6px) rotate(45deg);
+    animation-timing-function: ease-in;
+  }
+
+  100% {
+    transform: translateY(0) rotate(90deg);
+    animation-timing-function: ease-out;
+  }
 }

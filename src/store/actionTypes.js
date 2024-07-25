@@ -14,5 +14,6 @@ export const types = {
   SET_SCAN: 'SET_SCAN',
   GET_DRAW: 'GET_DRAW',
   SET_DRAW: 'SET_DRAW',
+  UPDATE_DRAW: 'UPDATE_DRAW',
   REMOVE_DRAW: 'REMOVE_DRAW',
 }

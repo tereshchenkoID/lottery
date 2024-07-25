@@ -7,6 +7,11 @@
       "description_2": "Jogue jogos bônus e ganhe recompensas exclusivas!",
       "title_3": "Em que gastar",
       "description_3": "Pague bilhetes de loteria com bônus"
+    },
+    "broadcast": {
+      "title_1": "Circulação ao vivo",
+      "description_1": "Assista às transmissões ao vivo dos sorteios das loterias estaduais! As combinações vencedoras serão determinadas diante dos seus olhos!",
+      "title_2": "Próximas transmissões"
     }
   },
   "navigation": {

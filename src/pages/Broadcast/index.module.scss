@@ -1,6 +1,7 @@
 @import 'scss/config';
 
 .grid {
-  display: grid;
-  gap: rem(8px);
+  @include flex($direction: column);
+
+  gap: rem(24px);
 }

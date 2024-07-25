@@ -9,18 +9,16 @@ const Home = lazy(() => import('pages/Home'))
 const Game = lazy(() => import('pages/Game'))
 const Settings = lazy(() => import('pages/Settings'))
 const CheckTickets = lazy(() => import('pages/CheckTickets'))
-
 const Broadcast = lazy(() => import('pages/Broadcast'))
 const News = lazy(() => import('pages/News'))
 const About = lazy(() => import('pages/About'))
 const Contacts = lazy(() => import('pages/Contacts'))
 const Faq = lazy(() => import('pages/Faq'))
 const Support = lazy(() => import('pages/Support'))
-
-const UI = lazy(() => import('pages/UI'))
 const Login = lazy(() => import('pages/Login'))
 const Registration = lazy(() => import('pages/Registration'))
 const PasswordRecovery = lazy(() => import('pages/PasswordRecovery'))
+const UI = lazy(() => import('pages/UI'))
 
 const UserAccount = lazy(() => import('pages/User/Account'))
 const UseTickets = lazy(() => import('pages/User/Account/Tickets'))
@@ -138,7 +136,7 @@ export const generateRoutes = (auth) => {
       element: <News />,
     },
     {
-      path: NAVIGATION.broadcast.link,
+      path: `${NAVIGATION.broadcast.link}/:gameId`,
       element: <Broadcast />,
     },
     {

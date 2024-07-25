@@ -1,0 +1,25 @@
+@import 'scss/config';
+
+.block {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--grey-alpha-200);
+  border-radius: rem(24px);
+  border: rem(1px) solid var(--grey-alpha-200);
+  aspect-ratio: 16 / 9;
+
+  img,
+  video,
+  iframe {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
+    position: relative;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.iframe {
+  transform: scale(1.02);
+}

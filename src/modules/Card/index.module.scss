@@ -163,7 +163,6 @@
 .game {
   display: grid;
   grid-template-columns: repeat(4, rem(20px));
-  gap: rem(2px);
 }
 
 .cube {

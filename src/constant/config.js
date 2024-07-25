@@ -12,6 +12,18 @@ export const USER_VERIFY = {
   3: 'verified',
 }
 
+export const VIDEO_TYPE = {
+  iframe:   0,
+  youtube:  1,
+  flow:     2,
+  picture:  3,
+}
+
+export const GAME_TIME = {
+  START_TIMER: 3600000,
+  START_ANNOUNCEMENT: 10000,
+}
+
 export const GAME_STATUS = {
   ANNOUNCEMENT: 'ANNOUNCEMENT',
   PROGRESS: 'PROGRESS'
@@ -74,68 +86,68 @@ export const BET_TYPE = {
 
 export const NAVIGATION = {
   home: {
-    link: '/',
     icon: 'fa-solid fa-house',
+    link: '/',
     text: 'navigation.home',
   },
   all_games: {
-    link: '/',
     icon: 'fa-solid fa-dice',
+    link: '/',
     text: 'navigation.all_games',
   },
   login: {
-    link: '/login',
     icon: 'fa-solid fa-user',
+    link: '/login',
     text: 'navigation.login',
   },
   registration: {
-    link: '/registration',
     icon: 'fa-solid fa-user-plus',
+    link: '/registration',
     text: 'navigation.registration',
   },
   password_recovery: {
-    link: '/password-recovery',
     icon: 'fa-solid fa-user-lock',
+    link: '/password-recovery',
     text: 'navigation.password_recovery',
   },
   check_ticket: {
-    link: '/check-ticket',
     icon: 'fa-solid fa-ticket',
+    link: '/check-ticket',
     text: 'navigation.check_ticket',
   },
   settings: {
-    link: '/settings',
     icon: 'fa-solid fa-gear',
+    link: '/settings',
     text: 'navigation.settings',
   },
   broadcast: {
-    link: '/broadcast',
     icon: 'fa-solid fa-tv',
+    link: '/broadcast',
     text: 'navigation.broadcast',
   },
   news: {
-    link: '/news',
     icon: 'fa-solid fa-newspaper',
+    link: '/news',
     text: 'navigation.news',
   },
   about: {
-    link: '/about',
     icon: 'fa-solid fa-circle-info',
+    link: '/about',
     text: 'navigation.about',
   },
   contacts: {
-    link: '/contacts',
     icon: 'fa-solid fa-phone',
+    link: '/contacts',
     text: 'navigation.contacts',
   },
   faq: {
-    link: '/faq',
     icon: 'fa-solid fa-message',
+    link: '/faq',
     text: 'navigation.faq',
   },
   support: {
-    link: '/support',
     icon: 'fa-solid fa-headset',
+    link: '/support',
     text: 'navigation.support',
   }
 }

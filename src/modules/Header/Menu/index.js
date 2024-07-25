@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { 
   NAVIGATION, 
-  ROUTES_CASHBOX, 
+  ROUTES_CASHBOX,
   ROUTES_USER 
 } from 'constant/config'
 
@@ -52,9 +52,12 @@ const Menu = ({ setShow, show, buttonRef }) => {
         !isLogin && NAVIGATION.all_games,
         NAVIGATION.check_ticket,
         NAVIGATION.settings,
-        NAVIGATION.broadcast,
+        {
+          ...NAVIGATION.broadcast,
+          link: `${NAVIGATION.broadcast.link}/0`,
+        },
         NAVIGATION.news,
-      ],
+      ].filter(item => item),
     },
     {
       submenu: [
@@ -147,42 +150,41 @@ const Menu = ({ setShow, show, buttonRef }) => {
             </div>
           )
         }
-
         {
-          MENU.map(
-            (el, idx) =>
-              <div key={idx} className={style.column}>
-                {el.submenu.map((s_el, s_idx) => (
-                  <Link
-                    to={s_el.link}
-                    rel="noreferrer"
-                    key={s_idx}
-                    onClick={() => setShow(false)}
-                    className={classNames(
-                      style.link,
-                      pathname === s_el.link && style.active,
-                    )}
-                  >
-                    <span className={style.text}>
-                      {
-                        s_el.icon &&
-                        <FontAwesomeIcon
-                          icon={s_el.icon}
-                          className={style.icon}
-                        />
-                      }
-                      {t(s_el.text)}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-          )}
-        {
-          isLogin && (
-            <div className={classNames(style.column, style.alt)}>
-              <Logout onChange={() => setShow(false)} classes={[style.logout]} />
+          MENU.map((el, idx) =>
+            <div key={idx} className={style.column}>
+              {el.submenu.map((s_el, s_idx) => (
+                <Link
+                  to={s_el.link}
+                  rel="noreferrer"
+                  key={s_idx}
+                  onClick={() => setShow(false)}
+                  className={classNames(
+                    style.link,
+                    pathname === s_el.link && style.active,
+                  )}
+                >
+                  <span className={style.text}>
+                    {
+                      s_el.icon &&
+                      <FontAwesomeIcon
+                        icon={s_el.icon}
+                        className={style.icon}
+                      />
+                    }
+                    {t(s_el.text)}
+                  </span>
+                </Link>
+              ))}
             </div>
-          )}
+          )
+        }
+        {
+          isLogin &&
+          <div className={classNames(style.column, style.alt)}>
+            <Logout onChange={() => setShow(false)} classes={[style.logout]} />
+          </div>
+        }
       </menu>
     </div>
   )

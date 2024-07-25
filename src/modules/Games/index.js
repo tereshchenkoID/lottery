@@ -13,18 +13,26 @@ import style from './index.module.scss'
 
 const Games = () => {
   const { games } = useSelector(state => state.games)
-  const [active, setActive] = useState(true)
+  const [active, setActive] = useState(false)
   const { windowWidth } = useWindowWidth()
 
-  // useEffect(() => {
-  //   setActive(windowWidth > 1740)
-  // }, [windowWidth])
+  useEffect(() => {
+    setActive(windowWidth > 1740)
+  }, [windowWidth])
 
   // if (windowWidth < BREAKPOINTS.xl)
   //   return false
 
   return (
-    <div className={classNames(style.block, active && style.active)}>
+    <div 
+      className={
+        classNames(
+          style.block, 
+          active && style.active,
+          windowWidth < BREAKPOINTS.xl && style.hide
+        )
+      }
+    >
       <Button
         classes={['alt', style.toggle]}
         onChange={() => setActive(!active)}

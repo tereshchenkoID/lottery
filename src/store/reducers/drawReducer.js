@@ -15,6 +15,14 @@ const drawReducer = (state = initialState, action) => {
         ...state,
         draw: [...state.draw, ...action.payload],
       }
+    case types.UPDATE_DRAW:
+      return {
+        ...state,
+        draw: [
+          ...state.draw.filter(item => item.id !== action.payload.id),
+          action.payload
+        ],
+      }  
     case types.REMOVE_DRAW:
       return {
         ...state,

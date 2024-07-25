@@ -6,11 +6,24 @@ import Skeleton from 'components/Skeleton'
 
 import style from './index.module.scss'
 
-const Title = ({ text, isLoading, isNavigation = false }) => {
+const Title = ({ 
+  text, 
+  isLoading, 
+  isNavigation = false,
+  classes = null,
+}) => {
   const [loading] = useLoading(isLoading);
 
   return (
-    <div className={classNames(style.block, isNavigation && style.alt)}>
+    <div 
+      className={
+        classNames(
+          style.block, 
+          isNavigation && style.alt,
+          classes && classes.map(el => style[el] || el),
+        )
+      }
+    >
       {
         loading
           ?

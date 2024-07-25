@@ -1,7 +1,10 @@
+import { useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { GAME_STATUS, GAME_TIME } from 'constant/config'
 
 import { useImageLoader } from 'hooks/useImageLoader'
 import { getDifferent } from 'helpers/getDifferent'
@@ -35,7 +38,26 @@ function lightenColor(hex, percent) {
 const GameSmall = ({ data }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
+  const [time, setTime] = useState(getDifferent(data.time, t))
   const loading = useImageLoader(data.image)
+
+  const updateTime = useCallback(() => {
+    setTime(getDifferent(data.time, t))
+  }, [data.time, t])
+
+  useEffect(() => {
+    if (data.video && (data.time - new Date().getTime()) <= GAME_TIME.START_TIMER) {
+      const timer = setInterval(() => {
+        const currentTime = data.time - new Date().getTime()
+        updateTime()
+        if (currentTime <= 0) {
+          clearInterval(timer)
+        }
+      }, 1000)
+
+      return () => clearInterval(timer)
+    }
+  }, [data.video, data.time, updateTime])
 
   return (
     <Link
@@ -48,13 +70,33 @@ const GameSmall = ({ data }) => {
           ?
             <Skeleton />
           :
-            <div 
+            <div
               className={style.body}
               style={{
                 background: `radial-gradient(121.18% 140.93% at 0 0, ${lightenColor(data.color, 20)} 0, ${data.color} 100%)`,
                 color: data.font_color,
               }}
             >
+              {
+                data.time &&
+                <div className={style.time}>
+                  {
+                    data.status === GAME_STATUS.ANNOUNCEMENT
+                      ?
+                      <>
+                        <FontAwesomeIcon icon="fa-solid fa-clock" />
+                        <span>{time}</span>
+                      </>
+                      :
+                      <div className={style.game}>
+                        <FontAwesomeIcon icon="fa-solid fa-clock" />
+                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                      </div>
+                  }
+                </div>
+              }
               <div className={style.picture}>
                 <img
                   src={data.image}
@@ -73,14 +115,6 @@ const GameSmall = ({ data }) => {
                         {auth.account.currency.symbol}
                       </h6>
                     </>
-                  )
-                }
-                {
-                  data.time && (
-                    <div className={style.time}>
-                      <FontAwesomeIcon icon="fa-solid fa-clock" />
-                      <span>{getDifferent(data.time, t)}</span>
-                    </div>
                   )
                 }
               </div>

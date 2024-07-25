@@ -7,6 +7,13 @@ export const setDraw = data => async dispatch => {
   })
 }
 
+export const updateDraw = data => async dispatch => {
+  dispatch({
+    type: types.UPDATE_DRAW,
+    payload: data,
+  })
+}
+
 export const removeDraw = id => async dispatch => {
   dispatch({
     type: types.REMOVE_DRAW,
