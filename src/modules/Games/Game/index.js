@@ -17,14 +17,14 @@ const Game = ({ data, toggle, setToggle }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { draw } = useSelector(state => state.draw)
-  const [time, setTime] = useState(getDifferent(data.time, t))
+  const [time, setTime] = useState(getDifferent(data.time))
   const hasDispatched = useRef(false)
   const isShow = data.video?.hide === 0
   const isAnnouncement = data.status === GAME_STATUS.ANNOUNCEMENT
 
   const updateTime = useCallback(() => {
     const currentTime = data.time - new Date().getTime()
-    setTime(getDifferent(data.time, t))
+    setTime(getDifferent(data.time))
 
     if (isAnnouncement && isShow && currentTime <= GAME_TIME.START_ANNOUNCEMENT && currentTime > 0 && !hasDispatched.current) {
       dispatch(updateDraw(data))
@@ -36,7 +36,7 @@ const Game = ({ data, toggle, setToggle }) => {
       dispatch(setGames())
       hasDispatched.current = false
     }
-  }, [t, dispatch, data, draw, isAnnouncement, isShow])
+  }, [dispatch, data, draw, isAnnouncement, isShow])
 
   useEffect(() => {
     if (data.video && (data.time - new Date().getTime()) <= GAME_TIME.START_TIMER) {
@@ -50,14 +50,14 @@ const Game = ({ data, toggle, setToggle }) => {
       to={`/game/${data.id}`}
       rel="noreferrer"
       className={classNames(style.block, toggle && style.wide)}
-      onClick={() => setToggle(false)}
+      onClick={() => !toggle && setToggle(false)}
     >
       <p className={style.picture}>
         <img src={data.image} alt={data.alt} loading="lazy" />
       </p>
       <div className={style.info}>
         <p className={style.name}>{t(`games.${data.id}.title`)}</p>
-        {data.video && <p className={style.time}>{time}</p>}
+        {data.video && <p className={style.time}>{time.days > 0 ? `${time.days} ${t('days')}` : time.time}</p>}
       </div>
     </Link>
   )

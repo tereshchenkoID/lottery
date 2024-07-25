@@ -38,11 +38,11 @@ function lightenColor(hex, percent) {
 const GameSmall = ({ data }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
-  const [time, setTime] = useState(getDifferent(data.time, t))
+  const [time, setTime] = useState(getDifferent(data.time))
   const loading = useImageLoader(data.image)
 
   const updateTime = useCallback(() => {
-    setTime(getDifferent(data.time, t))
+    setTime(getDifferent(data.time))
   }, [data.time, t])
 
   useEffect(() => {
@@ -85,7 +85,7 @@ const GameSmall = ({ data }) => {
                       ?
                       <>
                         <FontAwesomeIcon icon="fa-solid fa-clock" />
-                        <span>{time}</span>
+                        <span>{time.days > 0 ? `${time.days} ${t('days')}` : time.time}</span>
                       </>
                       :
                       <div className={style.game}>

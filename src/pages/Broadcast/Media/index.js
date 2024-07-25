@@ -39,7 +39,10 @@ const Media = ({ data }) => {
       }
       {
         (!data || !data?.video) &&
-        <img src={settings.pages.broadcast.picture.url} />
+        <img 
+          src={settings.pages.broadcast.picture.url} 
+          alt={'Preview'} 
+        />
       }
       {
         data?.video?.type === VIDEO_TYPE.youtube &&
@@ -50,6 +53,7 @@ const Media = ({ data }) => {
         <iframe
           className={style.iframe}
           src={data?.video?.url}
+          title={'Preview'}
         />
       }
       {

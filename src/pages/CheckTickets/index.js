@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useLoading } from 'hooks/useLoading'
 
 import classNames from 'classnames'
 
@@ -11,6 +12,7 @@ import { setToastify } from 'store/actions/toastifyAction'
 
 import Container from 'components/Container'
 import Field from 'components/Field'
+import Skeleton from 'components/Skeleton'
 import Button from 'components/Button'
 import Title from 'components/Title'
 import TicketPreview from 'modules/TicketPreview'
@@ -22,6 +24,7 @@ const CheckTickets = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { scan } = useSelector(state => state.scan)
+  const [loading] = useLoading(true)
   const [filter, setFilter] = useState('')
   const [data, setData] = useState(null)
   const [active, setActive] = useState(null)
@@ -72,27 +75,40 @@ const CheckTickets = () => {
           <Title text={t(NAVIGATION.check_ticket.text)} />
           <form onSubmit={handleSubmit} className={style.form}>
             {
-              scan &&
-              <Breadcrumbs 
-                data={[
+              loading
+              ?
+                <Skeleton
+                  styles={{
+                    width: '100%',
+                    borderRadius: 8,
+                  }}
+                />
+              :
+                <>
                   {
-                    text: 'back',
-                    link: sessionStorage.getItem('p_r') || -1
+                    scan &&
+                    <Breadcrumbs 
+                      data={[
+                        {
+                          text: 'back',
+                          link: sessionStorage.getItem('p_r') || -1
+                        }
+                      ]}
+                    />
                   }
-                ]}
-              />
+                  <Field
+                    type={'text'}
+                    placeholder={t('ticket')}
+                    data={filter}
+                    onChange={value => setFilter(value)}
+                    isRequired={true}
+                  />
+                  <Button 
+                    type={'submit'} 
+                    placeholder={t('search')} 
+                  />
+                </>
             }
-            <Field
-              type={'text'}
-              placeholder={t('ticket')}
-              data={filter}
-              onChange={value => setFilter(value)}
-              isRequired={true}
-            />
-            <Button 
-              type={'submit'} 
-              placeholder={t('search')} 
-            />
           </form>
         </div>
         <div className={style.right}>

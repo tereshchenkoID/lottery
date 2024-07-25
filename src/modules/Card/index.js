@@ -19,10 +19,10 @@ const Card = ({ data, link = 'game' }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
   const loading = useImageLoader(data.image)
-  const [time, setTime] = useState(getDifferent(data.time, t))
+  const [time, setTime] = useState(getDifferent(data.time))
 
   const updateTime = useCallback(() => {
-    setTime(getDifferent(data.time, t))
+    setTime(getDifferent(data.time))
   }, [data.time, t])
 
   useEffect(() => {    
@@ -86,7 +86,7 @@ const Card = ({ data, link = 'game' }) => {
                     ?
                       <>
                         <FontAwesomeIcon icon="fa-solid fa-clock" />
-                        <span>{time}</span>
+                        <span>{time.days > 0 ? `${time.days} ${t('days')}` : time.time}</span>
                       </>
                     :
                       <div className={style.game}>

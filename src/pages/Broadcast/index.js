@@ -10,6 +10,8 @@ import {
   Keyboard,
 } from 'swiper/modules'
 
+import { NAVIGATION } from 'constant/config'
+
 import Container from 'components/Container'
 import Paragraph from 'components/Paragraph'
 import Title from 'components/Title'
@@ -36,6 +38,7 @@ const Broadcast = () => {
     <Container>
       <div className={style.grid}>
         <div>
+          <Title text={t(NAVIGATION.broadcast.text)} />
           <Title text={t('pages.broadcast.title_1')} isLoading={true} />
           <Paragraph text={t('pages.broadcast.description_1')} isLoading={true} />
         </div>

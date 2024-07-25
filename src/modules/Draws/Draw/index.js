@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
+import { NAVIGATION } from 'constant/config'
+
 import { removeDraw } from 'store/actions/drawAction'
 import { setToastify } from 'store/actions/toastifyAction'
 import { postData } from 'helpers/api'
@@ -10,7 +12,6 @@ import Reference from 'components/Reference'
 import Checkbox from 'components/Checkbox'
 
 import style from './index.module.scss'
-import { NAVIGATION } from 'constant/config'
 
 const Draw = ({ data }) => {
   const { t } = useTranslation()

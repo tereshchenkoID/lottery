@@ -40,13 +40,12 @@
 
 .time {
   @include flex(center, center);
-  @include make-spacer(py, 4px);
+  @include size(fit-content, rem(20px));
   @include make-spacer(px, 6px);
 
   gap: rem(4px);
-  background-color: hsla(0, 0%, 100%, .12);
+  background-color: hsla(0, 0%, 100%, 0.12);
   border-radius: rem(16px);
-  width: fit-content;
   font-size: rem(12px);
   line-height: 1;
   font-weight: var(--typography-medium);

@@ -20,9 +20,6 @@ const Games = () => {
     setActive(windowWidth > 1740)
   }, [windowWidth])
 
-  // if (windowWidth < BREAKPOINTS.xl)
-  //   return false
-
   return (
     <div 
       className={

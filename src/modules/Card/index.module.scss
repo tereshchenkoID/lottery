@@ -74,13 +74,12 @@
   @include make-spacer(mt, auto);
   @include make-spacer(mx, auto);
   @include make-spacer(px, 10px);
-  @include make-spacer(py, 4px);
-
+  @include size(fit-content, rem(29px));
+  
   position: relative;
   gap: rem(4px);
-  background-color: hsla(0, 0%, 100%, .12);
+  background-color: hsla(0, 0%, 100%, 0.12);
   border-radius: rem(14px);
-  width: fit-content;
   font-size: rem(14px);
   font-weight: var(--typography-medium);
 }

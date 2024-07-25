@@ -12,7 +12,7 @@ const Title = ({
   isNavigation = false,
   classes = null,
 }) => {
-  const [loading] = useLoading(isLoading);
+  const [loading] = useLoading(isLoading)
 
   return (
     <div 
