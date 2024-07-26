@@ -8,7 +8,14 @@
 }
 
 .link {
-  color: var(--color-info);
+  color: var(--color-secondary);
+
+  @include hover {
+
+    &:hover {
+      color: var(--color-primary-hover);
+    }
+  }
 }
 
 .text {

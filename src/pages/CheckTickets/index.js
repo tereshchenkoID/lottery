@@ -72,6 +72,11 @@ const CheckTickets = () => {
       />
       <div className={style.grid}>
         <div className={style.left}>
+          <Breadcrumbs
+            data={[
+              NAVIGATION.home
+            ]}
+          />
           <Title text={t(NAVIGATION.check_ticket.text)} />
           <form onSubmit={handleSubmit} className={style.form}>
             {

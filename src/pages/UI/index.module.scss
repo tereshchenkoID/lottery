@@ -3,19 +3,18 @@
 .block {
   display: grid;
   grid-template-columns: rem(320px) 1fr;
+  align-items: flex-start;
   gap: rem(32px);
 }
 
 .nav {
   @include flex($direction: column);
+
+  gap: rem(8px);
 }
 
 .button {
-  @include make-spacer(px, 20px);
-  @include size(100%, rem(40px));
-
-  text-align: left;
-  background-color: var(--grey-200);
+  justify-content: flex-start;
 }
 
 .content {

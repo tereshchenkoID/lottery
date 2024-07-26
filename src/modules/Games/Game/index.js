@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useWindowWidth } from 'context/WindowWidthContext'
 
 import { GAME_STATUS, GAME_TIME } from 'constant/config'
 
@@ -16,6 +17,7 @@ import style from './index.module.scss'
 const Game = ({ data, toggle, setToggle }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const { windowWidth } = useWindowWidth()
   const { draw } = useSelector(state => state.draw)
   const [time, setTime] = useState(getDifferent(data.time))
   const hasDispatched = useRef(false)
@@ -45,12 +47,18 @@ const Game = ({ data, toggle, setToggle }) => {
     }
   }, [data.video, data.time, updateTime])
 
+  const handleClick = () => {
+    if(!toggle || windowWidth < 1740) {
+      setToggle(false)
+    }
+  }
+
   return (
     <Link
       to={`/game/${data.id}`}
       rel="noreferrer"
       className={classNames(style.block, toggle && style.wide)}
-      onClick={() => !toggle && setToggle(false)}
+      onClick={handleClick}
     >
       <p className={style.picture}>
         <img src={data.image} alt={data.alt} loading="lazy" />

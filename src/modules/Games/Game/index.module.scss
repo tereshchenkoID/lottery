@@ -16,8 +16,7 @@
   line-height: rem(20px);
   letter-spacing: rem(0.2px);
 
-  &:active,
-  &.active {
+  &:active {
     background-color: var(--grey-alpha-100);
   }
 

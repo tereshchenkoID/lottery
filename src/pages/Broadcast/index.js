@@ -12,6 +12,7 @@ import {
 
 import { NAVIGATION } from 'constant/config'
 
+import Breadcrumbs from 'modules/Breadcrumbs'
 import Container from 'components/Container'
 import Paragraph from 'components/Paragraph'
 import Title from 'components/Title'
@@ -38,6 +39,12 @@ const Broadcast = () => {
     <Container>
       <div className={style.grid}>
         <div>
+          <Breadcrumbs
+            data={[
+              NAVIGATION.home
+            ]}
+            current={NAVIGATION.broadcast}
+          />
           <Title text={t(NAVIGATION.broadcast.text)} />
           <Title text={t('pages.broadcast.title_1')} isLoading={true} />
           <Paragraph text={t('pages.broadcast.description_1')} isLoading={true} />
@@ -57,7 +64,7 @@ const Broadcast = () => {
             {
               data?.map((el, idx) => (
                 <SwiperSlide key={idx}>
-                  <Card 
+                  <Card
                     data={el}
                     link={'broadcast'}
                   />

@@ -5,36 +5,37 @@ import { useLocation } from 'react-router-dom'
 import { NAVIGATION } from 'constant/config'
 
 import style from './index.module.scss'
+import React from 'react'
 
-const Breadcrumbs = ({
-  data,
-}) => {
+const Breadcrumbs = ({ data, current = null }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const currentPath = location.pathname
-
   const navigationItem = Object.values(NAVIGATION).find(item => item.link === currentPath)
 
   return (
     <div className={style.block}>
       {
         data.map((el, idx) =>
-          <Link
-            key={idx}
-            to={el.link}
-            rel="noreferrer"
-            className={style.link}
-          >
-            {t(el.text)}
-          </Link>
+          <React.Fragment key={idx}>
+            <Link
+              to={el.link}
+              rel="noreferrer"
+              className={style.link}
+            >
+              {t(el.text)}
+            </Link>
+            <span className={style.text}>/</span>
+          </React.Fragment>
         )
       }
       {
         navigationItem && 
-        <>
-          <span className={style.text}>/</span>
-          <p className={style.text}>{t(navigationItem.text)}</p>
-        </>
+        <p className={style.text}>{t(navigationItem.text)}</p>
+      }
+      {
+        current &&
+        <p className={style.text}>{t(current.text)}</p>
       }
     </div>
   )

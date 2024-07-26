@@ -10,6 +10,7 @@ import { setToastify } from 'store/actions/toastifyAction'
 import { setAuth } from 'store/actions/authAction'
 import { postData } from 'helpers/api'
 
+import Breadcrumbs from 'modules/Breadcrumbs'
 import Container from 'components/Container'
 import Title from 'components/Title'
 import Skeleton from 'components/Skeleton'
@@ -76,6 +77,11 @@ const Settings = () => {
 
   return (
     <Container>
+      <Breadcrumbs
+        data={[
+          NAVIGATION.home
+        ]}
+      />
       <Title text={t(NAVIGATION.settings.text)} />
       <div className={style.grid}>
         {

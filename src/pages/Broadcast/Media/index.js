@@ -40,7 +40,8 @@ const Media = ({ data }) => {
       {
         (!data || !data?.video) &&
         <img 
-          src={settings.pages.broadcast.picture.url} 
+          src={settings.pages.broadcast.picture.url}
+          loading={'lazy'}
           alt={'Preview'} 
         />
       }
