@@ -2,5 +2,15 @@
 
 .grid {
   display: grid;
-  gap: rem(8px);
+  gap: rem(24px);
+
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: rem(16px);
+  }
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: rem(24px);
+  }
 }

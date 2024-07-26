@@ -1,0 +1,52 @@
+@import 'scss/config';
+
+.block {
+  @include flex($direction: column);
+  
+  position: relative;
+  gap: rem(8px);
+  overflow: hidden;
+  border-radius: rem(16px);
+}
+
+.media {
+  overflow: hidden;
+  background-color: var(--grey-alpha-200);
+  border-radius: rem(16px);
+  border: rem(1px) solid var(--grey-alpha-200);
+  aspect-ratio: 16 / 9;
+
+  img,
+  video,
+  iframe {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
+    position: relative;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.iframe {
+  transform: scale(1.02);
+}
+
+.date {
+  color: var(--grey-alpha-500);
+  font-size: rem(12px);
+}
+
+.title {
+  font-size: rem(18px);
+}
+
+.link {
+  
+  @include hover {
+
+    &:hover {
+      color: var(--color-primary-hover);
+    }
+  }
+}
