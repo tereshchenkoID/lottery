@@ -40,7 +40,7 @@
 
 .time {
   @include flex(center, center);
-  @include size(fit-content, rem(20px));
+  @include size(rem(100px), rem(20px));
   @include make-spacer(px, 6px);
 
   gap: rem(4px);
@@ -84,8 +84,10 @@
 }
 
 .game {
-  display: grid;
-  grid-template-columns: repeat(4, rem(20px));
+  @include flex(center, center);
+  
+  gap: rem(5px);
+  text-align: center;
 }
 
 .cube {

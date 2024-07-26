@@ -74,7 +74,7 @@
   @include make-spacer(mt, auto);
   @include make-spacer(mx, auto);
   @include make-spacer(px, 10px);
-  @include size(fit-content, rem(29px));
+  @include size(rem(100px), rem(29px));
   
   position: relative;
   gap: rem(4px);
@@ -160,8 +160,10 @@
 }
 
 .game {
-  display: grid;
-  grid-template-columns: repeat(4, rem(20px));
+  @include flex(center, center);
+  
+  gap: rem(5px);
+  text-align: center;
 }
 
 .cube {
