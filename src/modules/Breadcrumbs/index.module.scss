@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  @include flex($align-items: center);
+  @include flex($align-items: center, $wrap: wrap);
 
   gap: rem(8px);
   font-size: rem(13px);

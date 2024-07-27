@@ -14,7 +14,7 @@ const Article = ({ data }) => {
 
   const opts = {
     playerVars: {
-      autoplay: 1,
+      autoplay: 0,
     },
   }
 
@@ -59,7 +59,7 @@ const Article = ({ data }) => {
           {data.title}
         </Link>
       </h6>
-      <p className={style.description}>{data.snipet}</p>
+      <p className={style.description}>{data.snippet}</p>
     </article>
   )
 }

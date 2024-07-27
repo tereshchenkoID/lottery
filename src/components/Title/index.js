@@ -1,6 +1,6 @@
-import { useLoading } from 'hooks/useLoading';
+import { useLoading } from 'hooks/useLoading'
 
-import classNames from 'classnames';
+import classNames from 'classnames'
 
 import Skeleton from 'components/Skeleton'
 

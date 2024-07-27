@@ -72,49 +72,51 @@ const News = () => {
   }, [])
 
   return (
-    <Container>
+    <Container classes={style.container}>
       <Breadcrumbs
         data={[
           NAVIGATION.home
         ]}
       />
       <Title text={t(NAVIGATION.news.text)} />
-      {
-        loading 
-        ?
-          <Loader type={'inline'} />
-        :
-          <>
-            {
-              data?.length > 0 
-              ?
-                <div className={style.list}>
-                  <div className={style.grid}>
+      <div className={style.content}>
+        {
+          loading 
+          ?
+            <Loader type={'inline'}/>
+          :
+            <>
+              {
+                data?.length > 0 
+                ?
+                  <div className={style.list}>
+                    <div className={style.grid}>
+                      {
+                        data.map((el, idx) => 
+                          <Article 
+                            key={idx}
+                            data={el} 
+                          />
+                        )
+                      }
+                    </div>
                     {
-                      data.map((el, idx) => 
-                        <Article 
-                          key={idx}
-                          data={el} 
+                      pagination.pages > 1 &&
+                      <div className={style.pagination}>
+                        <Pagination
+                          pagination={pagination}
+                          handlePrev={() => handlePrev()}
+                          handleNext={() => handleNext()}
                         />
-                      )
+                      </div>
                     }
                   </div>
-                  {
-                    pagination.pages > 1 &&
-                    <div className={style.pagination}>
-                      <Pagination
-                        pagination={pagination}
-                        handlePrev={() => handlePrev()}
-                        handleNext={() => handleNext()}
-                      />
-                    </div>
-                  }
-                </div>
-              :
-                <Empty />
-            }
-          </>
+                :
+                  <Empty />
+              }
+            </>
         }
+      </div>
     </Container>
   )
 }

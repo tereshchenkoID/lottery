@@ -20,6 +20,8 @@ import Breadcrumbs from 'modules/Breadcrumbs'
 
 import style from './index.module.scss'
 
+const LOADERS = [48, 48]
+
 const CheckTickets = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -74,33 +76,31 @@ const CheckTickets = () => {
         <div className={style.left}>
           <Breadcrumbs
             data={[
-              NAVIGATION.home
-            ]}
+              NAVIGATION.home,
+              scan && {
+                text: 'back',
+                link: sessionStorage.getItem('p_r') || -1
+              }
+            ].filter(item => item)}
           />
           <Title text={t(NAVIGATION.check_ticket.text)} />
           <form onSubmit={handleSubmit} className={style.form}>
             {
               loading
               ?
-                <Skeleton
-                  styles={{
-                    width: '100%',
-                    borderRadius: 8,
-                  }}
-                />
+                LOADERS.map((el, idx) =>
+                  <Skeleton
+                    key={idx}
+                    styles={{
+                      maxWidth: 512,
+                      width: '100%',
+                      height: el,
+                      borderRadius: 8,
+                    }}
+                  />
+                )
               :
                 <>
-                  {
-                    scan &&
-                    <Breadcrumbs 
-                      data={[
-                        {
-                          text: 'back',
-                          link: sessionStorage.getItem('p_r') || -1
-                        }
-                      ]}
-                    />
-                  }
                   <Field
                     type={'text'}
                     placeholder={t('ticket')}

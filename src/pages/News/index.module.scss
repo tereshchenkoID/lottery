@@ -1,5 +1,17 @@
 @import 'scss/config';
 
+.container {
+  @include flex($direction: column);
+}
+
+.content,
+.list {
+  @include flex($direction: column);
+
+  position: relative;
+  flex-grow: 1;
+}
+
 .grid {
   display: grid;
   gap: rem(24px);
@@ -13,4 +25,8 @@
     grid-template-columns: repeat(3, 1fr);
     gap: rem(24px);
   }
+}
+
+.pagination {
+  @include make-spacer(mt, auto);
 }

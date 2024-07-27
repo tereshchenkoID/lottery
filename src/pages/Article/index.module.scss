@@ -1,0 +1,42 @@
+@import 'scss/config';
+
+.article,
+.content {
+  display: grid;
+  gap: rem(16px);
+}
+
+.content {
+  @include make-spacer(pt, 16px);
+}
+
+.title {
+  @include make-spacer(mb, 0!important);
+}
+
+.date {
+  color: var(--grey-alpha-500);
+  font-size: rem(12px);
+}
+
+.article {
+  overflow: hidden;
+
+  & > div {
+    display: grid;
+    gap: rem(16px);
+  }
+
+  picture,
+  img {
+    height: auto;
+  }
+
+  iframe {
+    display: block;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    max-width: 100%;
+    height: auto;
+  }
+}

@@ -11,6 +11,7 @@ const Settings = lazy(() => import('pages/Settings'))
 const CheckTickets = lazy(() => import('pages/CheckTickets'))
 const Broadcast = lazy(() => import('pages/Broadcast'))
 const News = lazy(() => import('pages/News'))
+const Article = lazy(() => import('pages/Article'))
 const About = lazy(() => import('pages/About'))
 const Contacts = lazy(() => import('pages/Contacts'))
 const Faq = lazy(() => import('pages/Faq'))
@@ -134,6 +135,10 @@ export const generateRoutes = (auth) => {
     {
       path: NAVIGATION.news.link,
       element: <News />,
+    },
+    {
+      path: '/news/:newsId',
+      element: <Article />,
     },
     {
       path: `${NAVIGATION.broadcast.link}/:gameId`,

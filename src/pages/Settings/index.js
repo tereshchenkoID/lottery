@@ -32,6 +32,11 @@ const Settings = () => {
   const [modalContentType, setModalContentType] = useState(null)
   const isAuth = auth.id
 
+  const LOADERS = [
+    40, 
+    (isAuth && !isCashbox) && 40
+  ].filter(item => item)
+
   const handleChange = (field, data) => {
     let a = auth
     a.account[field] = data
@@ -85,48 +90,47 @@ const Settings = () => {
       <Title text={t(NAVIGATION.settings.text)} />
       <div className={style.grid}>
         {
-          loading 
-          ?
-            <Skeleton
-              styles={{
-                width: 400,
-                height: isCashbox ? 40 : 80,
-                borderRadius: 8,
-              }}
-            />
-          :
-            <>
-              <div className={style.row}>
-                <p>{t('language')}:</p>
-                <Button
-                  classes={['alt', 'wide', 'md']}
-                  onChange={() => {
-                    setModalContentType('Language')
-                    setActive(true)
+          loading
+            ?
+              LOADERS.map((el, idx) =>
+                <Skeleton
+                  key={idx}
+                  styles={{
+                    maxWidth: 358,
+                    width: '100%',
+                    height: el,
+                    borderRadius: 8,
                   }}
-                  placeholder={auth.account.language.text}
                 />
-              </div>
-              {
-                isAuth &&
-                <>
-                  {
-                    !isCashbox &&
-                    <div className={style.row}>
-                      <p>{t('currency')}:</p>
-                      <Button
-                        classes={['alt', 'wide', 'md']}
-                        onChange={() => {
-                          setModalContentType('Currency')
-                          setActive(true)
-                        }}
-                        placeholder={`${auth.account.currency.code} - ${auth.account.currency.symbol}`}
-                      />
-                    </div>
-                  }
-                </>
-              }
-            </>
+              )
+            :
+              <>
+                <div className={style.row}>
+                  <p>{t('language')}:</p>
+                  <Button
+                    classes={['alt', 'wide', 'md']}
+                    onChange={() => {
+                      setModalContentType('Language')
+                      setActive(true)
+                    }}
+                    placeholder={auth.account.language.text}
+                  />
+                </div>
+                {
+                  (isAuth && !isCashbox) &&
+                  <div className={style.row}>
+                    <p>{t('currency')}:</p>
+                    <Button
+                      classes={['alt', 'wide', 'md']}
+                      onChange={() => {
+                        setModalContentType('Currency')
+                        setActive(true)
+                      }}
+                      placeholder={`${auth.account.currency.code} - ${auth.account.currency.symbol}`}
+                    />
+                  </div>
+                }
+              </>
         }
       </div>
       <Modal
