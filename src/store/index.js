@@ -1,5 +1,5 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
+import { thunk } from 'redux-thunk'
 
 import settingsReducer from './reducers/settingsReducer'
 import toastifyReducer from './reducers/toastifyReducer'

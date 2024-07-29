@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
+import i18n from 'i18next'
 
 import { NAVIGATION } from 'constant/config'
 
@@ -43,6 +44,7 @@ const Login = () => {
     postData('login/', formData).then(json => {
       if (json.id) {
         dispatch(setAuth(json)).then(() => {
+          i18n.changeLanguage(json?.account?.language?.code)
           navigate('/')
         })
       } else {
