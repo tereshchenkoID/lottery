@@ -103,16 +103,16 @@ const Header = () => {
                 {
                   (isCashbox && isMobile)
                     ?
-                    <Picture
-                      src={settings.assets.logo_icon}
-                      alt={"Logo"}
-                    />
+                      <Picture
+                        src={settings.assets.logo_icon}
+                        alt={"Logo"}
+                      />
                     :
-                    <>
-                      <span className={style.line} />
-                      <span className={style.line} />
-                      <span className={style.line} />
-                    </>
+                      <>
+                        <span className={style.line} />
+                        <span className={style.line} />
+                        <span className={style.line} />
+                      </>
                 }
               </button>
             :

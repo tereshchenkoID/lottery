@@ -8,7 +8,10 @@ const Picture = ({ src, alt }) => {
           <source key={index} srcSet={`${src}.${type}`} />
         ))
       }
-      <img src={`${src}.${IMAGE_TYPE[0]}`} alt={alt} loading="lazy" />
+      <img 
+        src={`${src}.${IMAGE_TYPE[0]}`} 
+        alt={alt} 
+      />
     </picture>
   )
 }

@@ -1,46 +1,25 @@
-import React from 'react'
+import { useSelector } from 'react-redux'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import style from './index.module.scss'
 
 const Social = () => {
-  const social = [
-    {
-      icon: 'fa-tiktok',
-      text: 'Tiktok',
-      link: '/',
-    },
-    {
-      icon: 'fa-google',
-      text: 'Google',
-      link: '/',
-    },
-    {
-      icon: 'fa-telegram',
-      text: 'Telegram',
-      link: '/',
-    },
-    {
-      icon: 'fa-twitter',
-      text: 'Twitter',
-      link: '/',
-    },
-  ]
+  const { settings } = useSelector(state => state.settings)
 
   return (
     <div className={style.block}>
-      {social.map((el, idx) => (
+      {settings.social.map((el, idx) => (
         <a
           key={idx}
           className={style.link}
           href={el.link}
           target="_blank"
           rel="noreferrer"
-          aria-label={el.text}
+          aria-label={el.icon}
         >
           <FontAwesomeIcon
-            icon={`fa-brands ${el.icon}`}
+            icon={`fa-brands fa-${el.icon}`}
             className={style.icon}
           />
         </a>

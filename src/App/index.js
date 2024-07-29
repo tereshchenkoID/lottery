@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
 import { AppProviders } from 'context/AppProviders'
+import usePerformanceObserver from 'hooks/usePerformanceObserver'
 
 import i18n from 'i18next'
 
@@ -34,6 +35,9 @@ import { generateRoutes } from '../router'
 import style from './index.module.scss'
 
 const App = () => {
+  // Performance content
+  usePerformanceObserver()
+  
   const { auth } = useSelector(state => state.auth)
   const [loading, setLoading] = useState(true)
   const [configLoaded, setConfigLoaded] = useState(false)
