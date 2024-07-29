@@ -3,4 +3,8 @@
 .grid {
   display: grid;
   gap: rem(8px);
+
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

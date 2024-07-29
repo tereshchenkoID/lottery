@@ -1,0 +1,47 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 12px);
+
+  background-color: var(--grey-alpha-100);
+  border-radius: rem(12px);
+  cursor: pointer;
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(p, 18px);
+  }
+
+  &.active {
+
+    .bottom {
+      max-height: rem(500px);
+      opacity: 1;
+    }
+
+    .toggle {
+      transform: rotateZ(-90deg);
+    }
+  }
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1fr rem(40px);
+  align-items: flex-start;
+  column-gap: rem(16px);
+}
+
+.bottom {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+.text {
+  @include make-spacer(pt, 12px);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(pt, 18px);
+  }
+}
