@@ -24,19 +24,17 @@ const Media = ({ data }) => {
     },
   }
 
+  if (loading)
+    return <Skeleton
+            styles={{
+              aspectRatio: '16/9',
+              width: '100%',
+              borderRadius: 24,
+            }}
+          />
+
   return (
     <div className={style.block}>
-      {
-        loading &&
-        <Skeleton
-          styles={{
-            position: 'absolute',
-            zIndex: '1',
-            width: '100%',
-            height: '100%',
-          }}
-        />
-      }
       {
         (!data || !data?.video) &&
         <img 

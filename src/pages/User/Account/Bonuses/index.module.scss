@@ -1,5 +1,9 @@
 @import 'scss/config';
 
+.block {
+    overflow: hidden;
+}
+
 .section {
 
     &:not(:last-child) {

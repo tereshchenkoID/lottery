@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import classNames from 'classnames'
-
 import {
   Navigation,
   Pagination,
   Mousewheel,
   Keyboard,
 } from 'swiper/modules'
+
+import classNames from 'classnames'
 
 import Banner from './Banner'
 
