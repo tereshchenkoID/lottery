@@ -1,20 +1,21 @@
 @import 'scss/config';
 
 .block {
+  @include make-spacer(pb, 4px);
   @include flex($direction: column);
   
   position: relative;
   gap: rem(8px);
-  overflow: hidden;
-  border-radius: rem(16px);
 }
 
 .media {
+  display: block;
   overflow: hidden;
   background-color: var(--grey-alpha-200);
   border-radius: rem(16px);
   border: rem(1px) solid var(--grey-alpha-200);
   aspect-ratio: 16 / 9;
+  min-height: rem(150px);
 
   img,
   video,

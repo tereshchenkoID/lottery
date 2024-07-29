@@ -13,6 +13,143 @@
     <!-- <script src="http://localhost:8097"></script> -->
     <title>Lottery</title>
 
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Roboto:wght@400;500;700&display=swap');
+
+      *,
+      &::after, 
+      &::before {
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+      }
+
+      :root {
+        --max-width: 1366px;
+        --min-width: 360px;
+        --default-box-shadow: 0 48px 48px rgba(0, 0, 0, 0.12);
+
+        --font-size: 16px;
+        --font-family: 'Roboto', sans-serif;
+        --font-family-alt: 'Montserrat', sans-serif;
+        --line-height: 1.5;
+        --typography-regular: 400;
+        --typography-medium: 500;
+        --typography-bold: 700;
+
+        --color-white: #fff;
+        --color-black: #000;
+        --color-text: #000;
+        --color-primary: rgb(255, 205, 23);
+        --color-primary-hover: rgb(235, 168, 36);
+        --color-secondary: #0085ff;
+        --color-secondary-hover: #1e03e6;
+        --color-warning: #e74c3c;
+        --color-success: #07bc0c;
+        --color-info: #3498db;
+        --color-background: #f7f7f7;
+        --grey-alpha-100: rgba(0, 0, 0, 0.055);
+        --grey-alpha-200: rgba(0, 0, 0, 0.11);
+        --grey-alpha-300: rgba(0, 0, 0, 0.215);
+        --grey-alpha-400: rgba(0, 0, 0, 0.325);
+        --grey-alpha-500: rgba(0, 0, 0, 0.435);
+        --grey-alpha-600: rgba(0, 0, 0, 0.545);
+        --grey-alpha-700: rgba(0, 0, 0, 0.65);
+        --grey-alpha-800: rgba(0, 0, 0, 0.76);
+        --grey-alpha-900: rgba(0, 0, 0, 0.87);
+        --grey-100: #f1f1f1;
+        --grey-200: #e3e3e3;
+        --grey-300: #c8c8c8;
+        --grey-400: #acacac;
+        --grey-500: #909090;
+        --grey-600: #747474;
+        --grey-700: #595959;
+        --grey-800: #3d3d3d;
+        --grey-900: #212121;
+
+        --outer-gap: 10px;
+        --outer-gap-decrement: -10px;
+        --animation-spin: spin;
+        --animation-slide-bottom: slide_bottom;
+        --animation-slide-right: slide_right;
+        --animation-slide-opacity: slide_opacity;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: scale(0);
+        }
+
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes slide_bottom {
+        from {
+          transform: translateY(-20px);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slide_right {
+
+        0% {
+          transform: translateX(-100%);
+        }
+
+        100% {
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slide_opacity {
+
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .loader {
+        position: fixed;
+        z-index: 13;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-align: center;
+        align-items: center;
+        display: -ms-flexbox;
+        display: flex;
+        inset: 0;
+        background-color: rgba(255, 255, 255, 0.8);
+        color: var(--color-primary)
+      }
+
+      .loader__item {
+        width: 3.125rem;
+        height: 3.125rem;
+        position: relative;
+        border-radius: 50%;
+      }
+
+      .loader__item::before {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 0.625rem solid currentColor;
+        border-radius: inherit;
+        -webkit-animation: 1s infinite ease-in-out spin;
+        animation: 1s infinite ease-in-out spin;
+        content: "";
+      }
+    </style>
+
     <script>
       window.printAction = () => {
         alert("Print action")
@@ -29,7 +166,11 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="loader">
+        <div class="loader__item"></div>
+      </div> 
+    </div>
     <script src="bundle.js"></script>
   </body>
 </html>

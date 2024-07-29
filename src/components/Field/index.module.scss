@@ -93,6 +93,7 @@
   overflow: hidden;
   background-color: transparent;
   text-align: left;
+  white-space: nowrap;
 
   &[type='datetime-local'],
   &[type='date'] {

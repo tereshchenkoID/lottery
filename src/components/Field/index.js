@@ -40,6 +40,7 @@ const Field = ({
         onChange={e => {
           onChange(e.currentTarget.value)
         }}
+        autoComplete={'off'}
         required={isRequired}
         min={min}
         max={max}

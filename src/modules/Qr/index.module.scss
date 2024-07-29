@@ -30,5 +30,5 @@
   @include size(61.5%);
 
   background-color: var(--color-white);
-  border-radius: var(--default-border-radius);
+  border-radius: rem(4px);
 }

@@ -15,6 +15,7 @@
 .grid {
   display: grid;
   gap: rem(24px);
+  flex-shrink: 0;
 
   @include media-breakpoint-up(sm) {
     grid-template-columns: repeat(2, 1fr);

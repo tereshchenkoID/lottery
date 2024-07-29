@@ -1,28 +1,14 @@
 @charset "UTF-8";
 
 //
+// Reset style
+//
+
+@use 'base/reset';
+
+
+//
 // Non Compiled Files
 //
 
 @use 'config' as *;
-
-
-//
-// Custom Properties
-//
-
-@use 'base/variables/index' as *;
-
-
-//
-// Fonts
-//
-
-@use 'base/fonts/index' as *;
-
-
-//
-// Global Styles
-//
-
-@use 'base/index' as *;

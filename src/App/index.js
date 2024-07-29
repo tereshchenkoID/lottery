@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
-import { Suspense, useEffect, useState } from 'react'
 import { Tooltip } from 'react-tooltip'
 import { AppProviders } from 'context/AppProviders'
 
@@ -23,11 +23,11 @@ import { setAuth } from 'store/actions/authAction'
 import { getData } from 'helpers/api'
 
 import Toastify from 'components/Toastify'
-import Loader from 'components/Loader'
 import Header from 'modules/Header'
 import Footer from 'modules/Footer'
 import Games from 'modules/Games'
 import Draws from 'modules/Draws'
+import DelayedSuspense from './DelayedSuspense'
 
 import { generateRoutes } from '../router'
 
@@ -83,7 +83,7 @@ const App = () => {
     return () => clearInterval(intervalId);
   }, [auth?.id])
 
-  if (loading) return <Loader />
+  if (loading) return false
   
   return (
     <AppProviders>
@@ -92,7 +92,7 @@ const App = () => {
         <Games />
         <Header />
         <div className={style.content}>
-          <Suspense fallback={<Loader />}>
+          <DelayedSuspense>
             <Routes>
               {routes.map((route, index) => {
                 return (
@@ -114,7 +114,7 @@ const App = () => {
                 )
               })}
             </Routes>
-          </Suspense>
+          </DelayedSuspense>
         </div>
         <Footer />
         <Toastify />
