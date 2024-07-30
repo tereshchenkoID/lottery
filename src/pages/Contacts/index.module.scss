@@ -1,6 +1,8 @@
 @import 'scss/config';
 
-.grid {
+.form {
   display: grid;
-  gap: rem(8px);
+  gap: rem(24px);
+  width: 100%;
+  max-width: rem(380px);
 }

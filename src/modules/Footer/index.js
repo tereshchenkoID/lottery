@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import Social from '../Social'
+import Social from 'modules/Social'
 
 import style from './index.module.scss'
 

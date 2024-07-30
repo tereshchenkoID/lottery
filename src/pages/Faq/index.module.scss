@@ -1,5 +1,14 @@
 @import 'scss/config';
 
+.container {
+  @include flex($direction: column);
+}
+
+.content {
+  position: relative;
+  flex-grow: 1;
+}
+
 .grid {
   display: grid;
   gap: rem(8px);

@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useLoading } from 'hooks/useLoading'
-import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
@@ -9,13 +8,12 @@ import Skeleton from 'components/Skeleton'
 
 import style from './index.module.scss'
 
-const Question = ({id}) => {
-  const { t } = useTranslation()
+const Question = ({ data }) => {
   const [loading] = useLoading(true)
   const [active, setActive] = useState(false)
 
   if (loading) {
-   return <Skeleton
+    return <Skeleton
             styles={{
               width: '100%',
               height: 64,
@@ -25,7 +23,7 @@ const Question = ({id}) => {
   }
 
   return (
-    <div 
+    <div
       className={
         classNames(
           style.block,
@@ -34,7 +32,7 @@ const Question = ({id}) => {
       }
     >
       <div className={style.top}>
-        <h6 onClick={() => setActive(!active)}>{t(`faq.title_${id}`)}</h6>
+        <h6 onClick={() => setActive(!active)}>{data.title}</h6>
         <Button
           classes={['primary', 'square', 'md', style.toggle]}
           icon={'fa-solid fa-angle-down'}
@@ -42,7 +40,7 @@ const Question = ({id}) => {
         />
       </div>
       <div className={style.bottom}>
-        <p className={style.text}>{t(`faq.text_${id}`)}</p>
+        <p className={style.text}>{data.text}</p>
       </div>
     </div>
   )

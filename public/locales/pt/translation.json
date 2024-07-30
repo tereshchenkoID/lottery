@@ -229,18 +229,6 @@
   "back": "Voltar",
   "players_list": "Lista de jogadores",
   "add_player": "Adicionar jogador",
-  "faq": {
-    "title_0": "Como alterar nome, login e senha?",
-    "text_0": "Você pode alterar seu nome e senha em sua conta pessoal (seção “Perfil”). Se você esqueceu sua senha, use um serviço de recuperação. O e-mail enviado a você conterá um link para alterar sua senha." ,
-    "title_1": "Como posso descobrir o número da minha carteira Stoloto na minha conta pessoal?",
-    "text_1": "A seção “Carteira” está localizada em sua conta pessoal. O número da carteira pode ser encontrado no canto superior esquerdo da seção “Carteira”, abaixo do valor do seu saldo.",
-    "title_2": "Como cancelar uma assinatura de loteria?",
-    "text_2": "Não é possível excluir os ingressos por conta própria - eles são movidos automaticamente para o arquivo após 180 dias da data da circulação/sorteio.",
-    "title_3": "Como conseguir mais bônus?",
-    "text_3": "Para alterar o status de uma assinatura, clique em seu nome “(Assinatura 1, Assinatura 2, etc.)” e clique em “Retomar/Pausar”, “Excluir.”",
-    "title_4": "Como conseguir mais bônus?",
-    "text_4": "Após se cadastrar no site e adquirir seu primeiro bilhete de loteria, você receberá 20 bônus. Participe de loterias, jogos bônus, promoções especiais, dê ingressos, convide amigos. As promoções distribuem prêmios no valor de milhares de bônus! Nós informá-lo sobre promoções em cartas, bem como na seção “Notícias”."
-  },
   "ticket_status": {
     "all": "Todos os bilhetes",
     "pending": "Pendente",

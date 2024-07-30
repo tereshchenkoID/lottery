@@ -229,18 +229,6 @@
   "back": "Go back",
   "players_list": "Players list",
   "add_player": "Add player",
-  "faq": {
-    "title_0": "How to change name, login and password?",
-    "text_0": "You can change your name and password in your personal account (section “Profile”). If you have forgotten your password, use a recovery service. The email sent to you will contain a link to change your password.",
-    "title_1": "How can I find out my Stoloto Wallet number in my personal account?",
-    "text_1": "The “Wallet” section is located in your personal account. The Wallet number can be found in the upper left corner of the “Wallet” section, under your balance amount.",
-    "title_2": "How to cancel a lottery subscription?",
-    "text_2": "It is not possible to delete tickets on your own - they are automatically moved to the archive after 180 days from the date of the circulation/draw.",
-    "title_3": "How to get more bonuses?",
-    "text_3": "To change the status of a subscription, click on its name “(Subscription 1, Subscription 2, etc.)” and click “Resume/Pause”, “Delete”.",
-    "title_4": "How to get more bonuses?",
-    "text_4": "After registering on the site and purchasing your first lottery ticket, you will receive 20 bonuses. Participate in lotteries, bonus games, special promotions, give tickets, invite friends. The promotions give away prizes worth thousands of bonuses! We inform you about promotions in letters, as well as in the “News” section."
-  },
   "ticket_status": {
     "all": "All tickets",
     "pending": "Pending",
