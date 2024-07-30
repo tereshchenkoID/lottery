@@ -29,21 +29,19 @@ const Faq = () => {
   useEffect(() => {
     handleLoad()
   }, [])
-  
+
   return (
-    <Container classes={style.container}>
+    <Container>
       <Breadcrumbs
         data={[
           NAVIGATION.home
         ]}
       />
       <Title text={t(NAVIGATION.faq.text)} />
-      <div className={style.content}>
-        <div className={style.grid}>
-          {data?.map((el, idx) => (
-            <Question key={idx} data={el} />
-          ))}
-        </div>
+      <div className={style.grid}>
+        {data?.map((el, idx) => (
+          <Question key={idx} data={el} />
+        ))}
       </div>
     </Container>
   )
