@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
+// import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { NAVIGATION } from 'constant/config'
 
-import { setAuth } from 'store/actions/authAction'
-import { setToastify } from 'store/actions/toastifyAction'
-import { postData } from 'helpers/api'
+// import { setAuth } from 'store/actions/authAction'
+// import { setToastify } from 'store/actions/toastifyAction'
+// import { postData } from 'helpers/api'
 
 import Container from 'components/Container'
 import Field from 'components/Field'
@@ -18,8 +18,8 @@ import style from './index.module.scss'
 
 const PasswordRecovery = () => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  // const dispatch = useDispatch()
+  // const navigate = useNavigate()
   const [filter, setFilter] = useState({
     email: '',
   })

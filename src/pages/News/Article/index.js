@@ -25,9 +25,7 @@ const Article = ({ data }) => {
         <Skeleton
           styles={{
             position: 'absolute',
-            zIndex: '1',
-            width: '100%',
-            height: '100%',
+            zIndex: 1,
             borderRadius: 16,
           }}
         />

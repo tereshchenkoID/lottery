@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
@@ -85,7 +85,7 @@ const App = () => {
     }, 30000)
 
     return () => clearInterval(intervalId);
-  }, [auth?.id])
+  }, [dispatch, auth])
 
   if (loading) return false
   

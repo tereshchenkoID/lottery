@@ -13,7 +13,7 @@ export const useLoading = (initialLoading) => {
 
       return () => clearTimeout(timer)
     }
-  }, [initialLoading, LOADING])
+  }, [initialLoading])
 
   return [loading, setLoading]
 }

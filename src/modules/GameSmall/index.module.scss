@@ -12,6 +12,7 @@
 
   @include media-breakpoint-up(lg) {
     width: rem(260px);
+    min-height: rem(65px);
     height: auto;
 
     @include hover {

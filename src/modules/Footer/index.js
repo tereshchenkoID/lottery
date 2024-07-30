@@ -1,11 +1,11 @@
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 
 import Social from 'modules/Social'
 
 import style from './index.module.scss'
 
 const Footer = () => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
 
   return (
     <footer className={style.block}>

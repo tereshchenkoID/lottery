@@ -93,7 +93,6 @@ const CheckTickets = () => {
                     key={idx}
                     styles={{
                       maxWidth: 512,
-                      width: '100%',
                       height: el,
                       borderRadius: 8,
                     }}

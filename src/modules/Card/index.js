@@ -23,7 +23,7 @@ const Card = ({ data, link = 'game' }) => {
 
   const updateTime = useCallback(() => {
     setTime(getDifferent(data.time))
-  }, [data.time, t])
+  }, [data.time])
 
   useEffect(() => {    
     if (data.video && (data.time - new Date().getTime()) <= GAME_TIME.START_TIMER) {

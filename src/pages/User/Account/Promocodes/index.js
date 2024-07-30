@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 
 import style from './index.module.scss'
 
 const Promocodes = () => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
 
   return (
     <div className={style.block}>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import { useWindowWidth } from 'context/WindowWidthContext'
 
 import { BREAKPOINTS } from 'constant/config'
@@ -14,11 +15,22 @@ import style from './index.module.scss'
 const Games = () => {
   const { games } = useSelector(state => state.games)
   const [active, setActive] = useState(false)
+  const [gameId, setGameId] = useState(null)
+  const location = useLocation()
   const { windowWidth } = useWindowWidth()
 
   useEffect(() => {
     setActive(windowWidth > 1740)
   }, [windowWidth])
+
+  useEffect(() => {
+    const path = location.pathname
+    if (path.includes('game')) {
+      setGameId(path.replace('/game/', ''))
+    } else {
+      setGameId(null)
+    }
+  }, [location])
 
   return (
     <div 
@@ -40,6 +52,7 @@ const Games = () => {
           <Game 
             key={idx}
             data={el}
+            gameId={gameId}
             toggle={active}
             setToggle={setActive}
           />

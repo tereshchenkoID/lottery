@@ -16,10 +16,10 @@
   line-height: rem(20px);
   letter-spacing: rem(0.2px);
 
-  &:active {
+  &.active {
     background-color: var(--grey-alpha-100);
   }
-
+  
   &.wide {
     width: rem(220px);
   }

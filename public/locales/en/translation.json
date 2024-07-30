@@ -123,6 +123,8 @@
   },
   "not_show_notification": "Don't show notification",
   "see": "See",
+  "theme": "Theme",
+  "message": "Message",
   "action": "Action",
   "print": "Print",
   "validate": "Validate",

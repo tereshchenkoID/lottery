@@ -28,7 +28,6 @@ const Media = ({ data }) => {
     return <Skeleton
             styles={{
               aspectRatio: '16/9',
-              width: '100%',
               borderRadius: 24,
             }}
           />

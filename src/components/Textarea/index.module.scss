@@ -1,0 +1,67 @@
+@import 'scss/config';
+
+.block {
+  position: relative;
+  width: 100%;
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.label {
+  @include make-spacer(px, 2px);
+  @include transition;
+
+  position: absolute;
+  top: rem(16px);
+  left: rem(16px);
+  transform: translateY(rem(-21px));
+  background-color: var(--color-white);
+  letter-spacing: rem(0.2px);
+  font-size: rem(12px);
+  pointer-events: none;
+  display: inline;
+  line-height: 1.2;
+
+  span {
+    @include make-spacer(ml, 3px);
+
+    color: var(--color-warning);
+  }
+
+  &::before {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: rem(5px);
+    height: rem(1px);
+    background-color: var(--color-white);
+    z-index: -1;
+    content: '';
+  }
+}
+
+.input {
+  @include make-spacer(px, 16px);
+  @include make-spacer(pt, 14px);
+  @include transition(border-color);
+  @include size(100%, rem(100px));
+
+  border: rem(1px) solid var(--grey-alpha-300);
+  border-radius: rem(12px);
+  min-height: rem(48px);
+  max-height: rem(160px);
+  overflow: hidden;
+  background-color: transparent;
+  text-align: left;
+  white-space: nowrap;
+  resize: vertical;
+  font-weight: var(--typography-medium);
+
+  &:focus {
+    outline: none;;
+    border-color: var(--color-primary);
+  }
+}

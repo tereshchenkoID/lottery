@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useWindowWidth } from 'context/WindowWidthContext'
@@ -14,11 +14,10 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const Game = ({ data, toggle, setToggle }) => {
+const Game = ({ data, toggle, gameId, setToggle }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { windowWidth } = useWindowWidth()
-  const { draw } = useSelector(state => state.draw)
   const [time, setTime] = useState(getDifferent(data.time))
   const hasDispatched = useRef(false)
   const isShow = data.video?.hide === 0
@@ -38,7 +37,7 @@ const Game = ({ data, toggle, setToggle }) => {
       dispatch(setGames())
       hasDispatched.current = false
     }
-  }, [dispatch, data, draw, isAnnouncement, isShow])
+  }, [dispatch, data, isAnnouncement, isShow])
 
   useEffect(() => {
     if (data.video && (data.time - new Date().getTime()) <= GAME_TIME.START_TIMER) {
@@ -57,7 +56,13 @@ const Game = ({ data, toggle, setToggle }) => {
     <Link
       to={`/game/${data.id}`}
       rel="noreferrer"
-      className={classNames(style.block, toggle && style.wide)}
+      className={
+        classNames(
+          style.block, 
+          Number(gameId) === data.id && style.active,
+          toggle && style.wide
+        )
+      }
       onClick={handleClick}
     >
       <p className={style.picture}>

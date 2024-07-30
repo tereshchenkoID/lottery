@@ -8,7 +8,6 @@ import { postData } from 'helpers/api'
 
 import Container from 'components/Container'
 import Title from 'components/Title'
-import Loader from 'components/Loader'
 import Skeleton from 'components/Skeleton'
 import Breadcrumbs from 'modules/Breadcrumbs'
 
@@ -20,31 +19,23 @@ const Article = () => {
   const navigate = useNavigate()
   const { newsId } = useParams()
   const [isLoading] = useLoading(true)
-  const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
 
   const handleLoad = () => {
-    setLoading(true)
-
     const formData = new FormData()
     formData.append('newsId', newsId)
 
     postData('news/details/', formData).then(json => {
-      if (json.error_message) {
+      if (json?.error_message) {
         navigate(NAVIGATION.news.link)
       }
       setData(json)
-      setLoading(false)
     })
   }
 
   useEffect(() => {
     handleLoad()
   }, [])
-
-
-  if (loading)
-    return <Loader />
 
   return (
     <Container>

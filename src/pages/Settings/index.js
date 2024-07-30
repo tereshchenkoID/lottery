@@ -97,7 +97,6 @@ const Settings = () => {
                   key={idx}
                   styles={{
                     maxWidth: 358,
-                    width: '100%',
                     height: el,
                     borderRadius: 8,
                   }}

@@ -15,7 +15,6 @@ const Question = ({ data }) => {
   if (loading) {
     return <Skeleton
             styles={{
-              width: '100%',
               height: 64,
               borderRadius: 12
             }}

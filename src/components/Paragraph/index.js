@@ -14,7 +14,6 @@ const Paragraph = ({ text, isLoading }) => {
           ?
             <Skeleton 
               styles={{
-                width: '100%',
                 height: 43,
                 borderRadius: 8,
               }}
