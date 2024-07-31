@@ -34,6 +34,7 @@ const Textarea = ({
         onChange={e => {
           onChange(e.currentTarget.value)
         }}
+        value={data}
         autoComplete={'off'}
         required={isRequired}
       >

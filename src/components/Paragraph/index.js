@@ -4,7 +4,7 @@ import Skeleton from 'components/Skeleton'
 
 import style from './index.module.scss'
 
-const Paragraph = ({ text, isLoading }) => {
+const Paragraph = ({ text, children, isLoading }) => {
   const [loading] = useLoading(isLoading)
 
   return (
@@ -19,7 +19,7 @@ const Paragraph = ({ text, isLoading }) => {
               }}
             />
           :
-            <p className={style.text}>{text}</p>
+            <p className={style.text}>{text || children}</p>
       }
     </div>
   )

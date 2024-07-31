@@ -10,6 +10,7 @@ import Notification from 'components/Notification'
 import Uploader from 'components/Uploader'
 import Password from 'components/Password'
 import Field from 'components/Field'
+import Textarea from 'components/Textarea'
 import Phone from 'components/Phone'
 import Reference from 'components/Reference'
 import Button from 'components/Button'
@@ -193,7 +194,7 @@ const UI = () => {
                 />
               </td>
               <td>
-                <strong>Password</strong>
+                <strong>Options</strong>
                 <pre>{`type={'text'}`}</pre>
                 <pre>{`placeholder={'Text'}`}</pre>
                 <pre>{`data={text}`}</pre>
@@ -211,10 +212,27 @@ const UI = () => {
                 />
               </td>
               <td>
-                <strong>Password</strong>
+                <strong>Options</strong>
                 <pre>{`placeholder={'Password'}`}</pre>
                 <pre>{`data={password}`}</pre>
                 <pre>{`onChange={e => setPassword(e)}`}</pre>
+                <pre>{`isRequired={true}`}</pre>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <Textarea
+                  placeholder={'Textarea'}
+                  data={text}
+                  onChange={el => setText(el)}
+                  isRequired={true}
+                />
+              </td>
+              <td>
+                <strong>Options</strong>
+                <pre>{`placeholder={'Textarea'}`}</pre>
+                <pre>{`data={text}`}</pre>
+                <pre>{`onChange={e => setText(e)}`}</pre>
                 <pre>{`isRequired={true}`}</pre>
               </td>
             </tr>
@@ -280,7 +298,7 @@ const UI = () => {
                 />
               </td>
               <td>
-                <strong>Phone</strong>
+                <strong>Options</strong>
                 <pre>{`data={[NAVIGATION.home, NAVIGATION.check_ticket]}`}</pre>
                 <pre>{`current={NAVIGATION.broadcast}`}</pre>
               </td>
@@ -294,7 +312,7 @@ const UI = () => {
                 />
               </td>
               <td>
-                <strong>Phone</strong>
+                <strong>Options</strong>
                 <pre>{`data={phone}`}</pre>
                 <pre>{`onChange={e => setPhone(e)}`}</pre>
                 <pre>{`isRequired={true}`}</pre>

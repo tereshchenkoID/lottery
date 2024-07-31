@@ -6,7 +6,7 @@
   display: grid;
   position: relative;
   flex-shrink: 0;
-  border-radius: rem(16px);
+  border-radius: rem(12px);
   overflow: hidden;
   min-height: rem(56px);
 
@@ -14,6 +14,7 @@
     width: rem(260px);
     min-height: rem(65px);
     height: auto;
+    border-radius: rem(16px);
 
     @include hover {
 

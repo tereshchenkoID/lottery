@@ -4,5 +4,11 @@
   display: grid;
   gap: rem(24px);
   width: 100%;
-  max-width: rem(380px);
+  max-width: rem(412px);
+}
+
+.link {
+  @include make-spacer(ml, 8px);
+  
+  color: var(--color-secondary);
 }

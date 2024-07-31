@@ -12,6 +12,10 @@
       "title_1": "Live circulation",
       "description_1": "Watch live broadcasts of state lottery draws! Winning combinations will be determined right before your eyes!",
       "title_2": "Upcoming broadcasts"
+    },
+    "contact": {
+      "description_1": "Many of your questions already have detailed answers. Find them in the",
+      "link_1": "Frequently Asked Questions section"
     }
   },
   "navigation": {
@@ -78,6 +82,7 @@
     "pending_description": "Completion of ticket registration, a few more seconds",
     "message": "Stake successful"
   },
+  "terms": "I consent to the processing of personal data in accordance with the established form.",
   "history": "History",
   "pay_wallet": "Pay for wallet",
   "pay_bonus": "Pay for bonus",

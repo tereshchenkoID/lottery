@@ -12,6 +12,10 @@
       "title_1": "Circulação ao vivo",
       "description_1": "Assista às transmissões ao vivo dos sorteios das loterias estaduais! As combinações vencedoras serão determinadas diante dos seus olhos!",
       "title_2": "Próximas transmissões"
+    },
+    "contact": {
+      "description_1": "Muitas de suas perguntas já têm respostas detalhadas. Encontre-as no",
+      "link_1": "Seção de perguntas frequentes"
     }
   },
   "navigation": {
@@ -78,6 +82,7 @@
     "pending_description": "Concluindo o registro do bilhete, mais alguns segundos",
     "message": "Aposta bem-sucedida"
   },
+  "terms": "Autorizo ​​o tratamento dos dados pessoais de acordo com o formulário estabelecido.",
   "history": "História",
   "pay_wallet": "Pagar pela carteira",
   "pay_bonus": "Pagar pelo bônus",

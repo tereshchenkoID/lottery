@@ -5,11 +5,13 @@
 
   display: block;
   position: relative;
-  border-radius: rem(20px);
+  border-radius: rem(12px);
   overflow: hidden;
 
   @include media-breakpoint-up(lg) {
     @include size(rem(264px), rem(352px));
+
+    border-radius: rem(20px);
 
     @include hover {
 

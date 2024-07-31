@@ -12,6 +12,8 @@ import { getValueFormatted } from 'helpers/getValueFormatted'
 import { setBetslip } from 'store/actions/betslipAction'
 
 import Button from 'components/Button'
+import Skeleton from 'components/Skeleton'
+import Empty from 'modules/Empty'
 import Multibet from './Multibet'
 import Betslip from './Betslip'
 import Archive from './Archive'
@@ -34,15 +36,15 @@ const getGames = (id, auth, betslip, game, setGame) => {
 
   if (game.type === 2) {
     return <INSTANT
-      auth={auth}
-      betslip={betslip}
-      game={game}
-      setGame={setGame}
-    />
+            auth={auth}
+            betslip={betslip}
+            game={game}
+            setGame={setGame}
+          />
   }
 
   if (!GameComponent) {
-    return <div className={style.empty}>Empty</div>
+    return <Empty />
   }
 
   return (
@@ -83,6 +85,7 @@ const Game = () => {
   const [game, setGame] = useState({})
   const [active, setActive] = useState(0)
   const [show, setShow] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const handleLoad = () => {
     getData(`game/${gameId}`).then(json => {
@@ -103,6 +106,12 @@ const Game = () => {
           odds: [],
         }),
       )
+
+      if(json?.hasOwnProperty('bet')) {
+        setTimeout(() => {
+          setLoading(false)
+        }, 1000)
+      }
     })
   }
 
@@ -110,8 +119,6 @@ const Game = () => {
     setActive(0)
     handleLoad()
   }, [])
-
-  //gameId
 
   const handleActive = idx => {
     setActive(idx)
@@ -131,8 +138,13 @@ const Game = () => {
     }
   }, [show])
 
-  if (!game.hasOwnProperty('bet'))
-    return false
+  if (loading)
+    return <Skeleton 
+            styles={{
+              borderRadius: '24px 24px 0 0',
+              flexGrow: 1,
+            }}
+          />
 
   return (
     <div className={style.block} style={{ ...game.skin }}>
