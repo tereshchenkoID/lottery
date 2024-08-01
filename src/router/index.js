@@ -18,7 +18,7 @@ const Faq = lazy(() => import('pages/Faq'))
 const Support = lazy(() => import('pages/Support'))
 const Login = lazy(() => import('pages/Login'))
 const Registration = lazy(() => import('pages/Registration'))
-const PasswordRecovery = lazy(() => import('pages/PasswordRecovery'))
+const AuthRecovery = lazy(() => import('pages/AuthRecovery'))
 const UI = lazy(() => import('pages/UI'))
 
 const UserAccount = lazy(() => import('pages/User/Account'))
@@ -185,8 +185,8 @@ export const generateRoutes = (auth) => {
         element: <Registration />,
       },
       {
-        path: NAVIGATION.password_recovery.link,
-        element: <PasswordRecovery />,
+        path: NAVIGATION.auth_recovery.link,
+        element: <AuthRecovery />,
       }
     );
   }

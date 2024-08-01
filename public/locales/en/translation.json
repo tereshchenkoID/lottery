@@ -24,7 +24,7 @@
     "all_games": "All games",
     "login": "Login / Registration",
     "registration": "Registration",
-    "password_recovery": "Password recovery",
+    "auth_recovery": "Auth recovery",
     "check_ticket": "Check ticket",
     "settings": "Settings",
     "broadcast": "Broadcast",

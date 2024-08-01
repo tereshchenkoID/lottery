@@ -1,34 +1,30 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { useLoading } from 'hooks/useLoading'
-import i18n from 'i18next'
 
 import { NAVIGATION } from 'constant/config'
 
-import { setAuth } from 'store/actions/authAction'
 import { setToastify } from 'store/actions/toastifyAction'
 import { postData } from 'helpers/api'
 
 import Container from 'components/Container'
 import Field from 'components/Field'
 import Button from 'components/Button'
-import Password from 'components/Password'
 import Title from 'components/Title'
 import Skeleton from 'components/Skeleton'
 
 import style from './index.module.scss'
 
-const LOADERS = [48, 48, 24, 48]
+const LOADERS = [48, 24, 48]
 
-const Login = () => {
+const AuthRecovery = () => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [filter, setFilter] = useState({
-    username: '',
-    password: '',
+    email: '',
   })
   const [loading] = useLoading(true)
 
@@ -43,15 +39,19 @@ const Login = () => {
     e.preventDefault()
 
     const formData = new FormData()
-    formData.append('username', filter.username)
-    formData.append('password', filter.password)
+    formData.append('email', filter.email)
 
     postData('login/', formData).then(json => {
-      if (json.id) {
-        dispatch(setAuth(json)).then(() => {
-          i18n.changeLanguage(json?.account?.language?.code)
+      if (json) {
+        dispatch(
+          setToastify({
+            type: 'message',
+            text: json.message,
+          }),
+        )
+        setTimeout(() => {
           navigate('/')
-        })
+        }, 5000)
       } else {
         dispatch(
           setToastify({
@@ -64,16 +64,13 @@ const Login = () => {
   }
 
   const isFormValid = () => {
-    const { ...requiredFields } = filter
-
-    return (
-      Object.values(requiredFields).every(field => field.trim() !== '')
-    )
+    const { email } = filter
+    return email.trim() !== '' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
   }
 
   return (
     <Container classes={style.block}>
-      <Title text={t(NAVIGATION.login.text)} />
+      <Title text={t(NAVIGATION.auth_recovery.text)} />
       <form onSubmit={handleSubmit} className={style.form}>
         {
           loading
@@ -91,19 +88,21 @@ const Login = () => {
             :
               <>
                 <Field
-                  type={'text'}
-                  placeholder={t('username')}
-                  data={filter.username}
-                  onChange={value => handlePropsChange('username', value)}
-                  isRequired={true}
-                />
-                <Password
-                  placeholder={t('password')}
-                  data={filter.password}
-                  onChange={value => handlePropsChange('password', value)}
+                  type={'email'}
+                  placeholder={t('email')}
+                  data={filter.email}
+                  onChange={value => handlePropsChange('email', value)}
                   isRequired={true}
                 />
                 <p className={style.links}>
+                  <Link
+                    to={NAVIGATION.login.link}
+                    rel="noreferrer"
+                    className={style.link}
+                  >
+                    {t('login')}
+                  </Link>
+                  <span>|</span>
                   <Link
                     to={NAVIGATION.registration.link}
                     rel="noreferrer"
@@ -111,25 +110,17 @@ const Login = () => {
                   >
                     {t(NAVIGATION.registration.text)}
                   </Link>
-                  <span>|</span>
-                  <Link
-                    to={NAVIGATION.auth_recovery.link}
-                    rel="noreferrer"
-                    className={style.link}
-                  >
-                    {t(NAVIGATION.auth_recovery.text)}
-                  </Link>
                 </p>
                 <Button
                   type={'submit'}
-                  placeholder={t('login')}
+                  placeholder={t('send')}
                   isDisabled={!isFormValid()}
                 />
               </>
-      }
+        }
       </form>
     </Container>
   )
 }
 
-export default Login
+export default AuthRecovery

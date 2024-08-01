@@ -105,10 +105,10 @@ export const NAVIGATION = {
     link: '/registration',
     text: 'navigation.registration',
   },
-  password_recovery: {
+  auth_recovery: {
     icon: 'fa-solid fa-user-lock',
-    link: '/password-recovery',
-    text: 'navigation.password_recovery',
+    link: '/auth-recovery',
+    text: 'navigation.auth_recovery',
   },
   check_ticket: {
     icon: 'fa-solid fa-ticket',
