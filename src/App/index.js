@@ -85,7 +85,7 @@ const App = () => {
     }, 30000)
 
     return () => clearInterval(intervalId);
-  }, [dispatch, auth])
+  }, [dispatch, auth?.id])
 
   if (loading) return false
   

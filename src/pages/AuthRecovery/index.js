@@ -41,17 +41,19 @@ const AuthRecovery = () => {
     const formData = new FormData()
     formData.append('email', filter.email)
 
-    postData('login/', formData).then(json => {
-      if (json) {
+    postData('recovery/', formData).then(json => {
+      console.log(json)
+      if (json.code === '0') {
         dispatch(
           setToastify({
-            type: 'message',
+            type: 'success',
             text: json.message,
           }),
         )
+        handlePropsChange('email', '')
         setTimeout(() => {
           navigate('/')
-        }, 5000)
+        }, 3000)
       } else {
         dispatch(
           setToastify({

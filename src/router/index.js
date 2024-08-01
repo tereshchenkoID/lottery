@@ -5,39 +5,39 @@ import { NAVIGATION, ROUTES_CASHBOX, ROUTES_USER, USER_TYPE } from 'constant/con
 
 import ProtectedRoute from 'router/ProtectedRoute'
 
-const Home = lazy(() => import('pages/Home'))
-const Game = lazy(() => import('pages/Game'))
-const Settings = lazy(() => import('pages/Settings'))
-const CheckTickets = lazy(() => import('pages/CheckTickets'))
-const Broadcast = lazy(() => import('pages/Broadcast'))
-const News = lazy(() => import('pages/News'))
-const Article = lazy(() => import('pages/Article'))
-const About = lazy(() => import('pages/About'))
-const Contacts = lazy(() => import('pages/Contacts'))
-const Faq = lazy(() => import('pages/Faq'))
-const Support = lazy(() => import('pages/Support'))
-const Login = lazy(() => import('pages/Login'))
-const Registration = lazy(() => import('pages/Registration'))
-const AuthRecovery = lazy(() => import('pages/AuthRecovery'))
-const UI = lazy(() => import('pages/UI'))
+const Home            = lazy(() => import('pages/Home'))
+const Game            = lazy(() => import('pages/Game'))
+const Settings        = lazy(() => import('pages/Settings'))
+const CheckTickets    = lazy(() => import('pages/CheckTickets'))
+const Broadcast       = lazy(() => import('pages/Broadcast'))
+const News            = lazy(() => import('pages/News'))
+const Article         = lazy(() => import('pages/Article'))
+const About           = lazy(() => import('pages/About'))
+const Contacts        = lazy(() => import('pages/Contacts'))
+const Faq             = lazy(() => import('pages/Faq'))
+const Support         = lazy(() => import('pages/Support'))
+const Login           = lazy(() => import('pages/Login'))
+const Registration    = lazy(() => import('pages/Registration'))
+const AuthRecovery    = lazy(() => import('pages/AuthRecovery'))
+const UI              = lazy(() => import('pages/UI'))
 
-const UserAccount = lazy(() => import('pages/User/Account'))
-const UseTickets = lazy(() => import('pages/User/Account/Tickets'))
-const UseWallet = lazy(() => import('pages/User/Account/Wallet'))
-const UseBonuses = lazy(() => import('pages/User/Account/Bonuses'))
-const UsePromocodes = lazy(() => import('pages/User/Account/Promocodes'))
-const UserProfile = lazy(() => import('pages/User/Account/Profile'))
-const UserFriends = lazy(() => import('pages/User/Account/Friends'))
+const UserAccount       = lazy(() => import('pages/User/Account'))
+const UseTickets        = lazy(() => import('pages/User/Account/Tickets'))
+const UseWallet         = lazy(() => import('pages/User/Account/Wallet'))
+const UseBonuses        = lazy(() => import('pages/User/Account/Bonuses'))
+const UsePromocodes     = lazy(() => import('pages/User/Account/Promocodes'))
+const UserProfile       = lazy(() => import('pages/User/Account/Profile'))
+const UserFriends       = lazy(() => import('pages/User/Account/Friends'))
 const UserSubscriptions = lazy(() => import('pages/User/Account/Subscriptions'))
-const UserStocks = lazy(() => import('pages/User/Account/Stocks'))
+const UserStocks        = lazy(() => import('pages/User/Account/Stocks'))
 
-const CashboxAccount = lazy(() => import('pages/Cashbox/Account'))
-const CashboxReports = lazy(() => import('pages/Cashbox/Account/Reports'))
-const CashboxTickets = lazy(() => import('pages/Cashbox/Account/Tickets'))
-const CashboxProfile = lazy(() => import('pages/Cashbox/Account/Profile'))
-const CashboxPlayers = lazy(() => import('pages/Cashbox/Account/Players'))
-const CashboxPlayer = lazy(() => import('pages/Cashbox/Account/Player'))
-const CashboxVoucher = lazy(() => import('pages/Cashbox/Account/Voucher'))
+const CashboxAccount    = lazy(() => import('pages/Cashbox/Account'))
+const CashboxReports    = lazy(() => import('pages/Cashbox/Account/Reports'))
+const CashboxTickets    = lazy(() => import('pages/Cashbox/Account/Tickets'))
+const CashboxProfile    = lazy(() => import('pages/Cashbox/Account/Profile'))
+const CashboxPlayers    = lazy(() => import('pages/Cashbox/Account/Players'))
+const CashboxPlayer     = lazy(() => import('pages/Cashbox/Account/Player'))
+const CashboxVoucher    = lazy(() => import('pages/Cashbox/Account/Voucher'))
 
 export const generateRoutes = (auth) => {
   const userType = auth?.userType;
@@ -137,14 +137,6 @@ export const generateRoutes = (auth) => {
       element: <News />,
     },
     {
-      path: '/news/:newsId',
-      element: <Article />,
-    },
-    {
-      path: `${NAVIGATION.broadcast.link}/:gameId`,
-      element: <Broadcast />,
-    },
-    {
       path: NAVIGATION.about.link,
       element: <About />,
     },
@@ -161,8 +153,16 @@ export const generateRoutes = (auth) => {
       element: <Support />,
     },
     {
+      path: `${NAVIGATION.broadcast.link}/:gameId`,
+      element: <Broadcast />,
+    },
+    {
       path: '/game/:gameId',
       element: <Game />,
+    },
+    {
+      path: '/news/:newsId',
+      element: <Article />,
     },
     {
       path: '/ui',
