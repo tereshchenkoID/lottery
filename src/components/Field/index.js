@@ -46,7 +46,7 @@ const Field = ({
         max={max}
       />
       {(type === 'datetime-local' || type === 'date') && (
-        <button 
+        <button
           type={'button'}
           className={style.icon}
         >

@@ -9,7 +9,7 @@ import style from './index.module.scss'
 const Uploader = ({ 
   id = 'upload',
   data,
-  onChange 
+  onChange,
 }) => {
   const { t } = useTranslation()
   const [blobs, setBlobs] = useState([])

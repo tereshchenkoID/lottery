@@ -1,17 +1,18 @@
 import PhoneInput from 'react-phone-input-2'
 
-import style from './index.module.scss'
 import classNames from 'classnames'
 
-const Phone = ({ 
+import style from './index.module.scss'
+
+const Phone = ({
   data,
   onChange,
   isRequired,
-  isDisabled = false
+  isDisabled = false,
 }) => {
 
   return (
-    <div 
+    <div
       className={
         classNames(
           style.block,

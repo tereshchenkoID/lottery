@@ -12,6 +12,8 @@ import {
 
 import classNames from 'classnames'
 
+import Paragraph from 'components/Paragraph'
+import Title from 'components/Title'
 import Banner from './Banner'
 
 import style from './index.module.scss'
@@ -43,8 +45,8 @@ const Bonuses = () => {
   return (
     <div className={style.block}>
       <div className={style.section}>
-        <h2>{t('pages.bonuses.title_1')}</h2>
-        <p>{t('pages.bonuses.description_1')}</p>
+        <Title text={t('pages.bonuses.title_1')} classes={[style.title]}/>
+        <Paragraph text={t('pages.bonuses.description_1')} />
       </div>
       {
         data?.top.length > 0 &&
@@ -57,8 +59,8 @@ const Bonuses = () => {
               )
             }
           >
-            <h2>{t('pages.bonuses.title_2')}</h2>
-            <p>{t('pages.bonuses.description_2')}</p>
+            <Title text={t('pages.bonuses.title_2')} classes={[style.title]}/>
+            <Paragraph text={t('pages.bonuses.description_2')}/>
           </div>
           <Swiper
             slidesPerView={'auto'}
@@ -87,8 +89,8 @@ const Bonuses = () => {
         data?.bottom.length > 0 &&
         <div className={style.section}>
           <div className={style.description}>
-            <h2>{t('pages.bonuses.title_3')}</h2>
-            <p>{t('pages.bonuses.description_3')}</p>
+            <Title text={t('pages.bonuses.title_3')} classes={[style.title]}/>
+            <Paragraph text={t('pages.bonuses.description_3')} />
           </div>
           <div className={style.banners}>
             {

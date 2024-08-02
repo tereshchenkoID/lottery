@@ -19,6 +19,7 @@ const Profile = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
+  const [preloader, setPreloader] = useState(false)
   const [active, setActive] = useState(0)
   const [filter, setFilter] = useState()
   const [countries, setCountries] = useState([])
@@ -48,6 +49,7 @@ const Profile = () => {
   const handleSubmit = e => {
     e.preventDefault()
 
+    setPreloader(true)
     const formData = new FormData()
     for (const key in filter[TAB[active]]) {
       if (filter[TAB[active]].hasOwnProperty(key)) {
@@ -77,6 +79,9 @@ const Profile = () => {
           }),
         ).then(() => {
           setUploadedPhotos([])
+          setTimeout(() => {
+            setPreloader(false)
+          }, 1000)
         })
       } else {
         dispatch(
@@ -115,44 +120,44 @@ const Profile = () => {
   return (
     <div className={style.block}>
       {
-        loading
-          ?
-            <Loader type={'inline'} />
-          :
-            <>
-              <Tab
-                data={TAB}
-                active={active}
-                setActive={setActive}
-              />
-              {
-                active === 0 &&
-                <General
-                  filter={filter}
-                  handlePropsChange={handlePropsChange}
-                  handleSubmit={handleSubmit}
-                />
-              }
-              {
-                active === 1 &&
-                <Identify
-                  filter={filter}
-                  countries={countries}
-                  handlePropsChange={handlePropsChange}
-                  handleSubmit={handleSubmit}
-                  uploadedPhotos={uploadedPhotos}
-                  handlePhotoUpload={handlePhotoUpload}
-                />
-              }
-              {
-                active === 2 &&
-                <Security
-                  filter={filter}
-                  handlePropsChange={handlePropsChange}
-                  handleSubmit={handleSubmit}
-                />
-              }
-            </>
+        preloader && <Loader type={'inline'} />
+      }
+      <Tab
+        data={TAB}
+        active={active}
+        setActive={setActive}
+      />
+      {
+        !loading &&
+        <>
+          {
+            active === 0 &&
+            <General
+              filter={filter}
+              handlePropsChange={handlePropsChange}
+              handleSubmit={handleSubmit}
+            />
+          }
+          {
+            active === 1 &&
+            <Identify
+              filter={filter}
+              countries={countries}
+              handlePropsChange={handlePropsChange}
+              handleSubmit={handleSubmit}
+              uploadedPhotos={uploadedPhotos}
+              handlePhotoUpload={handlePhotoUpload}
+            />
+          }
+          {
+            active === 2 &&
+            <Security
+              filter={filter}
+              handlePropsChange={handlePropsChange}
+              handleSubmit={handleSubmit}
+            />
+          }
+        </>
       }
     </div>
   )

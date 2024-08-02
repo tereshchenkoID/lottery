@@ -1,6 +1,8 @@
 @import 'scss/config';
 
 .block {
+  position: relative;
+  height: rem(48px);
 
   &.disabled {
     opacity: 0.5;

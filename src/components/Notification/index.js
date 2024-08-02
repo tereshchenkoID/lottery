@@ -1,11 +1,11 @@
-import classNames from 'classnames';
+import classNames from 'classnames'
 
 import style from './index.module.scss'
 
 const Notification = ({ 
   text, 
   type, 
-  classes = null
+  classes = null,
 }) => {
 
   return (

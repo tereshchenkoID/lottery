@@ -1,4 +1,4 @@
-export const LOADING = 1000
+export const LOADING = 500
 
 export const USER_TYPE = {
   user: 0,

@@ -87,31 +87,31 @@ const CheckTickets = () => {
           <form onSubmit={handleSubmit} className={style.form}>
             {
               loading
-              ?
-                LOADERS.map((el, idx) =>
-                  <Skeleton
-                    key={idx}
-                    styles={{
-                      maxWidth: 512,
-                      height: el,
-                      borderRadius: 8,
-                    }}
-                  />
-                )
-              :
-                <>
-                  <Field
-                    type={'text'}
-                    placeholder={t('ticket')}
-                    data={filter}
-                    onChange={value => setFilter(value)}
-                    isRequired={true}
-                  />
-                  <Button 
-                    type={'submit'} 
-                    placeholder={t('search')} 
-                  />
-                </>
+                ?
+                  LOADERS.map((el, idx) =>
+                    <Skeleton
+                      key={idx}
+                      styles={{
+                        maxWidth: 512,
+                        height: el,
+                        borderRadius: 8,
+                      }}
+                    />
+                  )
+                :
+                  <>
+                    <Field
+                      type={'text'}
+                      placeholder={t('ticket')}
+                      data={filter}
+                      onChange={value => setFilter(value)}
+                      isRequired={true}
+                    />
+                    <Button 
+                      type={'submit'} 
+                      placeholder={t('search')} 
+                    />
+                  </>
             }
           </form>
         </div>

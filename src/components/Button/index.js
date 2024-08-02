@@ -11,7 +11,7 @@ const Button = ({
   classes = ['primary'],
   icon = false,
   isDisabled = false,
-  isActive = false
+  isActive = false,
 }) => {
 
   return (

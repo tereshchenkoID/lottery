@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
@@ -22,6 +22,7 @@ import { setSettings } from 'store/actions/settingsAction'
 import { setGames } from 'store/actions/gamesAction'
 import { setAuth } from 'store/actions/authAction'
 import { getData } from 'helpers/api'
+import { getDate } from 'helpers/getDate'
 
 import Toastify from 'components/Toastify'
 import Header from 'modules/Header'
@@ -43,6 +44,46 @@ const App = () => {
   const [configLoaded, setConfigLoaded] = useState(false)
   const routes = generateRoutes(auth)
   const dispatch = useDispatch()
+
+  const [timer, setTimer] = useState({
+    time: new Date().getTime(),
+  })
+
+  const worker = useMemo(() => new Worker('./sw.js'), [])
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('sw.js')
+          .then(() => {
+            console.log('[SW] registered:')
+          })
+          .catch(() => {
+            console.error('[SW] registration failed:')
+          })
+      })
+    }
+  }, [worker])
+
+  useEffect(() => {
+    if ('Worker' in window) {
+      worker.addEventListener('message', event => {
+        setTimer(event.data)
+      })
+
+      worker.postMessage({
+        type: 'start',
+        time: new Date().getTime(),
+      })
+
+      return () => {
+        worker.postMessage('stop')
+      }
+    } else {
+      console.log('SW not supported')
+    }
+  }, [worker])
 
   useEffect(() => {
     fetch('/config.json')
@@ -92,6 +133,7 @@ const App = () => {
   return (
     <AppProviders>
       <main className={style.main}>
+        {getDate(timer.time)}
         <Draws />
         <Games />
         <Header />

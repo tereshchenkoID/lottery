@@ -34,7 +34,7 @@ const Game = ({ data, toggle, gameId, setToggle }) => {
 
     if (currentTime <= 0) {
       dispatch(removeDraw(data.id))
-      dispatch(setGames())
+      // dispatch(setGames())
       hasDispatched.current = false
     }
   }, [dispatch, data, isAnnouncement, isShow])

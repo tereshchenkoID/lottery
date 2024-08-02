@@ -29,7 +29,10 @@ const Identify = ({
         />
         {
           filter.profile.isVerify < 3 &&
-          <Uploader data={uploadedPhotos} onChange={handlePhotoUpload} />
+          <Uploader 
+            data={uploadedPhotos} 
+            onChange={handlePhotoUpload} 
+          />
         }
         <Select
           placeholder={t('country')}

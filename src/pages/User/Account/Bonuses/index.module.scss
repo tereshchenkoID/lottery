@@ -20,7 +20,7 @@
 
     &.alt{
         @include media-breakpoint-up(lg) {
-            @include make-spacer(mb, 0);
+            @include make-spacer(mb, 10px);
         }
     }
 }
@@ -33,4 +33,8 @@
     @include media-breakpoint-up(lg) {
         gap: rem(18px);
     }
+}
+
+.title {
+    @include make-spacer(mb, 10px);
 }

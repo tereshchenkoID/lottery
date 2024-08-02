@@ -31,16 +31,21 @@
 }
 
 .preview {
-    @include flex($justify-content: space-between, $align-items: center, $wrap: wrap);
+    @include flex($justify-content: space-between, $align-items: center);
 
     column-gap: rem(24px);
     row-gap: rem(8px);
+
+    @include media-breakpoint-up(lg) {
+        flex-wrap: wrap;
+    }
 }
 
 .actions {
     @include flex($wrap: wrap);
 
     gap: rem(8px);
+    flex-shrink: 0;
 }
 
 .form {
@@ -78,34 +83,13 @@
     }
 }
 
-.payment {
-    @include flex($justify-content: space-between, $direction: column);
-    @include make-spacer(p, 12px);
-
-    height: rem(136px);
-    background-color: var(--grey-100);
-    border-radius: rem(12px);
-}
-
-.logo {
-    @include make-spacer(p, 6px);
-    @include size(rem(40px));
-
-    border-radius: 50%;
-    background-color: var(--color-white);
-    overflow: hidden;
-}
-
-.placeholder {
-    font-size: rem(11px);
-    opacity: 0.5;
-}
-
 .table {
     @include flex($direction: column);
 }
 
 .list {
+    display: grid;
+    gap: rem(4px);
     overflow-x: auto;
 }
 
@@ -123,10 +107,6 @@
     gap: rem(4px);
     font-size: rem(14px);
     min-width: rem(1060px);
-    
-    &:not(:last-child) {
-        @include make-spacer(mb, 4px);
-    }
     
     &:first-child {
         

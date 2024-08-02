@@ -1,6 +1,6 @@
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import classNames from 'classnames'
@@ -16,7 +16,7 @@ import style from './index.module.scss'
 const Banner = ({
   data,
   link,
-  size
+  size,
 }) => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
@@ -39,15 +39,15 @@ const Banner = ({
       }
       style={styles}
     >
-      <img 
-        src={data.image} 
-        alt={data.alt} 
-        loading={'lazy'} 
-        className={style.img} 
+      <img
+        src={data.image}
+        alt={data.alt}
+        loading={'lazy'}
+        className={style.img}
       />
       {
         size === 'sm'
-        ?
+          ?
           <div className={style.progress}>
             <span
               className={style.scale}
@@ -60,7 +60,7 @@ const Banner = ({
               <FontAwesomeIcon icon={ROUTES_USER.bonuses.icon} />
             </span>
           </div>
-        :
+          :
           <Button
             classes={['primary', 'wide', style.button]}
             placeholder={t('play')}

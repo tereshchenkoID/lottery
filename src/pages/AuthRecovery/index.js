@@ -42,7 +42,6 @@ const AuthRecovery = () => {
     formData.append('email', filter.email)
 
     postData('recovery/', formData).then(json => {
-      console.log(json)
       if (json.code === '0') {
         dispatch(
           setToastify({

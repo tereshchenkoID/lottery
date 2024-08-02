@@ -26,13 +26,6 @@
     max-width: rem(460px);
 }
 
-.label {
-    @include make-spacer(mt, 4px);
-
-    font-size: rem(12px);
-    color: var(--grey-alpha-600);
-}
-
 .row {
     display: grid;
     gap: rem(8px);
@@ -49,4 +42,14 @@
 
 .verify {
     color: var(--color-success);
+}
+
+.content {
+    display: grid;
+    gap: rem(4px);
+}
+
+.label {
+    font-size: rem(12px);
+    color: var(--grey-alpha-600);
 }

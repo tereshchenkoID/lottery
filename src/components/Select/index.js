@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Select from 'react-select'
@@ -10,7 +10,7 @@ const CustomSelect = ({
   options, 
   data, 
   onChange, 
-  isRequired 
+  isRequired,
 }) => {
   const { t } = useTranslation()
   const [search, setSearch] = useState([...options])

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next'
 
 import Button from 'components/Button'
 import Password from 'components/Password'
+import Paragraph from 'components/Paragraph'
 
 import style from '../index.module.scss'
 
@@ -20,13 +21,17 @@ const Security = ({
           data={filter.security.old_password}
           onChange={value => handlePropsChange('security.old_password', value)}
         />
-        <div>
+        <div className={style.content}>
           <Password
             placeholder={t('password_new')}
             data={filter.security.new_password}
             onChange={value => handlePropsChange('security.new_password', value)}
           />
-          <p className={style.label}>{t('validation.password_length')}</p>
+          <Paragraph 
+            text={t('validation.password_length')}
+            classes={[style.label]}
+            height={18}
+          />
         </div>
         <Button
           type={'submit'}

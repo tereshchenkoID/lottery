@@ -23,11 +23,8 @@
   border-radius: 50%;
 
   &::before {
-    @include size(100%);
-
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     border: rem(10px) solid currentColor;
     border-radius: inherit;
     animation: 1s infinite ease-in-out var(--animation-spin);
