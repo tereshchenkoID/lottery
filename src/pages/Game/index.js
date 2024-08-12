@@ -10,6 +10,7 @@ import { getData } from 'helpers/api'
 import { getDate } from 'helpers/getDate'
 import { getValueFormatted } from 'helpers/getValueFormatted'
 import { setBetslip } from 'store/actions/betslipAction'
+import { overflowBody } from 'helpers/overflowBody'
 
 import Button from 'components/Button'
 import Skeleton from 'components/Skeleton'
@@ -131,11 +132,7 @@ const Game = () => {
   }
 
   useEffect(() => {
-    if (show) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
-    }
+    overflowBody(show)
   }, [show])
 
   if (loading)

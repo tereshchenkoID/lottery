@@ -1,9 +1,9 @@
 @import 'scss/config';
 
 .block {
+  @include flex;
   @include size(rem(162px), rem(216px));
 
-  display: block;
   position: relative;
   border-radius: rem(12px);
   overflow: hidden;
@@ -39,7 +39,6 @@
 }
 
 .body {
-  @include size(100%);
   @include make-spacer(px, 8px);
   @include make-spacer(pt, 12px);
   @include make-spacer(pb, 8px);
@@ -50,17 +49,22 @@
     @include make-spacer(pt, 40px);
     @include make-spacer(pb, 12px);
   }
+
+  flex-grow: 1;
 }
 
 .picture {
   @include make-spacer(mb, 16px);
-  @include size(100%);
+  @include size(100%, rem(45px));
 
-  max-height: rem(45px);
+  // max-height: rem(45px);
 
   @include media-breakpoint-up(lg) {
-    max-height: rem(85px);
+    // max-height: rem(85px);
+    height: rem(85px);
   }
+
+  flex-shrink: 0;
 }
 
 .img {

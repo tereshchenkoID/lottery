@@ -8,6 +8,9 @@ body {
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
+  min-width: var(--min-width);
 
   @include media-breakpoint-up(lg) {
     overflow-y: auto !important;
@@ -146,9 +149,8 @@ hr {
   @include make-spacer(px, var(--outer-gap));
 
   position: relative;
-  min-width: var(--min-width);
   max-width: var(--max-width);
-  min-height: 100dvh;
+  min-height: 100vh;
 
   @include media-breakpoint-up(xl) {
     @include make-spacer(pl, rem(78px));

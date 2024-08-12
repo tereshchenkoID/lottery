@@ -8,8 +8,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    max-height: 100%;
-    z-index: $z-index-11;
+    max-height: 100dvh;
+    // max-height: calc(100dvh - rem(72px));
+    z-index: $z-index-12;
     border-radius: rem(24px) rem(24px) 0 0;
     background-color: var(--color-white);
     transform: translateY(100%);

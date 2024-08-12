@@ -47,64 +47,64 @@ const Card = ({ data, link = 'game' }) => {
     >
       {
         loading 
-        ?
-          <Skeleton />
-        :
-          <div 
-            className={style.body}
-            style={{
-              backgroundColor: data.color,
-              color: data.font_color,
-            }}
-          >
-            <div className={style.picture}>
-              <img
-                src={data.image}
-                alt={t(`games.${data.id}.alt`)}
-                className={style.img}
-                loading="lazy"
-              />
-            </div>
-            {
-              data.jackpots &&
-              <div className={style.content}>
-                <div className={style.title}>{t('prize')}</div>
-                <h4 className={style.prize}>
-                  {getValueFormatted(data.jackpots)}
-                  {auth.account.currency.symbol}
-                </h4>
+          ?
+            <Skeleton />
+          :
+            <div 
+              className={style.body}
+              style={{
+                backgroundColor: data.color,
+                color: data.font_color,
+              }}
+            >
+              <div className={style.picture}>
+                <img
+                  src={data.image}
+                  alt={t(`games.${data.id}.alt`)}
+                  className={style.img}
+                  loading="lazy"
+                />
               </div>
-            }
-            <div className={style.description}>
-              {t(`games.${data.id}.description`)}
-            </div>
-            {
-              data.time && 
-              <div className={style.time}>
-                {
-                  data.status === GAME_STATUS.ANNOUNCEMENT
-                    ?
-                      <>
-                        <FontAwesomeIcon icon="fa-solid fa-clock" />
-                        <span>{time.days > 0 ? `${time.days} ${t('days')}` : time.time}</span>
-                      </>
-                    :
-                      <div className={style.game}>
-                        <FontAwesomeIcon icon="fa-solid fa-clock" />
-                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
-                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
-                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
-                      </div>
-                }
+              {
+                data.jackpots &&
+                <div className={style.content}>
+                  <div className={style.title}>{t('prize')}</div>
+                  <h4 className={style.prize}>
+                    {getValueFormatted(data.jackpots)}
+                    {auth.account.currency.symbol}
+                  </h4>
+                </div>
+              }
+              <div className={style.description}>
+                {t(`games.${data.id}.description`)}
               </div>
-            }
-            <div className={style.action}>
-              <span>{t('play')}</span>
-              <span className={style.price}>
-                {convertFixed(data.betCost, 0)} {auth.account.currency.symbol}
-              </span>
+              {
+                data.time && 
+                <div className={style.time}>
+                  {
+                    data.status === GAME_STATUS.ANNOUNCEMENT
+                      ?
+                        <>
+                          <FontAwesomeIcon icon="fa-solid fa-clock" />
+                          <span>{time.days > 0 ? `${time.days} ${t('days')}` : time.time}</span>
+                        </>
+                      :
+                        <div className={style.game}>
+                          <FontAwesomeIcon icon="fa-solid fa-clock" />
+                          <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                          <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                          <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                        </div>
+                  }
+                </div>
+              }
+              <div className={style.action}>
+                <span>{t('play')}</span>
+                <span className={style.price}>
+                  {convertFixed(data.betCost, 0)} {auth.account.currency.symbol}
+                </span>
+              </div>
             </div>
-          </div>
       }
     </Link>
   )

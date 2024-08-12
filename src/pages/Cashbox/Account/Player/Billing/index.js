@@ -27,7 +27,7 @@ const Billing = ({ filter, handlePropsChange }) => {
               <Button
                 key={idx}
                 placeholder={t(el)}
-                classes={['alt']}
+                classes={['alt', style.action]}
                 isActive={type === idx}
                 onChange={() => setType(idx)}
               />

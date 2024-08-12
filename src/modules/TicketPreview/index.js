@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo } from 'react'
+import { lazy, Suspense, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -12,6 +12,7 @@ import { getDate } from 'helpers/getDate'
 import { postData } from 'helpers/api'
 import { getHostName } from 'helpers/getHostName'
 import { setToastify } from 'store/actions/toastifyAction'
+import { overflowBody } from 'helpers/overflowBody'
 
 import Button from 'components/Button'
 import Loader from 'components/Loader'
@@ -88,6 +89,10 @@ const TicketPreview = ({
       }
     })
   }
+
+  useEffect(() => {
+    overflowBody(active)
+  }, [active])
 
   return (
     <div className={classNames(style.block, active && style.active)}>

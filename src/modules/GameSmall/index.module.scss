@@ -8,12 +8,10 @@
   flex-shrink: 0;
   border-radius: rem(12px);
   overflow: hidden;
-  min-height: rem(56px);
 
   @include media-breakpoint-up(lg) {
     width: rem(260px);
-    min-height: rem(65px);
-    height: auto;
+    height: rem(65px);
     border-radius: rem(16px);
 
     @include hover {
@@ -26,12 +24,10 @@
 }
 
 .body {
-  @include size(100%);
   @include make-spacer(p, 8px);
-  @include flex($direction: column);
 
   display: grid;
-  gap: rem(8px);
+  grid-gap: rem(8px);
   align-items: center;
   background-color: var(--grey-200);
 
@@ -61,6 +57,8 @@
 
 .picture {
   @include size(rem(40px));
+
+  flex-shrink: 0;
 }
 
 .content {

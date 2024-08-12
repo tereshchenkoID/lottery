@@ -2,7 +2,7 @@
 
 .form {
   display: grid;
-  gap: rem(4px);
+  grid-gap: rem(4px);
 
   @include media-breakpoint-up(md) {
     grid-template-columns: repeat(3, 1fr);
@@ -24,7 +24,7 @@
   @include make-spacer(mb, 24px);
 
   display: grid;
-  gap: rem(4px);
+  grid-gap: rem(4px);
   grid-template-columns: repeat(2, 1fr);
 
   @include media-breakpoint-up(md) {
@@ -52,7 +52,7 @@
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: rem(4px);
+  grid-gap: rem(4px);
 
   &:first-child {
 

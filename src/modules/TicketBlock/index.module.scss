@@ -1,28 +1,53 @@
 @import 'scss/config';
 
 .block {
+  position: relative;
+  height: fit-content;
+}
+
+.amount,
+.date {
+  @include make-spacer(mt, auto);
+}
+
+.date,
+.status {
+  font-size: rem(12px);
+  opacity: 0.5;
+}
+
+.button {
   @include make-spacer(p, 1px);
-  @include transition;
 
   border-radius: rem(16px);
-  height: rem(120px);
-  cursor: pointer;
-  color: var(--grey-alpha-200);
-  background: no-repeat 
-    radial-gradient(circle 16px at -4px 50%, transparent 99.9%, currentColor) 0 100% / calc(50% + 2px) 100%, 
-    no-repeat radial-gradient(circle 16px at calc(100% + 4px) 50%, 
-    transparent 99.9%, currentColor) 100% 100% / calc(50% + 2px) 100%;
-  
+  background: no-repeat radial-gradient(circle 16px at -4px 50%, transparent 99.9%, rgba(0, 0, 0, .11)) 0 100% / calc(50% + 2px) 100%, no-repeat radial-gradient(circle 16px at calc(100% + 4px) 50%, transparent 99.9%, rgba(0, 0, 0, .11)) 100% 100% / calc(50% + 2px) 100%;
+  position: relative;
+  width: 100%;
+  white-space: nowrap;
+
+  &::before {
+    @include transition;
+
+    border-radius: rem(16px);
+    position: absolute;
+    inset: 0;
+    z-index: $z-index-1;
+    background: no-repeat radial-gradient(circle 16px at -4px 50%, transparent 99.9%, #ffcd17) 0 100% / calc(50% + 2px) 100%, no-repeat radial-gradient(circle 16px at calc(100% + 4px) 50%, transparent 99.9%, #ffcd17) 100% 100% / calc(50% + 2px) 100%;
+    opacity: 0;
+    content: '';
+  }
+
+  &.active,
+  &:hover {
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
   &.active {
     pointer-events: none;
     color: var(--color-primary);
-  }
-
-  @include hover {
-
-    &:hover {
-      color: var(--color-primary);
-    }
   }
 
   &.disabled {
@@ -33,47 +58,48 @@
   }
 }
 
-.date,
-.status {
-  font-size: rem(12px);
-  opacity: 0.5;
-}
-
-.loader {
-  left: rem(12px);
-  right: rem(12px);
-}
-
-.wrapper {
+.content {
   @include make-spacer(py, 12px);
-  @include make-spacer(px, 22px);
-  @include flex(center);
+  @include make-spacer(pr, 22px);
+  @include make-spacer(pl, 16px);
+  @include flex($align-items: center);
 
-  position: relative;
-  border-radius: rem(15px);
-  height: 100%;
-  background: no-repeat 
-    radial-gradient(circle 17px at -4px 50%, transparent 99.9%, var(--color-white)) top left -1px / calc(50% + 2px) 100%, 
-    no-repeat radial-gradient(circle 17px at calc(100% + 4px) 50%, 
-    transparent 99.9%, var(--color-white)) top right -1px / calc(50% + 2px) 100%;
   gap: rem(24px);
-  z-index: 2;
-  color: var(--color-text);
+  border-radius: rem(15px);
+  background: no-repeat radial-gradient(circle 17px at -4px 50%, transparent 99.9%, #fff) top left -1px / calc(50% + 2px) 100%, no-repeat radial-gradient(circle 17px at calc(100% + 4px) 50%, transparent 99.9%, #fff) top right -1px / calc(50% + 2px) 100%;
+  position: relative;
+  z-index: $z-index-1;
+  height: rem(120px);
 }
 
 .info {
-  @include flex($direction: column);
+  @include flex($align-items: flex-start, $direction: column);
 
-  flex-grow: 1;
-  line-height: 1;
-  row-gap: rem(6px)
+  flex: 1 1;
+  height: 100%;
+  color: var(--color-text);
 }
 
 .logo {
   @include size(rem(96px));
+  
+  z-index: 1;
+  pointer-events: none;
+}
+
+.name {
+  @include make-spacer(mb, 4px);
+  
+  font-weight: var(--typography-bold);
+}
+
+.date {
+  letter-spacing: rem(0.2px);
+  line-height: rem(22px);
 }
 
 .status {
+  font-weight: var(--typography-medium);
 
   &.type-2,
   &.type-3 {
@@ -87,8 +113,4 @@
   &.type-5 {
     color: var(--color-success);
   }
-}
-
-.meta {
-  @include make-spacer(mt, auto);
 }

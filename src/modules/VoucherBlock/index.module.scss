@@ -1,47 +1,44 @@
 @import 'scss/config';
 
 .block {
+  position: relative;
+  height: fit-content;
+  max-width: rem(306px);
+}
+
+.button {
   @include make-spacer(p, 1px);
-  @include transition;
 
   border-radius: rem(16px);
-  max-width: rem(366px);
-  height: rem(120px);
-  color: var(--grey-alpha-200);
-  background: no-repeat 
-    radial-gradient(circle 16px at -4px 50%, transparent 99.9%, currentColor) 0 100% / calc(50% + 2px) 100%, 
-    no-repeat radial-gradient(circle 16px at calc(100% + 4px) 50%, 
-    transparent 99.9%, currentColor) 100% 100% / calc(50% + 2px) 100%;
+  background: no-repeat radial-gradient(circle 16px at -4px 50%, transparent 99.9%, rgba(0, 0, 0, .11)) 0 100% / calc(50% + 2px) 100%, no-repeat radial-gradient(circle 16px at calc(100% + 4px) 50%, transparent 99.9%, rgba(0, 0, 0, .11)) 100% 100% / calc(50% + 2px) 100%;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  white-space: nowrap;
+  word-break: break-all
 }
 
-.wrapper {
+.content {
   @include make-spacer(py, 12px);
   @include make-spacer(px, 20px);
-  @include flex(center);
-
-  position: relative;
-  border-radius: rem(15px);
-  height: 100%;
-  background: no-repeat 
-    radial-gradient(circle 17px at -4px 50%, transparent 99.9%, var(--color-white)) top left -1px / calc(50% + 2px) 100%, 
-    no-repeat radial-gradient(circle 17px at calc(100% + 4px) 50%, 
-    transparent 99.9%, var(--color-white)) top right -1px / calc(50% + 2px) 100%;
-  gap: rem(24px);
-  z-index: 2;
-  color: var(--color-text);
-}
-
-.info {
   @include flex($direction: column);
 
+  position: relative;
   flex-grow: 1;
+  gap: rem(6px);
+  border-radius: rem(15px);
+  background: no-repeat radial-gradient(circle 17px at -4px 50%, transparent 99.9%, #fff) top left -1px / calc(50% + 2px) 100%, no-repeat radial-gradient(circle 17px at calc(100% + 4px) 50%, transparent 99.9%, #fff) top right -1px / calc(50% + 2px) 100%;
+  z-index: $z-index-2;
+  height: rem(120px);
   line-height: 1;
-  row-gap: rem(6px)
+}
+
+.amount {
+  @include make-spacer(mt, 0);
+  @include make-spacer(mb, auto);
 }
 
 .date {
-  @include make-spacer(mt, auto);
-
   font-size: rem(12px);
 }
 

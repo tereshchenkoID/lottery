@@ -11,8 +11,8 @@ const VoucherBlock = ({ data, isPaid }) => {
 
   return (
     <div className={style.block}>
-      <div className={style.wrapper}>
-        <div className={style.info}>
+      <div className={style.button}>
+        <span className={style.content}>
           <h6 className={style.title}>
             <span className={style.label}>{t('voucher')}:</span> 
             {data.code}
@@ -21,7 +21,7 @@ const VoucherBlock = ({ data, isPaid }) => {
             <span className={style.label}>{t('amount')}:</span> 
             {data.amount} {auth.account.currency.symbol}
           </strong>
-          <p className={style.date}>
+          <span className={style.date}>
             {
               data.expire 
               ?
@@ -35,12 +35,12 @@ const VoucherBlock = ({ data, isPaid }) => {
                   {data.username}
                 </>
             }
-          </p>
+          </span>
           {
             isPaid &&
             <h4 className={style.status}>{t('voucher_status.paid')}</h4>
           }
-        </div> 
+        </span> 
       </div>
     </div>
   )

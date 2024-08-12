@@ -53,9 +53,14 @@
   @include make-spacer(px, 0);
   @include size(rem(320px), 100%);
 
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
   transform: translateX(-100%);
   background-color: var(--color-background);
   overflow-y: auto;
+  overflow-x: hidden;
 
   @include media-breakpoint-up(lg) {
     @include make-spacer(p, 20px);
@@ -63,6 +68,7 @@
 
     display: grid;
     grid-template-columns: repeat(4, auto);
+    position: static;
     transform: translateX(0) !important;
     border-top: rem(1px) solid var(--grey-alpha-100);
     box-shadow: var(--default-box-shadow);
@@ -104,7 +110,6 @@
   @include make-spacer(px, 16px);
   @include transition;
 
-  width: 100%;
   line-height: rem(52px);
   gap: rem(12px);
 

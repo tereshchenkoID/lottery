@@ -1,6 +1,7 @@
 @import 'scss/config';
 
 .block {
+  @include flex;
   @include size(rem(162px), rem(195px));
 
   position: relative;
@@ -24,14 +25,6 @@
   }
 }
 
-.body {
-  @include size(100%);
-  @include make-spacer(p, 12px);
-  @include flex($direction: column);
-
-  background-color: var(--grey-200);
-}
-
 .action,
 .price {
   @include flex(center, center);
@@ -40,12 +33,22 @@
   font-weight: var(--typography-medium);
 }
 
+.body {
+  @include make-spacer(p, 12px);
+  @include flex($direction: column);
+
+  flex-grow: 1;
+  background-color: var(--grey-200);
+}
+
 .header {
   @include flex(space-between, flex-start);
 }
 
 .picture {
   @include size(rem(52px));
+
+  flex-shrink: 0;
 }
 
 .img {

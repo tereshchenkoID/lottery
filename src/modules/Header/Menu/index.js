@@ -11,6 +11,7 @@ import {
   ROUTES_CASHBOX,
   ROUTES_USER 
 } from 'constant/config'
+import { overflowBody } from 'helpers/overflowBody'
 
 import classNames from 'classnames'
 
@@ -38,11 +39,7 @@ const Menu = ({ setShow, show, buttonRef }) => {
   )
 
   useEffect(() => {
-    if (show) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'auto'
-    }
+    overflowBody(show)
   }, [show])
 
   const MENU = [

@@ -107,58 +107,60 @@ const TicketsList = () => {
         ?
           <Loader type={'inline'} />
         :
-          <div className={style.wrapper}>
+          <>
             <div
               className={classNames(style.shadow, active && style.active)}
               onClick={() => {
                 setActive(null)
               }}
             />
-            <div className={style.left}>
-              <FilterStatus 
-                active={filter.status} 
-                onChange={handlePropsChange} 
-              />
-              <FilterGames 
-                data={filterGames} 
-                active={filter.gameId} 
-                onChange={handlePropsChange} 
-              />
-              {
-                data?.length > 0 
-                ?
-                  <>
-                    <div className={style.list}>
-                      {
-                        data.map((el, idx) =>
-                          <TicketBlock
-                            key={idx}
-                            data={el}
-                            active={active}
-                            setActive={setActive}
-                          />
-                        )
-                      }
-                    </div>
-                    {
-                      pagination.pages > 1 &&
-                      <div className={style.pagination}>
-                        <Pagination
-                          pagination={pagination}
-                          handlePrev={() => handlePrev()}
-                          handleNext={() => handleNext()}
-                        />
+            <div className={style.wrapper}>
+              <div className={style.left}>
+                <FilterStatus 
+                  active={filter.status} 
+                  onChange={handlePropsChange} 
+                />
+                <FilterGames 
+                  data={filterGames} 
+                  active={filter.gameId} 
+                  onChange={handlePropsChange} 
+                />
+                {
+                  data?.length > 0 
+                  ?
+                    <>
+                      <div className={style.list}>
+                        {
+                          data.map((el, idx) =>
+                            <TicketBlock
+                              key={idx}
+                              data={el}
+                              active={active}
+                              setActive={setActive}
+                            />
+                          )
+                        }
                       </div>
-                    }
-                  </>
-                :
-                  <Empty />
-              }
+                      {
+                        pagination.pages > 1 &&
+                        <div className={style.pagination}>
+                          <Pagination
+                            pagination={pagination}
+                            handlePrev={() => handlePrev()}
+                            handleNext={() => handleNext()}
+                          />
+                        </div>
+                      }
+                    </>
+                  :
+                    <Empty />
+                }
+              </div>
+              <div className={style.right}>
+                <TicketPreview data={active} active={active} setActive={setActive} />
+              </div>
             </div>
-            <div className={style.right}>
-              <TicketPreview data={active} active={active} setActive={setActive} />
-            </div>
-          </div>
+        </>
       }
     </div>
   )

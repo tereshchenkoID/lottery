@@ -83,17 +83,17 @@ const GameSmall = ({ data }) => {
                   {
                     data.status === GAME_STATUS.ANNOUNCEMENT
                       ?
-                      <>
-                        <FontAwesomeIcon icon="fa-solid fa-clock" />
-                        <span>{time.days > 0 ? `${time.days} ${t('days')}` : time.time}</span>
-                      </>
+                        <>
+                          <FontAwesomeIcon icon="fa-solid fa-clock" />
+                          <span>{time.days > 0 ? `${time.days} ${t('days')}` : time.time}</span>
+                        </>
                       :
-                      <div className={style.game}>
-                        <FontAwesomeIcon icon="fa-solid fa-clock" />
-                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
-                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
-                        <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
-                      </div>
+                        <div className={style.game}>
+                          <FontAwesomeIcon icon="fa-solid fa-clock" />
+                          <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                          <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                          <FontAwesomeIcon icon="fa-solid fa-cube" className={style.cube} />
+                        </div>
                   }
                 </div>
               }

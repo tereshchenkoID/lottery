@@ -36,12 +36,24 @@
 
     column-gap: rem(24px);
     row-gap: rem(8px);
+    overflow: hidden;
 }
 
 .actions {
-    @include flex($wrap: wrap);
-
+    @include flex;
+    
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     gap: rem(8px);
+  
+    &::-webkit-scrollbar {
+      display: none;
+    }
+}
+
+.action {
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .form {

@@ -1,0 +1,35 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 12px);
+  @include flex;
+
+  position: fixed;
+  z-index: $z-index-12;
+  left: rem(12px);
+  bottom: rem(12px);
+  min-width: rem(460px);
+  gap: rem(16px);
+  color: var(--color-white);
+  overflow: hidden;
+  border-radius: rem(16px);
+  background-color: var(--grey-alpha-900);
+  animation: var(--animation-slide-right) 0.3s linear forwards;
+}
+
+.close,
+.logo {
+  flex-shrink: 0
+}
+
+.close {
+  @include size(rem(30px)!important);
+}
+
+.logo {
+  @include size(rem(50px));
+}
+
+.content {
+  flex-grow: 1;
+}

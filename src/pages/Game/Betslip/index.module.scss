@@ -75,7 +75,7 @@
 
   @include media-breakpoint-up(xl) {
     overflow-y: auto;
-    max-height: calc(100dvh - rem(380px));
+    max-height: calc(100vh - rem(380px));
   }
 }
 

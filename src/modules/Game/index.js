@@ -40,15 +40,17 @@ const Game = ({ data }) => {
                   {convertFixed(data.betCost, 0)} {auth.account.currency.symbol}
                 </p>
               </div>
-              {data.jackpots && (
-                <div className={style.content}>
-                  <p className={style.title}>{t('prize')}</p>
-                  <h6 className={style.prize}>
-                    {getValueFormatted(data.jackpots)}
-                    {auth.account.currency.symbol}
-                  </h6>
-                </div>
-              )}
+              {
+                data.jackpots && (
+                  <div className={style.content}>
+                    <p className={style.title}>{t('prize')}</p>
+                    <h6 className={style.prize}>
+                      {getValueFormatted(data.jackpots)}
+                      {auth.account.currency.symbol}
+                    </h6>
+                  </div>
+                )
+              }
               <div className={style.action}>
                 <span>{t('play')}</span>
               </div>

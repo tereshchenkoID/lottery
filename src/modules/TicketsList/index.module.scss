@@ -7,11 +7,11 @@
 .wrapper {
   display: grid;
   position: relative;
-  height: 100%;
 
   @include media-breakpoint-up(xl) {
     grid-template-columns: 1fr rem(322px);
     gap: rem(48px);
+    height: 100%;
 
     &::after {
       position: absolute;
@@ -27,7 +27,7 @@
 
 .list {
   @include make-spacer(mb, 24px);
-  
+
   display: grid;
   gap: rem(8px);
 
@@ -42,7 +42,7 @@
 
 .left {
   @include flex($direction: column);
-  
+
   overflow: hidden;
 }
 
@@ -54,7 +54,7 @@
   background-color: var(--grey-alpha-700);
 
   @include media-breakpoint-up(xl) {
-    display: none!important;
+    display: none !important;
   }
 
   &.active {

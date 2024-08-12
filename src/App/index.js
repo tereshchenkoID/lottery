@@ -1,8 +1,9 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { Tooltip } from 'react-tooltip'
 import { AppProviders } from 'context/AppProviders'
+import { getRegistrationToken, onMessageListener } from '../firebase'
 import usePerformanceObserver from 'hooks/usePerformanceObserver'
 
 import i18n from 'i18next'
@@ -21,8 +22,8 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { setSettings } from 'store/actions/settingsAction'
 import { setGames } from 'store/actions/gamesAction'
 import { setAuth } from 'store/actions/authAction'
-import { getData } from 'helpers/api'
-import { getDate } from 'helpers/getDate'
+import { setToastify } from 'store/actions/toastifyAction'
+import { getData, postData } from 'helpers/api'
 
 import Toastify from 'components/Toastify'
 import Header from 'modules/Header'
@@ -38,52 +39,26 @@ import style from './index.module.scss'
 const App = () => {
   // Performance content
   usePerformanceObserver()
-  
+
   const { auth } = useSelector(state => state.auth)
   const [loading, setLoading] = useState(true)
   const [configLoaded, setConfigLoaded] = useState(false)
+  // const [push, setPush] = useState(null)
   const routes = generateRoutes(auth)
   const dispatch = useDispatch()
 
-  const [timer, setTimer] = useState({
-    time: new Date().getTime(),
-  })
-
-  const worker = useMemo(() => new Worker('./sw.js'), [])
-
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker
-          .register('sw.js')
-          .then(() => {
-            console.log('[SW] registered:')
-          })
-          .catch(() => {
-            console.error('[SW] registration failed:')
-          })
-      })
+  const showNotification = (notification) => {
+    if (Notification.permission === "granted") {
+      new Notification(
+        notification.title, 
+        {
+          body: notification.body,
+          icon: notification.icon,
+          vibrate: 250,
+        }
+      )
     }
-  }, [worker])
-
-  useEffect(() => {
-    if ('Worker' in window) {
-      worker.addEventListener('message', event => {
-        setTimer(event.data)
-      })
-
-      worker.postMessage({
-        type: 'start',
-        time: new Date().getTime(),
-      })
-
-      return () => {
-        worker.postMessage('stop')
-      }
-    } else {
-      console.log('SW not supported')
-    }
-  }, [worker])
+  };
 
   useEffect(() => {
     fetch('/config.json')
@@ -112,10 +87,10 @@ const App = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if(auth?.id) {
+      if (auth?.id) {
         let a = auth
         getData('balance/').then(json => {
-          if(json.code === "0") {
+          if (json.code === "0") {
             a.account.balance = json.account.balance
             a.account.bonus = json.account.bonus
 
@@ -128,12 +103,51 @@ const App = () => {
     return () => clearInterval(intervalId);
   }, [dispatch, auth?.id])
 
+  useEffect(() => {
+    const fetchToken = async () => {
+      const vapidKey = sessionStorage.getItem('vapidKey')
+
+      if (!vapidKey) {
+        const token = await getRegistrationToken()
+
+        if(token) {
+          const formData = new FormData()
+          formData.append('token', token)
+
+          postData('push/', formData).then(json => {
+            if (json.code === '0') {
+              dispatch(
+                setToastify({
+                  type: 'success',
+                  text: json.message,
+                }),
+              )
+              sessionStorage.setItem('vapidKey', token)
+            } else {
+              dispatch(
+                setToastify({
+                  type: 'error',
+                  text: json.error_message,
+                }),
+              )
+            }
+          })
+        }
+      }
+    }
+
+    fetchToken()
+
+    onMessageListener().then(payload => {
+      showNotification(payload.notification)
+    })
+  }, [])
+
   if (loading) return false
-  
+
   return (
     <AppProviders>
       <main className={style.main}>
-        {getDate(timer.time)}
         <Draws />
         <Games />
         <Header />
@@ -173,6 +187,6 @@ const App = () => {
 export default App
 library.add(
   fas,
-  fab, 
+  fab,
   far
 )
