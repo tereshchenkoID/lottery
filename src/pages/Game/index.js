@@ -3,14 +3,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import {
+  Autoplay,
+  Navigation,
+  Pagination,
+  Mousewheel,
+  Keyboard,
+} from 'swiper/modules'
 
 import classNames from 'classnames'
 
+import { setBetslip } from 'store/actions/betslipAction'
 import { getData } from 'helpers/api'
 import { getDate } from 'helpers/getDate'
 import { getValueFormatted } from 'helpers/getValueFormatted'
-import { setBetslip } from 'store/actions/betslipAction'
 import { overflowBody } from 'helpers/overflowBody'
+import { getHexToRgba } from 'helpers/getHexToRgba'
 
 import Button from 'components/Button'
 import Skeleton from 'components/Skeleton'
@@ -144,123 +153,179 @@ const Game = () => {
           />
 
   return (
-    <div className={style.block} style={{ ...game.skin }}>
-      <div className={style.content}>
-        {
-          active !== 2 && (
-            <>
-              <div
-                className={classNames(style.shadow, show && style.active)}
-                onClick={() => setShow(!show)}
-              />
-              <div className={style.betslip}>
-                <Button
-                  placeholder={`${t('place_bet')} ${betslip.bet?.[active]?.amount} ${auth.account.currency.symbol}`}
-                  onChange={() => setShow(!show)}
-                  classes={['primary', 'wide']}
-                />
-              </div>
-            </>
-          )
-        }
-        <div className={style.header}>
-          <div className={style.info}>
-            <div className={style.picture}>
-              <img
-                src={game.image}
-                alt={t(`games.${game.id}.title`)}
-                loading={'lazy'}
-              />
-            </div>
-            <div>
-              <h6>{t(`games.${game.id}.title`)}</h6>
-              {
-                game.jackpots &&
-                <h4>
-                  {t('jackpot')} - {''}
-                  <span>
-                    {auth.account.currency.symbol}{' '}
-                    {getValueFormatted(game.jackpots)}
-                  </span>
-                </h4>
-              }
-              {
-                game.prize &&
-                <h4>
-                  {t('prize')} - {''}
-                  <span>
-                    {auth.account.currency.symbol}{' '}
-                    {getValueFormatted(game.prize)}
-                  </span>
-                </h4>
-              }
-            </div>
-          </div>
-          <div className={style.meta}>
-            <div>
-              <FontAwesomeIcon
-                icon="fa-solid fa-ticket"
-                className={style.icon}
-              />
-              <span>{game.round?.id}</span>
-            </div>
-            {
-              game?.time &&
+    <>
+      {
+        game.background_image &&
+        <div 
+          className={style.decor}
+          style={{
+            backgroundImage: `url(${game.background_image})`
+          }}
+        />
+      }
+      <div 
+        className={style.block} 
+        style={{ 
+          ...game.skin,
+          '--game_color': getHexToRgba(game.skin['--game_color'], 0.9),
+        }}
+      >
+        <div className={style.content}>
+          {
+            active !== 2 && (
               <>
-                <hr className={style.hr} />
-                <div>
-                  <FontAwesomeIcon
-                    icon="fa-solid fa-clock"
-                    className={style.icon}
+                <div
+                  className={classNames(style.shadow, show && style.active)}
+                  onClick={() => setShow(!show)}
+                />
+                <div className={style.betslip}>
+                  <Button
+                    placeholder={`${t('place_bet')} ${betslip.bet?.[active]?.amount} ${auth.account.currency.symbol}`}
+                    onChange={() => setShow(!show)}
+                    classes={['primary', 'wide']}
                   />
-                  <span>{getDate(game?.time, t)}</span>
                 </div>
               </>
-            }
-          </div>
-        </div>
-        <div className={style.body}>
-          <div className={style.tab}>
-            {
-              TABS
-                .filter((_, idx) => game.type === 2 ? idx !== TABS.length - 1 : _)
-                .map((el, idx) => (
-                  <Button
-                    key={idx}
-                    placeholder={t(el.text)}
-                    icon={el.icon}
-                    isActive={active === el.value}
-                    onChange={() => handleActive(el.value)}
-                    classes={['game', style.button]}
-                  />
-                ))
-            }
-          </div>
-          <div className={style.toggle}>
-            <div className={style.column}>
-              {active === 0 && getGames(gameId, auth, betslip, game, setGame)}
-              {active === 1 && <Multibet betslip={betslip} game={game} />}
-              {active === 2 && game.type !== 2 && <Archive betslip={betslip} game={game} />}
+            )
+          }
+          <div className={style.header}>
+            <div className={style.info}>
+              <div className={style.picture}>
+                <img
+                  src={game.image}
+                  alt={t(`games.${game.id}.title`)}
+                  loading={'lazy'}
+                />
+              </div>
+              <div>
+                <h6>{t(`games.${game.id}.title`)}</h6>
+                {
+                  game.jackpots &&
+                  <h4>
+                    {t('jackpot')} - {''}
+                    <span>
+                      {auth.account.currency.symbol}{' '}
+                      {getValueFormatted(game.jackpots)}
+                    </span>
+                  </h4>
+                }
+                {
+                  game.prize &&
+                  <h4>
+                    {t('prize')} - {''}
+                    <span>
+                      {auth.account.currency.symbol}{' '}
+                      {getValueFormatted(game.prize)}
+                    </span>
+                  </h4>
+                }
+              </div>
             </div>
-            {
-              active !== 2 && (
-                <div className={style.column}>
-                  <Betslip
-                    auth={auth}
-                    betslip={betslip}
-                    game={game}
-                    active={active}
-                    show={show}
-                    setShow={setShow}
-                    handleLoad={handleLoad}
-                  />
-                </div>
-              )
-            }
+            <div className={style.meta}>
+              <div>
+                <FontAwesomeIcon
+                  icon="fa-solid fa-ticket"
+                  className={style.icon}
+                />
+                <span>{game.round?.id}</span>
+              </div>
+              {
+                game?.time &&
+                <>
+                  <hr className={style.hr} />
+                  <div>
+                    <FontAwesomeIcon
+                      icon="fa-solid fa-clock"
+                      className={style.icon}
+                    />
+                    <span>{getDate(game?.time, t)}</span>
+                  </div>
+                </>
+              }
+            </div>
+          </div>
+          <div className={style.body}>
+            <div className={style.tab}>
+              {
+                TABS
+                  .filter((_, idx) => game.type === 2 ? idx !== TABS.length - 1 : _)
+                  .map((el, idx) => (
+                    <Button
+                      key={idx}
+                      placeholder={t(el.text)}
+                      icon={el.icon}
+                      isActive={active === el.value}
+                      onChange={() => handleActive(el.value)}
+                      classes={['game', style.button]}
+                    />
+                  ))
+              }
+            </div>
+            <div className={style.toggle}>
+              <div className={style.column}>
+                {
+                  game.banners?.length > 0 &&
+                  <div className={style.banners}>
+                    <Swiper
+                      slidesPerView={1}
+                      spaceBetween={16}
+                      navigation={true}
+                      keyboard={true}
+                      pagination={{
+                        clickable: true,
+                      }}
+                      autoplay={{
+                        delay: 5000,
+                        disableOnInteraction: false,
+                      }}
+                      loop={true}
+                      modules={[
+                        Autoplay,
+                        Navigation,
+                        Pagination,
+                        Mousewheel,
+                        Keyboard,
+                      ]}
+                      className="swiper-wide"
+                    >
+                      {
+                        game.banners.map((el, idx) => (
+                          <SwiperSlide key={idx}>
+                            <img 
+                              src={el} 
+                              alt={`Image ${idx}}`} 
+                              className={style.banner}
+                            />
+                          </SwiperSlide>
+                        ))
+                      }
+                    </Swiper>
+                  </div>
+                }
+                {active === 0 && getGames(gameId, auth, betslip, game, setGame)}
+                {active === 1 && <Multibet betslip={betslip} game={game} />}
+                {active === 2 && game.type !== 2 && <Archive betslip={betslip} game={game} />}
+              </div>
+              {
+                active !== 2 && (
+                  <div className={style.column}>
+                    <Betslip
+                      auth={auth}
+                      betslip={betslip}
+                      game={game}
+                      active={active}
+                      show={show}
+                      setShow={setShow}
+                      handleLoad={handleLoad}
+                    />
+                  </div>
+                )
+              }
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

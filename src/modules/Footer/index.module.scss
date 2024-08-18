@@ -4,6 +4,7 @@
   @include flex(space-between, center);
   @include make-spacer(py, 16px);
 
+  position: relative;
   border-top: rem(1px) solid var(--grey-alpha-200);
 
   @include media-breakpoint-up(lg) {

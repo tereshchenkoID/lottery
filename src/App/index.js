@@ -105,7 +105,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchToken = async () => {
-      const vapidKey = sessionStorage.getItem('vapidKey')
+      const vapidKey = localStorage.getItem('vapidKey')
 
       if (!vapidKey) {
         const token = await getRegistrationToken()
@@ -122,7 +122,7 @@ const App = () => {
                   text: json.message,
                 }),
               )
-              sessionStorage.setItem('vapidKey', token)
+              localStorage.setItem('vapidKey', token)
             } else {
               dispatch(
                 setToastify({

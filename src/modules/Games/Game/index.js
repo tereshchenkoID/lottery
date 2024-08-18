@@ -18,7 +18,7 @@ const Game = ({ data, toggle, gameId, setToggle }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { windowWidth } = useWindowWidth()
-  const [time, setTime] = useState(getDifferent(data.time))
+  const [time, setTime] = useState(null)
   const hasDispatched = useRef(false)
   const isShow = data.video?.hide === 0
   const isAnnouncement = data.status === GAME_STATUS.ANNOUNCEMENT
@@ -70,7 +70,7 @@ const Game = ({ data, toggle, gameId, setToggle }) => {
       </p>
       <div className={style.info}>
         <p className={style.name}>{t(`games.${data.id}.title`)}</p>
-        {data.video && <p className={style.time}>{time.days > 0 ? `${time.days} ${t('days')}` : time.time}</p>}
+        {time && <p className={style.time}>{time.days > 0 ? `${time.days} ${t('days')}` : time.time}</p>}
       </div>
     </Link>
   )
