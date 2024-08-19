@@ -2,17 +2,33 @@
 
 .block {
   @include make-spacer(px, 8px);
+  @include make-spacer(py, 4px);
   @include make-spacer(mx, auto);
 
   background-color: var(--game_background_color);
+  border: rem(4px) solid transparent;
   border-radius: rem(20px);
-  // max-width: rem(500px);
 
   @include media-breakpoint-up(lg) {
     @include make-spacer(p, 4px);
 
     border: rem(4px) solid transparent;
     max-width: 100%;
+  }
+
+  &.active {
+    border-color: var(--game_border_color_active);
+  }
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: 1fr rem(40px);
+  align-items: center;
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(py, 15px);
+    @include make-spacer(px, 10px);
   }
 }
 
@@ -63,124 +79,17 @@
   @include make-spacer(mt, 16px);
 }
 
-// .wrapper {
-//   display: grid;
-//   gap: rem(4px);
+.head {
+  display: none;
 
-//   @include media-breakpoint-up(lg) {
-//     grid-template-columns: repeat(2, 1fr);
-//   }
-// }
-
-// .ticket {
-//   @include transition;
-//   @include flex($direction: column);
-//   @include make-spacer(p, 4px);
-
-//   cursor: pointer;
-//   position: relative;
-//   overflow: hidden;
-//   border-radius: rem(20px);
-//   gap: rem(12px);
-//   background-color: var(--game_container_color);
-//   border: rem(4px) solid transparent;
-
-//   @include media-breakpoint-up(lg) {
-//     @include make-spacer(p, 18px);
-
-//     gap: rem(18px);
-//   }
-
-//   &:not(.active) {
-
-//     @include hover {
-
-//       &:hover {
-//         border-color: var(--game_button_color_hover);
-
-//         .check {
-//           opacity: 1;
-//         }
-//       }
-//     }
-//   }
-
-//   &.active {
-//     border-color: var(--game_button_color_active);
-
-//     .check {
-//       color: var(--game_button_color_active);
-//       opacity: 1;
-//     }
-//   }
-// }
-
-// .head {
-//   @include flex(space-between, center);
-
-//   font-weight: var(--typography-medium);
-// }
-
-// .check {
-//   @include transition;
-
-//   font-size: rem(20px);
-//   opacity: 0;
-// }
-
-// .table {
-//   display: grid;
-//   grid-template-columns: repeat(9, 1fr);
-//   align-items: stretch;
-//   flex-grow: 1;
-// }
-
-// .cell {
-//   @include make-spacer(p, 4px);
-//   @include flex(center, center);
-
-//   text-align: center;
-//   flex: 1;
-//   border-right: rem(1px) solid var(--game_background_color);
-//   border-bottom: rem(1px) solid var(--game_background_color);
-//   background-color: var(--game_container_color);
-
-//   &:nth-child(1) {
-//     border-radius: rem(12px) 0 0;
-//   }
-
-//   &:nth-child(9) {
-//     border-radius: 0 rem(12px) 0 0;
-//   }
-
-//   &:nth-child(46) {
-//     border-radius: 0 0 0 rem(12px);
-//   }
-
-//   &:nth-child(54) {
-//     border-radius: 0 0 rem(12px) 0;
-//   }
-
-//   &:nth-child(-n + 9) {
-//     border-top: rem(1px) solid var(--game_background_color);
-//   }
-
-//   &:nth-child(9n + 1) {
-//     border-left: rem(1px) solid var(--game_background_color);
-//   }
-
-//   &:nth-child(n+28):nth-child(-n+36) {
-//     @include make-spacer(mt, 12px);
-
-//     border-top: rem(1px) solid var(--game_background_color);
-//   }
-// }
-
-// .button {
-//   pointer-events: none;
-//   height: rem(30px);
-
-//   @include media-breakpoint-up(lg) {
-//     height: rem(40px);
-//   }
-// }
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(pb, 8px);
+    
+    display: grid;
+    grid-template-columns: calc(50% - rem(42px)) repeat(3, 1fr) repeat(2, rem(30px));
+    gap: rem(8px);
+    border-bottom: rem(1px) solid var(--game_background_color);
+    font-weight: var(--typography-medium);
+    text-align: center;
+  }
+}

@@ -1,5 +1,3 @@
-import { useTranslation } from 'react-i18next'
-
 import { getDate } from 'helpers/getDate'
 
 import Button from 'components/Button'
@@ -7,8 +5,7 @@ import Checkbox from 'components/Checkbox'
 
 import style from './index.module.scss'
 
-const Match = ({ data, setData, selectedType }) => {
-  const { t } = useTranslation()
+const Match = ({ data, setData, selectedType, handleStake }) => {
 
   const handleActive = (matchId, outcomeId) => {
     setData(prevMatches => {
@@ -30,7 +27,7 @@ const Match = ({ data, setData, selectedType }) => {
         }
       })
 
-      // setStake(updatedMatches)
+      handleStake(updatedMatches)
 
       return updatedMatches
     })
@@ -51,14 +48,14 @@ const Match = ({ data, setData, selectedType }) => {
             ...match,
             outcomes: updatedOutcomes,
             [activeBlock]: !match[activeBlock] ? 1 : 0,
-            [disabledBlock]: null,
+            [disabledBlock]: 0,
           }
         } else {
           return match
         }
       })
 
-      // setStake(updatedMatches)
+      handleStake(updatedMatches)
 
       return updatedMatches
     })

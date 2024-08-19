@@ -13,9 +13,10 @@ import Tooltip from 'components/Tooltip'
 
 import style from './index.module.scss'
 
+const NUMBERS = 80
+const COUNT = 8
+
 const KENO = ({ auth, betslip, game }) => {
-  const NUMBERS = 80
-  const COUNT = 8
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [selectedType, setSelectedType] = useState(0)
@@ -146,7 +147,8 @@ const KENO = ({ auth, betslip, game }) => {
       const s = Object.keys(BET_TYPE).find(key => BET_TYPE[key] === n[0])
       resetState()
       setSelectedType(Number(s))
-    } else {
+    } 
+    else {
       const numbersSet = new Set(betslip?.tickets[idx]?.numbers)
       const numbersArray = Array.from({ length: NUMBERS }, (_, idx) => ({
         number: idx + 1,
@@ -173,10 +175,12 @@ const KENO = ({ auth, betslip, game }) => {
 
   return (
     <div
-      className={classNames(
-        style.block,
-        (selectedCount > 0 || selectedType !== 0) && style.active,
-      )}
+      className={
+        classNames(
+          style.block,
+          (selectedCount > 0 || selectedType !== 0) && style.active,
+        )
+      }
     >
       {betslip.activeTicket !== null && (
         <div className={style.meta}>
