@@ -1,0 +1,63 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(py, 8px);
+  @include flex($align-items: center, $wrap: wrap);
+
+  border-bottom: rem(1px) solid var(--game_background_color);
+  gap: rem(4px);
+
+  @include media-breakpoint-up(lg) {
+    flex-wrap: nowrap;
+    gap: rem(8px);
+  }
+}
+
+.info,
+.outcomes,
+.options {
+  display: grid;
+  align-items: center;
+  gap: rem(4px);
+
+  @include media-breakpoint-up(lg) {
+    gap: rem(8px);
+  }
+}
+
+.info,
+.outcomes {
+  flex: 1 1 50%;
+}
+
+.info {
+  grid-template-columns: rem(100px) 1fr;
+}
+
+.outcomes {
+  grid-template-columns: repeat(3, 1fr);
+  // grid-template-columns: repeat(3, 1fr) repeat(2, rem(30px));
+}
+
+.options {
+  grid-template-columns: repeat(2, rem(30px));
+}
+
+// .teams {
+//   @include flex($align-items: center);
+  
+//   gap: rem(8px);
+// }
+
+.date {
+  opacity: 0.5;
+  font-size: rem(14px);
+}
+
+.odd {
+  pointer-events: unset!important;
+}
+
+.checkbox {
+  @include make-spacer(pl, rem(30px));
+}

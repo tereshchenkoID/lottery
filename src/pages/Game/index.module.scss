@@ -66,6 +66,7 @@
   @include media-breakpoint-up(xl) {
     @include make-spacer(px, 24px);
     @include make-spacer(pb, 24px);
+    @include make-spacer(mx, 0);
 
     border-radius: rem(32px) rem(32px) 0 0;
   }

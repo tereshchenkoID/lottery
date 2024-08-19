@@ -33,12 +33,14 @@ import style from './index.module.scss'
 const BINGO = lazy(() => import('./games/BINGO'))
 const KENO = lazy(() => import('./games/KENO'))
 const LOTO_7_49 = lazy(() => import('./games/LOTO_7_49'))
+const TOTO = lazy(() => import('./games/TOTO'))
 const INSTANT = lazy(() => import('./games/INSTANT'))
 
 const gameComponents = {
   1: BINGO,
   2: LOTO_7_49,
   3: KENO,
+  9: TOTO,
 }
 
 const getGames = (id, auth, betslip, game, setGame) => {

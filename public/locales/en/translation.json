@@ -198,6 +198,8 @@
   "guessed": "Guessed",
   "winning": "Winning",
   "random": "Random",
+  "on_trend": "On trend",
+  "against_trend": "Against trend",
   "reset": "Reset",
   "placebet": "Place bet",
   "win": "Win",
@@ -296,7 +298,12 @@
     "4": {
       "title": "Blackjack",
       "description": "Blackjack scratch card",
-      "alt": "scratch card"
+      "alt": "Scratch card"
+    },
+    "9": {
+      "title": "Totalizatator",
+      "description": "Totalizatator game",
+      "alt": "Scratch card"
     }
   },
   "multibet": {

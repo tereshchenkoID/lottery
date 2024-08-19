@@ -198,6 +198,8 @@
   "guessed": "Adivinhado",
   "winning": "Ganhando",
   "random": "Aleatório",
+  "on_trend": "Na tendência",
+  "against_trend": "Contra a tendência",
   "reset": "Redefinir",
   "placebet": "Fazer aposta",
   "win": "Ganho",
@@ -297,6 +299,11 @@
       "title": "Blackjack",
       "description": "Cartão de raspadinha de Blackjack",
       "alt": "Cartão de raspadinha"
+    },
+    "9": {
+      "title": "Totalizador",
+      "description": "Jogo Totalizador",
+      "alt": "Raspadinha"
     }
   },
   "multibet": {
