@@ -79,6 +79,7 @@ const Betslip = ({
 
   const handleAmount = () => {
     const combinations = [1, 1]
+    // const bet_coast = betslip.gameId === 9 ? betslip.bet[TICKET_TYPE.single].amount : game.betCost
 
     if (isCombination) {
       combinations[0] = calculateTotalFactor(
@@ -195,6 +196,7 @@ const Betslip = ({
 
   useEffect(() => {
     handleAmount()
+    console.log(betslip)
   }, [active, betslip.tickets]) 
 
   return (
@@ -208,7 +210,6 @@ const Betslip = ({
           className={style.toggle}
           onClick={() => setShow(!show)}
         />
-
         <div className={style.wrapper}>
           {
             isSingle && (

@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
+import { TICKET_TYPE } from 'constant/config'
+
 import { setBetslip } from 'store/actions/betslipAction'
 
 import Button from 'components/Button'
@@ -71,7 +73,7 @@ const TOTO = ({ auth, betslip, game }) => {
   }
   
   const calculateBetFromOutcomes = matches => {
-    let betAmount = 5
+    let betAmount = game.betCost
     const allOutcomesSelected = matches?.every(match => match.outcomes.some(outcome => outcome.s))
   
     if (!allOutcomesSelected) {
@@ -116,6 +118,7 @@ const TOTO = ({ auth, betslip, game }) => {
       }))
     )
     setSelectedType(null)
+    setStake(0)
   }
 
   const handleData = () => {
@@ -133,7 +136,7 @@ const TOTO = ({ auth, betslip, game }) => {
         .join('')
   
       return result
-    }, { stake: [], b1: [], b2: [] })
+    }, { stake: [], b1: [], b2: [], amount: stake || game.betCost })
   }
   
   const handlePlaceBet = () => {
@@ -152,6 +155,13 @@ const TOTO = ({ auth, betslip, game }) => {
     dispatch(
       setBetslip({
         ...betslip,
+        bet: {
+          ...betslip.bet,
+          [TICKET_TYPE.single]: {
+            ...betslip.bet[TICKET_TYPE.single],
+            amount: stake,
+          }
+        },
         tickets: updatedTickets,
         activeTicket: null,
       })
@@ -187,6 +197,7 @@ const TOTO = ({ auth, betslip, game }) => {
         }
       })
 
+      setStake(n.amount)
       setSelectedMatches(a)
     }
     else {
@@ -245,7 +256,7 @@ const TOTO = ({ auth, betslip, game }) => {
       </div>
       <div className={style.container}>
         <div className={style.head}>
-          <div />
+          <div>{stake}</div>
           <div>1</div>
           <div>X</div>
           <div>2</div>
