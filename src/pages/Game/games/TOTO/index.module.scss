@@ -1,7 +1,6 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(px, 8px);
   @include make-spacer(py, 4px);
   @include make-spacer(mx, auto);
 
@@ -22,6 +21,8 @@
 }
 
 .meta {
+  @include make-spacer(px, 4px);
+
   display: grid;
   grid-template-columns: 1fr rem(40px);
   align-items: center;

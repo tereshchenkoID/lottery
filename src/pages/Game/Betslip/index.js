@@ -43,9 +43,9 @@ const Betslip = ({
   handleLoad 
 }) => {
   const { t } = useTranslation()
+  const { isCashbox } = useAuth()
   const dispatch = useDispatch()
   const [pending, setPending] = useState(false)
-  const { isCashbox } = useAuth()
   const typeNavigation = isCashbox ? ROUTES_CASHBOX : ROUTES_USER
   const isAuth = auth.id
   const isSingle = active === TICKET_TYPE.single
@@ -77,9 +77,22 @@ const Betslip = ({
     )
   }
 
+  const totalAmount = (data) => data.reduce((sum, item) => sum + item.amount, 0)
+
+  const getSingleAmount = (id, combinations) => {
+    if(id === 9) {
+      return totalAmount(betslip.tickets)
+    }
+    else {
+      return game.betCost *
+        (isCombination ? 1 : betslip.tickets.length) *
+        calculateMultiplier(betslip.bet[TICKET_TYPE.single].options) *
+        combinations[0]
+    }
+  }
+
   const handleAmount = () => {
     const combinations = [1, 1]
-    // const bet_coast = betslip.gameId === 9 ? betslip.bet[TICKET_TYPE.single].amount : game.betCost
 
     if (isCombination) {
       combinations[0] = calculateTotalFactor(
@@ -92,10 +105,7 @@ const Betslip = ({
     }
 
     const amounts = [
-      game.betCost *
-        (isCombination ? 1 : betslip.tickets.length) *
-        calculateMultiplier(betslip.bet[TICKET_TYPE.single].options) *
-        combinations[0],
+      getSingleAmount(betslip.gameId, combinations),
       game.betCost *
         betslip.bet?.[TICKET_TYPE.multi]?.options[0].value *
         calculateMultiplier(betslip.bet[TICKET_TYPE.multi].options) *
@@ -196,7 +206,7 @@ const Betslip = ({
 
   useEffect(() => {
     handleAmount()
-    console.log(betslip)
+    // console.log(betslip)
   }, [active, betslip.tickets]) 
 
   return (

@@ -91,16 +91,3 @@
 
   gap: rem(8px);
 }
-
-.combination {
-  @include make-spacer(py, 3px);
-  @include make-spacer(px, 12px);
-
-  border-radius: rem(12px);
-  background-color: var(--game_button_color_active);
-  color: var(--game_button_font_color_active);
-  font-size: rem(13px);
-  font-weight: var(--typography-medium);
-  white-space: nowrap;
-  flex-shrink: 0;
-}

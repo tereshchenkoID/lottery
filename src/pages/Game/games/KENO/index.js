@@ -156,7 +156,7 @@ const KENO = ({ auth, betslip, game }) => {
       }))
 
       setNumbers(numbersArray)
-      setSelectedCount(betslip?.tickets[idx]?.numbers.length || 0)
+      setSelectedCount(betslip?.tickets[idx]?.numbers?.length || 0)
     }
   }
 

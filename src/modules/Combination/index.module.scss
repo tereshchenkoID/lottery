@@ -1,0 +1,39 @@
+@import 'scss/config';
+
+.block {
+  @include flex($align-items: center, $wrap: wrap);
+
+  text-transform: uppercase;
+  font-size: rem(10px);
+  gap: rem(8px);
+  letter-spacing: rem(1px);
+}
+
+.amount {
+  font-size: rem(12px);
+}
+
+.win {
+  font-size: rem(18px);
+}
+
+.hr {
+  @include make-spacer(mx, 0);
+  @include size(rem(6px));
+
+  background-color: var(--game_background_color);
+  border-radius: 50%;
+}
+
+.combination {
+  @include flex($align-items: baseline);
+  @include make-spacer(py, 3px);
+  @include make-spacer(px, 12px);
+
+  border-radius: rem(12px);
+  background-color: var(--game_button_color_active);
+  color: var(--game_button_font_color_active);
+  white-space: nowrap;
+  flex-shrink: 0;
+  gap: rem(2px);
+}

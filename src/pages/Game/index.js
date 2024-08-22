@@ -22,6 +22,7 @@ import { overflowBody } from 'helpers/overflowBody'
 import { getHexToRgba } from 'helpers/getHexToRgba'
 
 import Button from 'components/Button'
+import Reference from 'components/Reference'
 import Skeleton from 'components/Skeleton'
 import Empty from 'modules/Empty'
 import Multibet from './Multibet'
@@ -116,6 +117,7 @@ const Game = () => {
           bet: json?.bet,
           tickets: [],
           odds: [],
+          activeTicket: null,
         }),
       )
 
@@ -262,6 +264,12 @@ const Game = () => {
                     />
                   ))
               }
+              <Reference
+                link={'/'}
+                placeholder={t('rule')}
+                icon={'fa-solid fa-circle-info'}
+                classes={['game', style.button]}
+              />
             </div>
             <div className={style.toggle}>
               <div className={style.column}>

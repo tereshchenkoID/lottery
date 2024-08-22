@@ -12,6 +12,7 @@ import Button from 'components/Button'
 import classNames from 'classnames'
 
 import style from './index.module.scss'
+import Combination from 'modules/Combination'
 
 const COUNT = {
   min: 7,
@@ -55,7 +56,7 @@ const Ticket = ({ betslip, game }) => {
       }))
 
       setNumbers(numbersArray)
-      setSelectedCount(betslip?.tickets[idx]?.numbers.length || 0)
+      setSelectedCount(betslip?.tickets[idx]?.numbers?.length || 0)
     }
   }
 
@@ -157,19 +158,21 @@ const Ticket = ({ betslip, game }) => {
             {betslip.activeTicket !== null &&
               ` #${betslip.tickets[betslip.activeTicket].id}`}
           </h6>
-          {activeFactor && (
-            <p className={style.combination}>x {activeFactor?.factor}</p>
-          )}
         </div>
-        {betslip.activeTicket !== null && (
+        {betslip.activeTicket !== null && 
           <Button
             classes={['game', 'wide', 'md']}
             onChange={() => handleCloseTicket()}
             icon={'fa-solid fa-xmark'}
           />
-        )}
+        }
       </div>
-
+      {activeFactor &&
+        <Combination 
+          stake={activeFactor?.factor * game.betCost} 
+          combination={activeFactor?.factor}
+        />
+      }
       {isActive ? (
         <>
           <p>{t(`games.${game.id}.tooltip.1`)}</p>

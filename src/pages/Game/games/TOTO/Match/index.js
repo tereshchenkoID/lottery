@@ -2,6 +2,7 @@ import { getDate } from 'helpers/getDate'
 
 import Button from 'components/Button'
 import Checkbox from 'components/Checkbox'
+import Tooltip from 'components/Tooltip'
 
 import style from './index.module.scss'
 
@@ -61,6 +62,10 @@ const Match = ({ data, setData, selectedType, handleStake }) => {
     })
   }
 
+  const handleTooltip = () => {
+    return `1 - ${data.outcomes[0].d}, X - ${data.outcomes[1].d}, 2 - ${data.outcomes[2].d}`;
+  }
+
   return (
     <div className={style.block}>
       <div className={style.info}>
@@ -69,6 +74,7 @@ const Match = ({ data, setData, selectedType, handleStake }) => {
           <p>{data.teams.home.name}</p>
           <p>{data.teams.away.name}</p>
         </div>
+        <Tooltip placeholder={handleTooltip()} />
       </div>
       <div className={style.outcomes}>
         {
@@ -78,18 +84,6 @@ const Match = ({ data, setData, selectedType, handleStake }) => {
               classes={['game', 'wide', 'sm', style.odd]}
               placeholder={`${el.b}%`}
               isActive={el.s}
-              onChange={() => handleActive(data.id, el.id)}
-            />
-          )
-        }
-        {
-          (selectedType === 1 || selectedType === 2) &&
-          data.outcomes.map((el, idx) =>
-            <Button
-              key={idx}
-              classes={['game', 'wide', 'sm', 'disabled']}
-              placeholder={`${el.d}%`}
-              isDisabled={true}
               onChange={() => handleActive(data.id, el.id)}
             />
           )

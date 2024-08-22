@@ -31,7 +31,13 @@
 }
 
 .info {
-  grid-template-columns: rem(100px) 1fr;
+  @include make-spacer(px, 4px);
+  
+  grid-template-columns: rem(100px) 1fr rem(18px);
+
+  @include media-breakpoint-up(lg) {
+    @include make-spacer(px, 0);
+  }
 }
 
 .outcomes {
@@ -41,12 +47,6 @@
 .options {
   grid-template-columns: repeat(2, rem(30px));
 }
-
-// .teams {
-//   @include flex($align-items: center);
-  
-//   gap: rem(8px);
-// }
 
 .date {
   opacity: 0.5;

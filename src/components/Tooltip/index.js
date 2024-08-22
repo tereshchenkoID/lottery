@@ -5,7 +5,10 @@ import style from './index.module.scss'
 const Tooltip = ({ text, placeholder }) => {
   return (
     <p className={style.block}>
-      <span>{text}</span>
+      {
+        text &&
+        <span>{text}</span>
+      }
       <span
         className={style.label}
         data-tooltip-id="tooltip"

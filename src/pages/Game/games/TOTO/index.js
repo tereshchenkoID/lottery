@@ -8,6 +8,7 @@ import { TICKET_TYPE } from 'constant/config'
 
 import { setBetslip } from 'store/actions/betslipAction'
 
+import Combination from 'modules/Combination'
 import Button from 'components/Button'
 import Match from './Match'
 
@@ -35,6 +36,10 @@ const TOTO = ({ auth, betslip, game }) => {
   const [stake, setStake] = useState(0)
   const [selectedMatches, setSelectedMatches] = useState(game.matches)
   const [selectedType, setSelectedType] = useState(null)
+
+  useEffect(() => {
+    setSelectedMatches(game.matches)
+  }, [])
 
   const toggleOutcomeStatus = type => {
     setSelectedMatches(prevMatches => {
@@ -106,19 +111,21 @@ const TOTO = ({ auth, betslip, game }) => {
   }
 
   const handleReset = () => {
-    setSelectedMatches(
-      game.matches.map(match => ({
-        ...match,
-        outcomes: match.outcomes.map(outcome => ({
-          ...outcome,
-          s: false,
-        })),
-        b_1: 0,
-        b_2: 0,
-      }))
-    )
-    setSelectedType(null)
-    setStake(0)
+    if(game.matches) {
+      setSelectedMatches(
+        game.matches.map(match => ({
+          ...match,
+          outcomes: match.outcomes.map(outcome => ({
+            ...outcome,
+            s: false,
+          })),
+          b_1: 0,
+          b_2: 0,
+        }))
+      )
+      setSelectedType(null)
+      setStake(0)
+    }
   }
 
   const handleData = () => {
@@ -182,7 +189,7 @@ const TOTO = ({ auth, betslip, game }) => {
   const handleLoad = (id) => {
     const n = betslip?.tickets[id]
     
-    if(n) {
+    if(n && n.stake) {
       const a = game.matches.map((match, matchIndex) => {
         const updatedOutcomes = match.outcomes.map((outcome, outcomeIndex) => ({
           ...outcome,
@@ -206,7 +213,7 @@ const TOTO = ({ auth, betslip, game }) => {
   }
 
   const hasActive = () => {
-    return selectedMatches.every(match =>
+    return selectedMatches?.every(match =>
       match.outcomes.some(outcome => outcome.s === true)
     )
   }
@@ -255,8 +262,15 @@ const TOTO = ({ auth, betslip, game }) => {
         </div>
       </div>
       <div className={style.container}>
+        {
+          stake > 0 &&
+          <Combination 
+            stake={stake} 
+            combination={stake / game.betCost} 
+          />
+        }
         <div className={style.head}>
-          <div>{stake}</div>
+          <div />
           <div>1</div>
           <div>X</div>
           <div>2</div>
