@@ -63,7 +63,7 @@ const Match = ({ data, setData, selectedType, handleStake }) => {
   }
 
   const handleTooltip = () => {
-    return `1 - ${data.outcomes[0].d}, X - ${data.outcomes[1].d}, 2 - ${data.outcomes[2].d}`;
+    return `1 - ${data.outcomes[0].d}%, X - ${data.outcomes[1].d}%, 2 - ${data.outcomes[2].d}%`;
   }
 
   return (

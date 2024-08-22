@@ -1,0 +1,54 @@
+@import 'scss/config';
+
+.block {
+    display: grid;
+    gap: rem(20px);
+}
+
+.table {
+    @include make-spacer(mx, auto);
+    
+    display: grid;
+    gap: rem(4px);
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(6, rem(40px));
+    grid-template-rows: rem(30px);
+    gap: rem(4px);
+    text-align: center;
+
+    &:nth-child(1) {
+        font-weight: var(--typography-bold)
+    }
+}
+
+.cell {
+    @include flex(center, center);
+
+    border: rem(1px) dashed var(--grey-alpha-400);
+    border-radius: rem(4px);
+
+    &:nth-child(1) {
+        font-weight: var(--typography-bold)
+    }
+
+    &.active {
+        position: relative;
+        background-color: var(--color-black);
+        color: var(--color-white);
+
+        &::before {
+            position: absolute;
+            inset: rem(1px);
+            border: rem(1px) solid var(--color-white);
+            border-radius: rem(3px);
+            content: '';
+        }
+
+        &.checked {
+            background-color: var(--color-primary-hover);
+        }
+    }
+}

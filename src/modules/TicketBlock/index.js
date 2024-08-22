@@ -21,7 +21,6 @@ const TicketBlock = ({ data, active, setActive }) => {
 
   const ticket = useMemo(() => {
     setLoading(false)
-    console.log(game)
     return { ...data, image: game?.image }
   }, [data, game])
 
