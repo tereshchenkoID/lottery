@@ -90,7 +90,7 @@ const App = () => {
       if (auth?.id) {
         let a = auth
         getData('balance/').then(json => {
-          if (json.code === "0") {
+          if (!json || json.code === "0") {
             a.account.balance = json.account.balance
             a.account.bonus = json.account.bonus
 

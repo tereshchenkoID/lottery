@@ -157,33 +157,36 @@ const Profile = () => {
                       className={style.icon}
                     />
                   </Link>
-                  <Link
-                    to={'/'}
-                    rel="noreferrer"
-                    className={style.all}
-                    onClick={() => {
-                      setActive(!active)
-                    }}
-                  >
-                    {t('bonus_game')}
-                  </Link>
-                  {bonuses.length > 0 && (
-                    <div className={style.games}>
-                      {bonuses.map((el, idx) => (
+                  {
+                    bonuses.length > 0 &&
+                      <div className={style.bonus}>
                         <Link
-                          key={idx}
-                          to={`/game/${el.id}`}
+                          to={ROUTES_USER.bonuses.link}
                           rel="noreferrer"
-                          className={style.game}
+                          className={style.all}
                           onClick={() => {
                             setActive(!active)
                           }}
                         >
-                          <img src={el.image} alt={el.alt} className={style.img} />
+                          {t('bonus_game')}
                         </Link>
-                      ))}
-                    </div>
-                  )}
+                        <div className={style.games}>
+                          {bonuses.slice(0, 3).map((el, idx) => (
+                            <Link
+                              key={idx}
+                              to={`/game/${el.id}`}
+                              rel="noreferrer"
+                              className={style.game}
+                              onClick={() => {
+                                setActive(!active)
+                              }}
+                            >
+                              <img src={el.image} alt={el.alt} className={style.img} />
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                  }
                 </div>
             }
 

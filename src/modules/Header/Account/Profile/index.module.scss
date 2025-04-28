@@ -164,7 +164,6 @@
 }
 
 .subtitle {
-  @include make-spacer(mb, 10px);
   @include flex($align-items: baseline);
 
   gap: rem(4px);
@@ -174,6 +173,10 @@
 
     pointer-events: none;
   }
+}
+
+.bonus {
+  @include make-spacer(mt, 10px);
 }
 
 .icon {
@@ -195,16 +198,10 @@
   @include flex;
 
   gap: rem(8px);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .game {
-  @include size(rem(90px));
+  @include size(rem(98px));
   @include make-spacer(p, 10px);
 
   flex-shrink: 0;
